@@ -21,17 +21,15 @@ const recentPosts = posts.slice(0, 4);
 		<Header />
 		<main class="home">
 			<section class="hero">
-				<p class="eyebrow">&#44060;&#xBC1C; / &#49688;&#54617; / &#xACF5;&#xBD80; / &#xB3C5;&#xC11C; / &#xB7EC;&#xB2DD;</p>
-				<h1>&#xB2E4;&#xC2DC; &#xC124;&#xBA85;&#xD560; &#xC218; &#xC788;&#xAC8C; &#xB0A8;&#xAE30;&#xB294; &#xAE30;&#xB85D;</h1>
-				<p>
-					&#xC644;&#xC131;&#xB41C; &#xACB0;&#xACFC;&#xBCF4;&#xB2E4; &#xB9C9;&#xD78C; &#xC9C0;&#xC810;, &#xACE0;&#xCE5C; &#xC774;&#xC720;, &#xB2E4;&#xC2DC; &#xC124;&#xBA85;&#xD560; &#xC218; &#xC788;&#xAC8C; &#xB41C; &#xACFC;&#xC815;&#xC744; &#xB0A8;&#xAE41;&#xB2C8;&#xB2E4;.
-				</p>
+				<p class="eyebrow">M.S.K.</p>
+				<h1>읽고, 만들고, 생각한 것을 적는 공간</h1>
+				<p>짧은 메모부터 긴 글까지 천천히 쌓아둡니다.</p>
 			</section>
 
 			<section class="category-section" aria-labelledby="category-heading">
 				<div class="section-heading">
 					<h2 id="category-heading">&#xBD84;&#xB958;</h2>
-					<span>&#xC9C0;&#xAE08; &#xB2E4;&#xB8E8;&#xB294; &#xAE30;&#xB85D;&#xC758; &#xCD95;</span>
+					<span>주제별 글 모음</span>
 				</div>
 				<div class="category-grid">
 					{Object.entries(CATEGORIES).map(([slug, label]) => (
@@ -59,8 +57,8 @@ const recentPosts = posts.slice(0, 4);
 						))
 					) : (
 						<div class="empty-state">
-							<strong>&#xC544;&#xC9C1; &#xACF5;&#xAC1C;&#xD55C; &#xAE00;&#xC774; &#xC5C6;&#xC2B5;&#xB2C8;&#xB2E4;.</strong>
-							<p>&#xCCAB; &#xAE00;&#xC740; &#xC9C4;&#xC9DC; &#xAE30;&#xB85D;&#xC774; &#xC900;&#xBE44;&#xB418;&#xBA74; &#xC62C;&#xB9BD;&#xB2C8;&#xB2E4;.</p>
+							<strong>아직 글이 없습니다.</strong>
+							<p>첫 글을 준비하고 있습니다.</p>
 						</div>
 					)}
 				</div>

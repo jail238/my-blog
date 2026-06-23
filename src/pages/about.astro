@@ -1,22 +1,24 @@
-﻿---
-import Layout from '../layouts/BlogPost.astro';
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
 ---
 
-<Layout
-	title={'\uC18C\uAC1C'}
-	description={'\uC774 \uBE14\uB85C\uADF8\uAC00 \uB2E4\uB8E8\uB294 \uAC83\uACFC \uB2E4\uB8E8\uC9C0 \uC54A\uB294 \uAC83'}
-	category="study"
-	tags={['\uC18C\uAC1C']}
-	pubDate={new Date('2026-06-23')}
->
-	<p>&#44060;&#xBC1C;, &#49688;&#54617;, &#xACF5;&#xBD80;, &#xB3C5;&#xC11C;, &#xB7EC;&#xB2DD; &#xAE30;&#xB85D;&#xC744; &#xB0A8;&#xAE41;&#xB2C8;&#xB2E4;.</p>
-
-	<p>
-		&#xC774; &#xBE14;&#xB85C;&#xADF8;&#xC758; &#xAE30;&#xC900;&#xC740; &quot;&#xB0A8;&#xC5D0;&#xAC8C; &#xC124;&#xBA85;&#xD560; &#xC218; &#xC788;&#xC744; &#xC815;&#xB3C4;&#xB85C; &#xC774;&#xD574;&#xD588;&#xB294;&#xAC00;&quot;&#xC785;&#xB2C8;&#xB2E4;.
-		&#xB2E8;&#xC21C;&#xD55C; &#xC644;&#xB8CC; &#xBCF4;&#xACE0;&#xBCF4;&#xB2E4; &#xB9C9;&#xD78C; &#xC9C0;&#xC810;, &#xACE0;&#xCE5C; &#xC774;&#xC720;, &#xB2E4;&#xC74C;&#xC5D0; &#xB2E4;&#xC2DC; &#xBCFC; &#xC218; &#xC788;&#xB294; &#xD310;&#xB2E8; &#xADFC;&#xAC70;&#xB97C; &#xC6B0;&#xC120;&#xD574;&#xC11C; &#xC801;&#xC2B5;&#xB2C8;&#xB2E4;.
-	</p>
-
-	<p>
-		&#xACF5;&#xAC1C; &#xBE14;&#xB85C;&#xADF8;&#xC774;&#xBBC0;&#xB85C; &#xAC1C;&#xC778;&#xC744; &#xD2B9;&#xC815;&#xD560; &#xC218; &#xC788;&#xB294; &#xC815;&#xBCF4;, &#xC2DC;&#xD5D8; &#xC6D0;&#xBB38; &#xC815;&#xBCF4;, &#xBBFC;&#xAC10;&#xD55C; &#xC0AC;&#xC801; &#xAE30;&#xB85D;&#xC740; &#xC62C;&#xB9AC;&#xC9C0; &#xC54A;&#xC2B5;&#xB2C8;&#xB2E4;.
-	</p>
-</Layout>
+<!doctype html>
+<html lang="ko">
+	<head>
+		<BaseHead title={`소개 | ${SITE_TITLE}`} description={SITE_TITLE} />
+	</head>
+	<body>
+		<Header />
+		<main class="about-page">
+			<section class="simple-page">
+				<p class="eyebrow">About</p>
+				<h1>M.S.K.</h1>
+				<p>천천히 쓴 글을 모아두는 개인 블로그입니다.</p>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
