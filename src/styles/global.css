@@ -165,10 +165,8 @@ hr {
 }
 
 .hero h1 {
-	max-width: 640px;
-}
-
-.nowrap {
+	font-size: clamp(1.9rem, 4.1vw, 3.15rem);
+	max-width: none;
 	white-space: nowrap;
 }
 
@@ -467,7 +465,8 @@ table {
 	}
 
 	.hero h1 {
-		font-size: clamp(2rem, 10vw, 3rem);
+		font-size: clamp(1.55rem, 7.6vw, 2.45rem);
+		white-space: normal;
 	}
 
 	.hero-actions {
