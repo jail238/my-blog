@@ -1,39 +1,39 @@
----
-title: '수학 기록 템플릿'
-description: '수학 문제나 개념을 블로그에 적을 때 사용하는 기본 구조.'
+﻿---
+title: "\uC218\uD559 \uAE30\uB85D \uD15C\uD50C\uB9BF"
+description: "\uC218\uD559 \uBB38\uC81C\uB098 \uAC1C\uB150\uC744 \uBE14\uB85C\uADF8\uC5D0 \uC801\uC744 \uB54C \uC0AC\uC6A9\uD558\uB294 \uAE30\uBCF8 \uAD6C\uC870."
 category: 'math'
-tags: ['수학', '템플릿']
+tags: ["\uC218\uD559", "\uD15C\uD50C\uB9BF"]
 pubDate: 2026-06-23
 ---
 
-수학 기록은 답만 적으면 다시 볼 때 의미가 약하다. 어떤 조건을 봤고, 어디서 막혔고, 어떤 아이디어로 넘어갔는지를 남긴다.
+&#xC218;&#xD559; &#xAE30;&#xB85D;&#xC740; &#xB2F5;&#xB9CC; &#xC801;&#xC73C;&#xBA74; &#xB2E4;&#xC2DC; &#xBCFC; &#xB54C; &#xC758;&#xBBF8;&#xAC00; &#xC57D;&#xD558;&#xB2E4;. &#xC5B4;&#xB5A4; &#xC870;&#xAC74;&#xC744; &#xBD24;&#xACE0;, &#xC5B4;&#xB514;&#xC11C; &#xB9C9;&#xD614;&#xACE0;, &#xC5B4;&#xB5A4; &#xC544;&#xC774;&#xB514;&#xC5B4;&#xB85C; &#xB118;&#xC5B4;&#xAC14;&#xB294;&#xC9C0;&#xB97C; &#xB0A8;&#xAE34;&#xB2E4;.
 
-## 문제 또는 주제
+## &#xBB38;&#xC81C; &#xB610;&#xB294; &#xC8FC;&#xC81C;
 
-여기에 문제, 정리, 개념 이름을 적는다.
+&#xC5EC;&#xAE30;&#xC5D0; &#xBB38;&#xC81C;, &#xC815;&#xB9AC;, &#xAC1C;&#xB150; &#xC774;&#xB984;&#xC744; &#xC801;&#xB294;&#xB2E4;.
 
-## 처음 든 생각
+## &#xCC98;&#xC74C; &#xB4E0; &#xC0DD;&#xAC01;
 
-- 어떤 조건이 눈에 들어왔는가
-- 어떤 접근을 먼저 떠올렸는가
-- 왜 그 접근이 가능해 보였는가
+- &#xC5B4;&#xB5A4; &#xC870;&#xAC74;&#xC774; &#xB208;&#xC5D0; &#xB4E4;&#xC5B4;&#xC654;&#xB294;&#xAC00;
+- &#xC5B4;&#xB5A4; &#xC811;&#xADFC;&#xC744; &#xBA3C;&#xC800; &#xB5A0;&#xC62C;&#xB838;&#xB294;&#xAC00;
+- &#xC65C; &#xADF8; &#xC811;&#xADFC;&#xC774; &#xAC00;&#xB2A5;&#xD574; &#xBCF4;&#xC600;&#xB294;&#xAC00;
 
-## 막힌 지점
+## &#xB9C9;&#xD78C; &#xC9C0;&#xC810;
 
-- 계산이 막혔는가
-- 정의를 잘못 이해했는가
-- 필요한 보조정리를 몰랐는가
+- &#xACC4;&#xC0B0;&#xC774; &#xB9C9;&#xD614;&#xB294;&#xAC00;
+- &#xC815;&#xC758;&#xB97C; &#xC798;&#xBABB; &#xC774;&#xD574;&#xD588;&#xB294;&#xAC00;
+- &#xD544;&#xC694;&#xD55C; &#xBCF4;&#xC870;&#xC815;&#xB9AC;&#xB97C; &#xBAB0;&#xB790;&#xB294;&#xAC00;
 
-## 핵심 아이디어
+## &#xD575;&#xC2EC; &#xC544;&#xC774;&#xB514;&#xC5B4;
 
-풀이를 움직인 가장 중요한 생각을 한두 문장으로 적는다.
+&#xD480;&#xC774;&#xB97C; &#xC6C0;&#xC9C1;&#xC778; &#xAC00;&#xC7A5; &#xC911;&#xC694;&#xD55C; &#xC0DD;&#xAC01;&#xC744; &#xD55C;&#xB450; &#xBB38;&#xC7A5;&#xC73C;&#xB85C; &#xC801;&#xB294;&#xB2E4;.
 
-## 풀이
+## &#xD480;&#xC774;
 
-필요한 만큼만 전개한다. 나중에 봤을 때 다시 설명할 수 있어야 한다.
+&#xD544;&#xC694;&#xD55C; &#xB9CC;&#xD07C;&#xB9CC; &#xC804;&#xAC1C;&#xD55C;&#xB2E4;. &#xB098;&#xC911;&#xC5D0; &#xBD24;&#xC744; &#xB54C; &#xB2E4;&#xC2DC; &#xC124;&#xBA85;&#xD560; &#xC218; &#xC788;&#xC5B4;&#xC57C; &#xD55C;&#xB2E4;.
 
-## 다시 볼 것
+## &#xB2E4;&#xC2DC; &#xBCFC; &#xAC83;
 
-- 실수한 조건
-- 다시 떠올려야 할 관찰
-- 비슷한 문제에서 쓸 수 있는 형태
+- &#xC2E4;&#xC218;&#xD55C; &#xC870;&#xAC74;
+- &#xB2E4;&#xC2DC; &#xB5A0;&#xC62C;&#xB824;&#xC57C; &#xD560; &#xAD00;&#xCC30;
+- &#xBE44;&#xC2B7;&#xD55C; &#xBB38;&#xC81C;&#xC5D0;&#xC11C; &#xC4F8; &#xC218; &#xC788;&#xB294; &#xD615;&#xD0DC;

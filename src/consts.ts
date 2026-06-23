@@ -1,13 +1,13 @@
-// Place any global data in this file.
-// You can import this data from anywhere in your site by using the `import` keyword.
+// Global site data.
 
 export const SITE_TITLE = "Hyun's Notes";
-export const SITE_DESCRIPTION = '개발, 수학, 공부, 독서, 러닝을 기록하는 개인 블로그';
+export const SITE_DESCRIPTION =
+	'\uAC1C\uBC1C, \uC218\uD559, \uACF5\uBD80, \uB3C5\uC11C, \uB7EC\uB2DD\uC744 \uAE30\uB85D\uD558\uB294 \uAC1C\uC778 \uBE14\uB85C\uADF8';
 
 export const CATEGORIES = {
-	development: '개발 기록',
-	math: '수학 기록',
-	study: '공부 기록',
-	reading: '독서 기록',
-	running: '러닝 기록',
+	development: '\uAC1C\uBC1C \uAE30\uB85D',
+	math: '\uC218\uD559 \uAE30\uB85D',
+	study: '\uACF5\uBD80 \uAE30\uB85D',
+	reading: '\uB3C5\uC11C \uAE30\uB85D',
+	running: '\uB7EC\uB2DD \uAE30\uB85D',
 } as const;

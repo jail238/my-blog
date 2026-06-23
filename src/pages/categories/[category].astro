@@ -1,4 +1,4 @@
----
+﻿---
 import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
@@ -23,12 +23,15 @@ const posts = (await getCollection('blog'))
 <!doctype html>
 <html lang="ko">
 	<head>
-		<BaseHead title={`${categoryName} | ${SITE_TITLE}`} description={`${categoryName} 글 목록`} />
+		<BaseHead title={`${categoryName} | ${SITE_TITLE}`} description={`${categoryName} \uAE00 \uBAA9\uB85D`} />
 	</head>
 	<body>
 		<Header />
 		<main>
-			<h1>{categoryName}</h1>
+			<div class="page-title">
+				<p class="eyebrow">&#xCE74;&#xD14C;&#xACE0;&#xB9AC;</p>
+				<h1>{categoryName}</h1>
+			</div>
 			<div class="post-list">
 				{posts.map((post) => (
 					<a class="post-row" href={`${base}/blog/${post.id}/`}>

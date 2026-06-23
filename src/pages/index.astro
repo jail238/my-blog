@@ -1,4 +1,4 @@
----
+﻿---
 import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
@@ -19,30 +19,34 @@ const recentPosts = posts.slice(0, 4);
 	</head>
 	<body>
 		<Header />
-		<main>
+		<main class="home">
 			<section class="hero">
-				<p class="eyebrow">개발 · 수학 · 공부 · 독서 · 러닝</p>
-				<h1>다시 설명할 수 있게 남기는 기록</h1>
+				<p class="eyebrow">&#44060;&#xBC1C; / &#49688;&#54617; / &#xACF5;&#xBD80; / &#xB3C5;&#xC11C; / &#xB7EC;&#xB2DD;</p>
+				<h1>&#xB2E4;&#xC2DC; &#xC124;&#xBA85;&#xD560; &#xC218; &#xC788;&#xAC8C; &#xB0A8;&#xAE30;&#xB294; &#xAE30;&#xB85D;</h1>
 				<p>
-					완성된 결과보다 막힌 지점, 고친 이유, 다시 설명할 수 있게 된 과정을 남기는 개인 블로그입니다.
+					&#xC644;&#xC131;&#xB41C; &#xACB0;&#xACFC;&#xBCF4;&#xB2E4; &#xB9C9;&#xD78C; &#xC9C0;&#xC810;, &#xACE0;&#xCE5C; &#xC774;&#xC720;, &#xB2E4;&#xC2DC; &#xC124;&#xBA85;&#xD560; &#xC218; &#xC788;&#xAC8C; &#xB41C; &#xACFC;&#xC815;&#xC744; &#xB0A8;&#xAE41;&#xB2C8;&#xB2E4;.
 				</p>
 			</section>
 
-			<section>
-				<h2>분류</h2>
+			<section class="category-section" aria-labelledby="category-heading">
+				<div class="section-heading">
+					<h2 id="category-heading">&#xBD84;&#xB958;</h2>
+					<span>&#xC9C0;&#xAE08; &#xB2E4;&#xB8E8;&#xB294; &#xAE30;&#xB85D;&#xC758; &#xCD95;</span>
+				</div>
 				<div class="category-grid">
 					{Object.entries(CATEGORIES).map(([slug, label]) => (
 						<a class="category-card" href={`${base}/categories/${slug}/`}>
 							<span>{label}</span>
+							<small>{slug}</small>
 						</a>
 					))}
 				</div>
 			</section>
 
-			<section>
+			<section aria-labelledby="recent-heading">
 				<div class="section-heading">
-					<h2>최근 글</h2>
-					<a href={`${base}/blog/`}>전체 보기</a>
+					<h2 id="recent-heading">&#xCD5C;&#xADFC; &#xAE00;</h2>
+					<a href={`${base}/blog/`}>&#xC804;&#xCCB4; &#xBCF4;&#xAE30;</a>
 				</div>
 				<div class="post-list">
 					{recentPosts.map((post) => (

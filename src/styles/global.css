@@ -5,18 +5,26 @@
  */
 
 :root {
-	--accent: #25636f;
-	--accent-dark: #173f48;
-	--black: 15, 18, 25;
-	--gray: 96, 115, 159;
-	--gray-light: 229, 233, 240;
-	--gray-dark: 34, 41, 57;
-	--gray-gradient: rgba(var(--gray-light), 40%), #fff;
-	--box-shadow:
-		0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
-		0 16px 32px rgba(var(--gray), 33%);
+	--accent: #2f6f5e;
+	--accent-dark: #1f4f43;
+	--paper: #faf9f5;
+	--paper-strong: #fffef9;
+	--line: 222, 218, 205;
+	--black: 22, 24, 22;
+	--gray: 104, 108, 101;
+	--gray-light: 238, 235, 224;
+	--gray-dark: 45, 49, 45;
+	--soft-green: #e4efe7;
+	--soft-blue: #e7eef2;
+	--soft-rose: #f2e7e3;
+	--shadow: 0 18px 50px rgba(43, 43, 35, 10%);
 }
+
 body {
+	background:
+		linear-gradient(180deg, #f6f2e8 0, var(--paper) 360px),
+		var(--paper);
+	color: rgb(var(--gray-dark));
 	font-family:
 		Pretendard,
 		"Apple SD Gothic Neo",
@@ -25,211 +33,314 @@ body {
 		var(--font-atkinson),
 		system-ui,
 		sans-serif;
-	margin: 0;
-	padding: 0;
-	text-align: center;
-	background: linear-gradient(var(--gray-gradient)) no-repeat;
-	background-size: 100% 600px;
-	word-wrap: break-word;
-	overflow-wrap: break-word;
-	color: rgb(var(--gray-dark));
 	font-size: 18px;
 	line-height: 1.75;
+	margin: 0;
+	overflow-wrap: break-word;
+	padding: 0;
+	text-align: center;
+	word-wrap: break-word;
 }
+
 main {
-	width: 720px;
-	max-width: calc(100% - 2em);
 	margin: auto;
-	padding: 3.5em 1em;
+	max-width: calc(100% - 2rem);
+	padding: 4.5rem 0;
+	width: 960px;
 }
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-	margin: 0 0 0.5rem 0;
 	color: rgb(var(--black));
-	line-height: 1.2;
+	letter-spacing: 0;
+	line-height: 1.18;
+	margin: 0 0 0.7rem;
+	word-break: keep-all;
 }
+
 h1 {
-	font-size: 2.6em;
+	font-size: clamp(2.35rem, 6vw, 5.4rem);
+	font-weight: 800;
 }
+
 h2 {
-	font-size: 1.8em;
+	font-size: clamp(1.45rem, 3vw, 2.1rem);
 }
+
 h3 {
-	font-size: 1.45em;
+	font-size: 1.35rem;
 }
-h4 {
-	font-size: 1.2em;
-}
-h5 {
-	font-size: 1.25em;
-}
-strong,
-b {
-	font-weight: 700;
-}
+
 a {
-	color: var(--accent);
+	color: var(--accent-dark);
+	text-underline-offset: 0.18em;
 }
+
 a:hover {
 	color: var(--accent);
 }
+
 p {
-	margin-bottom: 1em;
+	margin: 0 0 1.1rem;
 }
-.prose p {
-	margin-bottom: 2em;
+
+strong,
+b {
+	font-weight: 800;
+}
+
+img {
+	border-radius: 8px;
+	height: auto;
+	max-width: 100%;
+}
+
+code {
+	background-color: rgb(var(--gray-light));
+	border-radius: 4px;
+	padding: 2px 5px;
+}
+
+pre {
+	border-radius: 8px;
+	padding: 1.5em;
 	text-align: left;
 }
-textarea {
-	width: 100%;
-	font-size: 16px;
-}
-input {
-	font-size: 16px;
-}
-table {
-	width: 100%;
-}
-img {
-	max-width: 100%;
-	height: auto;
-	border-radius: 8px;
-}
-code {
-	padding: 2px 5px;
-	background-color: rgb(var(--gray-light));
-	border-radius: 2px;
-}
-pre {
-	padding: 1.5em;
-	border-radius: 8px;
-}
+
 pre > code {
 	all: unset;
 }
+
 blockquote {
 	border-left: 4px solid var(--accent);
-	padding: 0 0 0 20px;
-	margin: 0;
-	font-size: 1.333em;
+	color: rgb(var(--gray-dark));
+	font-size: 1.15em;
+	margin: 1.5rem 0;
+	padding: 0.2rem 0 0.2rem 1rem;
+	text-align: left;
 }
+
 hr {
-	border: none;
-	border-top: 1px solid rgb(var(--gray-light));
+	border: 0;
+	border-top: 1px solid rgba(var(--line), 90%);
 }
+
+.home {
+	padding-top: 5.5rem;
+}
+
 .hero {
-	margin: 0 auto;
-	max-width: 760px;
-	padding: 4rem 0 3rem;
+	margin: 0 auto 4.5rem;
+	max-width: 860px;
+	position: relative;
 }
-.hero .eyebrow {
-	color: var(--accent);
-	font-size: 0.95rem;
-	font-weight: 700;
-	margin-bottom: 0.5rem;
+
+.hero::before {
+	background: linear-gradient(135deg, var(--soft-green), var(--soft-blue));
+	border: 1px solid rgba(var(--line), 70%);
+	border-radius: 999px;
+	content: "";
+	height: 12px;
+	left: 50%;
+	position: absolute;
+	top: -1.8rem;
+	transform: translateX(-50%);
+	width: min(360px, 60vw);
 }
+
+.eyebrow {
+	color: var(--accent-dark);
+	font-size: 0.82rem;
+	font-weight: 800;
+	letter-spacing: 0;
+	margin-bottom: 1rem;
+	text-transform: uppercase;
+}
+
 .hero h1 {
 	margin-left: auto;
 	margin-right: auto;
-	max-width: 760px;
-	word-break: keep-all;
+	max-width: 840px;
 }
+
 .hero p {
-	margin-left: auto;
-	margin-right: auto;
-	max-width: 620px;
+	color: rgb(var(--gray));
+	font-size: clamp(1rem, 2vw, 1.22rem);
+	margin: 1.4rem auto 0;
+	max-width: 680px;
 	word-break: keep-all;
 }
-.category-grid {
-	display: grid;
-	gap: 0.75rem;
-	grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-	margin: 1rem 0 2.5rem;
-}
-.category-card {
-	align-items: center;
-	border: 1px solid rgb(var(--gray-light));
-	border-radius: 8px;
-	color: rgb(var(--gray-dark));
-	display: flex;
-	font-weight: 700;
-	justify-content: center;
-	min-height: 3.5rem;
-	padding: 1rem;
-	text-decoration: none;
-}
-.category-card:hover,
-.post-row:hover {
-	border-color: rgba(var(--gray), 45%);
-	box-shadow: 0 8px 24px rgba(var(--gray), 18%);
-}
+
 .section-heading {
-	align-items: center;
+	align-items: end;
 	display: flex;
-	justify-content: space-between;
 	gap: 1rem;
+	justify-content: space-between;
+	margin: 0 auto 1rem;
 	text-align: left;
 }
+
+.section-heading span,
+.section-heading a {
+	color: rgb(var(--gray));
+	font-size: 0.95rem;
+}
+
+.category-section {
+	margin-bottom: 4rem;
+}
+
+.category-grid {
+	display: grid;
+	gap: 0.9rem;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	margin: 0;
+}
+
+.category-card {
+	background: var(--paper-strong);
+	border: 1px solid rgba(var(--line), 90%);
+	border-radius: 8px;
+	box-shadow: 0 6px 24px rgba(32, 36, 31, 5%);
+	color: rgb(var(--gray-dark));
+	display: grid;
+	gap: 0.2rem;
+	min-height: 6rem;
+	padding: 1.1rem;
+	place-content: center;
+	text-decoration: none;
+	transition:
+		border-color 140ms ease,
+		box-shadow 140ms ease,
+		transform 140ms ease;
+}
+
+.category-card span {
+	color: rgb(var(--black));
+	font-size: 1.08rem;
+	font-weight: 800;
+}
+
+.category-card small {
+	color: rgb(var(--gray));
+	font-size: 0.78rem;
+}
+
+.category-card:hover,
+.post-row:hover {
+	border-color: rgba(47, 111, 94, 45%);
+	box-shadow: var(--shadow);
+	transform: translateY(-2px);
+}
+
 .post-list {
 	display: grid;
-	gap: 0.75rem;
+	gap: 0.8rem;
 	margin-top: 1rem;
 }
+
 .post-row {
-	align-items: center;
-	border: 1px solid rgb(var(--gray-light));
+	background: rgba(255, 254, 249, 84%);
+	border: 1px solid rgba(var(--line), 90%);
+	border-left: 5px solid var(--accent);
 	border-radius: 8px;
 	color: rgb(var(--gray-dark));
 	display: grid;
-	gap: 0.25rem;
-	justify-items: center;
-	padding: 1rem;
-	text-align: center;
+	gap: 0.28rem;
+	justify-items: start;
+	padding: 1.1rem 1.25rem;
+	text-align: left;
 	text-decoration: none;
+	transition:
+		border-color 140ms ease,
+		box-shadow 140ms ease,
+		transform 140ms ease;
 }
+
 .post-row strong {
 	color: rgb(var(--black));
+	font-size: 1.1rem;
 }
+
 .post-row small {
 	color: rgb(var(--gray));
 }
+
 .post-category {
-	color: var(--accent);
-	font-size: 0.9rem;
-	font-weight: 700;
+	color: var(--accent-dark);
+	font-size: 0.82rem;
+	font-weight: 800;
 }
+
+.page-title {
+	margin: 0 auto 2.5rem;
+	max-width: 720px;
+}
+
+.prose {
+	text-align: left;
+}
+
+.prose p,
+.prose li {
+	text-align: left;
+	word-break: keep-all;
+}
+
+.prose p {
+	margin-bottom: 1.4rem;
+}
+
+textarea,
+input {
+	font-size: 16px;
+}
+
+table {
+	width: 100%;
+}
+
 @media (max-width: 720px) {
 	body {
 		font-size: 16px;
 	}
 	main {
-		padding: 1em;
+		max-width: calc(100% - 1.25rem);
+		padding: 2.2rem 0;
+	}
+	.home {
+		padding-top: 3rem;
+	}
+	.hero {
+		margin-bottom: 3rem;
 	}
 	.section-heading {
 		align-items: center;
 		flex-direction: column;
+		gap: 0.3rem;
 		text-align: center;
+	}
+	.category-grid {
+		grid-template-columns: 1fr;
+	}
+	.post-row {
+		padding: 1rem;
 	}
 }
 
 .sr-only {
 	border: 0;
-	padding: 0;
-	margin: 0;
-	position: absolute !important;
-	height: 1px;
-	width: 1px;
-	overflow: hidden;
-	/* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */
-	clip: rect(1px 1px 1px 1px);
-	/* maybe deprecated but we need to support legacy browsers */
 	clip: rect(1px, 1px, 1px, 1px);
-	/* modern browsers, clip-path works inwards from each corner */
 	clip-path: inset(50%);
-	/* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
+	height: 1px;
+	margin: 0;
+	overflow: hidden;
+	padding: 0;
+	position: absolute !important;
 	white-space: nowrap;
+	width: 1px;
 }

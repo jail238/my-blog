@@ -1,4 +1,4 @@
----
+﻿---
 import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
@@ -15,12 +15,15 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 <!doctype html>
 <html lang="ko">
 	<head>
-		<BaseHead title={`전체 글 | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+		<BaseHead title={`\uC804\uCCB4 \uAE00 | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
 		<Header />
 		<main>
-			<h1>전체 글</h1>
+			<div class="page-title">
+				<p class="eyebrow">&#xC544;&#xCE74;&#xC774;&#xBE0C;</p>
+				<h1>&#xC804;&#xCCB4; &#xAE00;</h1>
+			</div>
 			<div class="post-list">
 				{posts.map((post) => (
 					<a class="post-row" href={`${base}/blog/${post.id}/`}>

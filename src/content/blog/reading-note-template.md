@@ -1,30 +1,30 @@
----
-title: '독서 기록 템플릿'
-description: '책을 읽은 뒤 기억과 설명 가능성을 확인하는 기록 방식.'
+﻿---
+title: "\uB3C5\uC11C \uAE30\uB85D \uD15C\uD50C\uB9BF"
+description: "\uCC45\uC744 \uC77D\uC740 \uB4A4 \uAE30\uC5B5\uACFC \uC124\uBA85 \uAC00\uB2A5\uC131\uC744 \uD655\uC778\uD558\uB294 \uAE30\uB85D \uBC29\uC2DD."
 category: 'reading'
-tags: ['독서', '회상']
+tags: ["\uB3C5\uC11C", "\uD68C\uC0C1"]
 pubDate: 2026-06-23
 ---
 
-책을 읽고 바로 다시 펼치기 전에, 먼저 책을 덮고 기억나는 것을 적는다.
+&#xCC45;&#xC744; &#xC77D;&#xACE0; &#xBC14;&#xB85C; &#xB2E4;&#xC2DC; &#xD3BC;&#xCE58;&#xAE30; &#xC804;&#xC5D0;, &#xBA3C;&#xC800; &#xCC45;&#xC744; &#xB36E;&#xACE0; &#xAE30;&#xC5B5;&#xB098;&#xB294; &#xAC83;&#xC744; &#xC801;&#xB294;&#xB2E4;.
 
-## 책을 덮고 기억나는 것
+## &#xCC45;&#xC744; &#xB36E;&#xACE0; &#xAE30;&#xC5B5;&#xB098;&#xB294; &#xAC83;
 
-- 핵심 주장:
-- 예시:
-- 용어:
-- 잘 모르겠는 부분:
+- &#xD575;&#xC2EC; &#xC8FC;&#xC7A5;:
+- &#xC608;&#xC2DC;:
+- &#xC6A9;&#xC5B4;:
+- &#xC798; &#xBAA8;&#xB974;&#xACA0;&#xB294; &#xBD80;&#xBD84;:
 
-## 다시 확인한 것
+## &#xB2E4;&#xC2DC; &#xD655;&#xC778;&#xD55C; &#xAC83;
 
-- 빗나간 기억:
-- 잘못 이해한 내용:
-- 새로 이해한 내용:
+- &#xBE57;&#xB098;&#xAC04; &#xAE30;&#xC5B5;:
+- &#xC798;&#xBABB; &#xC774;&#xD574;&#xD55C; &#xB0B4;&#xC6A9;:
+- &#xC0C8;&#xB85C; &#xC774;&#xD574;&#xD55C; &#xB0B4;&#xC6A9;:
 
-## 30초 설명
+## 30&#xCD08; &#xC124;&#xBA85;
 
-내용을 모르는 사람에게 짧게 설명한다면 어떻게 말할지 적는다.
+&#xB0B4;&#xC6A9;&#xC744; &#xBAA8;&#xB974;&#xB294; &#xC0AC;&#xB78C;&#xC5D0;&#xAC8C; &#xC9E7;&#xAC8C; &#xC124;&#xBA85;&#xD55C;&#xB2E4;&#xBA74; &#xC5B4;&#xB5BB;&#xAC8C; &#xB9D0;&#xD560;&#xC9C0; &#xC801;&#xB294;&#xB2E4;.
 
-## 다음 행동
+## &#xB2E4;&#xC74C; &#xD589;&#xB3D9;
 
-읽은 내용을 공부 방식이나 생활에 어떻게 적용할지 하나만 정한다.
+&#xC77D;&#xC740; &#xB0B4;&#xC6A9;&#xC744; &#xACF5;&#xBD80; &#xBC29;&#xC2DD;&#xC774;&#xB098; &#xC0DD;&#xD65C;&#xC5D0; &#xC5B4;&#xB5BB;&#xAC8C; &#xC801;&#xC6A9;&#xD560;&#xC9C0; &#xD558;&#xB098;&#xB9CC; &#xC815;&#xD55C;&#xB2E4;.
