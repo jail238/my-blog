@@ -27,13 +27,12 @@ const posts = (await getCollection('blog'))
 	</head>
 	<body>
 		<Header />
-		<main class="listing-page">
+		<main>
 			<div class="page-title">
 				<p class="eyebrow">&#xCE74;&#xD14C;&#xACE0;&#xB9AC;</p>
 				<h1>{categoryName}</h1>
 			</div>
-			<div class="listing-panel">
-				<div class="post-list">
+			<div class="post-list">
 				{posts.length > 0 ? (
 					posts.map((post) => (
 						<a class="post-row" href={`${base}/blog/${post.id}/`}>
@@ -48,7 +47,6 @@ const posts = (await getCollection('blog'))
 						<p>&#xC774; &#xBD84;&#xB958;&#xC5D0;&#xB294; &#xC900;&#xBE44;&#xB41C; &#xAE00;&#xB9CC; &#xCD94;&#xAC00;&#xD569;&#xB2C8;&#xB2E4;.</p>
 					</div>
 				)}
-				</div>
 			</div>
 		</main>
 		<Footer />
