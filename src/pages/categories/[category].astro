@@ -16,7 +16,7 @@ const { category } = Astro.params;
 const categoryName = CATEGORIES[category as keyof typeof CATEGORIES];
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const posts = (await getCollection('blog'))
-	.filter((post) => post.data.category === category)
+	.filter((post) => !post.data.draft && post.data.category === category)
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
@@ -33,13 +33,20 @@ const posts = (await getCollection('blog'))
 				<h1>{categoryName}</h1>
 			</div>
 			<div class="post-list">
-				{posts.map((post) => (
-					<a class="post-row" href={`${base}/blog/${post.id}/`}>
-						<strong>{post.data.title}</strong>
-						<small>{post.data.description}</small>
-						<small><FormattedDate date={post.data.pubDate} /></small>
-					</a>
-				))}
+				{posts.length > 0 ? (
+					posts.map((post) => (
+						<a class="post-row" href={`${base}/blog/${post.id}/`}>
+							<strong>{post.data.title}</strong>
+							<small>{post.data.description}</small>
+							<small><FormattedDate date={post.data.pubDate} /></small>
+						</a>
+					))
+				) : (
+					<div class="empty-state">
+						<strong>&#xC544;&#xC9C1; &#xC774; &#xBD84;&#xB958;&#xC758; &#xAE00;&#xC774; &#xC5C6;&#xC2B5;&#xB2C8;&#xB2E4;.</strong>
+						<p>&#xC774; &#xBD84;&#xB958;&#xC5D0;&#xB294; &#xC9C4;&#xC9DC; &#xAE30;&#xB85D;&#xC744; &#xC4F8; &#xB54C;&#xB9CC; &#xCD94;&#xAC00;&#xD569;&#xB2C8;&#xB2E4;.</p>
+					</div>
+				)}
 			</div>
 		</main>
 		<Footer />

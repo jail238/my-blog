@@ -6,9 +6,9 @@ import Header from '../components/Header.astro';
 import { CATEGORIES, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+const posts = (await getCollection('blog'))
+	.filter((post) => !post.data.draft)
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const recentPosts = posts.slice(0, 4);
 ---
 
@@ -49,13 +49,20 @@ const recentPosts = posts.slice(0, 4);
 					<a href={`${base}/blog/`}>&#xC804;&#xCCB4; &#xBCF4;&#xAE30;</a>
 				</div>
 				<div class="post-list">
-					{recentPosts.map((post) => (
-						<a class="post-row" href={`${base}/blog/${post.id}/`}>
-							<span class="post-category">{CATEGORIES[post.data.category]}</span>
-							<strong>{post.data.title}</strong>
-							<small>{post.data.description}</small>
-						</a>
-					))}
+					{recentPosts.length > 0 ? (
+						recentPosts.map((post) => (
+							<a class="post-row" href={`${base}/blog/${post.id}/`}>
+								<span class="post-category">{CATEGORIES[post.data.category]}</span>
+								<strong>{post.data.title}</strong>
+								<small>{post.data.description}</small>
+							</a>
+						))
+					) : (
+						<div class="empty-state">
+							<strong>&#xC544;&#xC9C1; &#xACF5;&#xAC1C;&#xD55C; &#xAE00;&#xC774; &#xC5C6;&#xC2B5;&#xB2C8;&#xB2E4;.</strong>
+							<p>&#xCCAB; &#xAE00;&#xC740; &#xC9C4;&#xC9DC; &#xAE30;&#xB85D;&#xC774; &#xC900;&#xBE44;&#xB418;&#xBA74; &#xC62C;&#xB9BD;&#xB2C8;&#xB2E4;.</p>
+						</div>
+					)}
 				</div>
 			</section>
 		</main>

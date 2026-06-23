@@ -276,6 +276,25 @@ hr {
 	font-weight: 800;
 }
 
+.empty-state {
+	background: rgba(255, 254, 249, 70%);
+	border: 1px dashed rgba(var(--line), 100%);
+	border-radius: 8px;
+	color: rgb(var(--gray));
+	padding: 2rem 1.25rem;
+	text-align: center;
+}
+
+.empty-state strong {
+	color: rgb(var(--black));
+	display: block;
+	margin-bottom: 0.3rem;
+}
+
+.empty-state p {
+	margin: 0;
+}
+
 .page-title {
 	margin: 0 auto 2.5rem;
 	max-width: 720px;

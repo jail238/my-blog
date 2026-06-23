@@ -6,9 +6,9 @@ import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
 import { CATEGORIES, SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 
-const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+const posts = (await getCollection('blog'))
+	.filter((post) => !post.data.draft)
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
@@ -25,14 +25,21 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 				<h1>&#xC804;&#xCCB4; &#xAE00;</h1>
 			</div>
 			<div class="post-list">
-				{posts.map((post) => (
-					<a class="post-row" href={`${base}/blog/${post.id}/`}>
-						<span class="post-category">{CATEGORIES[post.data.category]}</span>
-						<strong>{post.data.title}</strong>
-						<small>{post.data.description}</small>
-						<small><FormattedDate date={post.data.pubDate} /></small>
-					</a>
-				))}
+				{posts.length > 0 ? (
+					posts.map((post) => (
+						<a class="post-row" href={`${base}/blog/${post.id}/`}>
+							<span class="post-category">{CATEGORIES[post.data.category]}</span>
+							<strong>{post.data.title}</strong>
+							<small>{post.data.description}</small>
+							<small><FormattedDate date={post.data.pubDate} /></small>
+						</a>
+					))
+				) : (
+					<div class="empty-state">
+						<strong>&#xC544;&#xC9C1; &#xACF5;&#xAC1C;&#xD55C; &#xAE00;&#xC774; &#xC5C6;&#xC2B5;&#xB2C8;&#xB2E4;.</strong>
+						<p>&#xC784;&#xC2DC; &#xD15C;&#xD50C;&#xB9BF;&#xC740; &#xC81C;&#xAC70;&#xD588;&#xACE0;, &#xC9C4;&#xC9DC; &#xAE30;&#xB85D;&#xB9CC; &#xC62C;&#xB9BD;&#xB2C8;&#xB2E4;.</p>
+					</div>
+				)}
 			</div>
 		</main>
 		<Footer />
