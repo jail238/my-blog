@@ -17,7 +17,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 </header>
 <style>
 	header {
-		background: rgba(255, 255, 255, 92%);
+		background: rgba(251, 250, 247, 88%);
+		backdrop-filter: blur(16px);
 		border-bottom: 1px solid rgba(var(--line), 100%);
 		margin: 0;
 		padding: 0 1.2rem;
@@ -30,7 +31,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 		display: flex;
 		justify-content: space-between;
 		margin: 0 auto;
-		max-width: 1040px;
+		max-width: 1120px;
 		min-height: 64px;
 	}
 	h2 {
@@ -41,7 +42,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 	}
 	h2 a,
 	h2 a.active {
-		color: rgb(var(--black));
+		color: rgb(var(--ink));
 		text-decoration: none;
 	}
 	.internal-links {
@@ -50,14 +51,14 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 		gap: 0.35rem;
 	}
 	nav a {
-		color: rgb(var(--gray));
+		color: rgb(var(--muted));
 		font-size: 0.92rem;
 		padding: 0.45rem 0;
 		text-decoration: none;
 	}
 	nav a:hover,
 	nav a.active {
-		color: rgb(var(--black));
+		color: rgb(var(--ink));
 		text-decoration: none;
 	}
 	@media (max-width: 720px) {

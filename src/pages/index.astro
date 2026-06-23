@@ -21,48 +21,59 @@ const recentPosts = posts.slice(0, 4);
 		<Header />
 		<main class="home">
 			<section class="hero">
-				<p class="eyebrow">M.S.K.</p>
-				<h1>읽고, 만들고, 생각한 것을 적는 공간</h1>
-				<p>짧은 메모부터 긴 글까지 천천히 쌓아둡니다.</p>
-			</section>
-
-			<section class="category-section" aria-labelledby="category-heading">
-				<div class="section-heading">
-					<h2 id="category-heading">&#xBD84;&#xB958;</h2>
-					<span>주제별 글 모음</span>
+				<div class="hero-mark">
+					<p class="eyebrow">Personal Archive</p>
+					<h1>M.S.K.</h1>
 				</div>
-				<div class="category-grid">
-					{Object.entries(CATEGORIES).map(([slug, label]) => (
-						<a class="category-card" href={`${base}/categories/${slug}/`}>
-							<span>{label}</span>
-							<small>{slug}</small>
-						</a>
-					))}
+				<div class="hero-copy">
+					<p>&#xC77D;&#xACE0;, &#xB9CC;&#xB4E4;&#xACE0;, &#xC0DD;&#xAC01;&#xD55C; &#xAC83;&#xC744; &#xC801;&#xB294; &#xACF5;&#xAC04;.</p>
+					<div class="hero-meta">
+						<span>Notes</span>
+						<span>Index</span>
+						<span>2026</span>
+					</div>
 				</div>
 			</section>
 
-			<section aria-labelledby="recent-heading">
-				<div class="section-heading">
-					<h2 id="recent-heading">&#xCD5C;&#xADFC; &#xAE00;</h2>
-					<a href={`${base}/blog/`}>&#xC804;&#xCCB4; &#xBCF4;&#xAE30;</a>
-				</div>
-				<div class="post-list">
-					{recentPosts.length > 0 ? (
-						recentPosts.map((post) => (
-							<a class="post-row" href={`${base}/blog/${post.id}/`}>
-								<span class="post-category">{CATEGORIES[post.data.category]}</span>
-								<strong>{post.data.title}</strong>
-								<small>{post.data.description}</small>
+			<div class="content-grid">
+				<section class="category-section" aria-labelledby="category-heading">
+					<div class="section-heading">
+						<h2 id="category-heading">&#xBD84;&#xB958;</h2>
+						<span>Index</span>
+					</div>
+					<div class="category-grid">
+						{Object.entries(CATEGORIES).map(([slug, label], index) => (
+							<a class="category-card" href={`${base}/categories/${slug}/`} data-index={String(index + 1).padStart(2, '0')}>
+								<span>{label}</span>
+								<small>{slug}</small>
 							</a>
-						))
-					) : (
-						<div class="empty-state">
-							<strong>아직 글이 없습니다.</strong>
-							<p>첫 글을 준비하고 있습니다.</p>
-						</div>
-					)}
-				</div>
-			</section>
+						))}
+					</div>
+				</section>
+
+				<section aria-labelledby="recent-heading">
+					<div class="section-heading">
+						<h2 id="recent-heading">&#xCD5C;&#xADFC; &#xAE00;</h2>
+						<a href={`${base}/blog/`}>&#xC804;&#xCCB4; &#xBCF4;&#xAE30;</a>
+					</div>
+					<div class="post-list">
+						{recentPosts.length > 0 ? (
+							recentPosts.map((post) => (
+								<a class="post-row" href={`${base}/blog/${post.id}/`}>
+									<span class="post-category">{CATEGORIES[post.data.category]}</span>
+									<strong>{post.data.title}</strong>
+									<small>{post.data.description}</small>
+								</a>
+							))
+						) : (
+							<div class="empty-state">
+								<strong>&#xC544;&#xC9C1; &#xAE00;&#xC774; &#xC5C6;&#xC2B5;&#xB2C8;&#xB2E4;.</strong>
+								<p>&#xCCAB; &#xAE00;&#xC744; &#xC900;&#xBE44;&#xD558;&#xACE0; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+							</div>
+						)}
+					</div>
+				</section>
+			</div>
 		</main>
 		<Footer />
 	</body>
