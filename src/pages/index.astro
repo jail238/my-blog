@@ -21,9 +21,15 @@ const recentPosts = posts.slice(0, 4);
 		<Header />
 		<main class="home">
 			<section class="hero">
-				<p class="eyebrow">M.S.K.</p>
-				<h1>&#xAE30;&#xB85D;&#xC744; &#xCC28;&#xBD84;&#xD788; &#xC313;&#xC544;&#xB450;&#xB294; &#xACF3;</h1>
-				<p>&#xC77D;&#xACE0; &#xB9CC;&#xB4E0; &#xAC83;&#xC744; &#xC9E7;&#xACE0; &#xC120;&#xBA85;&#xD558;&#xAC8C; &#xB0A8;&#xAE41;&#xB2C8;&#xB2E4;.</p>
+				<div class="hero-copy">
+					<p class="eyebrow">M.S.K.</p>
+					<h1>&#xCC28;&#xBD84;&#xD788; &#xC313;&#xC544;&#xB450;&#xB294; &#xAE30;&#xB85D;</h1>
+					<p>&#xC77D;&#xACE0; &#xB9CC;&#xB4E0; &#xAC83;&#xC744; &#xC9E7;&#xACE0; &#xC120;&#xBA85;&#xD558;&#xAC8C; &#xB0A8;&#xAE41;&#xB2C8;&#xB2E4;.</p>
+				</div>
+				<div class="hero-actions">
+					<a class="button primary" href={`${base}/blog/`}>&#xAE00; &#xBCF4;&#xB7EC;&#xAC00;&#xAE30;</a>
+					<a class="button ghost" href={`${base}/about/`}>&#xC18C;&#xAC1C;</a>
+				</div>
 			</section>
 
 			<div class="content-grid">
