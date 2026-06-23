@@ -1,17 +1,17 @@
 /*
-  The CSS in this style tag is based off of Bear Blog's default CSS.
+  The base CSS in this file started from Bear Blog's default CSS.
   https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
   License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
  */
 
 :root {
-	--accent: #2337ff;
-	--accent-dark: #000d8a;
+	--accent: #25636f;
+	--accent-dark: #173f48;
 	--black: 15, 18, 25;
 	--gray: 96, 115, 159;
 	--gray-light: 229, 233, 240;
 	--gray-dark: 34, 41, 57;
-	--gray-gradient: rgba(var(--gray-light), 50%), #fff;
+	--gray-gradient: rgba(var(--gray-light), 40%), #fff;
 	--box-shadow:
 		0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
 		0 16px 32px rgba(var(--gray), 33%);
@@ -26,8 +26,8 @@ body {
 	word-wrap: break-word;
 	overflow-wrap: break-word;
 	color: rgb(var(--gray-dark));
-	font-size: 20px;
-	line-height: 1.7;
+	font-size: 18px;
+	line-height: 1.75;
 }
 main {
 	width: 720px;
@@ -46,16 +46,16 @@ h6 {
 	line-height: 1.2;
 }
 h1 {
-	font-size: 3.052em;
+	font-size: 2.6em;
 }
 h2 {
-	font-size: 2.441em;
+	font-size: 1.8em;
 }
 h3 {
-	font-size: 1.953em;
+	font-size: 1.45em;
 }
 h4 {
-	font-size: 1.563em;
+	font-size: 1.2em;
 }
 h5 {
 	font-size: 1.25em;
@@ -113,9 +113,72 @@ hr {
 	border: none;
 	border-top: 1px solid rgb(var(--gray-light));
 }
+.hero {
+	padding: 4rem 0 3rem;
+}
+.hero .eyebrow {
+	color: var(--accent);
+	font-size: 0.95rem;
+	font-weight: 700;
+	margin-bottom: 0.5rem;
+}
+.hero h1 {
+	max-width: 760px;
+}
+.category-grid {
+	display: grid;
+	gap: 0.75rem;
+	grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+	margin: 1rem 0 2.5rem;
+}
+.category-card {
+	border: 1px solid rgb(var(--gray-light));
+	border-radius: 8px;
+	color: rgb(var(--gray-dark));
+	display: block;
+	font-weight: 700;
+	padding: 1rem;
+	text-decoration: none;
+}
+.category-card:hover,
+.post-row:hover {
+	border-color: rgba(var(--gray), 45%);
+	box-shadow: 0 8px 24px rgba(var(--gray), 18%);
+}
+.section-heading {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+}
+.post-list {
+	display: grid;
+	gap: 0.75rem;
+	margin-top: 1rem;
+}
+.post-row {
+	border: 1px solid rgb(var(--gray-light));
+	border-radius: 8px;
+	color: rgb(var(--gray-dark));
+	display: grid;
+	gap: 0.25rem;
+	padding: 1rem;
+	text-decoration: none;
+}
+.post-row strong {
+	color: rgb(var(--black));
+}
+.post-row small {
+	color: rgb(var(--gray));
+}
+.post-category {
+	color: var(--accent);
+	font-size: 0.9rem;
+	font-weight: 700;
+}
 @media (max-width: 720px) {
 	body {
-		font-size: 18px;
+		font-size: 16px;
 	}
 	main {
 		padding: 1em;
