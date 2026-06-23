@@ -17,10 +17,17 @@
 		0 16px 32px rgba(var(--gray), 33%);
 }
 body {
-	font-family: var(--font-atkinson);
+	font-family:
+		Pretendard,
+		"Apple SD Gothic Neo",
+		"Noto Sans KR",
+		"Malgun Gothic",
+		var(--font-atkinson),
+		system-ui,
+		sans-serif;
 	margin: 0;
 	padding: 0;
-	text-align: left;
+	text-align: center;
 	background: linear-gradient(var(--gray-gradient)) no-repeat;
 	background-size: 100% 600px;
 	word-wrap: break-word;
@@ -33,7 +40,7 @@ main {
 	width: 720px;
 	max-width: calc(100% - 2em);
 	margin: auto;
-	padding: 3em 1em;
+	padding: 3.5em 1em;
 }
 h1,
 h2,
@@ -75,6 +82,7 @@ p {
 }
 .prose p {
 	margin-bottom: 2em;
+	text-align: left;
 }
 textarea {
 	width: 100%;
@@ -114,6 +122,8 @@ hr {
 	border-top: 1px solid rgb(var(--gray-light));
 }
 .hero {
+	margin: 0 auto;
+	max-width: 760px;
 	padding: 4rem 0 3rem;
 }
 .hero .eyebrow {
@@ -123,7 +133,16 @@ hr {
 	margin-bottom: 0.5rem;
 }
 .hero h1 {
+	margin-left: auto;
+	margin-right: auto;
 	max-width: 760px;
+	word-break: keep-all;
+}
+.hero p {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 620px;
+	word-break: keep-all;
 }
 .category-grid {
 	display: grid;
@@ -132,11 +151,14 @@ hr {
 	margin: 1rem 0 2.5rem;
 }
 .category-card {
+	align-items: center;
 	border: 1px solid rgb(var(--gray-light));
 	border-radius: 8px;
 	color: rgb(var(--gray-dark));
-	display: block;
+	display: flex;
 	font-weight: 700;
+	justify-content: center;
+	min-height: 3.5rem;
 	padding: 1rem;
 	text-decoration: none;
 }
@@ -150,6 +172,7 @@ hr {
 	display: flex;
 	justify-content: space-between;
 	gap: 1rem;
+	text-align: left;
 }
 .post-list {
 	display: grid;
@@ -157,12 +180,15 @@ hr {
 	margin-top: 1rem;
 }
 .post-row {
+	align-items: center;
 	border: 1px solid rgb(var(--gray-light));
 	border-radius: 8px;
 	color: rgb(var(--gray-dark));
 	display: grid;
 	gap: 0.25rem;
+	justify-items: center;
 	padding: 1rem;
+	text-align: center;
 	text-decoration: none;
 }
 .post-row strong {
@@ -182,6 +208,11 @@ hr {
 	}
 	main {
 		padding: 1em;
+	}
+	.section-heading {
+		align-items: center;
+		flex-direction: column;
+		text-align: center;
 	}
 }
 

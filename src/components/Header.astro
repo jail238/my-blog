@@ -9,11 +9,11 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 	<nav>
 		<h2><a href={`${base}/`}>{SITE_TITLE}</a></h2>
 		<div class="internal-links">
-			<HeaderLink href={`${base}/`}>&#54856;</HeaderLink>
-			<HeaderLink href={`${base}/blog/`}>&#44544;</HeaderLink>
-			<HeaderLink href={`${base}/categories/math/`}>&#49688;&#54617;</HeaderLink>
-			<HeaderLink href={`${base}/categories/development/`}>&#44060;&#48156;</HeaderLink>
-			<HeaderLink href={`${base}/about/`}>&#49548;&#44060;</HeaderLink>
+			<HeaderLink href={`${base}/`}>홈</HeaderLink>
+			<HeaderLink href={`${base}/blog/`}>글</HeaderLink>
+			<HeaderLink href={`${base}/categories/math/`}>수학</HeaderLink>
+			<HeaderLink href={`${base}/categories/development/`}>개발</HeaderLink>
+			<HeaderLink href={`${base}/about/`}>소개</HeaderLink>
 		</div>
 	</nav>
 </header>
@@ -50,7 +50,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 	}
 	@media (max-width: 720px) {
 		nav {
-			align-items: flex-start;
+			align-items: center;
 			flex-direction: column;
 			padding: 0.6em 0;
 		}
