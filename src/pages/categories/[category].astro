@@ -27,12 +27,13 @@ const posts = (await getCollection('blog'))
 	</head>
 	<body>
 		<Header />
-		<main>
+		<main class="listing-page">
 			<div class="page-title">
 				<p class="eyebrow">&#xCE74;&#xD14C;&#xACE0;&#xB9AC;</p>
 				<h1>{categoryName}</h1>
 			</div>
-			<div class="post-list">
+			<div class="listing-panel">
+				<div class="post-list">
 				{posts.length > 0 ? (
 					posts.map((post) => (
 						<a class="post-row" href={`${base}/blog/${post.id}/`}>
@@ -44,9 +45,10 @@ const posts = (await getCollection('blog'))
 				) : (
 					<div class="empty-state">
 						<strong>&#xC544;&#xC9C1; &#xC774; &#xBD84;&#xB958;&#xC758; &#xAE00;&#xC774; &#xC5C6;&#xC2B5;&#xB2C8;&#xB2E4;.</strong>
-						<p>&#xC774; &#xBD84;&#xB958;&#xC5D0;&#xB294; &#xC9C4;&#xC9DC; &#xAE30;&#xB85D;&#xC744; &#xC4F8; &#xB54C;&#xB9CC; &#xCD94;&#xAC00;&#xD569;&#xB2C8;&#xB2E4;.</p>
+						<p>&#xC774; &#xBD84;&#xB958;&#xC5D0;&#xB294; &#xC900;&#xBE44;&#xB41C; &#xAE00;&#xB9CC; &#xCD94;&#xAC00;&#xD569;&#xB2C8;&#xB2E4;.</p>
 					</div>
 				)}
+				</div>
 			</div>
 		</main>
 		<Footer />

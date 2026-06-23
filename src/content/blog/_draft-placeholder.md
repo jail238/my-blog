@@ -1,7 +1,7 @@
 ---
 title: "Draft placeholder"
 description: "Hidden placeholder to keep the blog collection initialized."
-category: "study"
+category: "life"
 tags: []
 draft: true
 pubDate: 2026-06-23

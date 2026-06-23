@@ -17,9 +17,7 @@ const { title, description, pubDate, updatedDate, heroImage, category, tags = []
 		<BaseHead title={title} description={description} />
 		<style>
 			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
+				width: 860px;
 			}
 			.hero-image {
 				width: 100%;
@@ -27,36 +25,41 @@ const { title, description, pubDate, updatedDate, heroImage, category, tags = []
 			.hero-image img {
 				display: block;
 				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
+				border-radius: 24px;
+				box-shadow: var(--shadow);
 			}
 			.prose {
-				width: 720px;
+				background: var(--panel);
+				border: 1px solid rgba(var(--line), 70%);
+				border-radius: 28px;
+				box-shadow: var(--shadow-soft);
+				color: rgb(var(--text));
+				margin: 0 auto;
 				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
+				padding: clamp(1.4rem, 4vw, 2.5rem);
+				width: 720px;
 			}
 			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
-				text-align: center;
 				line-height: 1;
+				margin-bottom: 1.4rem;
+				text-align: center;
 			}
 			.title h1 {
-				margin: 0 0 0.5em 0;
+				font-size: clamp(2rem, 5vw, 3.2rem);
+				margin: 0 0 0.55em;
 			}
 			.date {
+				color: rgb(var(--muted));
+				font-size: 0.86rem;
 				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
 			}
 			.last-updated-on {
 				font-style: italic;
 			}
 			.meta {
 				color: var(--accent);
-				font-size: 0.95rem;
-				font-weight: 700;
+				font-size: 0.82rem;
+				font-weight: 760;
 				margin-bottom: 0.5rem;
 			}
 			.tags {
@@ -67,11 +70,12 @@ const { title, description, pubDate, updatedDate, heroImage, category, tags = []
 				margin-top: 0.75rem;
 			}
 			.tags span {
-				background: rgb(var(--gray-light));
+				background: rgba(49, 130, 246, 0.08);
 				border-radius: 999px;
-				color: rgb(var(--gray-dark));
-				font-size: 0.85rem;
-				padding: 0.2rem 0.6rem;
+				color: var(--accent);
+				font-size: 0.78rem;
+				font-weight: 720;
+				padding: 0.24rem 0.62rem;
 			}
 		</style>
 	</head>
