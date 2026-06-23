@@ -165,7 +165,11 @@ hr {
 }
 
 .hero h1 {
-	max-width: 580px;
+	max-width: 640px;
+}
+
+.nowrap {
+	white-space: nowrap;
 }
 
 .hero p:not(.eyebrow) {
@@ -478,6 +482,10 @@ table {
 		border-radius: 24px;
 		gap: 1.4rem;
 		margin-bottom: 1rem;
+	}
+
+	.hero h1 {
+		font-size: clamp(2rem, 10vw, 3rem);
 	}
 
 	.hero-actions {
