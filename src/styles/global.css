@@ -610,6 +610,56 @@ button.write-choice {
 	min-height: 1.4rem;
 }
 
+.manage-token-form {
+	margin-bottom: 1rem;
+}
+
+.manage-post-list {
+	display: grid;
+	gap: 0.7rem;
+	margin-top: 1rem;
+}
+
+.manage-post-row {
+	align-items: center;
+	background: rgba(255, 255, 255, 0.72);
+	border: 1px solid rgba(var(--line), 72%);
+	border-radius: 20px;
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: minmax(0, 1fr) auto;
+	padding: 0.95rem;
+}
+
+.manage-post-row strong,
+.manage-post-row small,
+.manage-post-row p {
+	display: block;
+	text-align: left;
+}
+
+.manage-post-row strong {
+	font-size: 1rem;
+	margin-top: 0.12rem;
+}
+
+.manage-post-row small,
+.manage-post-row p {
+	color: rgb(var(--muted));
+	font-size: 0.84rem;
+}
+
+.manage-post-row p {
+	margin: 0.18rem 0 0;
+}
+
+.delete-post-button {
+	border-color: rgba(139, 150, 165, 0.3);
+	cursor: pointer;
+	font-family: inherit;
+	width: auto;
+}
+
 .prose {
 	text-align: left;
 }
@@ -702,6 +752,15 @@ table {
 
 	.write-choice-grid {
 		grid-template-columns: 1fr;
+	}
+
+	.manage-post-row {
+		align-items: stretch;
+		grid-template-columns: 1fr;
+	}
+
+	.delete-post-button {
+		width: 100%;
 	}
 }
 
