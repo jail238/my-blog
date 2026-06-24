@@ -1,0 +1,167 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<!doctype html>
+<html lang="ko">
+	<head>
+		<BaseHead title={`\uBAA8\uBC14\uC77C \uAE00\uC4F0\uAE30 | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main class="write-page">
+			<section class="simple-page write-panel mobile-write-panel">
+				<p class="eyebrow">iOS/Android</p>
+				<h1>&#xAE00;&#xC4F0;&#xAE30;</h1>
+				<p>&#xC81C;&#xBAA9;&#xACFC; &#xBCF8;&#xBB38;&#xC744; &#xC791;&#xC131;&#xD55C; &#xB4A4; GitHub Issue&#xB85C; &#xBCF4;&#xB0C5;&#xB2C8;&#xB2E4;.</p>
+
+				<div class="mobile-write-form">
+					<label>
+						<span>&#xBD84;&#xB958;</span>
+						<select id="categoryInput">
+							<option value="math">&#xC218;&#xD559;</option>
+							<option value="exercise">&#xC6B4;&#xB3D9;</option>
+							<option value="life">&#xC77C;&#xC0C1;</option>
+						</select>
+					</label>
+					<label>
+						<span>&#xC81C;&#xBAA9;</span>
+						<input id="titleInput" type="text" />
+					</label>
+					<label>
+						<span>&#xC124;&#xBA85;</span>
+						<input id="descriptionInput" type="text" />
+					</label>
+					<label>
+						<span>&#xBCF8;&#xBB38;</span>
+						<textarea id="bodyInput" rows="11">TBD</textarea>
+					</label>
+					<label>
+						<span>GitHub token</span>
+						<input id="tokenInput" type="password" autocomplete="off" inputmode="text" />
+					</label>
+				</div>
+
+				<div class="write-actions mobile-write-actions">
+					<button class="button primary" id="publishButton" type="button">&#xBC1C;&#xD589;</button>
+					<button class="button ghost" id="copyAndOpenButton" type="button">&#xBCF5;&#xC0AC;&#xD558;&#xACE0; GitHub &#xC5F4;&#xAE30;</button>
+					<button class="button ghost" id="copyButton" type="button">&#xBCF8;&#xBB38; &#xBCF5;&#xC0AC;</button>
+					<a class="button ghost" href={`${base}/write/`}>&#xB4A4;&#xB85C;</a>
+				</div>
+
+				<p class="mobile-write-status" id="statusText" aria-live="polite"></p>
+			</section>
+		</main>
+		<Footer />
+		<script is:inline>
+			const labels = {
+				math: '\uC218\uD559',
+				exercise: '\uC6B4\uB3D9',
+				life: '\uC77C\uC0C1',
+			};
+			const categories = new Set(Object.keys(labels));
+			const issueUrl = 'https://github.com/jail238/my-blog/issues/new';
+			const pad = (value) => String(value).padStart(2, '0');
+			const now = new Date();
+			const today = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+
+			const categoryInput = document.getElementById('categoryInput');
+			const titleInput = document.getElementById('titleInput');
+			const descriptionInput = document.getElementById('descriptionInput');
+			const bodyInput = document.getElementById('bodyInput');
+			const tokenInput = document.getElementById('tokenInput');
+			const statusText = document.getElementById('statusText');
+			const params = new URLSearchParams(window.location.search);
+			const initialCategory = categories.has(params.get('category')) ? params.get('category') : 'life';
+
+			categoryInput.value = initialCategory;
+			titleInput.value = `${labels[initialCategory]} \uAE00 \uC81C\uBAA9`;
+
+			function issueBody() {
+				return [
+					'<!-- msk-blog-post -->',
+					`category: ${categoryInput.value}`,
+					`description: ${descriptionInput.value.trim()}`,
+					`pubDate: ${today}`,
+					'---',
+					'',
+					bodyInput.value.trim() || 'TBD',
+				].join('\n');
+			}
+
+			function updateTitlePlaceholder() {
+				const label = labels[categoryInput.value];
+				if (!titleInput.value.trim() || Object.values(labels).some((value) => titleInput.value === `${value} \uAE00 \uC81C\uBAA9`)) {
+					titleInput.value = `${label} \uAE00 \uC81C\uBAA9`;
+				}
+			}
+
+			async function copyBody() {
+				try {
+					await navigator.clipboard.writeText(issueBody());
+					statusText.textContent = '\uC774\uC288 \uBCF8\uBB38\uC744 \uBCF5\uC0AC\uD588\uC2B5\uB2C8\uB2E4.';
+					return true;
+				} catch {
+					bodyInput.focus();
+					bodyInput.select();
+					statusText.textContent = '\uC790\uB3D9 \uBCF5\uC0AC\uAC00 \uB9C9\uD614\uC2B5\uB2C8\uB2E4. \uBCF8\uBB38\uC744 \uC120\uD0DD\uD574 \uBCF5\uC0AC\uD558\uC138\uC694.';
+					return false;
+				}
+			}
+
+			function openIssue() {
+				const url = new URL(issueUrl);
+				url.searchParams.set('title', titleInput.value.trim() || '\uC81C\uBAA9 \uC5C6\uC74C');
+				url.searchParams.set('body', issueBody());
+				window.open(url.toString(), '_blank', 'noopener,noreferrer');
+			}
+
+			categoryInput.addEventListener('change', updateTitlePlaceholder);
+			document.getElementById('publishButton').addEventListener('click', async () => {
+				const token = tokenInput.value.trim();
+				if (!token) {
+					statusText.textContent = 'GitHub token\uC744 \uC785\uB825\uD574\uC57C \uD3F0\uC5D0\uC11C \uBC14\uB85C \uBC1C\uD589\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4.';
+					tokenInput.focus();
+					return;
+				}
+
+				statusText.textContent = '\uC774\uC288\uB97C \uC0DD\uC131\uD558\uB294 \uC911\uC785\uB2C8\uB2E4.';
+				const response = await fetch('https://api.github.com/repos/jail238/my-blog/issues', {
+					method: 'POST',
+					headers: {
+						Accept: 'application/vnd.github+json',
+						Authorization: `Bearer ${token}`,
+						'Content-Type': 'application/json',
+						'X-GitHub-Api-Version': '2022-11-28',
+					},
+					body: JSON.stringify({
+						title: titleInput.value.trim() || '\uC81C\uBAA9 \uC5C6\uC74C',
+						body: issueBody(),
+					}),
+				});
+
+				if (!response.ok) {
+					const error = await response.json().catch(() => ({}));
+					statusText.textContent = `\uBC1C\uD589 \uC2E4\uD328: ${error.message || response.status}`;
+					return;
+				}
+
+				const issue = await response.json();
+				statusText.textContent = `\uC774\uC288 #${issue.number}\uB97C \uC0DD\uC131\uD588\uC2B5\uB2C8\uB2E4. Actions\uAC00 \uAE00 \uD30C\uC77C\uB85C \uBC14\uAFC9\uB2C8\uB2E4.`;
+				tokenInput.value = '';
+			});
+			document.getElementById('copyButton').addEventListener('click', async () => {
+				await copyBody();
+			});
+			document.getElementById('copyAndOpenButton').addEventListener('click', async () => {
+				await copyBody();
+				openIssue();
+			});
+		</script>
+	</body>
+</html>

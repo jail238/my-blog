@@ -485,11 +485,6 @@ hr {
 	font-weight: 720;
 }
 
-.write-choice-form {
-	display: block;
-	margin: 0;
-}
-
 .write-choice {
 	-webkit-appearance: none;
 	appearance: none;
@@ -549,6 +544,70 @@ button.write-choice {
 .write-actions {
 	justify-content: flex-start;
 	margin-top: 1rem;
+}
+
+.mobile-write-panel {
+	max-width: 760px;
+}
+
+.mobile-write-form {
+	display: grid;
+	gap: 0.75rem;
+	margin-top: 1rem;
+}
+
+.mobile-write-form label {
+	display: grid;
+	gap: 0.35rem;
+}
+
+.mobile-write-form label > span {
+	color: rgb(var(--muted));
+	font-size: 0.78rem;
+	font-weight: 760;
+}
+
+.mobile-write-form input,
+.mobile-write-form select,
+.mobile-write-form textarea {
+	-webkit-appearance: none;
+	appearance: none;
+	background: rgba(255, 255, 255, 0.78);
+	border: 1px solid rgba(var(--line), 76%);
+	border-radius: 16px;
+	color: rgb(var(--text));
+	font: inherit;
+	padding: 0.82rem 0.9rem;
+	width: 100%;
+}
+
+.mobile-write-form textarea {
+	min-height: 13rem;
+	resize: vertical;
+}
+
+.mobile-write-form input:focus,
+.mobile-write-form select:focus,
+.mobile-write-form textarea:focus {
+	border-color: rgba(139, 150, 165, 0.55);
+	box-shadow: 0 0 0 4px rgba(139, 150, 165, 0.12);
+	outline: 0;
+}
+
+.mobile-write-actions .button {
+	border: 1px solid rgba(var(--line), 100%);
+	cursor: pointer;
+}
+
+.mobile-write-actions button.button {
+	font-family: inherit;
+}
+
+.mobile-write-status {
+	color: rgb(var(--muted));
+	font-size: 0.86rem;
+	margin-top: 0.8rem;
+	min-height: 1.4rem;
 }
 
 .prose {

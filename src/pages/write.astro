@@ -48,30 +48,18 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 							<span>&#xC774;&#xC288; &#xC791;&#xC131;</span>
 						</div>
 						<div class="write-choice-grid">
-							<form class="write-choice-form" action="https://github.com/jail238/my-blog/issues/new" method="get" target="_blank" data-category="math" data-label="&#xC218;&#xD559;">
-								<input type="hidden" name="title" />
-								<input type="hidden" name="body" />
-								<button class="write-choice" type="submit">
-									<strong>&#xC218;&#xD559;</strong>
-									<span>&#xC218;&#xD559; &#xAE00;</span>
-								</button>
-							</form>
-							<form class="write-choice-form" action="https://github.com/jail238/my-blog/issues/new" method="get" target="_blank" data-category="exercise" data-label="&#xC6B4;&#xB3D9;">
-								<input type="hidden" name="title" />
-								<input type="hidden" name="body" />
-								<button class="write-choice" type="submit">
-									<strong>&#xC6B4;&#xB3D9;</strong>
-									<span>&#xC6B4;&#xB3D9; &#xAE00;</span>
-								</button>
-							</form>
-							<form class="write-choice-form" action="https://github.com/jail238/my-blog/issues/new" method="get" target="_blank" data-category="life" data-label="&#xC77C;&#xC0C1;">
-								<input type="hidden" name="title" />
-								<input type="hidden" name="body" />
-								<button class="write-choice" type="submit">
-									<strong>&#xC77C;&#xC0C1;</strong>
-									<span>&#xC77C;&#xC0C1; &#xAE00;</span>
-								</button>
-							</form>
+							<a class="write-choice" href={`${base}/write/mobile/?category=math`}>
+								<strong>&#xC218;&#xD559;</strong>
+								<span>&#xC218;&#xD559; &#xAE00;</span>
+							</a>
+							<a class="write-choice" href={`${base}/write/mobile/?category=exercise`}>
+								<strong>&#xC6B4;&#xB3D9;</strong>
+								<span>&#xC6B4;&#xB3D9; &#xAE00;</span>
+							</a>
+							<a class="write-choice" href={`${base}/write/mobile/?category=life`}>
+								<strong>&#xC77C;&#xC0C1;</strong>
+								<span>&#xC77C;&#xC0C1; &#xAE00;</span>
+							</a>
 						</div>
 					</section>
 				</div>
@@ -97,13 +85,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 				link.href = `${repoNewFileUrl}?${params.toString()}`;
 			}
 
-			for (const form of document.querySelectorAll('.write-choice-form')) {
-				const category = form.dataset.category;
-				const label = form.dataset.label;
-				const body = `<!-- msk-blog-post -->\ncategory: ${category}\ndescription: \npubDate: ${today}\n---\n\nTBD`;
-				form.querySelector('input[name="title"]').value = `${label} \uAE00 \uC81C\uBAA9`;
-				form.querySelector('input[name="body"]').value = body;
-			}
 		</script>
 	</body>
 </html>
