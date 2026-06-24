@@ -456,6 +456,35 @@ hr {
 	margin-top: 1rem;
 }
 
+.write-mode-stack {
+	display: grid;
+	gap: 1rem;
+	margin-top: 1rem;
+}
+
+.write-mode {
+	background: rgba(255, 255, 255, 0.52);
+	border: 1px solid rgba(var(--line), 70%);
+	border-radius: 22px;
+	padding: 0.9rem;
+}
+
+.write-mode-heading {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+}
+
+.write-mode-heading strong {
+	font-size: 0.95rem;
+}
+
+.write-mode-heading span {
+	color: rgb(var(--muted));
+	font-size: 0.78rem;
+	font-weight: 720;
+}
+
 .write-choice-form {
 	margin: 0;
 }
