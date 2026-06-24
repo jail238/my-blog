@@ -1,6 +1,7 @@
 // @ts-check
 
 import mdx from '@astrojs/mdx';
+import { unified } from '@astrojs/markdown-remark';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
 import rehypeKatex from 'rehype-katex';
@@ -12,8 +13,10 @@ export default defineConfig({
 	base: '/my-blog',
 	integrations: [mdx(), sitemap()],
 	markdown: {
-		remarkPlugins: [remarkMath],
-		rehypePlugins: [rehypeKatex],
+		processor: unified({
+			remarkPlugins: [remarkMath],
+			rehypePlugins: [rehypeKatex],
+		}),
 	},
 	fonts: [
 		{
