@@ -186,11 +186,11 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 				justify-content: flex-end;
 				margin-top: 0.9rem;
 			}
-			.delete-panel-status {
+			.delete-panel .delete-panel-status {
 				background: rgba(139, 150, 165, 0.09);
 				border-radius: 14px;
 				clear: both;
-				margin-top: 1.6rem;
+				margin-top: 0.9rem;
 				min-height: 2.35rem;
 				padding: 0.55rem 0.75rem;
 			}
@@ -264,7 +264,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 						postPath && (
 							<section class="delete-panel" id="deletePostPanel" hidden>
 								<strong>글 삭제</strong>
-								<p>이 글의 Markdown 파일을 GitHub에서 삭제 커밋으로 처리합니다.</p>
+								<p>이 글을 삭제합니다.</p>
 								<label>
 									<span>Token</span>
 									<input id="deletePostToken" type="password" autocomplete="off" inputmode="text" />
