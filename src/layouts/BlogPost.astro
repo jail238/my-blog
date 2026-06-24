@@ -70,19 +70,16 @@ const { title, description, pubDate, updatedDate, heroImage, category, tags = []
 				font-weight: 760;
 				margin-bottom: 0.5rem;
 			}
-			.post-meta-row {
-				align-items: center;
-				display: flex;
-				gap: 0.75rem;
-				justify-content: space-between;
-				margin: 0.85rem auto 0;
-				max-width: 360px;
+			.title-tools {
+				margin: 0.85rem 0 0;
+				min-height: 2.4rem;
+				position: relative;
 			}
 			.tags {
 				display: flex;
 				flex-wrap: wrap;
 				gap: 0.4rem;
-				justify-content: flex-start;
+				justify-content: center;
 				margin: 0;
 			}
 			.tags span {
@@ -98,6 +95,10 @@ const { title, description, pubDate, updatedDate, heroImage, category, tags = []
 				gap: 0.5rem;
 				justify-content: flex-end;
 				margin: 0;
+				position: absolute;
+				right: 0;
+				top: 50%;
+				transform: translateY(-50%);
 			}
 			.post-actions a {
 				align-items: center;
@@ -122,11 +123,6 @@ const { title, description, pubDate, updatedDate, heroImage, category, tags = []
 				border-color: rgba(139, 150, 165, 0.34);
 				color: rgb(var(--text));
 				transform: translateY(-1px);
-			}
-			@media (max-width: 520px) {
-				.post-meta-row {
-					max-width: none;
-				}
 			}
 		</style>
 	</head>
@@ -154,7 +150,7 @@ const { title, description, pubDate, updatedDate, heroImage, category, tags = []
 						<h1><MathText text={title} /></h1>
 						{
 							(tags.length > 0 || editUrl) && (
-								<div class="post-meta-row">
+								<div class="title-tools">
 									{tags.length > 0 && <div class="tags">{tags.map((tag) => <span>{tag}</span>)}</div>}
 									{editUrl && <div class="post-actions"><a href={editUrl} target="_blank" rel="noreferrer">&#xC218;&#xC815;</a></div>}
 								</div>
