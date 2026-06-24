@@ -31,7 +31,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 					</label>
 					<label>
 						<span>&#xC81C;&#xBAA9;</span>
-						<input id="titleInput" type="text" />
+						<input id="titleInput" type="text" placeholder="&#xC81C;&#xBAA9;&#xC744; &#xC785;&#xB825;&#xD558;&#xC138;&#xC694;." />
 					</label>
 					<label>
 						<span>&#xC124;&#xBA85;</span>
@@ -39,7 +39,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 					</label>
 					<label>
 						<span>&#xBCF8;&#xBB38;</span>
-						<textarea id="bodyInput" rows="11">TBD</textarea>
+						<textarea id="bodyInput" rows="11" placeholder="&#xBCF8;&#xBB38;&#xC744; &#xC785;&#xB825;&#xD558;&#xC138;&#xC694;."></textarea>
 					</label>
 					<label>
 						<span>GitHub token</span>
@@ -80,7 +80,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 			const initialCategory = categories.has(params.get('category')) ? params.get('category') : 'life';
 
 			categoryInput.value = initialCategory;
-			titleInput.value = `${labels[initialCategory]} \uAE00 \uC81C\uBAA9`;
 
 			function issueBody() {
 				return [
@@ -90,15 +89,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 					`pubDate: ${today}`,
 					'---',
 					'',
-					bodyInput.value.trim() || 'TBD',
+					bodyInput.value.trim(),
 				].join('\n');
-			}
-
-			function updateTitlePlaceholder() {
-				const label = labels[categoryInput.value];
-				if (!titleInput.value.trim() || Object.values(labels).some((value) => titleInput.value === `${value} \uAE00 \uC81C\uBAA9`)) {
-					titleInput.value = `${label} \uAE00 \uC81C\uBAA9`;
-				}
 			}
 
 			async function copyBody() {
@@ -121,7 +113,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 				window.open(url.toString(), '_blank', 'noopener,noreferrer');
 			}
 
-			categoryInput.addEventListener('change', updateTitlePlaceholder);
 			document.getElementById('publishButton').addEventListener('click', async () => {
 				const token = tokenInput.value.trim();
 				if (!token) {

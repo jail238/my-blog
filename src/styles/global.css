@@ -659,6 +659,12 @@ button.write-choice {
 	resize: vertical;
 }
 
+.mobile-write-form input::placeholder,
+.mobile-write-form textarea::placeholder {
+	color: rgba(var(--muted), 0.68);
+	opacity: 1;
+}
+
 .mobile-write-form input:focus,
 .mobile-write-form select:focus,
 .mobile-write-form textarea:focus {
