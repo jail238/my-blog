@@ -3,6 +3,12 @@ name: Publish blog issue
 on:
   issues:
     types: [opened, edited]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: Issue number to publish again
+        required: true
+        type: string
 
 permissions:
   contents: write
@@ -16,7 +22,7 @@ concurrency:
 
 jobs:
   publish:
-    if: github.actor == 'jail238' && contains(github.event.issue.body, '<!-- msk-blog-post -->')
+    if: github.event_name == 'workflow_dispatch' || (github.actor == 'jail238' && contains(github.event.issue.body, '<!-- msk-blog-post -->'))
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -32,9 +38,28 @@ jobs:
             const path = require('path');
             const { execFileSync } = require('child_process');
 
-            const issue = context.payload.issue;
+            let issue = context.payload.issue;
+            if (context.eventName === 'workflow_dispatch') {
+              const issueNumber = Number(core.getInput('issue_number'));
+              if (!Number.isInteger(issueNumber) || issueNumber <= 0) {
+                core.setFailed('Invalid issue number.');
+                return;
+              }
+              const response = await github.rest.issues.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+              });
+              issue = response.data;
+            }
+
             const body = issue.body ?? '';
             const marker = '<!-- msk-blog-post -->';
+            if (issue.user?.login !== 'jail238' || !body.includes(marker)) {
+              core.setFailed('This issue is not an owned blog post issue.');
+              return;
+            }
+
             const raw = body.slice(body.indexOf(marker) + marker.length).trim();
             const [metaRaw = '', ...contentParts] = raw.split(/\r?\n---\r?\n/);
             const content = contentParts.join('\n---\n').trim();
@@ -78,11 +103,29 @@ jobs:
             const status = execFileSync('git', ['status', '--porcelain'], { encoding: 'utf8' });
             if (!status.trim()) {
               core.info('No post changes to publish.');
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: `이미 글 파일이 반영되어 이슈를 닫습니다: \`${filename}\``,
+              });
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                state: 'closed',
+              });
               return;
             }
 
             execFileSync('git', ['commit', '-m', `Publish blog post from issue #${issue.number}`]);
-            execFileSync('git', ['push']);
+            try {
+              execFileSync('git', ['push']);
+            } catch (error) {
+              core.info('Push failed. Rebasing on origin/main and retrying once.');
+              execFileSync('git', ['pull', '--rebase', 'origin', 'main']);
+              execFileSync('git', ['push']);
+            }
 
             await github.rest.issues.createComment({
               owner: context.repo.owner,
