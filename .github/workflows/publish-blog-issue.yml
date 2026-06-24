@@ -1,0 +1,89 @@
+name: Publish blog issue
+
+on:
+  issues:
+    types: [opened, edited]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  publish:
+    if: github.actor == 'jail238' && contains(github.event.issue.body, '<!-- msk-blog-post -->')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Convert issue to post
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const { execFileSync } = require('child_process');
+
+            const issue = context.payload.issue;
+            const body = issue.body ?? '';
+            const marker = '<!-- msk-blog-post -->';
+            const raw = body.slice(body.indexOf(marker) + marker.length).trim();
+            const [metaRaw = '', ...contentParts] = raw.split(/\r?\n---\r?\n/);
+            const content = contentParts.join('\n---\n').trim();
+
+            const meta = {};
+            for (const line of metaRaw.split(/\r?\n/)) {
+              const match = line.match(/^([a-zA-Z]+):\s*(.*)$/);
+              if (match) meta[match[1]] = match[2].trim();
+            }
+
+            const categories = new Set(['math', 'exercise', 'life']);
+            const category = categories.has(meta.category) ? meta.category : 'life';
+            const tagMap = { math: '\uC218\uD559', exercise: '\uC6B4\uB3D9', life: '\uC77C\uC0C1' };
+            const date = /^\d{4}-\d{2}-\d{2}$/.test(meta.pubDate) ? meta.pubDate : new Date().toISOString().slice(0, 10);
+            const title = issue.title.trim() || '\uC81C\uBAA9 \uC5C6\uC74C';
+            const description = meta.description ?? '';
+            const postBody = content || 'TBD';
+            const filename = `src/content/blog/${date}-${category}-${issue.number}.md`;
+
+            const quote = (value) => `'${String(value).replaceAll("'", "''")}'`;
+            const markdown = [
+              '---',
+              `title: ${quote(title)}`,
+              `description: ${quote(description)}`,
+              `category: ${quote(category)}`,
+              `tags: [${quote(tagMap[category])}]`,
+              `pubDate: ${date}`,
+              '---',
+              '',
+              postBody,
+              '',
+            ].join('\n');
+
+            fs.mkdirSync(path.dirname(filename), { recursive: true });
+            fs.writeFileSync(filename, markdown, 'utf8');
+
+            execFileSync('git', ['config', 'user.name', 'github-actions[bot]']);
+            execFileSync('git', ['config', 'user.email', '41898282+github-actions[bot]@users.noreply.github.com']);
+            execFileSync('git', ['add', filename]);
+
+            const status = execFileSync('git', ['status', '--porcelain'], { encoding: 'utf8' });
+            if (!status.trim()) {
+              core.info('No post changes to publish.');
+              return;
+            }
+
+            execFileSync('git', ['commit', '-m', `Publish blog post from issue #${issue.number}`]);
+            execFileSync('git', ['push']);
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              body: `\uAE00 \uD30C\uC77C\uC744 \uC0DD\uC131\uD588\uC2B5\uB2C8\uB2E4: \`${filename}\``,
+            });
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              state: 'closed',
+            });
