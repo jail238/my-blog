@@ -186,10 +186,14 @@ hr {
 
 .button {
 	align-items: center;
+	border: 1px solid transparent;
 	border-radius: 999px;
+	cursor: pointer;
 	display: inline-flex;
+	font: inherit;
 	font-size: 0.92rem;
 	font-weight: 740;
+	justify-content: center;
 	min-height: 2.75rem;
 	padding: 0 1rem;
 	text-decoration: none;
