@@ -1,0 +1,27 @@
+---
+import FormattedDate from './FormattedDate.astro';
+import MathText from './MathText.astro';
+import { CATEGORIES } from '../consts';
+
+const { posts, base } = Astro.props;
+---
+
+<div class="post-list archive-post-list">
+	{
+		posts.length > 0 ? (
+			posts.map((post) => (
+				<a class="post-row" href={`${base}/blog/${post.id}/`}>
+					<span class="post-category">{CATEGORIES[post.data.category]}</span>
+					<strong><MathText text={post.data.title} /></strong>
+					<small>{post.data.description}</small>
+					<small><FormattedDate date={post.data.pubDate} /></small>
+				</a>
+			))
+		) : (
+			<div class="empty-state">
+				<strong>&#xC544;&#xC9C1; &#xAE00;&#xC774; &#xC5C6;&#xC2B5;&#xB2C8;&#xB2E4;.</strong>
+				<p>&#xCCAB; &#xAE00;&#xC744; &#xC900;&#xBE44;&#xD558;&#xACE0; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
+			</div>
+		)
+	}
+</div>

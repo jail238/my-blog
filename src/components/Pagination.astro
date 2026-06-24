@@ -1,0 +1,67 @@
+---
+const { base, currentPage, totalPages } = Astro.props;
+
+function pageUrl(page) {
+	return page === 1 ? `${base}/blog/` : `${base}/blog/page/${page}/`;
+}
+
+function visiblePages() {
+	if (totalPages <= 7) {
+		return Array.from({ length: totalPages }, (_, index) => index + 1);
+	}
+
+	const pages = new Set([1, totalPages, currentPage, currentPage - 1, currentPage + 1]);
+	const ordered = Array.from(pages)
+		.filter((page) => page >= 1 && page <= totalPages)
+		.sort((a, b) => a - b);
+	const result = [];
+
+	for (const page of ordered) {
+		const previous = result[result.length - 1];
+		if (typeof previous === 'number' && page - previous > 1) {
+			result.push('ellipsis');
+		}
+		result.push(page);
+	}
+
+	return result;
+}
+
+const pages = visiblePages();
+---
+
+{
+	totalPages > 1 && (
+		<nav class="pagination" aria-label="글 페이지">
+			{
+				currentPage > 1 ? (
+					<a class="pagination-link" href={pageUrl(currentPage - 1)} aria-label="이전 페이지">&lt;</a>
+				) : (
+					<span class="pagination-link disabled" aria-hidden="true">&lt;</span>
+				)
+			}
+			{
+				pages.map((page, index) =>
+					page === 'ellipsis' ? (
+						<span class="pagination-ellipsis" aria-hidden="true" data-index={index}>...</span>
+					) : (
+						<a
+							class:list={['pagination-link', { active: page === currentPage }]}
+							href={pageUrl(page)}
+							aria-current={page === currentPage ? 'page' : undefined}
+						>
+							{page}
+						</a>
+					),
+				)
+			}
+			{
+				currentPage < totalPages ? (
+					<a class="pagination-link" href={pageUrl(currentPage + 1)} aria-label="다음 페이지">&gt;</a>
+				) : (
+					<span class="pagination-link disabled" aria-hidden="true">&gt;</span>
+				)
+			}
+		</nav>
+	)
+}

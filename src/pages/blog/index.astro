@@ -1,15 +1,18 @@
-﻿---
+---
 import { getCollection } from 'astro:content';
+import ArchivePostList from '../../components/ArchivePostList.astro';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
-import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
-import MathText from '../../components/MathText.astro';
-import { CATEGORIES, SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import Pagination from '../../components/Pagination.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 
+const POSTS_PER_PAGE = 5;
 const posts = (await getCollection('blog'))
 	.filter((post) => !post.data.draft)
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
+const currentPosts = posts.slice(0, POSTS_PER_PAGE);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
@@ -24,28 +27,13 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 			<div class="page-title">
 				<p class="eyebrow">&#xC544;&#xCE74;&#xC774;&#xBE0C;</p>
 				<h1>&#xC804;&#xCCB4; &#xAE00;</h1>
-				<p class="page-count">{posts.length}&#xAC1C;&#xC758; &#xAE00;</p>
+				<p class="page-count">{posts.length}&#xAC1C;&#xC758; &#xAE00; · 1/{Math.max(totalPages, 1)}</p>
 				<div class="page-actions">
 					<a class="button ghost" href={`${base}/write/`}>&#xC4F0;&#xAE30;</a>
 				</div>
 			</div>
-			<div class="post-list archive-post-list">
-				{posts.length > 0 ? (
-					posts.map((post) => (
-						<a class="post-row" href={`${base}/blog/${post.id}/`}>
-							<span class="post-category">{CATEGORIES[post.data.category]}</span>
-							<strong><MathText text={post.data.title} /></strong>
-							<small>{post.data.description}</small>
-							<small><FormattedDate date={post.data.pubDate} /></small>
-						</a>
-					))
-				) : (
-					<div class="empty-state">
-						<strong>&#xC544;&#xC9C1; &#xAE00;&#xC774; &#xC5C6;&#xC2B5;&#xB2C8;&#xB2E4;.</strong>
-						<p>&#xCCAB; &#xAE00;&#xC744; &#xC900;&#xBE44;&#xD558;&#xACE0; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
-					</div>
-				)}
-			</div>
+			<ArchivePostList posts={currentPosts} base={base} />
+			<Pagination base={base} currentPage={1} totalPages={totalPages} />
 		</main>
 		<Footer />
 	</body>
