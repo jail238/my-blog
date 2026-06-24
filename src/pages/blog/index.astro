@@ -4,6 +4,7 @@ import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
+import MathText from '../../components/MathText.astro';
 import { CATEGORIES, SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 
 const posts = (await getCollection('blog'))
@@ -32,7 +33,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 					posts.map((post) => (
 						<a class="post-row" href={`${base}/blog/${post.id}/`}>
 							<span class="post-category">{CATEGORIES[post.data.category]}</span>
-							<strong>{post.data.title}</strong>
+							<strong><MathText text={post.data.title} /></strong>
 							<small>{post.data.description}</small>
 							<small><FormattedDate date={post.data.pubDate} /></small>
 						</a>

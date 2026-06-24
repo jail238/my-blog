@@ -5,6 +5,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
+import MathText from '../components/MathText.astro';
 import { CATEGORIES } from '../consts';
 
 type Props = CollectionEntry<'blog'>['data'];
@@ -100,7 +101,7 @@ const { title, description, pubDate, updatedDate, heroImage, category, tags = []
 							}
 						</div>
 						{category && <div class="meta">{CATEGORIES[category]}</div>}
-						<h1>{title}</h1>
+						<h1><MathText text={title} /></h1>
 						{tags.length > 0 && <div class="tags">{tags.map((tag) => <span>{tag}</span>)}</div>}
 						<hr />
 					</div>

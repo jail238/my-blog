@@ -1,0 +1,44 @@
+---
+import katex from 'katex';
+
+interface Props {
+	text: string;
+}
+
+const { text } = Astro.props;
+
+function escapeHtml(value: string) {
+	return value
+		.replaceAll('&', '&amp;')
+		.replaceAll('<', '&lt;')
+		.replaceAll('>', '&gt;')
+		.replaceAll('"', '&quot;')
+		.replaceAll("'", '&#39;');
+}
+
+function renderMathText(value: string) {
+	const parts: string[] = [];
+	let lastIndex = 0;
+	const inlineMath = /\$([^$]+)\$/g;
+
+	for (const match of value.matchAll(inlineMath)) {
+		const index = match.index ?? 0;
+		parts.push(escapeHtml(value.slice(lastIndex, index)));
+		parts.push(
+			katex.renderToString(match[1], {
+				displayMode: false,
+				throwOnError: false,
+				strict: false,
+			}),
+		);
+		lastIndex = index + match[0].length;
+	}
+
+	parts.push(escapeHtml(value.slice(lastIndex)));
+	return parts.join('');
+}
+
+const rendered = renderMathText(text);
+---
+
+<span set:html={rendered} />
