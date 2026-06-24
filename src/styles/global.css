@@ -255,8 +255,7 @@ hr {
 
 .heading-actions,
 .page-actions,
-.write-actions,
-.write-categories {
+.write-actions {
 	align-items: center;
 	display: flex;
 	gap: 0.55rem;
@@ -434,21 +433,6 @@ hr {
 
 .write-actions {
 	margin-top: 1.5rem;
-}
-
-.write-categories {
-	flex-wrap: wrap;
-	margin-top: 1.2rem;
-}
-
-.write-categories span {
-	background: rgba(139, 150, 165, 0.1);
-	border: 1px solid rgba(var(--line), 72%);
-	border-radius: 999px;
-	color: var(--accent-dark);
-	font-size: 0.78rem;
-	font-weight: 760;
-	padding: 0.3rem 0.62rem;
 }
 
 .prose {
