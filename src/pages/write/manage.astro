@@ -12,6 +12,7 @@ const posts = allPosts
 	.sort(comparePostsNewestFirst)
 	.map((post) => ({
 		path: `src/content/blog/${post.id}.md`,
+		editUrl: `https://github.com/jail238/my-blog/edit/main/src/content/blog/${post.id}.md`,
 		title: post.data.title,
 		description: post.data.description,
 		category: postCategoryLabel(post, allPosts, CATEGORIES),
@@ -59,7 +60,10 @@ const posts = allPosts
 										<small>{post.date}</small>
 										{post.description && <p>{post.description}</p>}
 									</div>
-									<button class="button ghost delete-post-button" type="button">삭제</button>
+									<div class="manage-post-actions">
+										<a class="button ghost manage-post-button" href={post.editUrl} target="_blank" rel="noreferrer">수정</a>
+										<button class="button ghost manage-post-button delete-post-button" type="button">삭제</button>
+									</div>
 								</article>
 							))
 						)

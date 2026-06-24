@@ -29,9 +29,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 				<p class="eyebrow">&#xC544;&#xCE74;&#xC774;&#xBE0C;</p>
 				<h1>&#xC804;&#xCCB4; &#xAE00;</h1>
 				<p class="page-count">{posts.length}&#xAC1C;&#xC758; &#xAE00; · 1/{Math.max(totalPages, 1)}</p>
-				<div class="page-actions">
-					<a class="button ghost" href={`${base}/write/`}>&#xC4F0;&#xAE30;</a>
-				</div>
 			</div>
 			<ArchivePostList posts={currentPosts} allPosts={posts} base={base} />
 			<Pagination base={base} currentPage={1} totalPages={totalPages} />

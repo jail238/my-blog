@@ -17,9 +17,10 @@ const post = Astro.props;
 const { Content } = await render(post);
 const allPosts = (await getCollection('blog')).filter((item) => !item.data.draft);
 const categoryLabel = postCategoryLabel(post, allPosts, CATEGORIES);
+const postPath = `src/content/blog/${post.id}.md`;
 const editUrl = `https://github.com/jail238/my-blog/edit/main/src/content/blog/${post.id}.md`;
 ---
 
-<BlogPost {...post.data} categoryLabel={categoryLabel} editUrl={editUrl}>
+<BlogPost {...post.data} categoryLabel={categoryLabel} editUrl={editUrl} postPath={postPath}>
 	<Content />
 </BlogPost>

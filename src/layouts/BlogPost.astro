@@ -11,11 +11,13 @@ import { CATEGORIES } from '../consts';
 type Props = CollectionEntry<'blog'>['data'] & {
 	categoryLabel?: string;
 	editUrl?: string;
+	postPath?: string;
 };
 
-const { title, description, pubDate, updatedDate, heroImage, category, categoryLabel, tags = [], editUrl } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, category, categoryLabel, tags = [], editUrl, postPath } = Astro.props;
 const displayCategory = category ? (categoryLabel ?? CATEGORIES[category]) : undefined;
 const displayTags = tags.map((tag) => (category && tag === CATEGORIES[category] && displayCategory ? displayCategory : tag));
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <html lang="ko">
@@ -103,15 +105,18 @@ const displayTags = tags.map((tag) => (category && tag === CATEGORIES[category] 
 				top: 50%;
 				transform: translateY(-50%);
 			}
-			.post-actions a {
+			.post-actions a,
+			.post-actions button {
 				align-items: center;
 				background: rgba(255, 255, 255, 0.72);
 				border: 1px solid rgba(var(--line), 90%);
 				border-radius: 999px;
 				color: rgb(var(--text));
+				cursor: pointer;
 				display: inline-flex;
 				font-size: 0.84rem;
 				font-weight: 760;
+				font-family: inherit;
 				min-height: 2.35rem;
 				padding: 0 0.9rem;
 				text-decoration: none;
@@ -121,7 +126,8 @@ const displayTags = tags.map((tag) => (category && tag === CATEGORIES[category] 
 					color 140ms ease,
 					transform 140ms ease;
 			}
-			.post-actions a:hover {
+			.post-actions a:hover,
+			.post-actions button:hover {
 				background: var(--panel-strong);
 				border-color: rgba(139, 150, 165, 0.34);
 				color: rgb(var(--text));
@@ -152,10 +158,17 @@ const displayTags = tags.map((tag) => (category && tag === CATEGORIES[category] 
 						{displayCategory && <div class="meta">{displayCategory}</div>}
 						<h1><MathText text={title} /></h1>
 						{
-							(displayTags.length > 0 || editUrl) && (
+							(displayTags.length > 0 || editUrl || postPath) && (
 								<div class="title-tools">
 									{displayTags.length > 0 && <div class="tags">{displayTags.map((tag) => <span>{tag}</span>)}</div>}
-									{editUrl && <div class="post-actions"><a href={editUrl} target="_blank" rel="noreferrer">&#xC218;&#xC815;</a></div>}
+									{
+										(editUrl || postPath) && (
+											<div class="post-actions">
+												{editUrl && <a href={editUrl} target="_blank" rel="noreferrer">&#xC218;&#xC815;</a>}
+												{postPath && <button id="deletePostButton" type="button" data-path={postPath} data-title={title} data-base={base}>&#xC0AD;&#xC81C;</button>}
+											</div>
+										)
+									}
 								</div>
 							)
 						}
@@ -166,5 +179,74 @@ const displayTags = tags.map((tag) => (category && tag === CATEGORIES[category] 
 			</article>
 		</main>
 		<Footer />
+		<script is:inline>
+			const deleteButton = document.getElementById('deletePostButton');
+			const repo = 'jail238/my-blog';
+			const branch = 'main';
+
+			function encodePath(path) {
+				return path.split('/').map(encodeURIComponent).join('/');
+			}
+
+			async function githubRequest(url, token, options = {}) {
+				const response = await fetch(url, {
+					...options,
+					headers: {
+						Accept: 'application/vnd.github+json',
+						Authorization: `Bearer ${token}`,
+						'Content-Type': 'application/json',
+						'X-GitHub-Api-Version': '2022-11-28',
+						...(options.headers || {}),
+					},
+				});
+
+				if (!response.ok) {
+					const error = await response.json().catch(() => ({}));
+					throw new Error(error.message || String(response.status));
+				}
+
+				return response.status === 204 ? null : response.json();
+			}
+
+			if (deleteButton) {
+				deleteButton.addEventListener('click', async () => {
+					const path = deleteButton.dataset.path;
+					const title = deleteButton.dataset.title || '글';
+					const base = deleteButton.dataset.base || '';
+					const agreed = window.confirm(`"${title}" 글을 삭제할까요?`);
+					if (!agreed) {
+						return;
+					}
+
+					const token = window.prompt('삭제하려면 GitHub token을 입력하세요.');
+					if (!token || !token.trim()) {
+						return;
+					}
+
+					deleteButton.disabled = true;
+					deleteButton.textContent = '삭제 중';
+
+					try {
+						const encodedPath = encodePath(path);
+						const file = await githubRequest(`https://api.github.com/repos/${repo}/contents/${encodedPath}?ref=${branch}`, token.trim());
+						await githubRequest(`https://api.github.com/repos/${repo}/contents/${encodedPath}`, token.trim(), {
+							method: 'DELETE',
+							body: JSON.stringify({
+								message: `Delete blog post: ${title}`,
+								sha: file.sha,
+								branch,
+							}),
+						});
+
+						window.alert('삭제 커밋이 생성됐습니다. GitHub Pages 반영까지 잠시 걸립니다.');
+						window.location.href = `${base}/blog/`;
+					} catch (error) {
+						window.alert(`삭제 실패: ${error.message}`);
+						deleteButton.disabled = false;
+						deleteButton.textContent = '삭제';
+					}
+				});
+			}
+		</script>
 	</body>
 </html>

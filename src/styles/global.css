@@ -732,7 +732,13 @@ button.write-choice {
 	margin: 0.18rem 0 0;
 }
 
-.delete-post-button {
+.manage-post-actions {
+	display: flex;
+	gap: 0.45rem;
+	justify-content: flex-end;
+}
+
+.manage-post-button {
 	border-color: rgba(139, 150, 165, 0.3);
 	cursor: pointer;
 	font-family: inherit;
@@ -838,7 +844,12 @@ table {
 		grid-template-columns: 1fr;
 	}
 
-	.delete-post-button {
+	.manage-post-actions {
+		align-items: stretch;
+		flex-direction: column;
+	}
+
+	.manage-post-button {
 		width: 100%;
 	}
 }
