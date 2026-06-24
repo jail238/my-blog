@@ -5,7 +5,6 @@ import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const newPostUrl = 'https://github.com/jail238/my-blog/new/main?filename=src/content/blog/new-post.md';
 ---
 
 <!doctype html>
@@ -19,13 +18,43 @@ const newPostUrl = 'https://github.com/jail238/my-blog/new/main?filename=src/con
 			<section class="simple-page write-panel">
 				<p class="eyebrow">Write</p>
 				<h1>&#xAE00;&#xC4F0;&#xAE30;</h1>
-				<p>&#xAE43;&#xD5C8;&#xBE0C;&#xC5D0;&#xC11C; &#xC0C8; &#xAE00; &#xD30C;&#xC77C;&#xC744; &#xC791;&#xC131;&#xD569;&#xB2C8;&#xB2E4;.</p>
+				<p>&#xBD84;&#xB958;&#xB97C; &#xACE0;&#xB974;&#xBA74; &#xAE30;&#xBCF8; &#xC11C;&#xC2DD;&#xC774; &#xB4E4;&#xC5B4;&#xAC04; &#xC0C8; &#xAE00; &#xD30C;&#xC77C;&#xC744; &#xC5FD;&#xB2C8;&#xB2E4;.</p>
+				<div class="write-choice-grid">
+					<a class="write-choice" href="https://github.com/jail238/my-blog/new/main?filename=src/content/blog/math-new-post.md" data-category="math" data-label="수학">
+						<strong>&#xC218;&#xD559;</strong>
+						<span>math</span>
+					</a>
+					<a class="write-choice" href="https://github.com/jail238/my-blog/new/main?filename=src/content/blog/exercise-new-post.md" data-category="exercise" data-label="운동">
+						<strong>&#xC6B4;&#xB3D9;</strong>
+						<span>exercise</span>
+					</a>
+					<a class="write-choice" href="https://github.com/jail238/my-blog/new/main?filename=src/content/blog/life-new-post.md" data-category="life" data-label="일상">
+						<strong>&#xC77C;&#xC0C1;</strong>
+						<span>life</span>
+					</a>
+				</div>
 				<div class="write-actions">
-					<a class="button primary" href={newPostUrl} target="_blank" rel="noreferrer">&#xC0C8; &#xAE00; &#xC4F0;&#xAE30;</a>
 					<a class="button ghost" href={`${base}/blog/`}>&#xAE00; &#xBAA9;&#xB85D;</a>
 				</div>
 			</section>
 		</main>
 		<Footer />
+		<script is:inline>
+			const repoNewFileUrl = 'https://github.com/jail238/my-blog/new/main';
+			const pad = (value) => String(value).padStart(2, '0');
+			const now = new Date();
+			const today = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+
+			for (const link of document.querySelectorAll('.write-choice')) {
+				const category = link.dataset.category;
+				const label = link.dataset.label;
+				const filename = `src/content/blog/${today}-${category}.md`;
+				const value = `---\ntitle: ''\ndescription: ''\ncategory: '${category}'\ntags: ['${label}']\npubDate: ${today}\n---\n\n`;
+				const params = new URLSearchParams({ filename, value });
+				link.href = `${repoNewFileUrl}?${params.toString()}`;
+				link.target = '_blank';
+				link.rel = 'noreferrer';
+			}
+		</script>
 	</body>
 </html>

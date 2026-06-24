@@ -431,6 +431,50 @@ hr {
 	max-width: 720px;
 }
 
+.write-choice-grid {
+	display: grid;
+	gap: 0.75rem;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	margin-top: 1.5rem;
+}
+
+.write-choice {
+	background: rgba(255, 255, 255, 0.78);
+	border: 1px solid rgba(var(--line), 72%);
+	border-radius: 20px;
+	color: rgb(var(--text));
+	display: grid;
+	gap: 0.2rem;
+	min-height: 6rem;
+	padding: 1rem;
+	place-content: center;
+	text-align: center;
+	text-decoration: none;
+	transition:
+		background-color 140ms ease,
+		border-color 140ms ease,
+		box-shadow 140ms ease,
+		transform 140ms ease;
+}
+
+.write-choice:hover {
+	background: var(--panel-strong);
+	border-color: rgba(139, 150, 165, 0.28);
+	box-shadow: 0 10px 24px rgba(15, 23, 42, 0.07);
+	color: rgb(var(--text));
+	transform: translateY(-1px);
+}
+
+.write-choice strong {
+	font-size: 1.05rem;
+}
+
+.write-choice span {
+	color: rgb(var(--muted));
+	font-size: 0.82rem;
+	font-weight: 720;
+}
+
 .write-actions {
 	margin-top: 1.5rem;
 }
@@ -523,6 +567,10 @@ table {
 		align-items: stretch;
 		flex-direction: column;
 		width: 100%;
+	}
+
+	.write-choice-grid {
+		grid-template-columns: 1fr;
 	}
 }
 
