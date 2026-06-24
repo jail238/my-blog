@@ -8,9 +8,11 @@ import Header from '../components/Header.astro';
 import MathText from '../components/MathText.astro';
 import { CATEGORIES } from '../consts';
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<'blog'>['data'] & {
+	editUrl?: string;
+};
 
-const { title, description, pubDate, updatedDate, heroImage, category, tags = [] } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, category, tags = [], editUrl } = Astro.props;
 ---
 
 <html lang="ko">
@@ -83,6 +85,36 @@ const { title, description, pubDate, updatedDate, heroImage, category, tags = []
 				font-weight: 720;
 				padding: 0.24rem 0.62rem;
 			}
+			.post-actions {
+				display: flex;
+				gap: 0.5rem;
+				justify-content: center;
+				margin: 0.85rem 0 0;
+			}
+			.post-actions a {
+				align-items: center;
+				background: rgba(255, 255, 255, 0.72);
+				border: 1px solid rgba(var(--line), 90%);
+				border-radius: 999px;
+				color: rgb(var(--text));
+				display: inline-flex;
+				font-size: 0.84rem;
+				font-weight: 760;
+				min-height: 2.35rem;
+				padding: 0 0.9rem;
+				text-decoration: none;
+				transition:
+					background-color 140ms ease,
+					border-color 140ms ease,
+					color 140ms ease,
+					transform 140ms ease;
+			}
+			.post-actions a:hover {
+				background: var(--panel-strong);
+				border-color: rgba(139, 150, 165, 0.34);
+				color: rgb(var(--text));
+				transform: translateY(-1px);
+			}
 		</style>
 	</head>
 
@@ -108,6 +140,7 @@ const { title, description, pubDate, updatedDate, heroImage, category, tags = []
 						{category && <div class="meta">{CATEGORIES[category]}</div>}
 						<h1><MathText text={title} /></h1>
 						{tags.length > 0 && <div class="tags">{tags.map((tag) => <span>{tag}</span>)}</div>}
+						{editUrl && <div class="post-actions"><a href={editUrl} target="_blank" rel="noreferrer">수정</a></div>}
 						<hr />
 					</div>
 					<slot />
