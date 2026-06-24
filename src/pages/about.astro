@@ -2,13 +2,13 @@
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import { SITE_TITLE } from '../consts';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 ---
 
 <!doctype html>
 <html lang="ko">
 	<head>
-		<BaseHead title={`\uC18C\uAC1C | ${SITE_TITLE}`} description={SITE_TITLE} />
+		<BaseHead title={`\uC18C\uAC1C | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
 		<Header />
@@ -16,7 +16,7 @@ import { SITE_TITLE } from '../consts';
 			<section class="simple-page">
 				<p class="eyebrow">About</p>
 				<h1>M.S.K.</h1>
-				<p>?? ?? ?? ????</p>
+				<p>&#xB098;&#xB97C; &#xC544;&#xCE74;&#xC774;&#xBE0C;.</p>
 			</section>
 		</main>
 		<Footer />
