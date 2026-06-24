@@ -6,6 +6,7 @@ import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
 import MathText from '../../components/MathText.astro';
 import { CATEGORIES, SITE_TITLE } from '../../consts';
+import { comparePostsNewestFirst } from '../../utils/posts';
 
 export async function getStaticPaths() {
 	return Object.keys(CATEGORIES).map((category) => ({
@@ -18,7 +19,7 @@ const categoryName = CATEGORIES[category as keyof typeof CATEGORIES];
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const posts = (await getCollection('blog'))
 	.filter((post) => !post.data.draft && post.data.category === category)
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+	.sort(comparePostsNewestFirst);
 ---
 
 <!doctype html>

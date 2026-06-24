@@ -6,11 +6,12 @@ import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
 import Pagination from '../../components/Pagination.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import { comparePostsNewestFirst } from '../../utils/posts';
 
 const POSTS_PER_PAGE = 5;
 const posts = (await getCollection('blog'))
 	.filter((post) => !post.data.draft)
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+	.sort(comparePostsNewestFirst);
 const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
 const currentPosts = posts.slice(0, POSTS_PER_PAGE);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
