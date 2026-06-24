@@ -119,11 +119,6 @@ const posts = allPosts
 
 				const path = row.dataset.path;
 				const title = row.dataset.title || '글';
-				const agreed = window.confirm(`"${title}" 글을 삭제할까요?`);
-				if (!agreed) {
-					return;
-				}
-
 				const encodedPath = encodePath(path);
 				const contentUrl = `https://api.github.com/repos/${repo}/contents/${encodedPath}?ref=${branch}`;
 				statusText.textContent = '삭제할 글 파일을 확인하는 중입니다.';
@@ -144,15 +139,32 @@ const posts = allPosts
 					statusText.textContent = '삭제 커밋이 생성됐습니다. GitHub Pages 반영까지 잠시 걸립니다.';
 					tokenInput.value = '';
 				} catch (error) {
-					statusText.textContent = `삭제 실패: ${error.message}`;
+					statusText.textContent = error.message === 'Resource not accessible by personal access token'
+						? '삭제 실패: token 권한이 부족합니다. Fine-grained token에서 my-blog 저장소를 선택하고 Contents 권한을 Read and write로 설정해야 합니다.'
+						: `삭제 실패: ${error.message}`;
 				}
 			}
 
 			for (const button of document.querySelectorAll('.delete-post-button')) {
-				button.addEventListener('click', () => {
+				button.addEventListener('click', async () => {
 					const row = button.closest('.manage-post-row');
 					if (row) {
-						deletePost(row);
+						if (button.dataset.ready !== 'true') {
+							for (const otherButton of document.querySelectorAll('.delete-post-button')) {
+								otherButton.dataset.ready = 'false';
+								otherButton.textContent = '삭제';
+							}
+							button.dataset.ready = 'true';
+							button.textContent = '삭제 실행';
+							statusText.textContent = `"${row.dataset.title || '글'}" 글을 삭제하려면 같은 버튼을 한 번 더 누르세요.`;
+							return;
+						}
+
+						button.disabled = true;
+						await deletePost(row);
+						button.disabled = false;
+						button.dataset.ready = 'false';
+						button.textContent = '삭제';
 					}
 				});
 			}

@@ -133,6 +133,88 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 				color: rgb(var(--text));
 				transform: translateY(-1px);
 			}
+			.delete-panel {
+				background: rgba(255, 255, 255, 0.78);
+				border: 1px solid rgba(var(--line), 90%);
+				border-radius: 20px;
+				margin: 1rem auto 0;
+				max-width: 520px;
+				padding: 1rem;
+				text-align: left;
+			}
+			.delete-panel[hidden] {
+				display: none;
+			}
+			.delete-panel strong,
+			.delete-panel label,
+			.delete-panel span {
+				display: block;
+			}
+			.delete-panel strong {
+				font-size: 0.95rem;
+				margin-bottom: 0.25rem;
+			}
+			.delete-panel p,
+			.delete-panel span {
+				color: rgb(var(--muted));
+				font-size: 0.86rem;
+				line-height: 1.55;
+				margin: 0;
+			}
+			.delete-panel label {
+				font-weight: 720;
+				margin-top: 0.9rem;
+			}
+			.delete-panel input {
+				background: rgba(255, 255, 255, 0.9);
+				border: 1px solid rgba(var(--line), 100%);
+				border-radius: 14px;
+				color: rgb(var(--text));
+				font: inherit;
+				margin-top: 0.35rem;
+				min-height: 2.7rem;
+				padding: 0 0.85rem;
+				width: 100%;
+			}
+			.delete-panel input:focus {
+				border-color: rgba(139, 150, 165, 0.65);
+				outline: none;
+			}
+			.delete-panel-actions {
+				display: flex;
+				gap: 0.5rem;
+				justify-content: flex-end;
+				margin-top: 0.9rem;
+			}
+			.delete-panel-status {
+				background: rgba(139, 150, 165, 0.09);
+				border-radius: 14px;
+				margin-top: 0.8rem;
+				min-height: 2.35rem;
+				padding: 0.55rem 0.75rem;
+			}
+			.delete-panel-status:empty {
+				display: none;
+			}
+			@media (max-width: 720px) {
+				.title-tools {
+					min-height: auto;
+				}
+				.post-actions {
+					justify-content: center;
+					margin-top: 0.75rem;
+					position: static;
+					transform: none;
+				}
+				.delete-panel-actions {
+					align-items: stretch;
+					flex-direction: column;
+				}
+				.delete-panel-actions .button {
+					justify-content: center;
+					width: 100%;
+				}
+			}
 		</style>
 	</head>
 
@@ -174,6 +256,23 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 						}
 						<hr />
 					</div>
+					{
+						postPath && (
+							<section class="delete-panel" id="deletePostPanel" hidden>
+								<strong>글 삭제</strong>
+								<p>이 글의 Markdown 파일을 GitHub에서 삭제 커밋으로 처리합니다.</p>
+								<label>
+									<span>GitHub token</span>
+									<input id="deletePostToken" type="password" autocomplete="off" inputmode="text" />
+								</label>
+								<div class="delete-panel-actions">
+									<button class="button ghost" id="cancelDeletePostButton" type="button">취소</button>
+									<button class="button primary" id="confirmDeletePostButton" type="button">삭제 실행</button>
+								</div>
+								<p class="delete-panel-status" id="deletePostStatus" aria-live="polite"></p>
+							</section>
+						)
+					}
 					<slot />
 				</div>
 			</article>
@@ -181,6 +280,11 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 		<Footer />
 		<script is:inline>
 			const deleteButton = document.getElementById('deletePostButton');
+			const deletePanel = document.getElementById('deletePostPanel');
+			const cancelDeleteButton = document.getElementById('cancelDeletePostButton');
+			const confirmDeleteButton = document.getElementById('confirmDeletePostButton');
+			const tokenInput = document.getElementById('deletePostToken');
+			const statusText = document.getElementById('deletePostStatus');
 			const repo = 'jail238/my-blog';
 			const branch = 'main';
 
@@ -209,26 +313,45 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 			}
 
 			if (deleteButton) {
-				deleteButton.addEventListener('click', async () => {
+				deleteButton.addEventListener('click', () => {
+					if (!deletePanel) {
+						return;
+					}
+					deletePanel.hidden = false;
+					statusText.textContent = '삭제하려면 my-blog 저장소의 Contents Read and write 권한이 있는 token을 입력하세요.';
+					tokenInput.focus();
+				});
+			}
+
+			if (cancelDeleteButton) {
+				cancelDeleteButton.addEventListener('click', () => {
+					deletePanel.hidden = true;
+					tokenInput.value = '';
+					statusText.textContent = '';
+				});
+			}
+
+			if (confirmDeleteButton) {
+				confirmDeleteButton.addEventListener('click', async () => {
 					const path = deleteButton.dataset.path;
 					const title = deleteButton.dataset.title || '글';
 					const base = deleteButton.dataset.base || '';
-					const agreed = window.confirm(`"${title}" 글을 삭제할까요?`);
-					if (!agreed) {
-						return;
-					}
-
-					const token = window.prompt('삭제하려면 GitHub token을 입력하세요.');
+					const token = tokenInput.value;
 					if (!token || !token.trim()) {
+						statusText.textContent = 'GitHub token을 입력해야 삭제할 수 있습니다.';
+						tokenInput.focus();
 						return;
 					}
 
 					deleteButton.disabled = true;
-					deleteButton.textContent = '삭제 중';
+					confirmDeleteButton.disabled = true;
+					confirmDeleteButton.textContent = '삭제 중';
+					statusText.textContent = '삭제할 글 파일을 확인하는 중입니다.';
 
 					try {
 						const encodedPath = encodePath(path);
 						const file = await githubRequest(`https://api.github.com/repos/${repo}/contents/${encodedPath}?ref=${branch}`, token.trim());
+						statusText.textContent = '삭제 커밋을 생성하는 중입니다.';
 						await githubRequest(`https://api.github.com/repos/${repo}/contents/${encodedPath}`, token.trim(), {
 							method: 'DELETE',
 							body: JSON.stringify({
@@ -238,12 +361,17 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 							}),
 						});
 
-						window.alert('삭제 커밋이 생성됐습니다. GitHub Pages 반영까지 잠시 걸립니다.');
+						statusText.textContent = '삭제 커밋이 생성됐습니다. GitHub Pages 반영까지 잠시 걸립니다.';
+						tokenInput.value = '';
 						window.location.href = `${base}/blog/`;
 					} catch (error) {
-						window.alert(`삭제 실패: ${error.message}`);
+						const message = error.message === 'Resource not accessible by personal access token'
+							? '삭제 실패: token 권한이 부족합니다. Fine-grained token에서 my-blog 저장소를 선택하고 Contents 권한을 Read and write로 설정해야 합니다.'
+							: `삭제 실패: ${error.message}`;
+						statusText.textContent = message;
 						deleteButton.disabled = false;
-						deleteButton.textContent = '삭제';
+						confirmDeleteButton.disabled = false;
+						confirmDeleteButton.textContent = '삭제 실행';
 					}
 				});
 			}
