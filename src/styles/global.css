@@ -358,6 +358,18 @@ hr {
 	font-size: 0.86rem;
 }
 
+.archive-post-list {
+	gap: 0.65rem;
+}
+
+.archive-post-list .post-row {
+	padding: 0.9rem 1rem;
+}
+
+.archive-post-list .post-row strong {
+	font-size: 0.98rem;
+}
+
 .post-category {
 	color: var(--accent);
 	font-size: 0.74rem;
@@ -398,6 +410,13 @@ hr {
 
 .page-title h1 {
 	font-size: clamp(2rem, 5vw, 3.3rem);
+}
+
+.page-count {
+	color: rgb(var(--muted));
+	font-size: 0.92rem;
+	font-weight: 720;
+	margin: 0.55rem 0 0;
 }
 
 .about-page {
