@@ -18,22 +18,6 @@ const svg = `
   </defs>
   <rect width="1200" height="630" fill="url(#bg)"/>
   <rect x="118" y="92" width="964" height="446" rx="54" fill="url(#panel)" stroke="#dfe5ec" filter="url(#shadow)"/>
-  <g transform="translate(830 183) rotate(-15)">
-    <g stroke="#ff5da8" stroke-width="20" stroke-linecap="round" opacity="0.95">
-      <line x1="0" y1="32" x2="260" y2="32"/>
-      <line x1="0" y1="112" x2="260" y2="112"/>
-      <line x1="48" y1="-16" x2="48" y2="176"/>
-      <line x1="132" y1="-16" x2="132" y2="176"/>
-      <line x1="216" y1="-16" x2="216" y2="176"/>
-    </g>
-    <g stroke="#d72f8c" stroke-width="6" stroke-linecap="round" opacity="0.55">
-      <line x1="0" y1="32" x2="260" y2="32"/>
-      <line x1="0" y1="112" x2="260" y2="112"/>
-      <line x1="48" y1="-16" x2="48" y2="176"/>
-      <line x1="132" y1="-16" x2="132" y2="176"/>
-      <line x1="216" y1="-16" x2="216" y2="176"/>
-    </g>
-  </g>
   <text x="190" y="208" fill="#8b96a5" font-size="34" font-family="Arial, sans-serif" font-weight="700" letter-spacing="6">M.S.K.</text>
   <text x="186" y="318" fill="#202938" font-size="86" font-family="Arial, sans-serif" font-weight="800">Misaki Archive</text>
   <text x="190" y="390" fill="#667386" font-size="32" font-family="Arial, sans-serif">archive of misaki.</text>
