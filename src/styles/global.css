@@ -456,11 +456,17 @@ hr {
 	margin-top: 1rem;
 }
 
+.write-choice-form {
+	margin: 0;
+}
+
 .write-choice {
+	appearance: none;
 	background: rgba(255, 255, 255, 0.78);
 	border: 1px solid rgba(var(--line), 72%);
 	border-radius: 20px;
 	color: rgb(var(--text));
+	cursor: pointer;
 	display: grid;
 	gap: 0.2rem;
 	min-height: 4.6rem;
@@ -473,6 +479,7 @@ hr {
 		border-color 140ms ease,
 		box-shadow 140ms ease,
 		transform 140ms ease;
+	width: 100%;
 }
 
 .write-choice:hover {

@@ -20,18 +20,30 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 				<h1>&#xAE00;&#xC4F0;&#xAE30;</h1>
 				<p>&#xBD84;&#xB958;&#xB97C; &#xACE0;&#xB974;&#xBA74; &#xAE30;&#xBCF8; &#xC11C;&#xC2DD;&#xC774; &#xB4E4;&#xC5B4;&#xAC04; &#xAE00; &#xC791;&#xC131; &#xD654;&#xBA74;&#xC744; &#xC5FD;&#xB2C8;&#xB2E4;.</p>
 				<div class="write-choice-grid">
-					<a class="write-choice" href="https://www.github.com/jail238/my-blog/issues/new" data-category="math" data-label="&#xC218;&#xD559;">
-						<strong>&#xC218;&#xD559;</strong>
-						<span>math</span>
-					</a>
-					<a class="write-choice" href="https://www.github.com/jail238/my-blog/issues/new" data-category="exercise" data-label="&#xC6B4;&#xB3D9;">
-						<strong>&#xC6B4;&#xB3D9;</strong>
-						<span>exercise</span>
-					</a>
-					<a class="write-choice" href="https://www.github.com/jail238/my-blog/issues/new" data-category="life" data-label="&#xC77C;&#xC0C1;">
-						<strong>&#xC77C;&#xC0C1;</strong>
-						<span>life</span>
-					</a>
+					<form class="write-choice-form" action="https://github.com/jail238/my-blog/issues/new" method="get" target="_blank" data-category="math" data-label="&#xC218;&#xD559;">
+						<input type="hidden" name="title" />
+						<input type="hidden" name="body" />
+						<button class="write-choice" type="submit">
+							<strong>&#xC218;&#xD559;</strong>
+							<span>math</span>
+						</button>
+					</form>
+					<form class="write-choice-form" action="https://github.com/jail238/my-blog/issues/new" method="get" target="_blank" data-category="exercise" data-label="&#xC6B4;&#xB3D9;">
+						<input type="hidden" name="title" />
+						<input type="hidden" name="body" />
+						<button class="write-choice" type="submit">
+							<strong>&#xC6B4;&#xB3D9;</strong>
+							<span>exercise</span>
+						</button>
+					</form>
+					<form class="write-choice-form" action="https://github.com/jail238/my-blog/issues/new" method="get" target="_blank" data-category="life" data-label="&#xC77C;&#xC0C1;">
+						<input type="hidden" name="title" />
+						<input type="hidden" name="body" />
+						<button class="write-choice" type="submit">
+							<strong>&#xC77C;&#xC0C1;</strong>
+							<span>life</span>
+						</button>
+					</form>
 				</div>
 				<div class="write-actions">
 					<a class="button ghost" href={`${base}/blog/`}>&#xAE00; &#xBAA9;&#xB85D;</a>
@@ -40,22 +52,16 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 		</main>
 		<Footer />
 		<script is:inline>
-			const repoIssueUrl = 'https://www.github.com/jail238/my-blog/issues/new';
 			const pad = (value) => String(value).padStart(2, '0');
 			const now = new Date();
 			const today = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
 
-			for (const link of document.querySelectorAll('.write-choice')) {
-				const category = link.dataset.category;
-				const label = link.dataset.label;
+			for (const form of document.querySelectorAll('.write-choice-form')) {
+				const category = form.dataset.category;
+				const label = form.dataset.label;
 				const body = `<!-- msk-blog-post -->\ncategory: ${category}\ndescription: \npubDate: ${today}\n---\n\nTBD`;
-				const params = new URLSearchParams({
-					title: `${label} 글 제목`,
-					body,
-				});
-				link.href = `${repoIssueUrl}?${params.toString()}`;
-				link.target = '_blank';
-				link.rel = 'noreferrer';
+				form.querySelector('input[name="title"]').value = `${label} 글 제목`;
+				form.querySelector('input[name="body"]').value = body;
 			}
 		</script>
 	</body>
