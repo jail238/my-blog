@@ -9,8 +9,7 @@ import remarkMath from 'remark-math';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://jail238.github.io',
-	base: '/my-blog',
+	site: 'https://misaki.love',
 	integrations: [mdx(), sitemap()],
 	markdown: {
 		processor: unified({
