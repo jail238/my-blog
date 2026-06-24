@@ -486,10 +486,12 @@ hr {
 }
 
 .write-choice-form {
+	display: block;
 	margin: 0;
 }
 
 .write-choice {
+	-webkit-appearance: none;
 	appearance: none;
 	background: rgba(255, 255, 255, 0.78);
 	border: 1px solid rgba(var(--line), 72%);
@@ -497,8 +499,12 @@ hr {
 	color: rgb(var(--text));
 	cursor: pointer;
 	display: grid;
+	font: inherit;
 	gap: 0.2rem;
+	height: 100%;
+	line-height: 1.35;
 	min-height: 4.6rem;
+	outline: 0;
 	padding: 0.78rem 0.85rem;
 	place-content: center;
 	text-align: center;
@@ -509,6 +515,17 @@ hr {
 		box-shadow 140ms ease,
 		transform 140ms ease;
 	width: 100%;
+}
+
+.write-choice:visited,
+.write-choice:hover,
+.write-choice:focus {
+	text-decoration: none;
+}
+
+button.write-choice {
+	box-shadow: none;
+	font-family: inherit;
 }
 
 .write-choice:hover {
