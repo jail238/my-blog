@@ -70,12 +70,20 @@ const { title, description, pubDate, updatedDate, heroImage, category, tags = []
 				font-weight: 760;
 				margin-bottom: 0.5rem;
 			}
+			.post-meta-row {
+				align-items: center;
+				display: flex;
+				gap: 0.75rem;
+				justify-content: space-between;
+				margin: 0.85rem auto 0;
+				max-width: 360px;
+			}
 			.tags {
 				display: flex;
 				flex-wrap: wrap;
 				gap: 0.4rem;
-				justify-content: center;
-				margin-top: 0.75rem;
+				justify-content: flex-start;
+				margin: 0;
 			}
 			.tags span {
 				background: rgba(139, 150, 165, 0.1);
@@ -88,8 +96,8 @@ const { title, description, pubDate, updatedDate, heroImage, category, tags = []
 			.post-actions {
 				display: flex;
 				gap: 0.5rem;
-				justify-content: center;
-				margin: 0.85rem 0 0;
+				justify-content: flex-end;
+				margin: 0;
 			}
 			.post-actions a {
 				align-items: center;
@@ -115,6 +123,11 @@ const { title, description, pubDate, updatedDate, heroImage, category, tags = []
 				color: rgb(var(--text));
 				transform: translateY(-1px);
 			}
+			@media (max-width: 520px) {
+				.post-meta-row {
+					max-width: none;
+				}
+			}
 		</style>
 	</head>
 
@@ -139,8 +152,14 @@ const { title, description, pubDate, updatedDate, heroImage, category, tags = []
 						</div>
 						{category && <div class="meta">{CATEGORIES[category]}</div>}
 						<h1><MathText text={title} /></h1>
-						{tags.length > 0 && <div class="tags">{tags.map((tag) => <span>{tag}</span>)}</div>}
-						{editUrl && <div class="post-actions"><a href={editUrl} target="_blank" rel="noreferrer">수정</a></div>}
+						{
+							(tags.length > 0 || editUrl) && (
+								<div class="post-meta-row">
+									{tags.length > 0 && <div class="tags">{tags.map((tag) => <span>{tag}</span>)}</div>}
+									{editUrl && <div class="post-actions"><a href={editUrl} target="_blank" rel="noreferrer">&#xC218;&#xC815;</a></div>}
+								</div>
+							)
+						}
 						<hr />
 					</div>
 					<slot />
