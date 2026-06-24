@@ -46,8 +46,13 @@ const { title, description, pubDate, updatedDate, heroImage, category, tags = []
 				text-align: center;
 			}
 			.title h1 {
-				font-size: clamp(2rem, 5vw, 3.2rem);
+				font-size: clamp(1.45rem, 3vw, 2.05rem);
+				line-height: 1.28;
 				margin: 0 0 0.55em;
+			}
+			.title h1 :global(.katex) {
+				font-size: 1em;
+				line-height: 1.28;
 			}
 			.date {
 				color: rgb(var(--muted));
