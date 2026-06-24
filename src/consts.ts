@@ -7,4 +7,5 @@ export const CATEGORIES = {
 	math: '수학',
 	exercise: '운동',
 	life: '일상',
+	music: '음악',
 } as const;

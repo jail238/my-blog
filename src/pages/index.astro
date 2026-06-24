@@ -5,7 +5,7 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import MathText from '../components/MathText.astro';
 import { CATEGORIES, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
-import { comparePostsNewestFirst } from '../utils/posts';
+import { comparePostsNewestFirst, postCategoryLabel } from '../utils/posts';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const posts = (await getCollection('blog'))
@@ -60,7 +60,7 @@ const recentPosts = posts.slice(0, 4);
 						{recentPosts.length > 0 ? (
 							recentPosts.map((post) => (
 								<a class="post-row" href={`${base}/blog/${post.id}/`}>
-									<span class="post-category">{CATEGORIES[post.data.category]}</span>
+									<span class="post-category">{postCategoryLabel(post, posts, CATEGORIES)}</span>
 									<strong><MathText text={post.data.title} /></strong>
 									<small>{post.data.description}</small>
 								</a>

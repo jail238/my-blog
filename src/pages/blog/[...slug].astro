@@ -1,6 +1,8 @@
 ---
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
+import { CATEGORIES } from '../../consts';
+import { postCategoryLabel } from '../../utils/posts';
 
 export async function getStaticPaths() {
 	const posts = (await getCollection('blog')).filter((post) => !post.data.draft);
@@ -13,9 +15,11 @@ type Props = CollectionEntry<'blog'>;
 
 const post = Astro.props;
 const { Content } = await render(post);
+const allPosts = (await getCollection('blog')).filter((item) => !item.data.draft);
+const categoryLabel = postCategoryLabel(post, allPosts, CATEGORIES);
 const editUrl = `https://github.com/jail238/my-blog/edit/main/src/content/blog/${post.id}.md`;
 ---
 
-<BlogPost {...post.data} editUrl={editUrl}>
+<BlogPost {...post.data} categoryLabel={categoryLabel} editUrl={editUrl}>
 	<Content />
 </BlogPost>

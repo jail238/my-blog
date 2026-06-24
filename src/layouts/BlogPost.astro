@@ -9,10 +9,13 @@ import MathText from '../components/MathText.astro';
 import { CATEGORIES } from '../consts';
 
 type Props = CollectionEntry<'blog'>['data'] & {
+	categoryLabel?: string;
 	editUrl?: string;
 };
 
-const { title, description, pubDate, updatedDate, heroImage, category, tags = [], editUrl } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, category, categoryLabel, tags = [], editUrl } = Astro.props;
+const displayCategory = category ? (categoryLabel ?? CATEGORIES[category]) : undefined;
+const displayTags = tags.map((tag) => (category && tag === CATEGORIES[category] && displayCategory ? displayCategory : tag));
 ---
 
 <html lang="ko">
@@ -146,12 +149,12 @@ const { title, description, pubDate, updatedDate, heroImage, category, tags = []
 								)
 							}
 						</div>
-						{category && <div class="meta">{CATEGORIES[category]}</div>}
+						{displayCategory && <div class="meta">{displayCategory}</div>}
 						<h1><MathText text={title} /></h1>
 						{
-							(tags.length > 0 || editUrl) && (
+							(displayTags.length > 0 || editUrl) && (
 								<div class="title-tools">
-									{tags.length > 0 && <div class="tags">{tags.map((tag) => <span>{tag}</span>)}</div>}
+									{displayTags.length > 0 && <div class="tags">{displayTags.map((tag) => <span>{tag}</span>)}</div>}
 									{editUrl && <div class="post-actions"><a href={editUrl} target="_blank" rel="noreferrer">&#xC218;&#xC815;</a></div>}
 								</div>
 							)

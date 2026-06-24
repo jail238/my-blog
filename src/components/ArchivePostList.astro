@@ -2,8 +2,9 @@
 import FormattedDate from './FormattedDate.astro';
 import MathText from './MathText.astro';
 import { CATEGORIES } from '../consts';
+import { postCategoryLabel } from '../utils/posts';
 
-const { posts, base } = Astro.props;
+const { posts, base, allPosts = posts } = Astro.props;
 ---
 
 <div class="post-list archive-post-list">
@@ -11,7 +12,7 @@ const { posts, base } = Astro.props;
 		posts.length > 0 ? (
 			posts.map((post) => (
 				<a class="post-row" href={`${base}/blog/${post.id}/`}>
-					<span class="post-category">{CATEGORIES[post.data.category]}</span>
+					<span class="post-category">{postCategoryLabel(post, allPosts, CATEGORIES)}</span>
 					<strong><MathText text={post.data.title} /></strong>
 					<small>{post.data.description}</small>
 					<small><FormattedDate date={post.data.pubDate} /></small>
