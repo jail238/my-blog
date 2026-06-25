@@ -48,6 +48,46 @@ function youtubeEmbedNode(id) {
 	};
 }
 
+function mediaPath(rawValue) {
+	const value = rawValue.trim();
+	const imagePattern = /\.(avif|gif|jpe?g|png|svg|webp)$/i;
+	const videoPattern = /\.(mp4|mov|webm)$/i;
+
+	if (!imagePattern.test(value) && !videoPattern.test(value)) return null;
+	if (value.startsWith('/media/')) return { src: value, type: imagePattern.test(value) ? 'image' : 'video' };
+	if (value.startsWith('public/media/')) {
+		const src = value.replace(/^public\/media\//, '/media/');
+		return { src, type: imagePattern.test(src) ? 'image' : 'video' };
+	}
+
+	return null;
+}
+
+function mediaEmbedNode(media) {
+	if (media.type === 'video') {
+		return {
+			type: 'element',
+			tagName: 'video',
+			properties: {
+				controls: true,
+				src: media.src,
+			},
+			children: [],
+		};
+	}
+
+	return {
+		type: 'element',
+		tagName: 'img',
+		properties: {
+			src: media.src,
+			alt: '',
+			loading: 'lazy',
+		},
+		children: [],
+	};
+}
+
 function paragraphNode(lines) {
 	return {
 		type: 'element',
@@ -128,12 +168,43 @@ function splitParagraphByYouTubeLines(node) {
 	return nodes.length > 0 ? nodes : null;
 }
 
+function splitParagraphByEmbeddedLines(node) {
+	const lines = textContent(node).split(/\r?\n/);
+	const hasEmbeddedLine = lines.some((line) => youtubeId(line.trim()) || mediaPath(line));
+	if (!hasEmbeddedLine) return null;
+
+	const nodes = [];
+	let textLines = [];
+
+	for (const line of lines) {
+		const trimmed = line.trim();
+		const id = youtubeId(trimmed);
+		const media = mediaPath(trimmed);
+
+		if (id || media) {
+			if (textLines.length > 0) {
+				nodes.push(paragraphNode(textLines));
+				textLines = [];
+			}
+			nodes.push(id ? youtubeEmbedNode(id) : mediaEmbedNode(media));
+		} else if (line.length > 0) {
+			textLines.push(line);
+		}
+	}
+
+	if (textLines.length > 0) {
+		nodes.push(paragraphNode(textLines));
+	}
+
+	return nodes.length > 0 ? nodes : null;
+}
+
 function transform(node) {
 	if (!node || !Array.isArray(node.children)) return;
 
 	node.children = node.children.flatMap((child) => {
 		if (child.type === 'element' && child.tagName === 'p') {
-			const nodes = splitParagraphByYouTubeLinks(child) ?? splitParagraphByYouTubeLines(child);
+			const nodes = splitParagraphByYouTubeLinks(child) ?? splitParagraphByEmbeddedLines(child) ?? splitParagraphByYouTubeLines(child);
 			if (nodes) return nodes;
 		}
 		transform(child);

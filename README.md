@@ -44,10 +44,12 @@ pubDate: 2026-06-25
 
 사진과 영상 파일은 `public/media/`에 둡니다.
 
-본문에서는 아래처럼 불러옵니다.
+본문에서는 아래처럼 불러옵니다. 한 줄에 `/media/파일명` 또는 `public/media/파일명`만 적어도 자동으로 표시됩니다.
 
 ```md
 ![설명](/media/photo.jpg)
+
+public/media/photo.jpg
 
 <video controls src="/media/movie.mp4"></video>
 ```
