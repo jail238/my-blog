@@ -6,6 +6,7 @@ import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
 import rehypeKatex from 'rehype-katex';
 import remarkMath from 'remark-math';
+import rehypeYouTubeEmbeds from './src/utils/rehype-youtube-embeds.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -14,7 +15,7 @@ export default defineConfig({
 	markdown: {
 		processor: unified({
 			remarkPlugins: [remarkMath],
-			rehypePlugins: [rehypeKatex],
+			rehypePlugins: [rehypeKatex, rehypeYouTubeEmbeds],
 		}),
 	},
 	fonts: [
