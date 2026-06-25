@@ -148,10 +148,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 			}
 
 			function mediaSnippet(file, publicPath) {
-				if (file.type.startsWith('video/')) {
-					return `<video controls src="${publicPath}"></video>`;
-				}
-				return `![이미지 설명](${publicPath})`;
+				return `public${publicPath}`;
 			}
 
 			function appendToBody(snippet) {
