@@ -623,6 +623,40 @@ button.write-choice {
 	margin-top: 1rem;
 }
 
+.write-help {
+	background: rgba(139, 150, 165, 0.08);
+	border: 1px solid rgba(var(--line), 70%);
+	border-radius: 18px;
+	margin-top: 1rem;
+	padding: 0.9rem;
+}
+
+.write-help strong {
+	display: block;
+	font-size: 0.9rem;
+	margin-bottom: 0.35rem;
+}
+
+.write-help p {
+	color: rgb(var(--muted));
+	font-size: 0.84rem;
+	line-height: 1.55;
+	margin: 0 0 0.65rem;
+	max-width: none;
+	text-align: left;
+}
+
+.write-help pre {
+	background: rgba(255, 255, 255, 0.72);
+	border: 1px solid rgba(var(--line), 74%);
+	border-radius: 14px;
+	color: rgb(var(--text));
+	font-size: 0.82rem;
+	margin: 0;
+	overflow-x: auto;
+	padding: 0.75rem;
+}
+
 .mobile-write-panel {
 	max-width: 760px;
 }

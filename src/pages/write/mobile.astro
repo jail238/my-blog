@@ -43,13 +43,18 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 						<textarea id="bodyInput" rows="11" placeholder="&#xBCF8;&#xBB38;&#xC744; &#xC785;&#xB825;&#xD558;&#xC138;&#xC694;."></textarea>
 					</label>
 					<label>
-						<span>GitHub token</span>
+						<span>&#xCCA8;&#xBD80;</span>
+						<input id="mediaInput" type="file" accept="image/*,video/*" />
+					</label>
+					<label>
+						<span>Token</span>
 						<input id="tokenInput" type="password" autocomplete="off" inputmode="text" />
 					</label>
 				</div>
 
 				<div class="write-actions mobile-write-actions">
 					<button class="button primary" id="publishButton" type="button">&#xBC1C;&#xD589;</button>
+					<button class="button ghost" id="uploadMediaButton" type="button">&#xCCA8;&#xBD80; &#xC5C5;&#xB85C;&#xB4DC;</button>
 					<button class="button ghost" id="copyAndOpenButton" type="button">&#xBCF5;&#xC0AC;&#xD558;&#xACE0; GitHub &#xC5F4;&#xAE30;</button>
 					<button class="button ghost" id="copyButton" type="button">&#xBCF8;&#xBB38; &#xBCF5;&#xC0AC;</button>
 					<a class="button ghost" href={`${base}/write/`}>&#xB4A4;&#xB85C;</a>
@@ -76,10 +81,13 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 			const titleInput = document.getElementById('titleInput');
 			const descriptionInput = document.getElementById('descriptionInput');
 			const bodyInput = document.getElementById('bodyInput');
+			const mediaInput = document.getElementById('mediaInput');
 			const tokenInput = document.getElementById('tokenInput');
 			const statusText = document.getElementById('statusText');
 			const params = new URLSearchParams(window.location.search);
 			const initialCategory = categories.has(params.get('category')) ? params.get('category') : 'life';
+			const repo = 'jail238/my-blog';
+			const branch = 'main';
 
 			categoryInput.value = initialCategory;
 
@@ -113,6 +121,102 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 				url.searchParams.set('title', titleInput.value.trim() || '\uC81C\uBAA9 \uC5C6\uC74C');
 				url.searchParams.set('body', issueBody());
 				window.open(url.toString(), '_blank', 'noopener,noreferrer');
+			}
+
+			function safeExtension(name, type) {
+				const ext = name.includes('.') ? name.split('.').pop().toLowerCase().replace(/[^a-z0-9]/g, '') : '';
+				if (ext) return `.${ext}`;
+				if (type === 'image/png') return '.png';
+				if (type === 'image/webp') return '.webp';
+				if (type === 'image/gif') return '.gif';
+				if (type === 'video/webm') return '.webm';
+				if (type === 'video/quicktime') return '.mov';
+				if (type.startsWith('video/')) return '.mp4';
+				return '.jpg';
+			}
+
+			function fileToBase64(file) {
+				return new Promise((resolve, reject) => {
+					const reader = new FileReader();
+					reader.onload = () => {
+						const result = String(reader.result || '');
+						resolve(result.includes(',') ? result.split(',')[1] : result);
+					};
+					reader.onerror = reject;
+					reader.readAsDataURL(file);
+				});
+			}
+
+			function mediaSnippet(file, publicPath) {
+				if (file.type.startsWith('video/')) {
+					return `<video controls src="${publicPath}"></video>`;
+				}
+				return `![이미지 설명](${publicPath})`;
+			}
+
+			function appendToBody(snippet) {
+				const current = bodyInput.value.trimEnd();
+				bodyInput.value = `${current}${current ? '\n\n' : ''}${snippet}\n`;
+				bodyInput.focus();
+			}
+
+			async function uploadMedia() {
+				const file = mediaInput.files && mediaInput.files[0];
+				const token = tokenInput.value.trim();
+				if (!file) {
+					statusText.textContent = '업로드할 사진이나 영상을 선택하세요.';
+					mediaInput.focus();
+					return;
+				}
+				if (!token) {
+					statusText.textContent = 'Token을 입력해야 첨부를 업로드할 수 있습니다.';
+					tokenInput.focus();
+					return;
+				}
+
+				const maxSize = 25 * 1024 * 1024;
+				if (file.size > maxSize) {
+					statusText.textContent = '첨부는 25MB 이하로 줄여서 올리세요.';
+					return;
+				}
+
+				const uploadButton = document.getElementById('uploadMediaButton');
+				uploadButton.disabled = true;
+				statusText.textContent = '첨부를 업로드하는 중입니다.';
+
+				try {
+					const extension = safeExtension(file.name, file.type);
+					const filename = `${today}-${Date.now()}${extension}`;
+					const repoPath = `public/media/${filename}`;
+					const publicPath = `/media/${filename}`;
+					const content = await fileToBase64(file);
+					const response = await fetch(`https://api.github.com/repos/${repo}/contents/${repoPath}`, {
+						method: 'PUT',
+						headers: {
+							Accept: 'application/vnd.github+json',
+							Authorization: `Bearer ${token}`,
+							'Content-Type': 'application/json',
+							'X-GitHub-Api-Version': '2022-11-28',
+						},
+						body: JSON.stringify({
+							message: `Upload media: ${filename}`,
+							content,
+							branch,
+						}),
+					});
+
+					if (!response.ok) {
+						const error = await response.json().catch(() => ({}));
+						statusText.textContent = `첨부 업로드 실패: ${error.message || response.status}`;
+						return;
+					}
+
+					appendToBody(mediaSnippet(file, publicPath));
+					mediaInput.value = '';
+					statusText.textContent = '첨부를 업로드했고 본문에 경로를 넣었습니다.';
+				} finally {
+					uploadButton.disabled = false;
+				}
 			}
 
 			document.getElementById('publishButton').addEventListener('click', async () => {
@@ -154,6 +258,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 			document.getElementById('copyAndOpenButton').addEventListener('click', async () => {
 				await copyBody();
 				openIssue();
+			});
+			document.getElementById('uploadMediaButton').addEventListener('click', async () => {
+				await uploadMedia();
 			});
 		</script>
 	</body>

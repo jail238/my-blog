@@ -200,6 +200,20 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 			.post-body[hidden] {
 				display: none;
 			}
+			.post-body :global(img),
+			.post-body :global(video) {
+				background: rgba(139, 150, 165, 0.08);
+				border: 1px solid rgba(var(--line), 80%);
+				border-radius: 20px;
+				box-shadow: var(--shadow-soft);
+				display: block;
+				height: auto;
+				margin: 1.35rem auto;
+				max-width: 100%;
+			}
+			.post-body :global(video) {
+				width: 100%;
+			}
 			@media (max-width: 720px) {
 				.title-tools {
 					min-height: auto;
