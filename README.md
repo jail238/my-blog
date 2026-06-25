@@ -19,11 +19,11 @@ Astro와 GitHub Pages로 운영하는 개인 블로그입니다.
 src/content/blog/
 ```
 
-파일 이름은 날짜와 분류를 포함합니다.
+파일 이름은 날짜, 분류, 중복 방지 값을 포함합니다.
 
 ```text
-YYYY-MM-DD-category.md
-YYYY-MM-DD-category-number.md
+YYYY-MM-DD-category-HHMMSS.md
+YYYY-MM-DD-category-issueNumber.md
 ```
 
 기본 frontmatter 예시는 다음과 같습니다.
