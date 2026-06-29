@@ -1,5 +1,8 @@
 <section class="comments" aria-labelledby="comments-title">
-	<h2 id="comments-title">댓글</h2>
+	<div class="comments-header">
+		<h2 id="comments-title">댓글</h2>
+		<a id="giscusDiscussionLink" href="https://github.com/jail238/my-blog/discussions" target="_blank" rel="noreferrer">댓글 관리</a>
+	</div>
 	<div class="comments-frame">
 		<script
 			is:inline
@@ -11,7 +14,7 @@
 			data-mapping="pathname"
 			data-strict="0"
 			data-reactions-enabled="1"
-			data-emit-metadata="0"
+			data-emit-metadata="1"
 			data-input-position="bottom"
 			data-theme="preferred_color_scheme"
 			data-lang="ko"
@@ -19,6 +22,19 @@
 			async></script>
 	</div>
 </section>
+<script is:inline>
+	const discussionLink = document.getElementById('giscusDiscussionLink');
+
+	window.addEventListener('message', (event) => {
+		if (event.origin !== 'https://giscus.app') return;
+		if (!event.data || typeof event.data !== 'object' || !event.data.giscus) return;
+
+		const discussionUrl = event.data.giscus.discussion?.url;
+		if (discussionUrl && discussionLink) {
+			discussionLink.href = discussionUrl;
+		}
+	});
+</script>
 
 <style>
 	.comments {
@@ -27,15 +43,55 @@
 		padding-top: 1.4rem;
 	}
 
+	.comments-header {
+		align-items: center;
+		display: flex;
+		gap: 1rem;
+		justify-content: space-between;
+		margin: 0 0 1rem;
+	}
+
 	.comments h2 {
 		color: rgb(var(--text));
 		font-size: 1rem;
 		font-weight: 780;
 		letter-spacing: 0;
-		margin: 0 0 1rem;
+		margin: 0;
+	}
+
+	.comments a {
+		align-items: center;
+		background: rgba(255, 255, 255, 0.72);
+		border: 1px solid rgba(var(--line), 90%);
+		border-radius: 999px;
+		color: rgb(var(--text));
+		display: inline-flex;
+		font-size: 0.82rem;
+		font-weight: 760;
+		min-height: 2.15rem;
+		padding: 0 0.82rem;
+		text-decoration: none;
+		transition:
+			background-color 140ms ease,
+			border-color 140ms ease,
+			transform 140ms ease;
+	}
+
+	.comments a:hover {
+		background: var(--panel-strong);
+		border-color: rgba(139, 150, 165, 0.34);
+		transform: translateY(-1px);
 	}
 
 	.comments-frame {
 		min-height: 170px;
+	}
+
+	@media (max-width: 560px) {
+		.comments-header {
+			align-items: flex-start;
+			flex-direction: column;
+			gap: 0.65rem;
+		}
 	}
 </style>
