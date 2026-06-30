@@ -8,4 +8,5 @@ export const CATEGORIES = {
 	exercise: '운동',
 	life: '일상',
 	music: '음악',
+	rhythm: '리듬',
 } as const;

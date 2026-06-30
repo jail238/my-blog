@@ -9,7 +9,7 @@ Astro와 GitHub Pages로 운영하는 개인 블로그입니다.
 - URL: https://misaki.love
 - Framework: Astro
 - Deploy: GitHub Pages + GitHub Actions
-- Categories: 수학, 운동, 일상, 음악
+- Categories: 수학, 운동, 일상, 음악, 리듬
 
 ## Writing
 

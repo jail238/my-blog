@@ -70,9 +70,9 @@ jobs:
               if (match) meta[match[1]] = match[2].trim();
             }
 
-            const categories = new Set(['math', 'exercise', 'life', 'music']);
+            const categories = new Set(['math', 'exercise', 'life', 'music', 'rhythm']);
             const category = categories.has(meta.category) ? meta.category : 'life';
-            const tagMap = { math: '\uC218\uD559', exercise: '\uC6B4\uB3D9', life: '\uC77C\uC0C1', music: '\uC74C\uC545' };
+            const tagMap = { math: '\uC218\uD559', exercise: '\uC6B4\uB3D9', life: '\uC77C\uC0C1', music: '\uC74C\uC545', rhythm: '\uB9AC\uB4EC' };
             const date = /^\d{4}-\d{2}-\d{2}$/.test(meta.pubDate) ? meta.pubDate : new Date().toISOString().slice(0, 10);
             const title = issue.title.trim() || '\uC81C\uBAA9 \uC5C6\uC74C';
             const description = meta.description ?? '';
