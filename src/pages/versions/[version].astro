@@ -1,7 +1,7 @@
 ---
 import SongRow from '../../components/SongRow.astro';
 import CatalogSearch from '../../components/CatalogSearch.astro';
-import { chartTypesForSongVersion, VERSIONS, songsForVersion } from '../../data/maimai';
+import { chartsForSongVersion, VERSIONS, songsForVersion } from '../../data/maimai';
 import CatalogLayout from '../../layouts/CatalogLayout.astro';
 import { SITE_TITLE } from '../../consts';
 
@@ -43,7 +43,7 @@ const songs = songsForVersion(version.id);
 				/>
 				<section class="song-list" id="version-song-list" aria-label={`${version.shortName} 수록곡`}>
 					{songs.map((song) => (
-						<SongRow song={song} chartTypes={chartTypesForSongVersion(song.id, version.id)} />
+						<SongRow song={song} charts={chartsForSongVersion(song.id, version.id)} />
 					))}
 				</section>
 			</>

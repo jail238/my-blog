@@ -244,6 +244,10 @@ export function chartsForSong(songId: string) {
 	});
 }
 
+export function chartsForSongVersion(songId: string, versionId: string) {
+	return chartsForSong(songId).filter((chart) => chart.versionId === versionId);
+}
+
 export function songsForVersion(versionId: string) {
 	const songIds = new Set(CHARTS.filter((chart) => chart.versionId === versionId).map((chart) => chart.songId));
 	return SONGS.filter((song) => songIds.has(song.id)).sort((a, b) => a.title.localeCompare(b.title, 'ko'));

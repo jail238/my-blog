@@ -1056,6 +1056,58 @@ a.record-refresh-button.compact {
 	gap: 0.4rem;
 }
 
+.song-row-chart-group {
+	align-items: center;
+	display: inline-flex;
+	gap: 0.45rem;
+}
+
+.song-perfect-markers {
+	display: grid;
+	gap: 4px;
+	grid-template-columns: repeat(4, 12px);
+}
+
+.song-perfect-marker {
+	background: transparent;
+	border: 1.5px solid var(--perfect-border);
+	border-radius: 2px;
+	box-sizing: border-box;
+	display: block;
+	height: 12px;
+	width: 12px;
+}
+
+.song-perfect-marker.is-perfect {
+	background: var(--perfect-fill);
+	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.song-perfect-marker.is-unavailable {
+	border-style: dashed;
+	opacity: 0.35;
+}
+
+.perfect-basic {
+	--perfect-border: #2f8f58;
+	--perfect-fill: #86d3a3;
+}
+
+.perfect-advanced {
+	--perfect-border: #b98700;
+	--perfect-fill: #f1c94f;
+}
+
+.perfect-expert {
+	--perfect-border: #c84b43;
+	--perfect-fill: #ee8b83;
+}
+
+.perfect-master {
+	--perfect-border: #70479a;
+	--perfect-fill: #aa8bca;
+}
+
 .catalog-empty {
 	align-items: center;
 	background: var(--surface);
