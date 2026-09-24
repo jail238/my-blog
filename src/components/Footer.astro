@@ -3,10 +3,13 @@ const today = new Date();
 ---
 
 <footer>
-	&copy; {today.getFullYear()} M.S.K.
+	<span>&copy; {today.getFullYear()} M.S.K.</span>
+	<span>MAIMAI RECORD ARCHIVE</span>
 </footer>
 <style>
 	footer {
+		display: flex;
+		justify-content: space-between;
 		border-top: 1px solid rgba(var(--line), 90%);
 		color: rgb(var(--muted));
 		font-size: 0.9rem;
@@ -14,5 +17,12 @@ const today = new Date();
 		max-width: 960px;
 		padding: 1.5rem 1rem 4rem;
 		text-align: left;
+	}
+	@media (max-width: 520px) {
+		footer {
+			align-items: flex-start;
+			flex-direction: column;
+			gap: 0.25rem;
+		}
 	}
 </style>

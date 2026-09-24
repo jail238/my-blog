@@ -1,81 +1,106 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import MathText from '../components/MathText.astro';
-import { CATEGORIES, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
-import { comparePostsNewestFirst, postCategoryLabel } from '../utils/posts';
+import SongArtwork from '../components/SongArtwork.astro';
+import { CHARTS, SONGS, chartsForSong, registeredLevels, songsForVersion, versionsNewestFirst } from '../data/maimai';
+import CatalogLayout from '../layouts/CatalogLayout.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const posts = (await getCollection('blog'))
-	.filter((post) => !post.data.draft)
-	.sort(comparePostsNewestFirst);
-const recentPosts = posts.slice(0, 4);
+const levelOrder = registeredLevels().slice().reverse();
+const highlightedLevels = levelOrder.slice(0, 8);
+const activeVersions = versionsNewestFirst.filter((version) => songsForVersion(version.id).length > 0).slice(0, 6);
+const recordedSongs = SONGS.filter((song) => chartsForSong(song.id).some((chart) => chart.record));
 ---
 
-<!doctype html>
-<html lang="ko">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main class="home">
-			<section class="hero">
-				<div class="hero-copy">
-					<p class="eyebrow">M.S.K.</p>
-					<h1>Misaki Archive</h1>
-					<p>archive of misaki.</p>
-				</div>
-				<div class="hero-actions">
-					<a class="button primary" href={`${base}/blog/`}>&#xAE00; &#xBCF4;&#xB7EC;&#xAC00;&#xAE30;</a>
-					<a class="button ghost" href={`${base}/about/`}>&#xC18C;&#xAC1C;</a>
-				</div>
-			</section>
-
-			<div class="content-grid">
-				<section class="category-section" aria-labelledby="category-heading">
-					<div class="section-heading">
-						<h2 id="category-heading">&#xBD84;&#xB958;</h2>
-					</div>
-					<div class="category-grid">
-						{Object.entries(CATEGORIES).map(([slug, label], index) => (
-							<a class="category-card" href={`${base}/categories/${slug}/`} data-index={String(index + 1).padStart(2, '0')}>
-								<span>{label}</span>
-								<small>{slug}</small>
-							</a>
-						))}
-					</div>
-				</section>
-
-				<section class="recent-section" aria-labelledby="recent-heading">
-					<div class="section-heading">
-						<h2 id="recent-heading">&#xCD5C;&#xADFC; &#xAE00;</h2>
-						<div class="heading-actions">
-							<a href={`${base}/blog/`}>&#xC804;&#xCCB4; &#xBCF4;&#xAE30;</a>
-						</div>
-					</div>
-					<div class="post-list">
-						{recentPosts.length > 0 ? (
-							recentPosts.map((post) => (
-								<a class="post-row" href={`${base}/blog/${post.id}/`}>
-									<span class="post-category">{postCategoryLabel(post, posts, CATEGORIES)}</span>
-									<strong><MathText text={post.data.title} /></strong>
-									<small>{post.data.description}</small>
-								</a>
-							))
-						) : (
-							<div class="empty-state">
-								<strong>&#xC544;&#xC9C1; &#xAE00;&#xC774; &#xC5C6;&#xC2B5;&#xB2C8;&#xB2E4;.</strong>
-								<p>&#xCCAB; &#xAE00;&#xC744; &#xC900;&#xBE44;&#xD558;&#xACE0; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.</p>
-							</div>
-						)}
-					</div>
-				</section>
+<CatalogLayout title={SITE_TITLE} description={SITE_DESCRIPTION} pageClass="maimai-home">
+	<section class="archive-cover" aria-labelledby="archive-title">
+		<img src={`${base}/media/IMG_0541.jpeg`} alt="maimai 플레이 결과 화면" />
+		<div class="archive-cover-overlay"></div>
+		<div class="archive-cover-copy">
+			<p class="catalog-kicker">MAIMAI RECORD ARCHIVE</p>
+			<h1 id="archive-title">M.S.K.</h1>
+			<div class="profile-metrics" aria-label="기록 요약">
+				<span><small>RATING</small><strong>14,772</strong></span>
+				<span><small>CLASS</small><strong>B4</strong></span>
+				<span><small>PLAYS</small><strong>949</strong></span>
 			</div>
-		</main>
-		<Footer />
-	</body>
-</html>
+			<p class="snapshot-date">2026.09.23</p>
+		</div>
+	</section>
 
+	<nav class="archive-modes" aria-label="아카이브 분류">
+		<a href={`${base}/levels/`}>
+			<span class="mode-index">01</span>
+			<strong>레벨 순</strong>
+			<small>{CHARTS.length} CHARTS</small>
+			<span class="mode-arrow" aria-hidden="true">›</span>
+		</a>
+		<a href={`${base}/versions/`}>
+			<span class="mode-index">02</span>
+			<strong>버전 순</strong>
+			<small>{SONGS.length} SONGS</small>
+			<span class="mode-arrow" aria-hidden="true">›</span>
+		</a>
+	</nav>
+
+	<div class="archive-overview">
+		<section class="overview-block" aria-labelledby="level-overview-title">
+			<div class="catalog-section-heading">
+				<div>
+					<p class="catalog-kicker">LEVEL INDEX</p>
+					<h2 id="level-overview-title">레벨</h2>
+				</div>
+				<a href={`${base}/levels/`}>전체</a>
+			</div>
+			<div class="level-quick-grid">
+				{highlightedLevels.map((level) => (
+					<a href={`${base}/levels/${level.replace('+', '-plus')}/`}>
+						<strong>{level}</strong>
+						<small>{CHARTS.filter((chart) => chart.level === level).length}</small>
+					</a>
+				))}
+			</div>
+			<div class="chart-type-key" aria-label="채보 유형">
+				<span><b class="type-badge type-standard">ST</b> STANDARD</span>
+				<span><b class="type-badge type-dx">DX</b> DELUXE</span>
+			</div>
+		</section>
+
+		<section class="overview-block" aria-labelledby="version-overview-title">
+			<div class="catalog-section-heading">
+				<div>
+					<p class="catalog-kicker">VERSION INDEX</p>
+					<h2 id="version-overview-title">버전</h2>
+				</div>
+				<a href={`${base}/versions/`}>전체</a>
+			</div>
+			<div class="version-quick-list">
+				{activeVersions.map((version) => (
+					<a href={`${base}/versions/${version.id}/`}>
+						<span>{version.shortName}</span>
+						<small>{songsForVersion(version.id).length}곡</small>
+					</a>
+				))}
+			</div>
+		</section>
+	</div>
+
+	<section class="record-gallery" aria-labelledby="record-gallery-title">
+		<div class="catalog-section-heading">
+			<div>
+				<p class="catalog-kicker">PLAY LOG</p>
+				<h2 id="record-gallery-title">기록</h2>
+			</div>
+		</div>
+		<div class="record-gallery-grid">
+			{recordedSongs.map((song) => (
+				<a href={`${base}/songs/${song.id}/`}>
+					<SongArtwork title={song.title} tone={song.tone} image={song.resultImage} />
+					<span>
+						<strong>{song.title}</strong>
+						<small>{song.artist}</small>
+					</span>
+				</a>
+			))}
+		</div>
+	</section>
+</CatalogLayout>

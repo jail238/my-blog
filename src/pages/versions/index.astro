@@ -1,0 +1,32 @@
+---
+import { songsForVersion, versionsNewestFirst } from '../../data/maimai';
+import CatalogLayout from '../../layouts/CatalogLayout.astro';
+import { SITE_TITLE } from '../../consts';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<CatalogLayout title={`버전 순 | ${SITE_TITLE}`} description="maimai 수록곡을 버전 순으로 정리한 아카이브" pageClass="version-index-page">
+	<header class="catalog-page-header">
+		<p class="catalog-kicker">VERSION INDEX</p>
+		<h1>버전 순</h1>
+		<p>{versionsNewestFirst.length} VERSIONS</p>
+	</header>
+
+	<section class="version-index-list" aria-label="버전 목록">
+		{versionsNewestFirst.map((version) => {
+			const songCount = songsForVersion(version.id).length;
+			return (
+				<a href={`${base}/versions/${version.id}/`}>
+					<span class="version-sequence">{String(version.order).padStart(2, '0')}</span>
+					<span class="version-name">
+						<strong>{version.shortName}</strong>
+						<small>{version.name}</small>
+					</span>
+					<span class:list={['version-count', { empty: songCount === 0 }]}>{songCount}곡</span>
+					<span class="version-arrow" aria-hidden="true">›</span>
+				</a>
+			);
+		})}
+	</section>
+</CatalogLayout>

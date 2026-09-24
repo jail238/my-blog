@@ -5,86 +5,98 @@ import HeaderLink from './HeaderLink.astro';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
-<header>
+<header class="site-header">
 	<nav>
-		<h2><a href={`${base}/`}>{SITE_TITLE}</a></h2>
+		<a class="site-brand" href={`${base}/`}>
+			<strong>{SITE_TITLE}</strong>
+			<small>MAIMAI ARCHIVE</small>
+		</a>
 		<div class="internal-links">
-			<HeaderLink href={`${base}/`}>&#54856;</HeaderLink>
-			<HeaderLink href={`${base}/blog/`}>&#44544;</HeaderLink>
-			<HeaderLink href={`${base}/about/`}>&#49548;&#44060;</HeaderLink>
-			<HeaderLink href={`${base}/write/`}>&#xAE00;&#xC4F0;&#xAE30;</HeaderLink>
+			<HeaderLink href={`${base}/`}>홈</HeaderLink>
+			<HeaderLink href={`${base}/levels/`}>레벨 순</HeaderLink>
+			<HeaderLink href={`${base}/versions/`}>버전 순</HeaderLink>
 		</div>
 	</nav>
 </header>
 <style>
-	header {
-		background: rgba(255, 255, 255, 78%);
-		backdrop-filter: blur(18px);
-		border-bottom: 1px solid rgba(var(--line), 62%);
+	.site-header {
+		background: rgba(255, 255, 255, 0.94);
+		backdrop-filter: blur(14px);
+		border-bottom: 1px solid rgb(var(--line));
 		margin: 0;
-		padding: 0 1.2rem;
+		padding: 0 1.25rem;
 		position: sticky;
 		top: 0;
-		z-index: 10;
+		z-index: 20;
 	}
 	nav {
 		align-items: center;
 		display: flex;
 		justify-content: space-between;
 		margin: 0 auto;
-		max-width: 960px;
-		min-height: 68px;
+		max-width: 1180px;
+		min-height: 64px;
 	}
-	h2 {
-		font-size: 1rem;
-		font-weight: 800;
-		letter-spacing: 0;
-		margin: 0;
-	}
-	h2 a,
-	h2 a.active {
+	.site-brand {
+		align-items: baseline;
 		color: rgb(var(--text));
+		display: flex;
+		gap: 0.65rem;
 		text-decoration: none;
+	}
+	.site-brand strong {
+		font-size: 1rem;
+		font-weight: 820;
+	}
+	.site-brand small {
+		color: rgb(var(--muted));
+		font-size: 0.66rem;
+		font-weight: 760;
 	}
 	.internal-links {
 		align-items: center;
 		display: flex;
-		gap: 0.3rem;
+		gap: 1.4rem;
 	}
 	nav a {
-		border-radius: 999px;
 		color: rgb(var(--muted));
-		font-size: 0.88rem;
-		font-weight: 680;
-		padding: 0.45rem 0.78rem;
+		font-size: 0.86rem;
+		font-weight: 700;
+		padding: 1.2rem 0;
+		position: relative;
 		text-decoration: none;
-		transition:
-			background-color 140ms ease,
-			color 140ms ease;
+		transition: color 140ms ease;
 	}
 	nav a:hover,
 	nav a.active {
-		background: rgba(139, 150, 165, 0.1);
 		color: rgb(var(--text));
 		text-decoration: none;
 	}
+	.internal-links :global(a.active)::after {
+		background: rgb(var(--text));
+		bottom: -1px;
+		content: '';
+		height: 2px;
+		left: 0;
+		position: absolute;
+		width: 100%;
+	}
 	@media (max-width: 720px) {
-		header {
-			padding: 0.75rem 1rem;
-			position: static;
+		.site-header {
+			padding: 0 0.9rem;
 		}
 		nav {
-			align-items: center;
-			flex-direction: column;
-			gap: 0.55rem;
-			min-height: auto;
+			min-height: 58px;
+		}
+		.site-brand small {
+			display: none;
 		}
 		.internal-links {
-			flex-wrap: wrap;
-			justify-content: center;
+			gap: 1rem;
 		}
 		nav a {
-			padding: 0.35rem 0.55rem;
+			font-size: 0.8rem;
+			padding: 1.05rem 0;
 		}
 	}
 </style>

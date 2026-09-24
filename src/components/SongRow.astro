@@ -1,0 +1,20 @@
+---
+import type { Song } from '../data/maimai';
+import SongArtwork from './SongArtwork.astro';
+
+interface Props {
+	song: Song;
+}
+
+const { song } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<a class="song-row" href={`${base}/songs/${song.id}/`}>
+	<SongArtwork title={song.title} tone={song.tone} />
+	<span>
+		<strong>{song.title}</strong>
+		<small>{song.artist}</small>
+	</span>
+	<span class="song-row-arrow" aria-hidden="true">›</span>
+</a>

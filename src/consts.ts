@@ -1,7 +1,7 @@
 // Global site data.
 
 export const SITE_TITLE = "M.S.K.";
-export const SITE_DESCRIPTION = "archive of misaki.";
+export const SITE_DESCRIPTION = "M.S.K. maimai record archive.";
 
 export const CATEGORIES = {
 	math: '수학',

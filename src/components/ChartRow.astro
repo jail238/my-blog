@@ -1,0 +1,30 @@
+---
+import type { Chart, Song } from '../data/maimai';
+import SongArtwork from './SongArtwork.astro';
+
+interface Props {
+	chart: Chart;
+	song: Song;
+}
+
+const { chart, song } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const typeLabel = chart.type === 'STANDARD' ? 'ST' : 'DX';
+const difficultyClass = chart.difficulty === 'Re:MASTER' ? 'remaster' : chart.difficulty.toLowerCase();
+---
+
+<a class="chart-row" href={`${base}/songs/${song.id}/`}>
+	<SongArtwork title={song.title} tone={song.tone} compact />
+	<span class="chart-song">
+		<strong>{song.title}</strong>
+		<small>{song.artist}</small>
+	</span>
+	<span class="chart-tags">
+		<span class:list={['type-badge', `type-${chart.type.toLowerCase()}`]}>{typeLabel}</span>
+		<span class:list={['difficulty-badge', `difficulty-${difficultyClass}`]}>{chart.difficulty}</span>
+	</span>
+	<span class="chart-level">
+		<strong>{chart.level}</strong>
+		{chart.constant && <small>{chart.constant.toFixed(1)}</small>}
+	</span>
+</a>

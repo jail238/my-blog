@@ -1,0 +1,45 @@
+---
+import ChartRow from '../../components/ChartRow.astro';
+import { chartsForLevel, levelToSlug, registeredLevels, songById } from '../../data/maimai';
+import CatalogLayout from '../../layouts/CatalogLayout.astro';
+import { SITE_TITLE } from '../../consts';
+
+export function getStaticPaths() {
+	return registeredLevels().map((level) => ({
+		params: { level: levelToSlug(level) },
+		props: { level },
+	}));
+}
+
+const { level } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const charts = chartsForLevel(level);
+const levels = registeredLevels().slice().reverse();
+---
+
+<CatalogLayout title={`LEVEL ${level} | ${SITE_TITLE}`} description={`maimai LEVEL ${level} 채보 목록`} pageClass="level-detail-page">
+	<nav class="catalog-breadcrumb" aria-label="현재 위치">
+		<a href={`${base}/levels/`}>레벨 순</a>
+		<span aria-hidden="true">/</span>
+		<strong>{level}</strong>
+	</nav>
+
+	<header class="catalog-page-header compact">
+		<p class="catalog-kicker">LEVEL</p>
+		<h1>{level}</h1>
+		<p>{charts.length} CHARTS</p>
+	</header>
+
+	<nav class="level-strip" aria-label="다른 레벨">
+		{levels.map((item) => (
+			<a class:list={{ active: item === level }} href={`${base}/levels/${levelToSlug(item)}/`}>{item}</a>
+		))}
+	</nav>
+
+	<section class="chart-list" aria-label={`LEVEL ${level} 채보`}>
+		{charts.map((chart) => {
+			const song = songById.get(chart.songId);
+			return song && <ChartRow chart={chart} song={song} />;
+		})}
+	</section>
+</CatalogLayout>

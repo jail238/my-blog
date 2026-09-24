@@ -1,0 +1,88 @@
+---
+import SongArtwork from '../../components/SongArtwork.astro';
+import { SONGS, chartsForSong, versionById } from '../../data/maimai';
+import CatalogLayout from '../../layouts/CatalogLayout.astro';
+import { SITE_TITLE } from '../../consts';
+
+export function getStaticPaths() {
+	return SONGS.map((song) => ({
+		params: { song: song.id },
+		props: { song },
+	}));
+}
+
+const { song } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const version = versionById.get(song.versionId);
+const charts = chartsForSong(song.id);
+---
+
+<CatalogLayout title={`${song.title} | ${SITE_TITLE}`} description={`${song.title} maimai 채보 및 기록`} pageClass="song-detail-page">
+	<nav class="catalog-breadcrumb" aria-label="현재 위치">
+		<a href={`${base}/versions/`}>버전 순</a>
+		<span aria-hidden="true">/</span>
+		{version && <a href={`${base}/versions/${version.id}/`}>{version.shortName}</a>}
+		<span aria-hidden="true">/</span>
+		<strong>{song.title}</strong>
+	</nav>
+
+	<header class="song-detail-header">
+		<SongArtwork title={song.title} tone={song.tone} />
+		<div>
+			<p class="catalog-kicker">{song.genre}</p>
+			<h1>{song.title}</h1>
+			<p class="song-artist">{song.artist}</p>
+			{version && <a class="song-version-link" href={`${base}/versions/${version.id}/`}>{version.name}</a>}
+		</div>
+	</header>
+
+	<div class:list={['song-detail-grid', { 'has-result': song.resultImage }]}>
+		<section class="song-chart-section" aria-labelledby="chart-heading">
+			<div class="catalog-section-heading">
+				<div>
+					<p class="catalog-kicker">CHARTS</p>
+					<h2 id="chart-heading">채보</h2>
+				</div>
+			</div>
+			{
+				charts.length > 0 ? (
+					<div class="song-chart-list">
+						{charts.map((chart) => {
+							const difficultyClass = chart.difficulty === 'Re:MASTER' ? 'remaster' : chart.difficulty.toLowerCase();
+							return (
+								<div class="song-chart-row">
+									<div class="song-chart-meta">
+										<span class:list={['type-badge', `type-${chart.type.toLowerCase()}`]}>{chart.type === 'STANDARD' ? 'ST' : 'DX'}</span>
+										<span class:list={['difficulty-badge', `difficulty-${difficultyClass}`]}>{chart.difficulty}</span>
+									</div>
+									<div class="song-chart-level">
+										<small>LEVEL</small>
+										<strong>{chart.level}</strong>
+										{chart.constant && <span>{chart.constant.toFixed(1)}</span>}
+									</div>
+									{chart.record && (
+										<div class="song-chart-record">
+											<strong>{chart.record.achievement}</strong>
+											<span>{chart.record.rank}{chart.record.combo ? ` · ${chart.record.combo}` : ''}</span>
+										</div>
+									)}
+								</div>
+							);
+						})}
+					</div>
+				) : (
+					<div class="catalog-empty compact"><strong>등록된 채보가 없습니다.</strong></div>
+				)
+			}
+		</section>
+
+		{
+			song.resultImage && (
+				<figure class="result-image">
+					<img src={`${base}${song.resultImage}`} alt={`${song.title} 플레이 결과`} />
+					<figcaption>PLAY RESULT</figcaption>
+				</figure>
+			)
+		}
+	</div>
+</CatalogLayout>

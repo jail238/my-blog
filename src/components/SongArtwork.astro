@@ -1,0 +1,17 @@
+---
+import type { ArtworkTone } from '../data/maimai';
+
+interface Props {
+	title: string;
+	tone: ArtworkTone;
+	image?: string;
+	compact?: boolean;
+}
+
+const { title, tone, image, compact = false } = Astro.props;
+const initial = title.trim().slice(0, 1).toUpperCase();
+---
+
+<span class:list={['song-artwork', `tone-${tone}`, { compact }]} aria-hidden="true">
+	{image ? <img src={image} alt="" loading="lazy" /> : <span>{initial}</span>}
+</span>
