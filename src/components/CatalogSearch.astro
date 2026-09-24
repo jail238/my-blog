@@ -1,0 +1,63 @@
+---
+interface Props {
+	id: string;
+	targetId: string;
+	placeholder: string;
+	initialCount: number;
+	sortLabel: string;
+	emptyMessage: string;
+}
+
+const { id, targetId, placeholder, initialCount, sortLabel, emptyMessage } = Astro.props;
+const countId = `${id}-count`;
+const emptyId = `${id}-empty`;
+---
+
+<form
+	class="record-filters catalog-index-filters"
+	id={`${id}-filters`}
+	data-list-filter
+	data-target={targetId}
+	data-count={countId}
+	data-empty={emptyId}
+>
+	<label class="record-search">
+		<span>검색</span>
+		<input type="search" placeholder={placeholder} autocomplete="off" />
+	</label>
+	<button type="reset">초기화</button>
+</form>
+
+<div class="record-result-bar" aria-live="polite">
+	<strong id={countId}>{initialCount.toLocaleString('ko-KR')}개</strong>
+	<span>{sortLabel}</span>
+</div>
+
+<div class="catalog-empty compact" id={emptyId} hidden><strong>{emptyMessage}</strong></div>
+
+<script>
+	for (const form of document.querySelectorAll<HTMLFormElement>('[data-list-filter]')) {
+		const input = form.querySelector('input[type="search"]');
+		const target = document.getElementById(form.dataset.target ?? '');
+		const count = document.getElementById(form.dataset.count ?? '');
+		const empty = document.getElementById(form.dataset.empty ?? '');
+
+		if (!(input instanceof HTMLInputElement) || !target) continue;
+		const rows = [...target.querySelectorAll<HTMLElement>('[data-search]')];
+
+		function applyFilter() {
+			const query = input.value.trim().toLocaleLowerCase('ko');
+			const matches = rows.filter((row) => !query || row.dataset.search?.includes(query));
+			const matchSet = new Set(matches);
+
+			for (const row of rows) row.hidden = !matchSet.has(row);
+			target.hidden = matches.length === 0;
+			if (count) count.textContent = `${matches.length.toLocaleString('ko-KR')}개`;
+			if (empty instanceof HTMLElement) empty.hidden = matches.length > 0;
+		}
+
+		form.addEventListener('input', applyFilter);
+		form.addEventListener('reset', () => requestAnimationFrame(applyFilter));
+		applyFilter();
+	}
+</script>

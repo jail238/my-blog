@@ -70,6 +70,10 @@ img {
 	max-width: 100%;
 }
 
+[hidden] {
+	display: none !important;
+}
+
 .catalog-page {
 	max-width: calc(100% - 2.5rem);
 	padding: 2rem 0 5rem;
@@ -574,6 +578,15 @@ a.record-refresh-button.compact {
 	font-size: 0.78rem;
 	font-weight: 720;
 	padding: 0 0.9rem;
+}
+
+.record-filters.catalog-index-filters {
+	grid-template-columns: minmax(220px, 1fr) auto;
+}
+
+.record-filters.catalog-index-filters button {
+	grid-column: auto;
+	min-width: 76px;
 }
 
 .record-filters input:focus,
@@ -1227,6 +1240,14 @@ a.record-refresh-button.compact {
 
 	.record-filters button {
 		grid-column: auto;
+	}
+
+	.record-filters.catalog-index-filters {
+		grid-template-columns: 1fr;
+	}
+
+	.record-filters.catalog-index-filters button {
+		width: 100%;
 	}
 
 	.record-list-row {
