@@ -136,6 +136,11 @@ const difficultyOrder: Record<Difficulty, number> = {
 	'Re:MASTER': 5,
 };
 
+const apOrder: Record<string, number> = {
+	'AP+': 2,
+	AP: 1,
+};
+
 export const versionsNewestFirst = [...VERSIONS].sort((a, b) => b.order - a.order);
 export const songById = new Map(SONGS.map((song) => [song.id, song]));
 export const versionById = new Map(VERSIONS.map((version) => [version.id, version]));
@@ -217,6 +222,12 @@ export function levelToSlug(level: string) {
 
 export function chartsForLevel(level: string) {
 	return CHARTS.filter((chart) => chart.level === level).sort((a, b) => {
+		const apDifference = (apOrder[b.record?.combo ?? ''] ?? 0) - (apOrder[a.record?.combo ?? ''] ?? 0);
+		if (apDifference !== 0) return apDifference;
+
+		const achievementDifference = (b.record?.achievementValue ?? 0) - (a.record?.achievementValue ?? 0);
+		if (achievementDifference !== 0) return achievementDifference;
+
 		const constantDifference = (b.constant ?? 0) - (a.constant ?? 0);
 		if (constantDifference !== 0) return constantDifference;
 
@@ -245,8 +256,8 @@ export function registeredLevels() {
 }
 
 export const RECORDED_CHARTS = CHARTS.filter((chart) => chart.record).sort((a, b) => {
-	const ratingDifference = (b.record?.rating ?? 0) - (a.record?.rating ?? 0);
-	if (ratingDifference !== 0) return ratingDifference;
+	const apDifference = (apOrder[b.record?.combo ?? ''] ?? 0) - (apOrder[a.record?.combo ?? ''] ?? 0);
+	if (apDifference !== 0) return apDifference;
 
 	const achievementDifference = (b.record?.achievementValue ?? 0) - (a.record?.achievementValue ?? 0);
 	if (achievementDifference !== 0) return achievementDifference;

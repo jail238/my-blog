@@ -14,6 +14,8 @@ The primary catalog has two views.
 
 - `Level`: chart-based index. STANDARD and DELUXE charts are stored and displayed separately as `ST` and `DX`.
 - `Version`: song-based index. Each song appears once under its first recorded version.
+- Level pages can be filtered by song, artist, chart type, difficulty, and internal level. Recorded results are ordered by AP+, AP, then achievement rate.
+- Version pages can be searched by song or artist. The records page also supports version filtering.
 
 The public catalog is pinned to the International `CiRCLE PLUS` chart set. Public play records are imported from the Maishift profile and mapped to the same chart catalog.
 

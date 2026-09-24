@@ -542,6 +542,10 @@ a.record-refresh-button.compact {
 	padding: 0.9rem;
 }
 
+.records-filter-grid {
+	grid-template-columns: minmax(220px, 1fr) repeat(4, minmax(104px, 0.42fr)) auto;
+}
+
 .record-filters label {
 	display: grid;
 	gap: 0.3rem;
@@ -580,11 +584,11 @@ a.record-refresh-button.compact {
 	padding: 0 0.9rem;
 }
 
-.record-filters.catalog-index-filters {
+.record-filters.compact-search-filters {
 	grid-template-columns: minmax(220px, 1fr) auto;
 }
 
-.record-filters.catalog-index-filters button {
+.record-filters.compact-search-filters button {
 	grid-column: auto;
 	min-width: 76px;
 }
@@ -640,6 +644,8 @@ a.record-refresh-button.compact {
 }
 
 .record-list-row[hidden],
+.chart-row[hidden],
+.song-row[hidden],
 .record-more-button[hidden],
 #record-empty[hidden] {
 	display: none !important;
@@ -1178,8 +1184,20 @@ a.record-refresh-button.compact {
 		grid-template-columns: minmax(200px, 1fr) repeat(2, minmax(108px, 0.45fr));
 	}
 
+	.record-search {
+		grid-column: 1 / -1;
+	}
+
 	.record-filters button {
-		grid-column: 3;
+		grid-column: auto;
+	}
+
+	.record-filters.compact-search-filters {
+		grid-template-columns: minmax(220px, 1fr) auto;
+	}
+
+	.record-filters.compact-search-filters .record-search {
+		grid-column: auto;
 	}
 
 	.record-list-row {
@@ -1273,11 +1291,13 @@ a.record-refresh-button.compact {
 		grid-column: auto;
 	}
 
-	.record-filters.catalog-index-filters {
+	.record-filters.compact-search-filters {
 		grid-template-columns: 1fr;
 	}
 
-	.record-filters.catalog-index-filters button {
+	.record-filters.compact-search-filters .record-search,
+	.record-filters.compact-search-filters button {
+		grid-column: auto;
 		width: 100%;
 	}
 

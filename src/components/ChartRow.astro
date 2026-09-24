@@ -20,7 +20,14 @@ const comboIcons: Record<string, { file: string; label: string }> = {
 const comboIcon = chart.record?.combo ? comboIcons[chart.record.combo] : undefined;
 ---
 
-<a class="chart-row" href={`${base}/songs/${song.id}/`}>
+<a
+	class="chart-row"
+	href={`${base}/songs/${song.id}/`}
+	data-search={`${song.title} ${song.artist}`.toLocaleLowerCase('ko')}
+	data-type={chart.type}
+	data-difficulty={chart.difficulty}
+	data-constant={chart.constant?.toFixed(1)}
+>
 	<SongArtwork song={song} compact />
 	<span class="chart-song">
 		<strong>{song.title}</strong>

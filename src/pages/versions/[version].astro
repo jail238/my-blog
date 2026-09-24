@@ -1,5 +1,6 @@
 ---
 import SongRow from '../../components/SongRow.astro';
+import CatalogSearch from '../../components/CatalogSearch.astro';
 import { VERSIONS, songsForVersion } from '../../data/maimai';
 import CatalogLayout from '../../layouts/CatalogLayout.astro';
 import { SITE_TITLE } from '../../consts';
@@ -31,9 +32,19 @@ const songs = songsForVersion(version.id);
 
 	{
 		songs.length > 0 ? (
-			<section class="song-list" aria-label={`${version.shortName} 수록곡`}>
-				{songs.map((song) => <SongRow song={song} />)}
-			</section>
+			<>
+				<CatalogSearch
+					id="version-songs"
+					targetId="version-song-list"
+					placeholder="곡명 또는 아티스트"
+					initialCount={songs.length}
+					sortLabel="곡명 순"
+					emptyMessage="조건에 맞는 곡이 없습니다."
+				/>
+				<section class="song-list" id="version-song-list" aria-label={`${version.shortName} 수록곡`}>
+					{songs.map((song) => <SongRow song={song} />)}
+				</section>
+			</>
 		) : (
 			<section class="catalog-empty">
 				<strong>등록된 곡이 없습니다.</strong>

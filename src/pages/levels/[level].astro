@@ -15,6 +15,12 @@ const { level } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const charts = chartsForLevel(level);
 const levels = registeredLevels().slice().reverse();
+const internalLevels = [...new Set(
+	charts
+		.map((chart) => chart.constant)
+		.filter((constant): constant is number => constant !== undefined)
+		.map((constant) => constant.toFixed(1)),
+)].sort((a, b) => Number(a) - Number(b));
 ---
 
 <CatalogLayout title={`LEVEL ${level} | ${SITE_TITLE}`} description={`maimai LEVEL ${level} 채보 목록`} pageClass="level-detail-page">
@@ -36,10 +42,87 @@ const levels = registeredLevels().slice().reverse();
 		))}
 	</nav>
 
-	<section class="chart-list" aria-label={`LEVEL ${level} 채보`}>
+	<form class="record-filters level-chart-filters" id="level-chart-filters">
+		<label class="record-search">
+			<span>검색</span>
+			<input id="level-chart-query" type="search" placeholder="곡명 또는 아티스트" autocomplete="off" />
+		</label>
+		<label>
+			<span>채보</span>
+			<select id="level-chart-type">
+				<option value="">전체</option>
+				<option value="STANDARD">ST</option>
+				<option value="DX">DX</option>
+			</select>
+		</label>
+		<label>
+			<span>난이도</span>
+			<select id="level-chart-difficulty">
+				<option value="">전체</option>
+				<option value="BASIC">BASIC</option>
+				<option value="ADVANCED">ADVANCED</option>
+				<option value="EXPERT">EXPERT</option>
+				<option value="MASTER">MASTER</option>
+				<option value="Re:MASTER">Re:MASTER</option>
+			</select>
+		</label>
+		<label>
+			<span>내부 레벨</span>
+			<select id="level-chart-constant">
+				<option value="">전체</option>
+				{internalLevels.map((constant) => <option value={constant}>{constant}</option>)}
+			</select>
+		</label>
+		<button type="reset">초기화</button>
+	</form>
+
+	<div class="record-result-bar" aria-live="polite">
+		<strong id="level-chart-count">{charts.length.toLocaleString('ko-KR')}개</strong>
+		<span>AP+ · AP · 달성률 순</span>
+	</div>
+
+	<section class="chart-list" id="level-chart-list" aria-label={`LEVEL ${level} 채보`}>
 		{charts.map((chart) => {
 			const song = songById.get(chart.songId);
 			return song && <ChartRow chart={chart} song={song} />;
 		})}
 	</section>
+	<div class="catalog-empty compact" id="level-chart-empty" hidden><strong>조건에 맞는 채보가 없습니다.</strong></div>
 </CatalogLayout>
+
+<script>
+	const form = document.querySelector('#level-chart-filters');
+	const queryInput = document.querySelector('#level-chart-query');
+	const typeSelect = document.querySelector('#level-chart-type');
+	const difficultySelect = document.querySelector('#level-chart-difficulty');
+	const constantSelect = document.querySelector('#level-chart-constant');
+	const list = document.querySelector('#level-chart-list');
+	const count = document.querySelector('#level-chart-count');
+	const empty = document.querySelector('#level-chart-empty');
+	const rows = [...document.querySelectorAll<HTMLElement>('#level-chart-list .chart-row')];
+
+	function applyFilters() {
+		if (!(queryInput instanceof HTMLInputElement)) return;
+		if (!(typeSelect instanceof HTMLSelectElement)) return;
+		if (!(difficultySelect instanceof HTMLSelectElement)) return;
+		if (!(constantSelect instanceof HTMLSelectElement)) return;
+
+		const query = queryInput.value.trim().toLocaleLowerCase('ko');
+		const matches = rows.filter((row) =>
+			(!query || row.dataset.search?.includes(query)) &&
+			(!typeSelect.value || row.dataset.type === typeSelect.value) &&
+			(!difficultySelect.value || row.dataset.difficulty === difficultySelect.value) &&
+			(!constantSelect.value || row.dataset.constant === constantSelect.value),
+		);
+		const matchSet = new Set(matches);
+
+		for (const row of rows) row.hidden = !matchSet.has(row);
+		if (list instanceof HTMLElement) list.hidden = matches.length === 0;
+		if (count) count.textContent = `${matches.length.toLocaleString('ko-KR')}개`;
+		if (empty instanceof HTMLElement) empty.hidden = matches.length > 0;
+	}
+
+	form?.addEventListener('input', applyFilters);
+	form?.addEventListener('reset', () => requestAnimationFrame(applyFilters));
+	applyFilters();
+</script>

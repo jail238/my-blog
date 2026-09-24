@@ -1,5 +1,4 @@
 ---
-import CatalogSearch from '../../components/CatalogSearch.astro';
 import { CATALOG_SOURCE, CHARTS, registeredLevels } from '../../data/maimai';
 import CatalogLayout from '../../layouts/CatalogLayout.astro';
 import { SITE_TITLE } from '../../consts';
@@ -20,18 +19,9 @@ const levels = registeredLevels().slice().reverse();
 		<span><b class="type-badge type-dx">DX</b> DELUXE</span>
 	</div>
 
-	<CatalogSearch
-		id="level-index"
-		targetId="level-index-list"
-		placeholder="레벨"
-		initialCount={levels.length}
-		sortLabel="높은 레벨 순"
-		emptyMessage="조건에 맞는 레벨이 없습니다."
-	/>
-
 	<section class="level-index-grid" id="level-index-list" aria-label="레벨 목록">
 		{levels.map((level) => (
-			<a href={`${base}/levels/${level.replace('+', '-plus')}/`} data-search={level.toLocaleLowerCase('ko')}>
+			<a href={`${base}/levels/${level.replace('+', '-plus')}/`}>
 				<span>LEVEL</span>
 				<strong>{level}</strong>
 				<small>{CHARTS.filter((chart) => chart.level === level).length} CHARTS</small>

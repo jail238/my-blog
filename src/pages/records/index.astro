@@ -1,6 +1,6 @@
 ---
 import SongArtwork from '../../components/SongArtwork.astro';
-import { LEVEL_ORDER, MAISHIFT_SOURCE, RECORDED_CHARTS, songById } from '../../data/maimai';
+import { LEVEL_ORDER, MAISHIFT_SOURCE, RECORDED_CHARTS, songById, versionsNewestFirst } from '../../data/maimai';
 import CatalogLayout from '../../layouts/CatalogLayout.astro';
 import { RECORD_REFRESH_URL, SITE_TITLE } from '../../consts';
 
@@ -38,7 +38,7 @@ const filterLevels = [...LEVEL_ORDER].reverse();
 		</p>
 	</header>
 
-	<form class="record-filters" id="record-filters">
+	<form class="record-filters records-filter-grid" id="record-filters">
 		<label class="record-search">
 			<span>검색</span>
 			<input id="record-query" type="search" placeholder="곡명 또는 아티스트" autocomplete="off" />
@@ -69,12 +69,19 @@ const filterLevels = [...LEVEL_ORDER].reverse();
 				{filterLevels.map((level) => <option value={level}>{level}</option>)}
 			</select>
 		</label>
+		<label>
+			<span>버전</span>
+			<select id="record-version">
+				<option value="">전체</option>
+				{versionsNewestFirst.map((version) => <option value={version.id}>{version.shortName}</option>)}
+			</select>
+		</label>
 		<button type="reset">초기화</button>
 	</form>
 
 	<div class="record-result-bar" aria-live="polite">
 		<strong id="record-result-count">{records.length.toLocaleString('ko-KR')}개</strong>
-		<span>레이팅 기여도 높은 순</span>
+		<span>AP+ · AP · 달성률 순</span>
 	</div>
 
 	<div class="record-list" id="record-list">
@@ -87,6 +94,7 @@ const filterLevels = [...LEVEL_ORDER].reverse();
 				data-type={chart.type}
 				data-difficulty={chart.difficulty}
 				data-level={chart.level}
+				data-version={song.versionId}
 			>
 				<SongArtwork song={song} compact />
 				<span class="record-list-song">
@@ -120,6 +128,7 @@ const filterLevels = [...LEVEL_ORDER].reverse();
 	const typeSelect = document.querySelector('#record-type');
 	const difficultySelect = document.querySelector('#record-difficulty');
 	const levelSelect = document.querySelector('#record-level');
+	const versionSelect = document.querySelector('#record-version');
 	const count = document.querySelector('#record-result-count');
 	const empty = document.querySelector('#record-empty');
 	const more = document.querySelector('#record-more');
@@ -131,6 +140,7 @@ const filterLevels = [...LEVEL_ORDER].reverse();
 		if (!(typeSelect instanceof HTMLSelectElement)) return;
 		if (!(difficultySelect instanceof HTMLSelectElement)) return;
 		if (!(levelSelect instanceof HTMLSelectElement)) return;
+		if (!(versionSelect instanceof HTMLSelectElement)) return;
 
 		if (resetLimit) limit = 50;
 		const query = queryInput.value.trim().toLocaleLowerCase('ko');
@@ -138,7 +148,8 @@ const filterLevels = [...LEVEL_ORDER].reverse();
 			(!query || row.dataset.search?.includes(query)) &&
 			(!typeSelect.value || row.dataset.type === typeSelect.value) &&
 			(!difficultySelect.value || row.dataset.difficulty === difficultySelect.value) &&
-			(!levelSelect.value || row.dataset.level === levelSelect.value),
+			(!levelSelect.value || row.dataset.level === levelSelect.value) &&
+			(!versionSelect.value || row.dataset.version === versionSelect.value),
 		);
 		const matchSet = new Set(matches.slice(0, limit));
 
