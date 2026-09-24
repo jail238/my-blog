@@ -901,7 +901,7 @@ a.record-refresh-button.compact {
 	color: rgb(var(--text));
 	display: grid;
 	gap: 0.9rem;
-	grid-template-columns: 44px minmax(0, 1fr) auto 64px;
+	grid-template-columns: 44px minmax(0, 1fr) auto minmax(128px, auto) 64px;
 	min-height: 74px;
 	padding: 0.8rem 1rem;
 	text-decoration: none;
@@ -1125,6 +1125,37 @@ a.record-refresh-button.compact {
 	font-size: 0.65rem;
 }
 
+.chart-record {
+	align-items: center;
+	display: flex;
+	gap: 0.45rem;
+	justify-content: flex-end;
+	min-width: 128px;
+}
+
+.chart-record-copy {
+	display: grid;
+	justify-items: end;
+	line-height: 1.15;
+}
+
+.chart-record-copy strong {
+	font-size: 0.82rem;
+}
+
+.chart-record-copy small {
+	color: rgb(var(--muted));
+	font-size: 0.62rem;
+	white-space: nowrap;
+}
+
+.combo-icon {
+	flex: 0 0 auto;
+	height: 32px;
+	object-fit: contain;
+	width: 32px;
+}
+
 .song-chart-record strong {
 	font-size: 0.9rem;
 }
@@ -1288,7 +1319,8 @@ a.record-refresh-button.compact {
 		gap: 0.55rem 0.75rem;
 		grid-template-areas:
 			'art song level'
-			'art tags level';
+			'art tags level'
+			'art record level';
 		grid-template-columns: 44px minmax(0, 1fr) 48px;
 		min-height: 88px;
 		padding: 0.75rem;
@@ -1297,10 +1329,29 @@ a.record-refresh-button.compact {
 	.chart-row > .song-artwork { grid-area: art; }
 	.chart-row > .chart-song { grid-area: song; }
 	.chart-row > .chart-tags { grid-area: tags; }
+	.chart-row > .chart-record { grid-area: record; }
 	.chart-row > .chart-level { grid-area: level; }
 
 	.chart-tags {
 		align-self: start;
+	}
+
+	.chart-record {
+		justify-content: flex-start;
+		min-width: 0;
+	}
+
+	.chart-record:empty {
+		display: none;
+	}
+
+	.chart-record-copy {
+		justify-items: start;
+	}
+
+	.combo-icon {
+		height: 28px;
+		width: 28px;
 	}
 
 	.difficulty-badge {

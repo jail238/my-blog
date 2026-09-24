@@ -1,10 +1,13 @@
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const SOURCE_URL = 'https://meta.salt.realtvop.top/meta.next.json';
 const COVER_BASE_URL = 'https://meta.salt.realtvop.top/covers';
-const OUTPUT_PATH = resolve(dirname(fileURLToPath(import.meta.url)), '../src/data/maimai.generated.json');
+const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
+const OUTPUT_PATH = resolve(SCRIPT_DIR, '../src/data/maimai.generated.json');
+const CIRCLE_PLUS_SNAPSHOT_PATH = resolve(SCRIPT_DIR, '../src/data/circle-plus.generated.json');
+const TARGET_GAME_VERSION = 'CiRCLE PLUS';
 
 const VERSION_DEFINITIONS = [
 	['maimai', 'maimai', 'maimai'],
@@ -60,14 +63,28 @@ const versions = VERSION_DEFINITIONS.map(([sourceName, id, shortName], index) =>
 	sourceName,
 }));
 
-const versionBySourceName = new Map(versions.map((version) => [version.sourceName, version]));
-
 function coverUrl(id) {
 	return `${COVER_BASE_URL}/${String(id).padStart(6, '0')}.png`;
 }
 
 function chartId(songId, type, difficulty) {
 	return `${songId}-${type.toLowerCase()}-${difficulty.toLowerCase().replace(':', '')}`;
+}
+
+const circlePlusSnapshot = JSON.parse(await readFile(CIRCLE_PLUS_SNAPSHOT_PATH, 'utf8'));
+if (circlePlusSnapshot.source.gameVersion !== TARGET_GAME_VERSION) {
+	throw new Error(
+		`Pinned catalog version mismatch: ${circlePlusSnapshot.source.gameVersion} !== ${TARGET_GAME_VERSION}`,
+	);
+}
+
+const pinnedChartById = new Map(circlePlusSnapshot.charts.map((chart) => [chart.chartId, chart]));
+const pinnedSongById = new Map(circlePlusSnapshot.songs.map((song) => [song.songId, song]));
+if (
+	pinnedChartById.size !== circlePlusSnapshot.totalCharts ||
+	pinnedSongById.size !== circlePlusSnapshot.totalSongs
+) {
+	throw new Error(`${TARGET_GAME_VERSION} snapshot contains duplicate chart or song ids.`);
 }
 
 const response = await fetch(SOURCE_URL);
@@ -87,22 +104,19 @@ for (const music of metadata.musics) {
 
 	if (internationalCharts.length === 0) continue;
 
-	const chartVersions = internationalCharts
-		.map((chart) => versionBySourceName.get(String(chart.regions.intl.version)))
-		.filter(Boolean)
-		.sort((a, b) => a.order - b.order);
-
-	if (chartVersions.length === 0) {
-		throw new Error(`No known international version for ${music.id} ${music.title}`);
+	const songId = String(music.id);
+	const pinnedSong = pinnedSongById.get(songId);
+	if (!pinnedSong) continue;
+	if (!versions.some((version) => version.id === pinnedSong.versionId)) {
+		throw new Error(`No known pinned version for ${music.id} ${music.title}: ${pinnedSong.versionId}`);
 	}
 
-	const songId = String(music.id);
 	songs.push({
 		id: songId,
 		sourceId: music.id,
 		title: music.title,
 		artist: music.artist,
-		versionId: chartVersions[0].id,
+		versionId: pinnedSong.versionId,
 		genre: music.category,
 		artworkUrl: coverUrl(music.id),
 	});
@@ -110,13 +124,17 @@ for (const music of metadata.musics) {
 	for (const chart of internationalCharts) {
 		const difficulty = DIFFICULTIES.get(chart.difficulty);
 		const type = chart.type === 'sd' ? 'STANDARD' : 'DX';
+		const id = chartId(songId, type, difficulty);
+		const pinnedChart = pinnedChartById.get(id);
+		if (!pinnedChart) continue;
+
 		charts.push({
-			id: chartId(songId, type, difficulty),
+			id,
 			songId,
 			type,
 			difficulty,
-			level: chart.regions.intl.level,
-			constant: chart.regions.intl.internalLevel,
+			level: pinnedChart.level,
+			constant: pinnedChart.constant,
 		});
 	}
 }
@@ -129,10 +147,22 @@ if (duplicateSongIds.length > 0) {
 	throw new Error(`Duplicate song ids: ${duplicateSongIds.map((song) => song.id).join(', ')}`);
 }
 
+if (songs.length !== circlePlusSnapshot.totalSongs || charts.length !== circlePlusSnapshot.totalCharts) {
+	const generatedChartIds = new Set(charts.map((chart) => chart.id));
+	const missingChartIds = [...pinnedChartById.keys()].filter((id) => !generatedChartIds.has(id));
+	throw new Error(
+		`${TARGET_GAME_VERSION} catalog coverage mismatch: ${songs.length}/${circlePlusSnapshot.totalSongs} songs, ` +
+			`${charts.length}/${circlePlusSnapshot.totalCharts} charts. Missing charts: ${missingChartIds.slice(0, 20).join(', ')}`,
+	);
+}
+
 const output = {
 	source: {
 		url: SOURCE_URL,
 		region: 'intl',
+		gameVersion: TARGET_GAME_VERSION,
+		chartDataUrl: circlePlusSnapshot.source.recordsUrl,
+		chartDataPinnedAt: circlePlusSnapshot.source.generatedAt,
 		sourceUpdatedAt,
 		generatedAt: new Date().toISOString(),
 	},
@@ -147,6 +177,6 @@ await writeFile(OUTPUT_PATH, `${JSON.stringify(output, null, 2)}\n`, 'utf8');
 const versionCounts = new Map(versions.map((version) => [version.id, 0]));
 for (const song of songs) versionCounts.set(song.versionId, versionCounts.get(song.versionId) + 1);
 
-console.log(`International catalog: ${songs.length} songs, ${charts.length} charts`);
+console.log(`${TARGET_GAME_VERSION} International catalog: ${songs.length} songs, ${charts.length} charts`);
 console.log(`MAGiCAL: ${versionCounts.get('magical')} songs`);
 console.log(`Wrote ${OUTPUT_PATH}`);

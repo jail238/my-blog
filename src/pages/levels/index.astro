@@ -1,6 +1,6 @@
 ---
 import CatalogSearch from '../../components/CatalogSearch.astro';
-import { CHARTS, registeredLevels } from '../../data/maimai';
+import { CATALOG_SOURCE, CHARTS, registeredLevels } from '../../data/maimai';
 import CatalogLayout from '../../layouts/CatalogLayout.astro';
 import { SITE_TITLE } from '../../consts';
 
@@ -12,7 +12,7 @@ const levels = registeredLevels().slice().reverse();
 	<header class="catalog-page-header">
 		<p class="catalog-kicker">LEVEL INDEX</p>
 		<h1>레벨 순</h1>
-		<p>{CHARTS.length} CHARTS</p>
+		<p>{CHARTS.length} CHARTS · {CATALOG_SOURCE.gameVersion}</p>
 	</header>
 
 	<div class="chart-type-key page-key" aria-label="채보 유형">

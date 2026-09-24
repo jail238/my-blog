@@ -1,6 +1,6 @@
 ---
 import ChartRow from '../../components/ChartRow.astro';
-import { chartsForLevel, levelToSlug, registeredLevels, songById } from '../../data/maimai';
+import { CATALOG_SOURCE, chartsForLevel, levelToSlug, registeredLevels, songById } from '../../data/maimai';
 import CatalogLayout from '../../layouts/CatalogLayout.astro';
 import { SITE_TITLE } from '../../consts';
 
@@ -27,7 +27,7 @@ const levels = registeredLevels().slice().reverse();
 	<header class="catalog-page-header compact">
 		<p class="catalog-kicker">LEVEL</p>
 		<h1>{level}</h1>
-		<p>{charts.length} CHARTS</p>
+		<p>{charts.length} CHARTS · {CATALOG_SOURCE.gameVersion}</p>
 	</header>
 
 	<nav class="level-strip" aria-label="다른 레벨">

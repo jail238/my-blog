@@ -2,8 +2,11 @@
   "source": {
     "url": "https://meta.salt.realtvop.top/meta.next.json",
     "region": "intl",
+    "gameVersion": "CiRCLE PLUS",
+    "chartDataUrl": "https://maimai.shiftpsh.com/profile/elixir/records",
+    "chartDataPinnedAt": "2026-09-24T13:28:56.703Z",
     "sourceUpdatedAt": "Tue, 22 Sep 2026 02:28:10 GMT",
-    "generatedAt": "2026-09-24T11:26:08.316Z"
+    "generatedAt": "2026-09-24T13:29:35.177Z"
   },
   "versions": [
     {
@@ -12811,7 +12814,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.9
+      "constant": 7.2
     },
     {
       "id": "8-standard-basic",
@@ -12843,7 +12846,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.8
+      "constant": 7.1
     },
     {
       "id": "9-standard-basic",
@@ -12875,7 +12878,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "17-standard-basic",
@@ -12915,7 +12918,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 7.5
+      "constant": 6.8
     },
     {
       "id": "18-standard-basic",
@@ -12947,7 +12950,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "22-standard-basic",
@@ -12987,7 +12990,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "23-standard-basic",
@@ -13027,7 +13030,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "24-standard-basic",
@@ -13067,7 +13070,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.1
+      "constant": 7.4
     },
     {
       "id": "25-standard-basic",
@@ -13099,7 +13102,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 7.5
+      "constant": 6.8
     },
     {
       "id": "27-standard-basic",
@@ -13131,7 +13134,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "30-dx-basic",
@@ -13163,7 +13166,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.6
+      "constant": 7.9
     },
     {
       "id": "30-standard-basic",
@@ -13195,7 +13198,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9.1
+      "constant": 8.4
     },
     {
       "id": "31-standard-basic",
@@ -13227,7 +13230,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.8
+      "constant": 7.1
     },
     {
       "id": "35-standard-basic",
@@ -13259,7 +13262,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.9
+      "constant": 8.2
     },
     {
       "id": "38-standard-basic",
@@ -13291,7 +13294,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.9
+      "constant": 7.2
     },
     {
       "id": "40-standard-basic",
@@ -13323,7 +13326,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.7
+      "constant": 8
     },
     {
       "id": "42-standard-basic",
@@ -13387,7 +13390,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "44-standard-basic",
@@ -13419,7 +13422,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "46-standard-basic",
@@ -13451,7 +13454,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9.2
+      "constant": 8.5
     },
     {
       "id": "47-standard-basic",
@@ -13491,7 +13494,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.9
+      "constant": 7.2
     },
     {
       "id": "53-standard-basic",
@@ -13523,7 +13526,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9
+      "constant": 8.3
     },
     {
       "id": "56-standard-basic",
@@ -13555,7 +13558,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.7
+      "constant": 7
     },
     {
       "id": "58-standard-basic",
@@ -13595,7 +13598,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.9
+      "constant": 9.3
     },
     {
       "id": "61-standard-basic",
@@ -13635,7 +13638,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.1
+      "constant": 7.4
     },
     {
       "id": "62-standard-basic",
@@ -13675,7 +13678,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "63-standard-basic",
@@ -13707,7 +13710,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.7
+      "constant": 8
     },
     {
       "id": "64-standard-basic",
@@ -13739,7 +13742,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "65-standard-basic",
@@ -13779,7 +13782,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9.1
+      "constant": 8.4
     },
     {
       "id": "66-standard-basic",
@@ -13819,7 +13822,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.4
+      "constant": 7.7
     },
     {
       "id": "67-standard-basic",
@@ -13851,7 +13854,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "68-standard-basic",
@@ -13883,7 +13886,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "69-standard-basic",
@@ -13947,7 +13950,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.6
+      "constant": 7.9
     },
     {
       "id": "70-standard-basic",
@@ -13987,7 +13990,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "71-standard-basic",
@@ -14027,7 +14030,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "73-standard-basic",
@@ -14059,7 +14062,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.7
+      "constant": 8
     },
     {
       "id": "75-standard-basic",
@@ -14091,7 +14094,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.7
+      "constant": 7
     },
     {
       "id": "76-standard-basic",
@@ -14123,7 +14126,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "77-dx-basic",
@@ -14155,7 +14158,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "77-standard-basic",
@@ -14187,7 +14190,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.7
+      "constant": 7
     },
     {
       "id": "78-standard-basic",
@@ -14219,7 +14222,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 7.3
+      "constant": 6.6
     },
     {
       "id": "79-standard-basic",
@@ -14251,7 +14254,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "80-standard-basic",
@@ -14291,7 +14294,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.1
+      "constant": 7.4
     },
     {
       "id": "81-standard-basic",
@@ -14331,7 +14334,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "82-standard-basic",
@@ -14363,7 +14366,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.8
+      "constant": 9.1
     },
     {
       "id": "83-standard-basic",
@@ -14395,7 +14398,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.4
+      "constant": 8.7
     },
     {
       "id": "84-standard-basic",
@@ -14427,7 +14430,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.2
+      "constant": 7.5
     },
     {
       "id": "85-standard-basic",
@@ -14467,7 +14470,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.2
+      "constant": 7.5
     },
     {
       "id": "100-standard-basic",
@@ -14507,7 +14510,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.8
+      "constant": 8.1
     },
     {
       "id": "101-standard-basic",
@@ -14539,7 +14542,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.9
+      "constant": 8.2
     },
     {
       "id": "102-standard-basic",
@@ -14603,7 +14606,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "106-standard-basic",
@@ -14635,7 +14638,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "107-standard-basic",
@@ -14675,7 +14678,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 7.6
+      "constant": 6.9
     },
     {
       "id": "108-standard-basic",
@@ -14707,7 +14710,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.7
+      "constant": 9
     },
     {
       "id": "109-standard-basic",
@@ -14739,7 +14742,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8
+      "constant": 7.3
     },
     {
       "id": "110-standard-basic",
@@ -14771,7 +14774,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.9
+      "constant": 8.2
     },
     {
       "id": "111-standard-basic",
@@ -14811,7 +14814,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.7
+      "constant": 9
     },
     {
       "id": "112-standard-basic",
@@ -14843,7 +14846,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.4
+      "constant": 8.7
     },
     {
       "id": "113-standard-basic",
@@ -14883,7 +14886,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "114-standard-basic",
@@ -14915,7 +14918,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.2
+      "constant": 7.5
     },
     {
       "id": "115-standard-basic",
@@ -14955,7 +14958,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.9
+      "constant": 8.2
     },
     {
       "id": "116-standard-basic",
@@ -14987,7 +14990,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "5",
-      "constant": 5
+      "constant": 5.8
     },
     {
       "id": "117-dx-basic",
@@ -15019,7 +15022,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.9
+      "constant": 7.2
     },
     {
       "id": "117-standard-basic",
@@ -15051,7 +15054,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.7
+      "constant": 7
     },
     {
       "id": "118-standard-basic",
@@ -15083,7 +15086,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.7
+      "constant": 8
     },
     {
       "id": "119-standard-basic",
@@ -15115,7 +15118,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 7.5
+      "constant": 6.8
     },
     {
       "id": "120-standard-basic",
@@ -15147,7 +15150,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.8
+      "constant": 7.1
     },
     {
       "id": "121-standard-basic",
@@ -15211,7 +15214,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.9
+      "constant": 8.2
     },
     {
       "id": "122-standard-basic",
@@ -15243,7 +15246,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "128-dx-basic",
@@ -15275,7 +15278,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "128-standard-basic",
@@ -15307,7 +15310,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.5
+      "constant": 8.8
     },
     {
       "id": "130-standard-basic",
@@ -15339,7 +15342,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "131-standard-basic",
@@ -15363,7 +15366,7 @@
       "type": "STANDARD",
       "difficulty": "MASTER",
       "level": "12",
-      "constant": 12
+      "constant": 12.5
     },
     {
       "id": "131-standard-remaster",
@@ -15371,7 +15374,7 @@
       "type": "STANDARD",
       "difficulty": "Re:MASTER",
       "level": "13",
-      "constant": 13
+      "constant": 13.5
     },
     {
       "id": "132-standard-advanced",
@@ -15379,7 +15382,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.8
+      "constant": 8.1
     },
     {
       "id": "132-standard-basic",
@@ -15411,7 +15414,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "133-standard-basic",
@@ -15451,7 +15454,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.9
+      "constant": 8.2
     },
     {
       "id": "134-standard-basic",
@@ -15491,7 +15494,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.8
+      "constant": 9.1
     },
     {
       "id": "135-standard-basic",
@@ -15523,7 +15526,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.8
+      "constant": 8.1
     },
     {
       "id": "136-standard-basic",
@@ -15555,7 +15558,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9.1
+      "constant": 8.4
     },
     {
       "id": "137-standard-basic",
@@ -15587,7 +15590,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.9
+      "constant": 8.2
     },
     {
       "id": "138-standard-basic",
@@ -15619,7 +15622,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.4
+      "constant": 8.7
     },
     {
       "id": "139-standard-basic",
@@ -15651,7 +15654,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "140-standard-basic",
@@ -15683,7 +15686,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9.1
+      "constant": 8.4
     },
     {
       "id": "141-standard-basic",
@@ -15715,7 +15718,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.9
+      "constant": 8.2
     },
     {
       "id": "142-standard-basic",
@@ -15747,7 +15750,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.9
+      "constant": 9.3
     },
     {
       "id": "143-standard-basic",
@@ -15787,7 +15790,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "144-standard-basic",
@@ -15859,7 +15862,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "145-standard-basic",
@@ -15931,7 +15934,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "146-standard-basic",
@@ -15971,7 +15974,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.4
+      "constant": 7.7
     },
     {
       "id": "147-standard-basic",
@@ -16003,7 +16006,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.4
+      "constant": 8.7
     },
     {
       "id": "152-standard-basic",
@@ -16035,7 +16038,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "153-standard-basic",
@@ -16067,7 +16070,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.6
+      "constant": 8.9
     },
     {
       "id": "154-standard-basic",
@@ -16099,7 +16102,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.8
+      "constant": 8.1
     },
     {
       "id": "155-standard-basic",
@@ -16139,7 +16142,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.6
+      "constant": 7.9
     },
     {
       "id": "157-standard-basic",
@@ -16171,7 +16174,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.8
+      "constant": 7.1
     },
     {
       "id": "159-standard-basic",
@@ -16203,7 +16206,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.4
+      "constant": 7.7
     },
     {
       "id": "184-standard-basic",
@@ -16267,7 +16270,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 7.5
+      "constant": 6.8
     },
     {
       "id": "185-standard-basic",
@@ -16299,7 +16302,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8
+      "constant": 7.3
     },
     {
       "id": "186-standard-basic",
@@ -16363,7 +16366,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.1
+      "constant": 7.4
     },
     {
       "id": "187-standard-basic",
@@ -16427,7 +16430,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9.1
+      "constant": 8.4
     },
     {
       "id": "188-standard-basic",
@@ -16459,7 +16462,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.7
+      "constant": 7
     },
     {
       "id": "189-standard-basic",
@@ -16491,7 +16494,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "190-dx-basic",
@@ -16523,7 +16526,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.4
+      "constant": 7.7
     },
     {
       "id": "190-standard-basic",
@@ -16587,7 +16590,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.8
+      "constant": 7.1
     },
     {
       "id": "191-standard-basic",
@@ -16651,7 +16654,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "193-standard-basic",
@@ -16683,7 +16686,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9.1
+      "constant": 8.4
     },
     {
       "id": "194-standard-basic",
@@ -16715,7 +16718,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.7
+      "constant": 7
     },
     {
       "id": "198-standard-basic",
@@ -16755,7 +16758,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "199-dx-basic",
@@ -16787,7 +16790,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.9
+      "constant": 7.2
     },
     {
       "id": "199-standard-basic",
@@ -16819,7 +16822,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 7.5
+      "constant": 6.8
     },
     {
       "id": "200-standard-basic",
@@ -16859,7 +16862,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "201-dx-basic",
@@ -16891,7 +16894,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.9
+      "constant": 7.2
     },
     {
       "id": "201-standard-basic",
@@ -16955,7 +16958,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.7
+      "constant": 7
     },
     {
       "id": "202-standard-basic",
@@ -16987,7 +16990,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.7
+      "constant": 7
     },
     {
       "id": "203-standard-basic",
@@ -17051,7 +17054,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.7
+      "constant": 8
     },
     {
       "id": "204-standard-basic",
@@ -17091,7 +17094,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.6
+      "constant": 7.9
     },
     {
       "id": "205-standard-basic",
@@ -17123,7 +17126,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.2
+      "constant": 7.5
     },
     {
       "id": "206-standard-basic",
@@ -17155,7 +17158,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "207-standard-basic",
@@ -17187,7 +17190,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 7.5
+      "constant": 6.8
     },
     {
       "id": "208-standard-basic",
@@ -17219,7 +17222,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.2
+      "constant": 7.5
     },
     {
       "id": "209-standard-basic",
@@ -17251,7 +17254,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.4
+      "constant": 7.7
     },
     {
       "id": "212-standard-basic",
@@ -17283,7 +17286,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 7.5
+      "constant": 6.8
     },
     {
       "id": "213-standard-basic",
@@ -17315,7 +17318,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9.2
+      "constant": 8.5
     },
     {
       "id": "214-standard-basic",
@@ -17347,7 +17350,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.2
+      "constant": 7.5
     },
     {
       "id": "216-standard-basic",
@@ -17379,7 +17382,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.1
+      "constant": 7.4
     },
     {
       "id": "217-standard-basic",
@@ -17411,7 +17414,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "218-standard-basic",
@@ -17443,7 +17446,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.9
+      "constant": 9.2
     },
     {
       "id": "219-standard-basic",
@@ -17483,7 +17486,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.8
+      "constant": 7.1
     },
     {
       "id": "220-standard-basic",
@@ -17515,7 +17518,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "223-standard-basic",
@@ -17547,7 +17550,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.2
+      "constant": 7.5
     },
     {
       "id": "224-standard-basic",
@@ -17611,7 +17614,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.8
+      "constant": 7.1
     },
     {
       "id": "225-standard-basic",
@@ -17643,7 +17646,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.9
+      "constant": 9.2
     },
     {
       "id": "226-standard-basic",
@@ -17683,7 +17686,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.7
+      "constant": 9
     },
     {
       "id": "227-standard-basic",
@@ -17723,7 +17726,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "228-standard-basic",
@@ -17755,7 +17758,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.9
+      "constant": 7.2
     },
     {
       "id": "229-standard-basic",
@@ -17787,7 +17790,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.7
+      "constant": 8
     },
     {
       "id": "230-standard-basic",
@@ -17819,7 +17822,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.5
+      "constant": 8.8
     },
     {
       "id": "231-standard-basic",
@@ -17851,7 +17854,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.5
+      "constant": 8.8
     },
     {
       "id": "232-standard-basic",
@@ -17883,7 +17886,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "233-standard-basic",
@@ -17915,7 +17918,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "234-standard-basic",
@@ -17979,7 +17982,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.7
+      "constant": 9
     },
     {
       "id": "235-standard-basic",
@@ -18011,7 +18014,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.7
+      "constant": 8
     },
     {
       "id": "236-standard-basic",
@@ -18043,7 +18046,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 7.5
+      "constant": 6.8
     },
     {
       "id": "237-standard-basic",
@@ -18075,7 +18078,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "238-standard-basic",
@@ -18107,7 +18110,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.8
+      "constant": 9.1
     },
     {
       "id": "239-standard-basic",
@@ -18147,7 +18150,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.5
+      "constant": 8.8
     },
     {
       "id": "240-standard-basic",
@@ -18187,7 +18190,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 7.1
+      "constant": 6.4
     },
     {
       "id": "241-standard-basic",
@@ -18251,7 +18254,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "242-standard-basic",
@@ -18283,7 +18286,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 7.5
+      "constant": 6.8
     },
     {
       "id": "244-standard-basic",
@@ -18315,7 +18318,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "246-standard-basic",
@@ -18347,7 +18350,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "247-standard-basic",
@@ -18387,7 +18390,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.2
+      "constant": 7.5
     },
     {
       "id": "248-standard-basic",
@@ -18459,7 +18462,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "251-standard-basic",
@@ -18491,7 +18494,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "252-standard-basic",
@@ -18531,7 +18534,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 7.5
+      "constant": 6.8
     },
     {
       "id": "253-standard-basic",
@@ -18563,7 +18566,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "254-standard-basic",
@@ -18595,7 +18598,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9.1
+      "constant": 8.4
     },
     {
       "id": "255-standard-basic",
@@ -18667,7 +18670,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.2
+      "constant": 7.5
     },
     {
       "id": "256-standard-basic",
@@ -18707,7 +18710,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.6
+      "constant": 7.9
     },
     {
       "id": "258-standard-basic",
@@ -18739,7 +18742,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.2
+      "constant": 7.5
     },
     {
       "id": "259-standard-basic",
@@ -18771,7 +18774,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.2
+      "constant": 7.5
     },
     {
       "id": "260-standard-basic",
@@ -18811,7 +18814,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "261-standard-basic",
@@ -18851,7 +18854,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.9
+      "constant": 7.2
     },
     {
       "id": "262-standard-basic",
@@ -18883,7 +18886,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9.2
+      "constant": 8.5
     },
     {
       "id": "263-standard-basic",
@@ -18915,7 +18918,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.9
+      "constant": 8.2
     },
     {
       "id": "264-standard-basic",
@@ -18947,7 +18950,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.8
+      "constant": 8.1
     },
     {
       "id": "265-standard-basic",
@@ -18987,7 +18990,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.8
+      "constant": 8.1
     },
     {
       "id": "266-standard-basic",
@@ -19027,7 +19030,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.9
+      "constant": 7.2
     },
     {
       "id": "267-standard-basic",
@@ -19059,7 +19062,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "268-standard-basic",
@@ -19091,7 +19094,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.9
+      "constant": 8.2
     },
     {
       "id": "269-standard-basic",
@@ -19123,7 +19126,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "270-standard-basic",
@@ -19155,7 +19158,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9.1
+      "constant": 8.4
     },
     {
       "id": "271-standard-basic",
@@ -19187,7 +19190,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.2
+      "constant": 7.5
     },
     {
       "id": "278-standard-basic",
@@ -19219,7 +19222,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 7.3
+      "constant": 6.6
     },
     {
       "id": "281-standard-basic",
@@ -19251,7 +19254,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 7.3
+      "constant": 6.6
     },
     {
       "id": "282-standard-basic",
@@ -19291,7 +19294,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "283-standard-basic",
@@ -19323,7 +19326,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.6
+      "constant": 7.9
     },
     {
       "id": "285-standard-basic",
@@ -19387,7 +19390,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "288-standard-basic",
@@ -19419,7 +19422,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 7.5
+      "constant": 6.8
     },
     {
       "id": "289-standard-basic",
@@ -19451,7 +19454,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9
+      "constant": 8.3
     },
     {
       "id": "290-standard-basic",
@@ -19483,7 +19486,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 7.3
+      "constant": 6.6
     },
     {
       "id": "291-standard-basic",
@@ -19515,7 +19518,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "295-standard-basic",
@@ -19555,7 +19558,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "296-standard-basic",
@@ -19595,7 +19598,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 7.5
+      "constant": 6.8
     },
     {
       "id": "297-standard-basic",
@@ -19627,7 +19630,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "298-standard-basic",
@@ -19659,7 +19662,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 7.5
+      "constant": 6.8
     },
     {
       "id": "299-standard-basic",
@@ -19731,7 +19734,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.7
+      "constant": 8
     },
     {
       "id": "301-standard-basic",
@@ -19771,7 +19774,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "302-dx-basic",
@@ -19803,7 +19806,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8
+      "constant": 7.3
     },
     {
       "id": "302-standard-basic",
@@ -19835,7 +19838,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "303-dx-basic",
@@ -19867,7 +19870,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9
+      "constant": 8.3
     },
     {
       "id": "303-standard-basic",
@@ -19899,7 +19902,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.7
+      "constant": 7
     },
     {
       "id": "305-standard-basic",
@@ -19931,7 +19934,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "308-standard-basic",
@@ -19963,7 +19966,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.8
+      "constant": 7.1
     },
     {
       "id": "309-standard-basic",
@@ -19995,7 +19998,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.1
+      "constant": 7.4
     },
     {
       "id": "310-standard-basic",
@@ -20035,7 +20038,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8
+      "constant": 7.3
     },
     {
       "id": "311-standard-basic",
@@ -20067,7 +20070,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8
+      "constant": 7.3
     },
     {
       "id": "312-standard-basic",
@@ -20107,7 +20110,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "313-standard-basic",
@@ -20139,7 +20142,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "314-standard-basic",
@@ -20171,7 +20174,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "315-dx-basic",
@@ -20203,7 +20206,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8
+      "constant": 7.3
     },
     {
       "id": "315-standard-basic",
@@ -20267,7 +20270,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.4
+      "constant": 7.7
     },
     {
       "id": "316-standard-basic",
@@ -20299,7 +20302,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.4
+      "constant": 7.7
     },
     {
       "id": "318-standard-basic",
@@ -20363,7 +20366,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.8
+      "constant": 8.1
     },
     {
       "id": "319-standard-basic",
@@ -20395,7 +20398,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.9
+      "constant": 8.2
     },
     {
       "id": "320-standard-basic",
@@ -20427,7 +20430,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.4
+      "constant": 7.7
     },
     {
       "id": "321-standard-basic",
@@ -20459,7 +20462,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.1
+      "constant": 7.4
     },
     {
       "id": "322-standard-basic",
@@ -20491,7 +20494,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 7.6
+      "constant": 6.9
     },
     {
       "id": "323-standard-basic",
@@ -20523,7 +20526,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.7
+      "constant": 9
     },
     {
       "id": "324-standard-basic",
@@ -20555,7 +20558,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9
+      "constant": 8.3
     },
     {
       "id": "325-standard-basic",
@@ -20587,7 +20590,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.9
+      "constant": 7.2
     },
     {
       "id": "326-standard-basic",
@@ -20619,7 +20622,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.2
+      "constant": 7.5
     },
     {
       "id": "327-standard-basic",
@@ -20651,7 +20654,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.2
+      "constant": 7.5
     },
     {
       "id": "328-standard-basic",
@@ -20691,7 +20694,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "329-standard-basic",
@@ -20723,7 +20726,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.9
+      "constant": 7.2
     },
     {
       "id": "330-standard-basic",
@@ -20755,7 +20758,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.2
+      "constant": 7.5
     },
     {
       "id": "331-standard-basic",
@@ -20787,7 +20790,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.4
+      "constant": 7.7
     },
     {
       "id": "337-standard-basic",
@@ -20819,7 +20822,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9.1
+      "constant": 8.4
     },
     {
       "id": "339-standard-basic",
@@ -20851,7 +20854,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.1
+      "constant": 7.4
     },
     {
       "id": "342-standard-basic",
@@ -20883,7 +20886,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "343-standard-basic",
@@ -20915,7 +20918,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.7
+      "constant": 8
     },
     {
       "id": "344-standard-basic",
@@ -20947,7 +20950,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "345-standard-basic",
@@ -20979,7 +20982,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.8
+      "constant": 7.1
     },
     {
       "id": "346-standard-basic",
@@ -21011,7 +21014,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8
+      "constant": 7.3
     },
     {
       "id": "347-standard-basic",
@@ -21043,7 +21046,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "348-standard-basic",
@@ -21075,7 +21078,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "349-standard-basic",
@@ -21107,7 +21110,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "351-standard-basic",
@@ -21139,7 +21142,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8
+      "constant": 7.3
     },
     {
       "id": "352-standard-basic",
@@ -21171,7 +21174,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "353-standard-basic",
@@ -21203,7 +21206,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.2
+      "constant": 7.5
     },
     {
       "id": "359-standard-basic",
@@ -21235,7 +21238,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8
+      "constant": 7.3
     },
     {
       "id": "360-standard-basic",
@@ -21267,7 +21270,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9
+      "constant": 8.3
     },
     {
       "id": "362-standard-basic",
@@ -21331,7 +21334,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "363-standard-basic",
@@ -21363,7 +21366,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.8
+      "constant": 8.1
     },
     {
       "id": "364-standard-basic",
@@ -21403,7 +21406,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.5
+      "constant": 8.8
     },
     {
       "id": "365-standard-basic",
@@ -21475,7 +21478,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9.1
+      "constant": 8.4
     },
     {
       "id": "366-standard-basic",
@@ -21539,7 +21542,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "367-standard-basic",
@@ -21579,7 +21582,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9
+      "constant": 8.3
     },
     {
       "id": "374-standard-basic",
@@ -21643,7 +21646,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.2
+      "constant": 7.5
     },
     {
       "id": "375-standard-basic",
@@ -21675,7 +21678,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9
+      "constant": 8.3
     },
     {
       "id": "376-standard-basic",
@@ -21707,7 +21710,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "378-standard-basic",
@@ -21747,7 +21750,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.9
+      "constant": 9.4
     },
     {
       "id": "379-standard-basic",
@@ -21779,7 +21782,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "380-standard-basic",
@@ -21811,7 +21814,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.5
+      "constant": 8.8
     },
     {
       "id": "381-standard-basic",
@@ -21843,7 +21846,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8
+      "constant": 7.3
     },
     {
       "id": "382-standard-basic",
@@ -21875,7 +21878,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.9
+      "constant": 8.2
     },
     {
       "id": "383-standard-basic",
@@ -21907,7 +21910,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.5
+      "constant": 8.8
     },
     {
       "id": "384-standard-basic",
@@ -21939,7 +21942,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9
+      "constant": 8.3
     },
     {
       "id": "385-standard-basic",
@@ -21971,7 +21974,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "386-standard-basic",
@@ -22003,7 +22006,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "387-standard-basic",
@@ -22035,7 +22038,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "388-standard-basic",
@@ -22067,7 +22070,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9
+      "constant": 8.3
     },
     {
       "id": "389-standard-basic",
@@ -22107,7 +22110,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.5
+      "constant": 8.8
     },
     {
       "id": "390-standard-basic",
@@ -22139,7 +22142,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.8
+      "constant": 8.1
     },
     {
       "id": "399-standard-basic",
@@ -22171,7 +22174,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "400-standard-basic",
@@ -22203,7 +22206,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "401-standard-basic",
@@ -22235,7 +22238,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.9
+      "constant": 7.2
     },
     {
       "id": "403-standard-basic",
@@ -22299,7 +22302,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 7.5
+      "constant": 6.8
     },
     {
       "id": "404-standard-basic",
@@ -22363,7 +22366,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.5
+      "constant": 8.8
     },
     {
       "id": "411-standard-basic",
@@ -22395,7 +22398,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.2
+      "constant": 7.5
     },
     {
       "id": "412-standard-basic",
@@ -22419,7 +22422,7 @@
       "type": "STANDARD",
       "difficulty": "MASTER",
       "level": "12+",
-      "constant": 12.9
+      "constant": 12.7
     },
     {
       "id": "413-standard-advanced",
@@ -22427,7 +22430,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.1
+      "constant": 7.4
     },
     {
       "id": "413-standard-basic",
@@ -22459,7 +22462,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.8
+      "constant": 7.1
     },
     {
       "id": "414-standard-basic",
@@ -22499,7 +22502,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.2
+      "constant": 7.5
     },
     {
       "id": "417-standard-basic",
@@ -22531,7 +22534,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.7
+      "constant": 8
     },
     {
       "id": "418-standard-basic",
@@ -22563,7 +22566,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.7
+      "constant": 8
     },
     {
       "id": "419-standard-basic",
@@ -22627,7 +22630,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.7
+      "constant": 8
     },
     {
       "id": "420-standard-basic",
@@ -22659,7 +22662,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.5
+      "constant": 8.8
     },
     {
       "id": "421-standard-basic",
@@ -22723,7 +22726,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.4
+      "constant": 8.7
     },
     {
       "id": "422-standard-basic",
@@ -22755,7 +22758,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.7
+      "constant": 7
     },
     {
       "id": "424-standard-basic",
@@ -22787,7 +22790,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9
+      "constant": 8.3
     },
     {
       "id": "425-standard-basic",
@@ -22819,7 +22822,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.9
+      "constant": 7.2
     },
     {
       "id": "426-standard-basic",
@@ -22851,7 +22854,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.9
+      "constant": 8.2
     },
     {
       "id": "427-standard-basic",
@@ -22883,7 +22886,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.9
+      "constant": 9.5
     },
     {
       "id": "431-standard-basic",
@@ -22915,7 +22918,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.9
+      "constant": 9.3
     },
     {
       "id": "432-standard-basic",
@@ -22947,7 +22950,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 7.3
+      "constant": 6.6
     },
     {
       "id": "434-standard-basic",
@@ -22979,7 +22982,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8
+      "constant": 7.3
     },
     {
       "id": "435-standard-basic",
@@ -23011,7 +23014,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "437-standard-basic",
@@ -23043,7 +23046,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.7
+      "constant": 7
     },
     {
       "id": "438-standard-basic",
@@ -23075,7 +23078,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9
+      "constant": 8.3
     },
     {
       "id": "439-standard-basic",
@@ -23107,7 +23110,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "446-standard-basic",
@@ -23139,7 +23142,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9
+      "constant": 8.3
     },
     {
       "id": "447-standard-basic",
@@ -23171,7 +23174,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "448-standard-basic",
@@ -23203,7 +23206,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.4
+      "constant": 8.7
     },
     {
       "id": "451-standard-basic",
@@ -23235,7 +23238,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.7
+      "constant": 7
     },
     {
       "id": "453-standard-basic",
@@ -23267,7 +23270,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "454-standard-basic",
@@ -23299,7 +23302,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "455-standard-basic",
@@ -23331,7 +23334,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "10",
-      "constant": 11.1
+      "constant": 10.5
     },
     {
       "id": "456-standard-basic",
@@ -23363,7 +23366,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "457-standard-basic",
@@ -23395,7 +23398,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.7
+      "constant": 7
     },
     {
       "id": "458-standard-basic",
@@ -23427,7 +23430,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "459-standard-basic",
@@ -23459,7 +23462,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.5
+      "constant": 8.8
     },
     {
       "id": "460-standard-basic",
@@ -23491,7 +23494,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "461-standard-basic",
@@ -23523,7 +23526,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.5
+      "constant": 8.8
     },
     {
       "id": "462-standard-basic",
@@ -23555,7 +23558,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "463-standard-basic",
@@ -23595,7 +23598,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.5
+      "constant": 8.8
     },
     {
       "id": "464-standard-basic",
@@ -23635,7 +23638,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9
+      "constant": 8.3
     },
     {
       "id": "465-standard-basic",
@@ -23667,7 +23670,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "466-standard-basic",
@@ -23699,7 +23702,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9.2
+      "constant": 8.5
     },
     {
       "id": "467-standard-basic",
@@ -23731,7 +23734,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8
+      "constant": 7.3
     },
     {
       "id": "468-standard-basic",
@@ -23763,7 +23766,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "471-standard-basic",
@@ -23795,7 +23798,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.9
+      "constant": 7.2
     },
     {
       "id": "472-standard-basic",
@@ -23835,7 +23838,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.9
+      "constant": 8.2
     },
     {
       "id": "477-standard-basic",
@@ -23867,7 +23870,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "480-standard-basic",
@@ -23899,7 +23902,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "482-standard-basic",
@@ -23931,7 +23934,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.7
+      "constant": 8
     },
     {
       "id": "483-standard-basic",
@@ -23963,7 +23966,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9+",
-      "constant": 10.2
+      "constant": 9.6
     },
     {
       "id": "488-standard-basic",
@@ -23995,7 +23998,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "490-standard-basic",
@@ -24027,7 +24030,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.5
+      "constant": 8.8
     },
     {
       "id": "492-standard-basic",
@@ -24091,7 +24094,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "493-standard-basic",
@@ -24123,7 +24126,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.9
+      "constant": 9.3
     },
     {
       "id": "494-standard-basic",
@@ -24155,7 +24158,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.8
+      "constant": 9.1
     },
     {
       "id": "495-standard-basic",
@@ -24187,7 +24190,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9+",
-      "constant": 10.4
+      "constant": 9.8
     },
     {
       "id": "496-standard-basic",
@@ -24227,7 +24230,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "497-standard-basic",
@@ -24259,7 +24262,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.8
+      "constant": 8.1
     },
     {
       "id": "506-standard-basic",
@@ -24291,7 +24294,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "507-standard-basic",
@@ -24323,7 +24326,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.8
+      "constant": 7.1
     },
     {
       "id": "508-standard-basic",
@@ -24355,7 +24358,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.8
+      "constant": 8.1
     },
     {
       "id": "511-standard-basic",
@@ -24387,7 +24390,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "512-standard-basic",
@@ -24419,7 +24422,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9
+      "constant": 8.3
     },
     {
       "id": "513-standard-basic",
@@ -24459,7 +24462,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "514-standard-basic",
@@ -24491,7 +24494,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.2
+      "constant": 7.5
     },
     {
       "id": "517-standard-basic",
@@ -24523,7 +24526,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.6
+      "constant": 7.9
     },
     {
       "id": "518-standard-basic",
@@ -24555,7 +24558,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.8
+      "constant": 8.1
     },
     {
       "id": "520-standard-basic",
@@ -24587,7 +24590,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "521-standard-basic",
@@ -24619,7 +24622,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 7.5
+      "constant": 6.8
     },
     {
       "id": "524-standard-basic",
@@ -24651,7 +24654,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.2
+      "constant": 7.5
     },
     {
       "id": "526-standard-basic",
@@ -24683,7 +24686,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9
+      "constant": 8.3
     },
     {
       "id": "527-standard-basic",
@@ -24715,7 +24718,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "528-standard-basic",
@@ -24747,7 +24750,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.9
+      "constant": 8.2
     },
     {
       "id": "529-standard-basic",
@@ -24779,7 +24782,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.5
+      "constant": 8.8
     },
     {
       "id": "530-standard-basic",
@@ -24811,7 +24814,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.9
+      "constant": 9.3
     },
     {
       "id": "531-standard-basic",
@@ -24843,7 +24846,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.8
+      "constant": 7.1
     },
     {
       "id": "532-standard-basic",
@@ -24883,7 +24886,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "533-standard-basic",
@@ -24915,7 +24918,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9.2
+      "constant": 8.5
     },
     {
       "id": "534-standard-basic",
@@ -24947,7 +24950,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "535-dx-basic",
@@ -24979,7 +24982,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "535-standard-basic",
@@ -25011,7 +25014,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "536-dx-basic",
@@ -25043,7 +25046,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8
+      "constant": 7.3
     },
     {
       "id": "536-standard-basic",
@@ -25075,7 +25078,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8
+      "constant": 7.3
     },
     {
       "id": "537-standard-basic",
@@ -25107,7 +25110,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "538-standard-basic",
@@ -25139,7 +25142,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "539-standard-basic",
@@ -25171,7 +25174,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.2
+      "constant": 7.5
     },
     {
       "id": "540-standard-basic",
@@ -25203,7 +25206,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 7.3
+      "constant": 6.6
     },
     {
       "id": "541-standard-basic",
@@ -25235,7 +25238,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.5
+      "constant": 8.8
     },
     {
       "id": "542-standard-basic",
@@ -25267,7 +25270,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "543-standard-basic",
@@ -25299,7 +25302,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 7.6
+      "constant": 6.9
     },
     {
       "id": "546-standard-basic",
@@ -25331,7 +25334,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.2
+      "constant": 7.5
     },
     {
       "id": "547-standard-basic",
@@ -25363,7 +25366,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9.1
+      "constant": 8.4
     },
     {
       "id": "548-standard-basic",
@@ -25427,7 +25430,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9.2
+      "constant": 8.5
     },
     {
       "id": "552-standard-basic",
@@ -25459,7 +25462,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.7
+      "constant": 8
     },
     {
       "id": "553-standard-basic",
@@ -25491,7 +25494,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.8
+      "constant": 8.1
     },
     {
       "id": "555-standard-basic",
@@ -25523,7 +25526,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.9
+      "constant": 9.3
     },
     {
       "id": "556-standard-basic",
@@ -25555,7 +25558,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.7
+      "constant": 8
     },
     {
       "id": "557-standard-basic",
@@ -25587,7 +25590,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "558-standard-basic",
@@ -25619,7 +25622,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.8
+      "constant": 8.1
     },
     {
       "id": "559-standard-basic",
@@ -25651,7 +25654,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "561-standard-basic",
@@ -25683,7 +25686,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.9
+      "constant": 8.2
     },
     {
       "id": "564-standard-basic",
@@ -25715,7 +25718,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8
+      "constant": 7.3
     },
     {
       "id": "565-standard-basic",
@@ -25747,7 +25750,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9+",
-      "constant": 10.3
+      "constant": 9.7
     },
     {
       "id": "566-standard-basic",
@@ -25779,7 +25782,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.9
+      "constant": 9.3
     },
     {
       "id": "567-standard-basic",
@@ -25811,7 +25814,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9.2
+      "constant": 8.5
     },
     {
       "id": "568-standard-basic",
@@ -25843,7 +25846,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9+",
-      "constant": 10.4
+      "constant": 9.8
     },
     {
       "id": "571-standard-basic",
@@ -25907,7 +25910,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "572-standard-basic",
@@ -25939,7 +25942,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "573-standard-basic",
@@ -25971,7 +25974,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "574-dx-basic",
@@ -26003,7 +26006,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "574-standard-basic",
@@ -26035,7 +26038,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.4
+      "constant": 8.7
     },
     {
       "id": "578-standard-basic",
@@ -26067,7 +26070,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.7
+      "constant": 7
     },
     {
       "id": "579-standard-basic",
@@ -26099,7 +26102,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9.2
+      "constant": 8.5
     },
     {
       "id": "580-standard-basic",
@@ -26131,7 +26134,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.9
+      "constant": 9.3
     },
     {
       "id": "581-standard-basic",
@@ -26163,7 +26166,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 7.5
+      "constant": 6.8
     },
     {
       "id": "582-standard-basic",
@@ -26195,7 +26198,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "583-standard-basic",
@@ -26227,7 +26230,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9
+      "constant": 8.3
     },
     {
       "id": "584-standard-basic",
@@ -26259,7 +26262,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.9
+      "constant": 8.2
     },
     {
       "id": "585-standard-basic",
@@ -26291,7 +26294,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8
+      "constant": 7.3
     },
     {
       "id": "586-standard-basic",
@@ -26323,7 +26326,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.9
+      "constant": 8.2
     },
     {
       "id": "587-standard-basic",
@@ -26355,7 +26358,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.9
+      "constant": 9.5
     },
     {
       "id": "589-standard-basic",
@@ -26395,7 +26398,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9
+      "constant": 8.3
     },
     {
       "id": "592-standard-basic",
@@ -26459,7 +26462,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.7
+      "constant": 8
     },
     {
       "id": "593-standard-basic",
@@ -26491,7 +26494,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9
+      "constant": 8.3
     },
     {
       "id": "598-standard-basic",
@@ -26523,7 +26526,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.9
+      "constant": 7.2
     },
     {
       "id": "599-standard-basic",
@@ -26555,7 +26558,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.8
+      "constant": 8.1
     },
     {
       "id": "601-standard-basic",
@@ -26619,7 +26622,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.9
+      "constant": 8.2
     },
     {
       "id": "602-standard-basic",
@@ -26651,7 +26654,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "603-standard-basic",
@@ -26683,7 +26686,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.6
+      "constant": 8.9
     },
     {
       "id": "606-standard-basic",
@@ -26715,7 +26718,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.9
+      "constant": 8.2
     },
     {
       "id": "610-standard-basic",
@@ -26747,7 +26750,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "611-standard-basic",
@@ -26779,7 +26782,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9.2
+      "constant": 8.5
     },
     {
       "id": "612-standard-basic",
@@ -26811,7 +26814,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "613-standard-basic",
@@ -26843,7 +26846,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9.2
+      "constant": 8.5
     },
     {
       "id": "614-standard-basic",
@@ -26875,7 +26878,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "617-standard-basic",
@@ -26907,7 +26910,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8
+      "constant": 7.3
     },
     {
       "id": "618-standard-basic",
@@ -26939,7 +26942,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "621-standard-basic",
@@ -26971,7 +26974,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.7
     },
     {
       "id": "622-dx-basic",
@@ -27003,7 +27006,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.2
+      "constant": 7.5
     },
     {
       "id": "622-standard-basic",
@@ -27035,7 +27038,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9
+      "constant": 8.3
     },
     {
       "id": "624-standard-basic",
@@ -27099,7 +27102,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.9
+      "constant": 9.3
     },
     {
       "id": "625-standard-basic",
@@ -27131,7 +27134,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "626-standard-basic",
@@ -27163,7 +27166,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "627-standard-basic",
@@ -27195,7 +27198,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.7
+      "constant": 8
     },
     {
       "id": "628-standard-basic",
@@ -27227,7 +27230,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9
+      "constant": 8.3
     },
     {
       "id": "629-standard-basic",
@@ -27267,7 +27270,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "630-standard-basic",
@@ -27299,7 +27302,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.5
+      "constant": 8.8
     },
     {
       "id": "631-standard-basic",
@@ -27331,7 +27334,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "632-standard-basic",
@@ -27363,7 +27366,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "634-standard-basic",
@@ -27395,7 +27398,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.2
+      "constant": 7.5
     },
     {
       "id": "636-standard-basic",
@@ -27427,7 +27430,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 7.5
+      "constant": 6.8
     },
     {
       "id": "637-standard-basic",
@@ -27451,7 +27454,7 @@
       "type": "STANDARD",
       "difficulty": "MASTER",
       "level": "12+",
-      "constant": 12.8
+      "constant": 12.7
     },
     {
       "id": "639-standard-advanced",
@@ -27459,7 +27462,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "639-standard-basic",
@@ -27491,7 +27494,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8
+      "constant": 7.3
     },
     {
       "id": "640-standard-basic",
@@ -27555,7 +27558,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.9
+      "constant": 9.3
     },
     {
       "id": "641-standard-basic",
@@ -27587,7 +27590,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.7
+      "constant": 9
     },
     {
       "id": "642-standard-basic",
@@ -27619,7 +27622,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "10",
-      "constant": 10.9
+      "constant": 10.3
     },
     {
       "id": "643-standard-basic",
@@ -27651,7 +27654,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.7
+      "constant": 8
     },
     {
       "id": "647-standard-basic",
@@ -27683,7 +27686,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9
+      "constant": 8.3
     },
     {
       "id": "648-standard-basic",
@@ -27715,7 +27718,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.9
+      "constant": 9.5
     },
     {
       "id": "649-standard-basic",
@@ -27747,7 +27750,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "650-standard-basic",
@@ -27771,7 +27774,7 @@
       "type": "STANDARD",
       "difficulty": "MASTER",
       "level": "12+",
-      "constant": 12.9
+      "constant": 12.8
     },
     {
       "id": "654-standard-advanced",
@@ -27779,7 +27782,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.7
+      "constant": 7
     },
     {
       "id": "654-standard-basic",
@@ -27811,7 +27814,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "655-standard-basic",
@@ -27843,7 +27846,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.7
+      "constant": 8
     },
     {
       "id": "657-standard-basic",
@@ -27875,7 +27878,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.7
+      "constant": 9
     },
     {
       "id": "658-standard-basic",
@@ -27907,7 +27910,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.7
+      "constant": 9
     },
     {
       "id": "664-standard-basic",
@@ -27971,7 +27974,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "665-standard-basic",
@@ -28003,7 +28006,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "666-standard-basic",
@@ -28035,7 +28038,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "670-standard-basic",
@@ -28067,7 +28070,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8
+      "constant": 7.3
     },
     {
       "id": "672-standard-basic",
@@ -28099,7 +28102,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.7
+      "constant": 8
     },
     {
       "id": "673-standard-basic",
@@ -28163,7 +28166,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9
+      "constant": 8.3
     },
     {
       "id": "674-standard-basic",
@@ -28195,7 +28198,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "680-standard-basic",
@@ -28227,7 +28230,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "681-standard-basic",
@@ -28259,7 +28262,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "682-standard-basic",
@@ -28291,7 +28294,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.7
+      "constant": 7
     },
     {
       "id": "683-standard-basic",
@@ -28323,7 +28326,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.8
+      "constant": 8.1
     },
     {
       "id": "684-standard-basic",
@@ -28355,7 +28358,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.9
+      "constant": 7.2
     },
     {
       "id": "687-standard-basic",
@@ -28387,7 +28390,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.9
+      "constant": 9.5
     },
     {
       "id": "688-standard-basic",
@@ -28419,7 +28422,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.7
+      "constant": 9
     },
     {
       "id": "689-standard-basic",
@@ -28483,7 +28486,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.7
+      "constant": 8
     },
     {
       "id": "690-standard-basic",
@@ -28515,7 +28518,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8
+      "constant": 7.3
     },
     {
       "id": "691-standard-basic",
@@ -28547,7 +28550,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.2
+      "constant": 7.5
     },
     {
       "id": "692-standard-basic",
@@ -28579,7 +28582,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.7
+      "constant": 7
     },
     {
       "id": "693-standard-basic",
@@ -28611,7 +28614,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9.2
+      "constant": 8.5
     },
     {
       "id": "694-standard-basic",
@@ -28643,7 +28646,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "695-standard-basic",
@@ -28675,7 +28678,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "696-standard-basic",
@@ -28739,7 +28742,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "699-standard-basic",
@@ -28771,7 +28774,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "700-standard-basic",
@@ -28803,7 +28806,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "701-standard-basic",
@@ -28867,7 +28870,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "702-standard-basic",
@@ -28899,7 +28902,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9.2
+      "constant": 8.5
     },
     {
       "id": "704-standard-basic",
@@ -28939,7 +28942,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.9
+      "constant": 9.3
     },
     {
       "id": "705-standard-basic",
@@ -29003,7 +29006,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.7
+      "constant": 7
     },
     {
       "id": "706-standard-basic",
@@ -29035,7 +29038,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8
+      "constant": 7.3
     },
     {
       "id": "707-standard-basic",
@@ -29067,7 +29070,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8
+      "constant": 7.3
     },
     {
       "id": "708-standard-basic",
@@ -29099,7 +29102,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.7
+      "constant": 8
     },
     {
       "id": "709-standard-basic",
@@ -29131,7 +29134,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.7
+      "constant": 8
     },
     {
       "id": "710-standard-basic",
@@ -29163,7 +29166,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9.2
+      "constant": 8.5
     },
     {
       "id": "711-standard-basic",
@@ -29195,7 +29198,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.7
+      "constant": 7
     },
     {
       "id": "712-standard-basic",
@@ -29227,7 +29230,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "713-standard-basic",
@@ -29259,7 +29262,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9.2
+      "constant": 8.5
     },
     {
       "id": "717-standard-basic",
@@ -29291,7 +29294,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9+",
-      "constant": 10.2
+      "constant": 9.6
     },
     {
       "id": "719-standard-basic",
@@ -29323,7 +29326,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "720-standard-basic",
@@ -29355,7 +29358,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9.2
+      "constant": 8.5
     },
     {
       "id": "721-standard-basic",
@@ -29387,7 +29390,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8
+      "constant": 7.3
     },
     {
       "id": "722-standard-basic",
@@ -29419,7 +29422,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "723-standard-basic",
@@ -29451,7 +29454,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "725-standard-basic",
@@ -29483,7 +29486,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.2
+      "constant": 7.5
     },
     {
       "id": "726-standard-basic",
@@ -29515,7 +29518,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.7
+      "constant": 7
     },
     {
       "id": "731-standard-basic",
@@ -29555,7 +29558,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8
+      "constant": 7.3
     },
     {
       "id": "732-standard-basic",
@@ -29587,7 +29590,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9.2
+      "constant": 8.5
     },
     {
       "id": "733-standard-basic",
@@ -29651,7 +29654,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "734-standard-basic",
@@ -29683,7 +29686,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "735-standard-basic",
@@ -29715,7 +29718,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9+",
-      "constant": 10.2
+      "constant": 9.6
     },
     {
       "id": "736-standard-basic",
@@ -29747,7 +29750,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.7
+      "constant": 8
     },
     {
       "id": "737-standard-basic",
@@ -29779,7 +29782,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.4
+      "constant": 8.7
     },
     {
       "id": "738-standard-basic",
@@ -29811,7 +29814,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9.2
+      "constant": 8.5
     },
     {
       "id": "739-standard-basic",
@@ -29843,7 +29846,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "740-standard-basic",
@@ -29875,7 +29878,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.7
+      "constant": 8
     },
     {
       "id": "741-standard-basic",
@@ -29907,7 +29910,7 @@
       "type": "STANDARD",
       "difficulty": "Re:MASTER",
       "level": "13+",
-      "constant": 13.8
+      "constant": 13.7
     },
     {
       "id": "742-standard-advanced",
@@ -29915,7 +29918,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8
+      "constant": 7.3
     },
     {
       "id": "742-standard-basic",
@@ -29947,7 +29950,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "745-standard-basic",
@@ -29979,7 +29982,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.9
+      "constant": 9.3
     },
     {
       "id": "746-standard-basic",
@@ -30011,7 +30014,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.5
+      "constant": 8.8
     },
     {
       "id": "750-standard-basic",
@@ -30043,7 +30046,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.7
+      "constant": 7
     },
     {
       "id": "752-standard-basic",
@@ -30075,7 +30078,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8
+      "constant": 7.3
     },
     {
       "id": "753-standard-basic",
@@ -30107,7 +30110,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "756-standard-basic",
@@ -30139,7 +30142,7 @@
       "type": "STANDARD",
       "difficulty": "Re:MASTER",
       "level": "13+",
-      "constant": 13.9
+      "constant": 13.8
     },
     {
       "id": "757-standard-advanced",
@@ -30147,7 +30150,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.5
+      "constant": 8.8
     },
     {
       "id": "757-standard-basic",
@@ -30179,7 +30182,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.9
+      "constant": 8.2
     },
     {
       "id": "758-standard-basic",
@@ -30211,7 +30214,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "759-standard-basic",
@@ -30251,7 +30254,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.9
+      "constant": 9.3
     },
     {
       "id": "760-standard-basic",
@@ -30283,7 +30286,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9
+      "constant": 8.3
     },
     {
       "id": "762-standard-basic",
@@ -30315,7 +30318,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.7
+      "constant": 8
     },
     {
       "id": "763-standard-basic",
@@ -30355,7 +30358,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "764-standard-basic",
@@ -30387,7 +30390,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "765-standard-basic",
@@ -30419,7 +30422,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.7
+      "constant": 8
     },
     {
       "id": "766-standard-basic",
@@ -30451,7 +30454,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "767-standard-basic",
@@ -30483,7 +30486,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "768-standard-basic",
@@ -30515,7 +30518,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "769-standard-basic",
@@ -30547,7 +30550,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.9
+      "constant": 8.2
     },
     {
       "id": "770-standard-basic",
@@ -30579,7 +30582,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.8
+      "constant": 9.1
     },
     {
       "id": "771-standard-basic",
@@ -30611,7 +30614,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.9
+      "constant": 9.5
     },
     {
       "id": "772-standard-basic",
@@ -30643,7 +30646,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.5
+      "constant": 8.8
     },
     {
       "id": "773-standard-basic",
@@ -30675,7 +30678,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "775-standard-basic",
@@ -30707,7 +30710,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.7
+      "constant": 7
     },
     {
       "id": "776-standard-basic",
@@ -30739,7 +30742,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.5
+      "constant": 8.8
     },
     {
       "id": "777-standard-basic",
@@ -30779,7 +30782,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "778-standard-basic",
@@ -30811,7 +30814,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9+",
-      "constant": 10.2
+      "constant": 9.6
     },
     {
       "id": "779-standard-basic",
@@ -30843,7 +30846,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "781-standard-basic",
@@ -30875,7 +30878,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8.2
+      "constant": 7.5
     },
     {
       "id": "782-standard-basic",
@@ -30907,7 +30910,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "786-standard-basic",
@@ -30939,7 +30942,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "789-standard-basic",
@@ -30971,7 +30974,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "791-standard-basic",
@@ -31003,7 +31006,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.9
+      "constant": 8.2
     },
     {
       "id": "792-standard-basic",
@@ -31043,7 +31046,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 8.7
+      "constant": 8
     },
     {
       "id": "793-standard-basic",
@@ -31083,7 +31086,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8
+      "constant": 7.3
     },
     {
       "id": "794-standard-basic",
@@ -31115,7 +31118,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.9
+      "constant": 9.5
     },
     {
       "id": "796-standard-basic",
@@ -31147,7 +31150,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.9
+      "constant": 9.3
     },
     {
       "id": "797-standard-basic",
@@ -31179,7 +31182,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9+",
-      "constant": 10.2
+      "constant": 9.6
     },
     {
       "id": "798-standard-basic",
@@ -31211,7 +31214,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "10+",
-      "constant": 11.3
+      "constant": 10.7
     },
     {
       "id": "799-standard-basic",
@@ -31251,7 +31254,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "800-standard-basic",
@@ -31283,7 +31286,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 7.3
+      "constant": 6.6
     },
     {
       "id": "802-standard-basic",
@@ -31315,7 +31318,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9+",
-      "constant": 10.3
+      "constant": 9.7
     },
     {
       "id": "803-standard-basic",
@@ -31355,7 +31358,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9
+      "constant": 8.3
     },
     {
       "id": "806-standard-basic",
@@ -31395,7 +31398,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "809-standard-basic",
@@ -31435,7 +31438,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9+",
-      "constant": 10.2
+      "constant": 9.6
     },
     {
       "id": "812-standard-basic",
@@ -31475,7 +31478,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "815-standard-basic",
@@ -31507,7 +31510,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9
+      "constant": 8.3
     },
     {
       "id": "816-standard-basic",
@@ -31547,7 +31550,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9
+      "constant": 8.3
     },
     {
       "id": "817-standard-basic",
@@ -31579,7 +31582,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "818-standard-basic",
@@ -31619,7 +31622,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "819-standard-basic",
@@ -31651,7 +31654,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.9
+      "constant": 9.5
     },
     {
       "id": "820-standard-basic",
@@ -31691,7 +31694,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "821-standard-basic",
@@ -31723,7 +31726,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 8
+      "constant": 7.3
     },
     {
       "id": "822-standard-basic",
@@ -31755,7 +31758,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.9
+      "constant": 9.2
     },
     {
       "id": "823-standard-basic",
@@ -31787,7 +31790,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.9
+      "constant": 9.3
     },
     {
       "id": "825-standard-basic",
@@ -31827,7 +31830,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "829-standard-basic",
@@ -31859,7 +31862,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "830-standard-basic",
@@ -31899,7 +31902,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.3
+      "constant": 7.6
     },
     {
       "id": "832-standard-basic",
@@ -31931,7 +31934,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "10+",
-      "constant": 11.2
+      "constant": 10.6
     },
     {
       "id": "833-standard-basic",
@@ -32011,7 +32014,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "835-dx-basic",
@@ -32043,7 +32046,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "835-standard-basic",
@@ -32075,7 +32078,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.7
+      "constant": 9
     },
     {
       "id": "836-standard-basic",
@@ -32107,7 +32110,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9.2
+      "constant": 8.5
     },
     {
       "id": "837-standard-basic",
@@ -32139,7 +32142,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 8.5
+      "constant": 7.8
     },
     {
       "id": "838-standard-basic",
@@ -32171,7 +32174,7 @@
       "type": "STANDARD",
       "difficulty": "Re:MASTER",
       "level": "13+",
-      "constant": 13.8
+      "constant": 13.7
     },
     {
       "id": "839-standard-advanced",
@@ -32179,7 +32182,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9
+      "constant": 8.3
     },
     {
       "id": "839-standard-basic",
@@ -32211,7 +32214,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.3
+      "constant": 8.6
     },
     {
       "id": "840-standard-basic",
@@ -32243,7 +32246,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9.2
+      "constant": 8.5
     },
     {
       "id": "841-standard-basic",
@@ -32275,7 +32278,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8",
-      "constant": 9
+      "constant": 8.3
     },
     {
       "id": "842-standard-basic",
@@ -32307,7 +32310,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.9
+      "constant": 9.3
     },
     {
       "id": "844-standard-basic",
@@ -32339,7 +32342,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.5
+      "constant": 8.8
     },
     {
       "id": "848-standard-basic",
@@ -32371,7 +32374,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "9",
-      "constant": 9.9
+      "constant": 9.3
     },
     {
       "id": "849-standard-basic",
@@ -32403,7 +32406,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "8+",
-      "constant": 9.5
+      "constant": 8.8
     },
     {
       "id": "850-standard-basic",
@@ -32435,7 +32438,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "10",
-      "constant": 10.9
+      "constant": 10.3
     },
     {
       "id": "852-standard-basic",
@@ -32467,7 +32470,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "7",
-      "constant": 7.7
+      "constant": 7
     },
     {
       "id": "853-standard-basic",
@@ -32483,7 +32486,7 @@
       "type": "STANDARD",
       "difficulty": "EXPERT",
       "level": "9",
-      "constant": 10.7
+      "constant": 9
     },
     {
       "id": "853-standard-master",
@@ -32491,7 +32494,7 @@
       "type": "STANDARD",
       "difficulty": "MASTER",
       "level": "13",
-      "constant": 13.3
+      "constant": 13
     },
     {
       "id": "854-standard-advanced",
@@ -32531,7 +32534,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1001-dx-basic",
@@ -32787,7 +32790,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1008-dx-basic",
@@ -32819,7 +32822,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1009-dx-basic",
@@ -32859,7 +32862,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1010-dx-basic",
@@ -33659,7 +33662,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1044-dx-basic",
@@ -33691,7 +33694,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1046-dx-basic",
@@ -34035,7 +34038,7 @@
       "type": "DX",
       "difficulty": "MASTER",
       "level": "11+",
-      "constant": 12.5
+      "constant": 11.9
     },
     {
       "id": "1064-dx-advanced",
@@ -34139,7 +34142,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1067-dx-basic",
@@ -34171,7 +34174,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.7
     },
     {
       "id": "1069-dx-basic",
@@ -34203,7 +34206,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1070-dx-basic",
@@ -34235,7 +34238,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.7
     },
     {
       "id": "1073-dx-basic",
@@ -34331,7 +34334,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1078-dx-basic",
@@ -34459,7 +34462,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1083-dx-basic",
@@ -34587,7 +34590,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1086-dx-basic",
@@ -34643,7 +34646,7 @@
       "type": "DX",
       "difficulty": "MASTER",
       "level": "12+",
-      "constant": 12.9
+      "constant": 12.8
     },
     {
       "id": "1088-dx-advanced",
@@ -34651,7 +34654,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1088-dx-basic",
@@ -35235,7 +35238,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1105-dx-basic",
@@ -35259,7 +35262,7 @@
       "type": "DX",
       "difficulty": "MASTER",
       "level": "13",
-      "constant": 13.7
+      "constant": 13.4
     },
     {
       "id": "1106-dx-advanced",
@@ -35459,7 +35462,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "5",
-      "constant": 5
+      "constant": 5.8
     },
     {
       "id": "1113-dx-basic",
@@ -35659,7 +35662,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1125-dx-basic",
@@ -35819,7 +35822,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1130-dx-basic",
@@ -35851,7 +35854,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1131-dx-basic",
@@ -35883,7 +35886,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1132-dx-basic",
@@ -35907,7 +35910,7 @@
       "type": "DX",
       "difficulty": "MASTER",
       "level": "12+",
-      "constant": 13.2
+      "constant": 12.9
     },
     {
       "id": "1133-dx-advanced",
@@ -35915,7 +35918,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1133-dx-basic",
@@ -36011,7 +36014,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1136-dx-basic",
@@ -36035,7 +36038,7 @@
       "type": "DX",
       "difficulty": "MASTER",
       "level": "12",
-      "constant": 12.6
+      "constant": 12.5
     },
     {
       "id": "1137-dx-advanced",
@@ -36075,7 +36078,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.7
     },
     {
       "id": "1138-dx-basic",
@@ -36099,7 +36102,7 @@
       "type": "DX",
       "difficulty": "MASTER",
       "level": "12+",
-      "constant": 13
+      "constant": 12.8
     },
     {
       "id": "1139-dx-advanced",
@@ -36107,7 +36110,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1139-dx-basic",
@@ -36131,7 +36134,7 @@
       "type": "DX",
       "difficulty": "MASTER",
       "level": "12+",
-      "constant": 13
+      "constant": 12.8
     },
     {
       "id": "1140-dx-advanced",
@@ -36355,7 +36358,7 @@
       "type": "DX",
       "difficulty": "MASTER",
       "level": "12+",
-      "constant": 12.6
+      "constant": 12.7
     },
     {
       "id": "1148-dx-advanced",
@@ -36979,7 +36982,7 @@
       "type": "DX",
       "difficulty": "MASTER",
       "level": "12+",
-      "constant": 12.9
+      "constant": 12.8
     },
     {
       "id": "1169-dx-advanced",
@@ -37083,7 +37086,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1172-dx-basic",
@@ -37387,7 +37390,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1187-dx-basic",
@@ -37419,7 +37422,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1188-dx-basic",
@@ -37515,7 +37518,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1191-dx-basic",
@@ -37547,7 +37550,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1192-dx-basic",
@@ -37611,7 +37614,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1194-dx-basic",
@@ -37675,7 +37678,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1197-dx-basic",
@@ -37835,7 +37838,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1201-dx-basic",
@@ -37859,7 +37862,7 @@
       "type": "DX",
       "difficulty": "MASTER",
       "level": "12+",
-      "constant": 13.1
+      "constant": 12.9
     },
     {
       "id": "1202-dx-advanced",
@@ -37931,7 +37934,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1205-dx-basic",
@@ -38315,7 +38318,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "5",
-      "constant": 5
+      "constant": 5.8
     },
     {
       "id": "1218-dx-basic",
@@ -39211,7 +39214,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1247-dx-basic",
@@ -39307,7 +39310,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1253-dx-basic",
@@ -39371,7 +39374,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1260-dx-basic",
@@ -39435,7 +39438,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1262-dx-basic",
@@ -39459,7 +39462,7 @@
       "type": "DX",
       "difficulty": "MASTER",
       "level": "12+",
-      "constant": 12.9
+      "constant": 12.8
     },
     {
       "id": "1263-dx-advanced",
@@ -39467,7 +39470,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1263-dx-basic",
@@ -39499,7 +39502,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1264-dx-basic",
@@ -39531,7 +39534,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1265-dx-basic",
@@ -39627,7 +39630,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1268-dx-basic",
@@ -39723,7 +39726,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1271-dx-basic",
@@ -39787,7 +39790,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1273-dx-basic",
@@ -39819,7 +39822,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1274-dx-basic",
@@ -39883,7 +39886,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1276-dx-basic",
@@ -39915,7 +39918,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1277-dx-basic",
@@ -39947,7 +39950,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1278-dx-basic",
@@ -41195,7 +41198,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1316-dx-basic",
@@ -41227,7 +41230,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1317-dx-basic",
@@ -41459,7 +41462,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1329-dx-basic",
@@ -41659,7 +41662,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.7
     },
     {
       "id": "1336-dx-basic",
@@ -41723,7 +41726,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1340-dx-basic",
@@ -41755,7 +41758,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1341-dx-basic",
@@ -41899,7 +41902,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1345-dx-basic",
@@ -41995,7 +41998,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.7
     },
     {
       "id": "1350-dx-basic",
@@ -42091,7 +42094,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1354-dx-basic",
@@ -42123,7 +42126,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1355-dx-basic",
@@ -42219,7 +42222,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1360-dx-basic",
@@ -42251,7 +42254,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1361-dx-basic",
@@ -43355,7 +43358,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1401-dx-basic",
@@ -43387,7 +43390,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1402-dx-basic",
@@ -43419,7 +43422,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1404-dx-basic",
@@ -43483,7 +43486,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1410-dx-basic",
@@ -43683,7 +43686,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1419-dx-basic",
@@ -43715,7 +43718,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1422-dx-basic",
@@ -43907,7 +43910,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1428-dx-basic",
@@ -44003,7 +44006,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1433-dx-basic",
@@ -44035,7 +44038,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1434-dx-basic",
@@ -44067,7 +44070,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1435-dx-basic",
@@ -44099,7 +44102,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1436-dx-basic",
@@ -44131,7 +44134,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1437-dx-basic",
@@ -44195,7 +44198,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1439-dx-basic",
@@ -44227,7 +44230,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1441-dx-basic",
@@ -44251,7 +44254,7 @@
       "type": "DX",
       "difficulty": "MASTER",
       "level": "12+",
-      "constant": 13
+      "constant": 12.9
     },
     {
       "id": "1443-dx-advanced",
@@ -44635,7 +44638,7 @@
       "type": "DX",
       "difficulty": "MASTER",
       "level": "13+",
-      "constant": 13.8
+      "constant": 13.7
     },
     {
       "id": "1456-dx-advanced",
@@ -44771,7 +44774,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1460-dx-basic",
@@ -45443,7 +45446,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1483-dx-basic",
@@ -45483,7 +45486,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1485-dx-basic",
@@ -45563,7 +45566,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1487-dx-basic",
@@ -45723,7 +45726,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1492-dx-basic",
@@ -45787,7 +45790,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1494-dx-basic",
@@ -45819,7 +45822,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1495-dx-basic",
@@ -46043,7 +46046,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1504-dx-basic",
@@ -46139,7 +46142,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1507-dx-basic",
@@ -46171,7 +46174,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1508-dx-basic",
@@ -46235,7 +46238,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1510-dx-basic",
@@ -46267,7 +46270,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1511-dx-basic",
@@ -46331,7 +46334,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1513-dx-basic",
@@ -46491,7 +46494,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1519-dx-basic",
@@ -46523,7 +46526,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1520-dx-basic",
@@ -46555,7 +46558,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1521-dx-basic",
@@ -46843,7 +46846,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1532-dx-basic",
@@ -47451,7 +47454,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "5",
-      "constant": 5
+      "constant": 5.8
     },
     {
       "id": "1551-dx-basic",
@@ -47675,7 +47678,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1558-dx-basic",
@@ -47715,7 +47718,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1559-dx-basic",
@@ -47747,7 +47750,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1560-dx-basic",
@@ -47779,7 +47782,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1561-dx-basic",
@@ -47859,7 +47862,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1563-dx-basic",
@@ -47891,7 +47894,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1564-dx-basic",
@@ -48051,7 +48054,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1569-dx-basic",
@@ -48083,7 +48086,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1570-dx-basic",
@@ -48147,7 +48150,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1572-dx-basic",
@@ -48211,7 +48214,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1574-dx-basic",
@@ -48467,7 +48470,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1585-dx-basic",
@@ -48595,7 +48598,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1589-dx-basic",
@@ -48691,7 +48694,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1592-dx-basic",
@@ -48947,7 +48950,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1601-dx-basic",
@@ -49075,7 +49078,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1605-dx-basic",
@@ -49107,7 +49110,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1606-dx-basic",
@@ -49139,7 +49142,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1607-dx-basic",
@@ -49171,7 +49174,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1608-dx-basic",
@@ -49203,7 +49206,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1609-dx-basic",
@@ -49363,7 +49366,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1614-dx-basic",
@@ -49619,7 +49622,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1622-dx-basic",
@@ -49651,7 +49654,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1623-dx-basic",
@@ -49747,7 +49750,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1626-dx-basic",
@@ -50011,7 +50014,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1636-dx-basic",
@@ -50115,7 +50118,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "7+",
-      "constant": 7.6
+      "constant": 7.8
     },
     {
       "id": "1639-dx-basic",
@@ -50131,7 +50134,7 @@
       "type": "DX",
       "difficulty": "EXPERT",
       "level": "10",
-      "constant": 10
+      "constant": 10.5
     },
     {
       "id": "1639-dx-master",
@@ -50139,7 +50142,7 @@
       "type": "DX",
       "difficulty": "MASTER",
       "level": "12+",
-      "constant": 12.6
+      "constant": 12.8
     },
     {
       "id": "1640-dx-advanced",
@@ -50435,7 +50438,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1651-dx-basic",
@@ -50499,7 +50502,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1653-dx-basic",
@@ -50531,7 +50534,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1654-dx-basic",
@@ -50659,7 +50662,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1658-dx-basic",
@@ -50691,7 +50694,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1659-dx-basic",
@@ -50891,7 +50894,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1665-dx-basic",
@@ -50955,7 +50958,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1667-dx-basic",
@@ -50987,7 +50990,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1668-dx-basic",
@@ -51467,7 +51470,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1683-dx-basic",
@@ -51691,7 +51694,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1690-dx-basic",
@@ -51827,7 +51830,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1694-dx-basic",
@@ -51859,7 +51862,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1695-dx-basic",
@@ -51891,7 +51894,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1696-dx-basic",
@@ -52011,7 +52014,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1699-dx-basic",
@@ -52139,7 +52142,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1704-dx-basic",
@@ -52267,7 +52270,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1710-dx-basic",
@@ -52299,7 +52302,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1711-dx-basic",
@@ -52491,7 +52494,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1717-dx-basic",
@@ -52523,7 +52526,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1718-dx-basic",
@@ -52939,7 +52942,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1733-dx-basic",
@@ -53003,7 +53006,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1735-dx-basic",
@@ -53035,7 +53038,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1736-dx-basic",
@@ -53067,7 +53070,7 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1736-standard-basic",
@@ -53451,7 +53454,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1748-dx-basic",
@@ -53771,7 +53774,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1758-dx-basic",
@@ -53835,7 +53838,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1760-dx-basic",
@@ -53987,7 +53990,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1765-dx-basic",
@@ -54019,7 +54022,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1766-dx-basic",
@@ -54051,7 +54054,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1767-dx-basic",
@@ -54179,7 +54182,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1772-dx-basic",
@@ -54211,7 +54214,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1773-dx-basic",
@@ -54243,7 +54246,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1774-dx-basic",
@@ -54339,7 +54342,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1777-dx-basic",
@@ -54411,7 +54414,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1779-dx-basic",
@@ -54547,7 +54550,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1783-dx-basic",
@@ -54675,7 +54678,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.7
     },
     {
       "id": "1787-dx-basic",
@@ -54803,7 +54806,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.7
     },
     {
       "id": "1791-dx-basic",
@@ -54931,7 +54934,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1795-dx-basic",
@@ -55123,7 +55126,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1802-dx-basic",
@@ -55219,7 +55222,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1805-dx-basic",
@@ -55571,7 +55574,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1816-dx-basic",
@@ -56187,7 +56190,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1835-dx-basic",
@@ -56227,7 +56230,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.4
     },
     {
       "id": "1836-dx-basic",
@@ -56339,7 +56342,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1839-dx-basic",
@@ -56371,7 +56374,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1840-dx-basic",
@@ -56403,7 +56406,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1841-dx-basic",
@@ -56499,7 +56502,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.7
     },
     {
       "id": "1844-dx-basic",
@@ -56691,7 +56694,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1850-dx-basic",
@@ -56755,7 +56758,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1852-dx-basic",
@@ -56915,7 +56918,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1857-dx-basic",
@@ -56947,7 +56950,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1858-dx-basic",
@@ -57139,7 +57142,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1864-dx-basic",
@@ -57243,7 +57246,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1868-dx-basic",
@@ -57403,7 +57406,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.7
     },
     {
       "id": "1873-dx-basic",
@@ -57467,7 +57470,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1875-dx-basic",
@@ -57651,7 +57654,7 @@
       "type": "DX",
       "difficulty": "MASTER",
       "level": "13+",
-      "constant": 13.9
+      "constant": 13.8
     },
     {
       "id": "1882-dx-advanced",
@@ -58227,7 +58230,7 @@
       "type": "DX",
       "difficulty": "MASTER",
       "level": "13+",
-      "constant": 13.9
+      "constant": 13.8
     },
     {
       "id": "1900-dx-advanced",
@@ -58299,7 +58302,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1902-dx-basic",
@@ -58467,7 +58470,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1907-dx-basic",
@@ -58531,7 +58534,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1909-dx-basic",
@@ -58563,7 +58566,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1911-dx-basic",
@@ -58595,7 +58598,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1912-dx-basic",
@@ -58627,7 +58630,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1913-dx-basic",
@@ -58707,7 +58710,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1915-dx-basic",
@@ -58795,7 +58798,7 @@
       "type": "DX",
       "difficulty": "MASTER",
       "level": "14",
-      "constant": 14.2
+      "constant": 14.1
     },
     {
       "id": "1918-dx-advanced",
@@ -58891,7 +58894,7 @@
       "type": "DX",
       "difficulty": "MASTER",
       "level": "14",
-      "constant": 14.6
+      "constant": 14.5
     },
     {
       "id": "1921-dx-advanced",
@@ -58987,7 +58990,7 @@
       "type": "DX",
       "difficulty": "MASTER",
       "level": "13",
-      "constant": 13.2
+      "constant": 13
     },
     {
       "id": "1924-dx-advanced",
@@ -59059,7 +59062,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1926-dx-basic",
@@ -59091,7 +59094,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1927-dx-basic",
@@ -59147,7 +59150,7 @@
       "type": "DX",
       "difficulty": "MASTER",
       "level": "13",
-      "constant": 13.6
+      "constant": 13.4
     },
     {
       "id": "1929-dx-advanced",
@@ -59403,7 +59406,7 @@
       "type": "DX",
       "difficulty": "MASTER",
       "level": "13+",
-      "constant": 13.9
+      "constant": 13.8
     },
     {
       "id": "1937-dx-advanced",
@@ -59411,7 +59414,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1937-dx-basic",
@@ -59603,7 +59606,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1943-dx-basic",
@@ -59723,7 +59726,7 @@
       "type": "DX",
       "difficulty": "MASTER",
       "level": "14+",
-      "constant": 14.7
+      "constant": 14.6
     },
     {
       "id": "1947-dx-advanced",
@@ -59763,7 +59766,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "5",
-      "constant": 5
+      "constant": 5.8
     },
     {
       "id": "1948-dx-basic",
@@ -59827,7 +59830,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1950-dx-basic",
@@ -59851,7 +59854,7 @@
       "type": "DX",
       "difficulty": "MASTER",
       "level": "12+",
-      "constant": 13
+      "constant": 12.9
     },
     {
       "id": "1951-dx-advanced",
@@ -59883,7 +59886,7 @@
       "type": "DX",
       "difficulty": "MASTER",
       "level": "13",
-      "constant": 12.9
+      "constant": 13
     },
     {
       "id": "1952-dx-advanced",
@@ -60011,7 +60014,7 @@
       "type": "DX",
       "difficulty": "MASTER",
       "level": "14",
-      "constant": 14
+      "constant": 14.1
     },
     {
       "id": "1956-dx-advanced",
@@ -60051,7 +60054,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1957-dx-basic",
@@ -60083,7 +60086,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1958-dx-basic",
@@ -60147,7 +60150,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1960-dx-basic",
@@ -60179,7 +60182,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.8
     },
     {
       "id": "1961-dx-basic",
@@ -60275,7 +60278,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1969-dx-basic",
@@ -60339,7 +60342,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.7
     },
     {
       "id": "1971-dx-basic",
@@ -60467,7 +60470,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1979-dx-basic",
@@ -60539,7 +60542,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1981-dx-basic",
@@ -60611,7 +60614,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1983-dx-basic",
@@ -60739,7 +60742,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1987-dx-basic",
@@ -60763,7 +60766,7 @@
       "type": "DX",
       "difficulty": "MASTER",
       "level": "13",
-      "constant": 13.4
+      "constant": 13.2
     },
     {
       "id": "1988-dx-advanced",
@@ -60771,7 +60774,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.7
     },
     {
       "id": "1988-dx-basic",
@@ -60795,7 +60798,7 @@
       "type": "DX",
       "difficulty": "MASTER",
       "level": "13",
-      "constant": 13.3
+      "constant": 13.1
     },
     {
       "id": "1989-dx-advanced",
@@ -60963,7 +60966,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.2
     },
     {
       "id": "1994-dx-basic",
@@ -61027,7 +61030,7 @@
       "type": "DX",
       "difficulty": "ADVANCED",
       "level": "6",
-      "constant": 6
+      "constant": 6.5
     },
     {
       "id": "1996-dx-basic",

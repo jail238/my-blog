@@ -11,6 +11,13 @@ const { chart, song } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const typeLabel = chart.type === 'STANDARD' ? 'ST' : 'DX';
 const difficultyClass = chart.difficulty === 'Re:MASTER' ? 'remaster' : chart.difficulty.toLowerCase();
+const comboIcons: Record<string, { file: string; label: string }> = {
+	FC: { file: 'fc.webp', label: 'FULL COMBO' },
+	'FC+': { file: 'fcp.webp', label: 'FULL COMBO+' },
+	AP: { file: 'ap.webp', label: 'ALL PERFECT' },
+	'AP+': { file: 'app.webp', label: 'ALL PERFECT+' },
+};
+const comboIcon = chart.record?.combo ? comboIcons[chart.record.combo] : undefined;
 ---
 
 <a class="chart-row" href={`${base}/songs/${song.id}/`}>
@@ -22,6 +29,30 @@ const difficultyClass = chart.difficulty === 'Re:MASTER' ? 'remaster' : chart.di
 	<span class="chart-tags">
 		<span class:list={['type-badge', `type-${chart.type.toLowerCase()}`]}>{typeLabel}</span>
 		<span class:list={['difficulty-badge', `difficulty-${difficultyClass}`]}>{chart.difficulty}</span>
+	</span>
+	<span
+		class="chart-record"
+		title={chart.record ? `DX ${chart.record.dxScore.toLocaleString('en-US')} / ${chart.record.dxScoreMax.toLocaleString('en-US')}` : undefined}
+	>
+		{chart.record && (
+			<>
+				<span class="chart-record-copy">
+					<strong>{chart.record.achievement}</strong>
+					<small>{chart.record.rank} · RATING {chart.record.rating}</small>
+				</span>
+				{comboIcon && (
+					<img
+						class="combo-icon"
+						src={`${base}/assets/maimai/music-icon/${comboIcon.file}`}
+						alt={comboIcon.label}
+						title={comboIcon.label}
+						width="80"
+						height="80"
+						loading="lazy"
+					/>
+				)}
+			</>
+		)}
 	</span>
 	<span class="chart-level">
 		<strong>{chart.level}</strong>

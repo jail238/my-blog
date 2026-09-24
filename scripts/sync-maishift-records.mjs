@@ -1,4 +1,4 @@
-import { readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -9,6 +9,9 @@ const RECORDS_URL = `${MAISHIFT_ORIGIN}/profile/${encodeURIComponent(HANDLE)}/re
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const CATALOG_PATH = resolve(SCRIPT_DIR, '../src/data/maimai.generated.json');
 const OUTPUT_PATH = resolve(SCRIPT_DIR, '../src/data/maishift.generated.json');
+const CIRCLE_PLUS_SNAPSHOT_PATH = resolve(SCRIPT_DIR, '../src/data/circle-plus.generated.json');
+const CIRCLE_PLUS_VERSION = 'CiRCLE PLUS';
+const WRITE_CIRCLE_PLUS_SNAPSHOT = process.argv.includes('--write-circle-plus-snapshot');
 
 const SPECIAL_VALUES = [undefined, null, true, false];
 
@@ -186,6 +189,12 @@ function recordIdentity(song, chartType, difficulty) {
 	return `${normalizeTitle(song.title)}\u0000${chartType}\u0000${difficulty}`;
 }
 
+function displayLevelForInternalLevel(internalLevelTenths) {
+	const baseLevel = Math.floor(internalLevelTenths / 10);
+	const decimal = internalLevelTenths % 10;
+	return baseLevel >= 7 && baseLevel < 15 && decimal >= 6 ? `${baseLevel}+` : String(baseLevel);
+}
+
 function comparableSnapshot(data) {
 	const { generatedAt: _generatedAt, ...source } = data.source;
 	return { ...data, source };
@@ -201,9 +210,10 @@ const [profileData, recordsData, catalogText] = await Promise.all([
 ]);
 
 const catalog = JSON.parse(catalogText);
+const catalogSongById = new Map(catalog.songs.map((song) => [song.id, song]));
 const catalogCharts = new Map();
 for (const chart of catalog.charts) {
-	const song = catalog.songs.find((candidate) => candidate.id === chart.songId);
+	const song = catalogSongById.get(chart.songId);
 	if (!song) throw new Error(`Catalog chart has no song: ${chart.id}`);
 
 	const key = recordIdentity(song, chart.type, chart.difficulty);
@@ -212,13 +222,11 @@ for (const chart of catalog.charts) {
 	catalogCharts.set(key, matches);
 }
 
-const records = [];
 const unmatched = [];
-const seenChartIds = new Set();
+const mappedTracks = [];
+const seenMappedChartIds = new Set();
 
 for (const track of recordsData.tracks) {
-	if (!track.r || track.r.a <= 0) continue;
-
 	const maishiftSong = recordsData.songs[track.s];
 	if (!maishiftSong) throw new Error(`Maishift track has no song: ${track.i}`);
 
@@ -233,6 +241,8 @@ for (const track of recordsData.tracks) {
 		matches = matches.filter(({ chart }) => chart.constant === track.l / 10);
 	}
 
+	if (matches.length === 0) continue;
+
 	if (matches.length !== 1) {
 		unmatched.push({
 			title: maishiftSong.title,
@@ -245,12 +255,27 @@ for (const track of recordsData.tracks) {
 		continue;
 	}
 
-	const chartId = matches[0].chart.id;
-	if (seenChartIds.has(chartId)) throw new Error(`Duplicate Maishift record for catalog chart: ${chartId}`);
-	seenChartIds.add(chartId);
+	const match = matches[0];
+	const chartId = match.chart.id;
+	if (seenMappedChartIds.has(chartId)) throw new Error(`Duplicate Maishift track for catalog chart: ${chartId}`);
+	seenMappedChartIds.add(chartId);
+	mappedTracks.push({ track, ...match });
+}
+
+if (unmatched.length > 0) {
+	throw new Error(`Could not resolve ${unmatched.length} Maishift tracks:\n${JSON.stringify(unmatched, null, 2)}`);
+}
+
+if (mappedTracks.length !== catalog.charts.length) {
+	throw new Error(`Maishift catalog coverage mismatch: ${mappedTracks.length} !== ${catalog.charts.length}`);
+}
+
+const records = [];
+for (const { track, chart } of mappedTracks) {
+	if (!track.r || track.r.a <= 0) continue;
 
 	records.push({
-		chartId,
+		chartId: chart.id,
 		achievement: `${(track.r.a / 10_000).toFixed(4)}%`,
 		achievementValue: track.r.a,
 		rank: rankFor(track.r.a),
@@ -263,8 +288,43 @@ for (const track of recordsData.tracks) {
 	});
 }
 
-if (unmatched.length > 0) {
-	throw new Error(`Could not map ${unmatched.length} Maishift records:\n${JSON.stringify(unmatched, null, 2)}`);
+if (WRITE_CIRCLE_PLUS_SNAPSHOT) {
+	const charts = mappedTracks
+		.map(({ track, chart }) => {
+			const expectedLevel = displayLevelForInternalLevel(track.l);
+			if (chart.level !== expectedLevel) {
+				throw new Error(
+					`CiRCLE PLUS level mismatch for ${chart.id}: ${chart.level} !== ${expectedLevel} (${track.l / 10})`,
+				);
+			}
+
+			return {
+				chartId: chart.id,
+				level: chart.level,
+				constant: track.l / 10,
+			};
+		})
+		.sort((a, b) => a.chartId.localeCompare(b.chartId, 'en', { numeric: true }));
+
+	const snapshot = {
+		source: {
+			gameVersion: CIRCLE_PLUS_VERSION,
+			region: REGION,
+			recordsUrl: RECORDS_URL,
+			generatedAt: new Date().toISOString(),
+		},
+		totalSongs: catalog.songs.length,
+		totalCharts: charts.length,
+		songs: catalog.songs
+			.map(({ id, versionId }) => ({ songId: id, versionId }))
+			.sort((a, b) => a.songId.localeCompare(b.songId, 'en', { numeric: true })),
+		charts,
+	};
+
+	await mkdir(dirname(CIRCLE_PLUS_SNAPSHOT_PATH), { recursive: true });
+	await writeFile(CIRCLE_PLUS_SNAPSHOT_PATH, `${JSON.stringify(snapshot, null, 2)}\n`, 'utf8');
+	console.log(`Pinned ${CIRCLE_PLUS_VERSION}: ${snapshot.totalSongs} songs, ${snapshot.totalCharts} charts`);
+	console.log(`Wrote ${CIRCLE_PLUS_SNAPSHOT_PATH}`);
 }
 
 records.sort(

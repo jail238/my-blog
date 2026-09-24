@@ -47,6 +47,9 @@ interface GeneratedCatalog {
 	source: {
 		url: string;
 		region: 'intl';
+		gameVersion: 'CiRCLE PLUS';
+		chartDataUrl: string;
+		chartDataPinnedAt: string;
 		sourceUpdatedAt: string | null;
 		generatedAt: string;
 	};
@@ -145,7 +148,18 @@ function assertUniqueIds(items: { id: string }[], label: string) {
 	}
 }
 
+function displayLevelForConstant(constant: number) {
+	const internalLevelTenths = Math.round(constant * 10);
+	const baseLevel = Math.floor(internalLevelTenths / 10);
+	const decimal = internalLevelTenths % 10;
+	return baseLevel >= 7 && baseLevel < 15 && decimal >= 6 ? `${baseLevel}+` : String(baseLevel);
+}
+
 function validateCatalog() {
+	if (CATALOG_SOURCE.gameVersion !== 'CiRCLE PLUS') {
+		throw new Error(`Unsupported catalog version: ${CATALOG_SOURCE.gameVersion}`);
+	}
+
 	assertUniqueIds(VERSIONS, 'version');
 	assertUniqueIds(SONGS, 'song');
 	assertUniqueIds(CHARTS, 'chart');
@@ -165,6 +179,16 @@ function validateCatalog() {
 		}
 		if (!knownLevels.has(chart.level)) {
 			throw new Error(`Unknown level ${chart.level} for chart ${chart.id}`);
+		}
+		if (chart.constant === undefined) {
+			throw new Error(`Missing constant for chart ${chart.id}`);
+		}
+
+		const expectedLevel = displayLevelForConstant(chart.constant);
+		if (chart.level !== expectedLevel) {
+			throw new Error(
+				`CiRCLE PLUS level mismatch for ${chart.id}: ${chart.level} !== ${expectedLevel} (${chart.constant.toFixed(1)})`,
+			);
 		}
 
 		const chartKey = `${chart.songId}:${chart.type}:${chart.difficulty}`;
