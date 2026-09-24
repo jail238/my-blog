@@ -186,6 +186,11 @@ function recordIdentity(song, chartType, difficulty) {
 	return `${normalizeTitle(song.title)}\u0000${chartType}\u0000${difficulty}`;
 }
 
+function comparableSnapshot(data) {
+	const { generatedAt: _generatedAt, ...source } = data.source;
+	return { ...data, source };
+}
+
 const recordsHtml = await fetchText(RECORDS_URL);
 const { profileHash, recordsHash } = await discoverServerFunctions(recordsHtml);
 const requestData = { handle: HANDLE, region: REGION };
@@ -289,6 +294,20 @@ const output = {
 	total: records.length,
 	records,
 };
+
+let previousOutput;
+try {
+	previousOutput = JSON.parse(await readFile(OUTPUT_PATH, 'utf8'));
+} catch (error) {
+	if (error?.code !== 'ENOENT') throw error;
+}
+
+if (
+	previousOutput &&
+	JSON.stringify(comparableSnapshot(previousOutput)) === JSON.stringify(comparableSnapshot(output))
+) {
+	output.source.generatedAt = previousOutput.source.generatedAt;
+}
 
 await writeFile(OUTPUT_PATH, `${JSON.stringify(output, null, 2)}\n`, 'utf8');
 

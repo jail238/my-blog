@@ -48,6 +48,7 @@ npm run preview
 - Catalog metadata and jacket URLs are generated from [SaltMeta](https://github.com/realtvop/SaltMeta), filtered to charts available in the `intl` region.
 - Public personal records are generated from the [Maishift profile](https://maimai.shiftpsh.com/profile/elixir/home). The sync stores scores only; it does not store cookies, login data, or tokens.
 - The site's `기록 갱신` button opens the repository's `Refresh Maishift records` workflow. Run it while signed in as a repository owner to import, commit, and deploy the latest public records without a local development environment.
+- The same workflow checks for updates every day at 07:30 KST. It skips the commit and deployment when the public Maishift snapshot has not changed.
 - `MAGiCAL` stays in the version index but remains empty until International-region charts exist in the source data.
 - `npm run sync:records` refreshes achievements, ranks, combo/sync states, DX scores, and rating contribution.
 - Song jackets are loaded from the metadata provider; the archive cover was generated specifically for this site.
