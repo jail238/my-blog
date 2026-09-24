@@ -300,6 +300,7 @@ if (WRITE_CIRCLE_PLUS_SNAPSHOT) {
 
 			return {
 				chartId: chart.id,
+				versionId: chart.versionId,
 				level: chart.level,
 				constant: track.l / 10,
 			};
@@ -316,7 +317,7 @@ if (WRITE_CIRCLE_PLUS_SNAPSHOT) {
 		totalSongs: catalog.songs.length,
 		totalCharts: charts.length,
 		songs: catalog.songs
-			.map(({ id, versionId }) => ({ songId: id, versionId }))
+			.map(({ id }) => ({ songId: id }))
 			.sort((a, b) => a.songId.localeCompare(b.songId, 'en', { numeric: true })),
 		charts,
 	};

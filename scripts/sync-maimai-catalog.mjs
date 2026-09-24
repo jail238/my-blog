@@ -62,6 +62,7 @@ const versions = VERSION_DEFINITIONS.map(([sourceName, id, shortName], index) =>
 	order: index + 1,
 	sourceName,
 }));
+const versionIdBySourceName = new Map(versions.map((version) => [version.sourceName, version.id]));
 
 function coverUrl(id) {
 	return `${COVER_BASE_URL}/${String(id).padStart(6, '0')}.png`;
@@ -107,16 +108,12 @@ for (const music of metadata.musics) {
 	const songId = String(music.id);
 	const pinnedSong = pinnedSongById.get(songId);
 	if (!pinnedSong) continue;
-	if (!versions.some((version) => version.id === pinnedSong.versionId)) {
-		throw new Error(`No known pinned version for ${music.id} ${music.title}: ${pinnedSong.versionId}`);
-	}
 
 	songs.push({
 		id: songId,
 		sourceId: music.id,
 		title: music.title,
 		artist: music.artist,
-		versionId: pinnedSong.versionId,
 		genre: music.category,
 		artworkUrl: coverUrl(music.id),
 	});
@@ -127,12 +124,29 @@ for (const music of metadata.musics) {
 		const id = chartId(songId, type, difficulty);
 		const pinnedChart = pinnedChartById.get(id);
 		if (!pinnedChart) continue;
+		const sourceVersionName = chart.regions.intl.version;
+		const sourceVersionId = versionIdBySourceName.get(sourceVersionName);
+		if (!sourceVersionId) {
+			throw new Error(`No known International version for ${id}: ${sourceVersionName}`);
+		}
+		if (!pinnedChart.versionId) {
+			throw new Error(`Pinned chart has no version: ${id}`);
+		}
+		if (!versions.some((version) => version.id === pinnedChart.versionId)) {
+			throw new Error(`No known pinned version for ${id}: ${pinnedChart.versionId}`);
+		}
+		if (pinnedChart.versionId !== sourceVersionId) {
+			throw new Error(
+				`Pinned version mismatch for ${id}: ${pinnedChart.versionId} !== ${sourceVersionId}`,
+			);
+		}
 
 		charts.push({
 			id,
 			songId,
 			type,
 			difficulty,
+			versionId: pinnedChart.versionId,
 			level: pinnedChart.level,
 			constant: pinnedChart.constant,
 		});
@@ -174,9 +188,9 @@ const output = {
 await mkdir(dirname(OUTPUT_PATH), { recursive: true });
 await writeFile(OUTPUT_PATH, `${JSON.stringify(output, null, 2)}\n`, 'utf8');
 
-const versionCounts = new Map(versions.map((version) => [version.id, 0]));
-for (const song of songs) versionCounts.set(song.versionId, versionCounts.get(song.versionId) + 1);
+const songIdsByVersion = new Map(versions.map((version) => [version.id, new Set()]));
+for (const chart of charts) songIdsByVersion.get(chart.versionId).add(chart.songId);
 
 console.log(`${TARGET_GAME_VERSION} International catalog: ${songs.length} songs, ${charts.length} charts`);
-console.log(`MAGiCAL: ${versionCounts.get('magical')} songs`);
+console.log(`MAGiCAL: ${songIdsByVersion.get('magical').size} songs`);
 console.log(`Wrote ${OUTPUT_PATH}`);

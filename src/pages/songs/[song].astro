@@ -1,6 +1,6 @@
 ---
 import SongArtwork from '../../components/SongArtwork.astro';
-import { SONGS, chartsForSong, versionById } from '../../data/maimai';
+import { SONGS, chartsForSong, versionById, versionGroupsForSong } from '../../data/maimai';
 import CatalogLayout from '../../layouts/CatalogLayout.astro';
 import { SITE_TITLE } from '../../consts';
 
@@ -13,15 +13,13 @@ export function getStaticPaths() {
 
 const { song } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const version = versionById.get(song.versionId);
 const charts = chartsForSong(song.id);
+const versionGroups = versionGroupsForSong(song.id);
 ---
 
 <CatalogLayout title={`${song.title} | ${SITE_TITLE}`} description={`${song.title} maimai 채보 및 기록`} pageClass="song-detail-page">
 	<nav class="catalog-breadcrumb" aria-label="현재 위치">
 		<a href={`${base}/versions/`}>버전 순</a>
-		<span aria-hidden="true">/</span>
-		{version && <a href={`${base}/versions/${version.id}/`}>{version.shortName}</a>}
 		<span aria-hidden="true">/</span>
 		<strong>{song.title}</strong>
 	</nav>
@@ -32,7 +30,14 @@ const charts = chartsForSong(song.id);
 			<p class="catalog-kicker">{song.genre}</p>
 			<h1>{song.title}</h1>
 			<p class="song-artist">{song.artist}</p>
-			{version && <a class="song-version-link" href={`${base}/versions/${version.id}/`}>{version.name}</a>}
+			<div class="song-version-links" aria-label="채보별 수록 버전">
+				{versionGroups.map(({ version, types }) => (
+					<a class="song-version-link" href={`${base}/versions/${version.id}/`}>
+						<span>{types.map((type) => type === 'STANDARD' ? 'ST' : 'DX').join(' · ')}</span>
+						{version.shortName}
+					</a>
+				))}
+			</div>
 		</div>
 	</header>
 
@@ -49,11 +54,15 @@ const charts = chartsForSong(song.id);
 					<div class="song-chart-list">
 						{charts.map((chart) => {
 							const difficultyClass = chart.difficulty === 'Re:MASTER' ? 'remaster' : chart.difficulty.toLowerCase();
+							const chartVersion = versionById.get(chart.versionId);
 							return (
 								<div class="song-chart-row">
 									<div class="song-chart-meta">
 										<span class:list={['type-badge', `type-${chart.type.toLowerCase()}`]}>{chart.type === 'STANDARD' ? 'ST' : 'DX'}</span>
 										<span class:list={['difficulty-badge', `difficulty-${difficultyClass}`]}>{chart.difficulty}</span>
+										{chartVersion && (
+											<a class="song-chart-version" href={`${base}/versions/${chartVersion.id}/`}>{chartVersion.shortName}</a>
+										)}
 									</div>
 									<div class="song-chart-level">
 										<small>LEVEL</small>

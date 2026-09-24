@@ -16,7 +16,6 @@ export interface Song {
 	sourceId: number;
 	title: string;
 	artist: string;
-	versionId: string;
 	genre: string;
 	artworkUrl: string;
 }
@@ -38,6 +37,7 @@ export interface Chart {
 	songId: string;
 	type: ChartType;
 	difficulty: Difficulty;
+	versionId: string;
 	level: string;
 	constant?: number;
 	record?: PlayRecord;
@@ -172,15 +172,12 @@ function validateCatalog() {
 	const knownLevels = new Set<string>(LEVEL_ORDER);
 	const chartKeys = new Set<string>();
 
-	for (const song of SONGS) {
-		if (!versionById.has(song.versionId)) {
-			throw new Error(`Unknown version ${song.versionId} for song ${song.id}`);
-		}
-	}
-
 	for (const chart of CHARTS) {
 		if (!songById.has(chart.songId)) {
 			throw new Error(`Unknown song ${chart.songId} for chart ${chart.id}`);
+		}
+		if (!versionById.has(chart.versionId)) {
+			throw new Error(`Unknown version ${chart.versionId} for chart ${chart.id}`);
 		}
 		if (!knownLevels.has(chart.level)) {
 			throw new Error(`Unknown level ${chart.level} for chart ${chart.id}`);
@@ -248,7 +245,28 @@ export function chartsForSong(songId: string) {
 }
 
 export function songsForVersion(versionId: string) {
-	return SONGS.filter((song) => song.versionId === versionId).sort((a, b) => a.title.localeCompare(b.title, 'ko'));
+	const songIds = new Set(CHARTS.filter((chart) => chart.versionId === versionId).map((chart) => chart.songId));
+	return SONGS.filter((song) => songIds.has(song.id)).sort((a, b) => a.title.localeCompare(b.title, 'ko'));
+}
+
+export function chartTypesForSongVersion(songId: string, versionId: string) {
+	const types = new Set(
+		CHARTS.filter((chart) => chart.songId === songId && chart.versionId === versionId).map((chart) => chart.type),
+	);
+	return (['STANDARD', 'DX'] as const).filter((type) => types.has(type));
+}
+
+export function versionGroupsForSong(songId: string) {
+	return VERSIONS.map((version) => ({
+		version,
+		types: chartTypesForSongVersion(songId, version.id),
+	}))
+		.filter((group) => group.types.length > 0)
+		.sort((a, b) => {
+			const aType = a.types.includes('STANDARD') ? 0 : 1;
+			const bType = b.types.includes('STANDARD') ? 0 : 1;
+			return aType - bType || a.version.order - b.version.order;
+		});
 }
 
 export function registeredLevels() {

@@ -13,7 +13,7 @@ Personal maimai record archive built with Astro.
 The primary catalog has two views.
 
 - `Level`: chart-based index. STANDARD and DELUXE charts are stored and displayed separately as `ST` and `DX`.
-- `Version`: song-based index. Each song appears once under its first recorded version.
+- `Version`: chart-release index. A song appears under every version that introduced one of its International ST or DX chart sets.
 - Level pages can be filtered by song, artist, chart type, difficulty, and internal level. Their results are ordered by AP+, AP, then achievement rate.
 - Version pages can be searched by song or artist. The records page supports version filtering and orders records by rating.
 
@@ -49,7 +49,7 @@ npm run preview
 
 ## Data Notes
 
-- Titles, artists, version folders, and jacket URLs are generated from [SaltMeta](https://github.com/realtvop/SaltMeta), filtered to charts available in the `intl` region.
+- Titles, artists, chart-specific version folders, and jacket URLs are generated from [SaltMeta](https://github.com/realtvop/SaltMeta), filtered to charts available in the `intl` region.
 - Display levels and internal constants are pinned from the complete Maishift `ASIA` chart set for `CiRCLE PLUS`. The build validates every chart so mixed-version level/constant pairs fail instead of being published.
 - `npm run pin:circle-plus` intentionally replaces the version snapshot. Do not run it for an ordinary record refresh.
 - Public personal records are generated from the [Maishift profile](https://maimai.shiftpsh.com/profile/elixir/home). The sync stores scores only; it does not store cookies, login data, or tokens.
