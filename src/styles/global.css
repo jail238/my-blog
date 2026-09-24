@@ -286,7 +286,11 @@ img {
 
 .level-quick-grid a {
 	align-items: center;
-	background: #ffffff;
+	background-color: #ffffff;
+	background-image: linear-gradient(to top, rgba(213, 76, 76, 0.2), rgba(238, 137, 137, 0.09));
+	background-position: bottom;
+	background-repeat: no-repeat;
+	background-size: 100% var(--ap-progress, 0%);
 	border: 1px solid rgb(var(--line));
 	border-radius: 4px;
 	color: rgb(var(--text));
@@ -309,6 +313,7 @@ img {
 .level-quick-grid small {
 	color: rgb(var(--muted));
 	font-size: 0.72rem;
+	font-variant-numeric: tabular-nums;
 }
 
 .chart-type-key {

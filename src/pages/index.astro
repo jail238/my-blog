@@ -15,6 +15,16 @@ import { RECORD_REFRESH_URL, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const levelOrder = registeredLevels().slice().reverse();
+const levelProgress = levelOrder.map((level) => {
+	const charts = CHARTS.filter((chart) => chart.level === level);
+	const apCount = charts.filter((chart) => chart.record?.combo === 'AP' || chart.record?.combo === 'AP+').length;
+	return {
+		level,
+		apCount,
+		totalCount: charts.length,
+		apRate: charts.length > 0 ? (apCount / charts.length) * 100 : 0,
+	};
+});
 const recordedCharts = RECORDED_CHARTS.slice(0, 12)
 	.map((chart) => ({ chart, song: songById.get(chart.songId) }))
 	.filter((entry) => entry.song !== undefined);
@@ -71,17 +81,17 @@ const snapshotDate = `${snapshotParts.get('year')}.${snapshotParts.get('month')}
 			</div>
 			<div class="home-index-scroll" role="region" aria-label="전체 레벨 목록" tabindex="0">
 				<div class="level-quick-grid">
-					{levelOrder.map((level) => (
-						<a href={`${base}/levels/${level.replace('+', '-plus')}/`}>
+					{levelProgress.map(({ level, apCount, totalCount, apRate }) => (
+						<a
+							href={`${base}/levels/${level.replace('+', '-plus')}/`}
+							style={`--ap-progress: ${apRate.toFixed(2)}%`}
+							title={`AP 이상 ${apCount}/${totalCount}`}
+						>
 							<strong>{level}</strong>
-							<small>{CHARTS.filter((chart) => chart.level === level).length}</small>
+							<small>{apCount}/{totalCount}</small>
 						</a>
 					))}
 				</div>
-			</div>
-			<div class="chart-type-key" aria-label="채보 유형">
-				<span><b class="type-badge type-standard">ST</b> STANDARD</span>
-				<span><b class="type-badge type-dx">DX</b> DELUXE</span>
 			</div>
 		</section>
 
