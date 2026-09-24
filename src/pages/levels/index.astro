@@ -5,6 +5,16 @@ import { SITE_TITLE } from '../../consts';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const levels = registeredLevels().slice().reverse();
+const levelProgress = levels.map((level) => {
+	const charts = CHARTS.filter((chart) => chart.level === level);
+	const apCount = charts.filter((chart) => chart.record?.combo === 'AP' || chart.record?.combo === 'AP+').length;
+	return {
+		level,
+		apCount,
+		totalCount: charts.length,
+		apRate: charts.length > 0 ? (apCount / charts.length) * 100 : 0,
+	};
+});
 ---
 
 <CatalogLayout title={`레벨 순 | ${SITE_TITLE}`} description="maimai 채보를 레벨 순으로 정리한 아카이브" pageClass="level-index-page">
@@ -15,11 +25,15 @@ const levels = registeredLevels().slice().reverse();
 	</header>
 
 	<section class="level-index-grid" id="level-index-list" aria-label="레벨 목록">
-		{levels.map((level) => (
-			<a href={`${base}/levels/${level.replace('+', '-plus')}/`}>
+		{levelProgress.map(({ level, apCount, totalCount, apRate }) => (
+			<a
+				href={`${base}/levels/${level.replace('+', '-plus')}/`}
+				style={`--ap-progress: ${apRate.toFixed(2)}%`}
+				title={`AP 이상 ${apCount}/${totalCount} (${apRate.toFixed(1)}%)`}
+			>
 				<span>LEVEL</span>
 				<strong>{level}</strong>
-				<small>{CHARTS.filter((chart) => chart.level === level).length} CHARTS</small>
+				<small>{apCount}/{totalCount} ({apRate.toFixed(1)}%)</small>
 			</a>
 		))}
 	</section>

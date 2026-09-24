@@ -811,7 +811,11 @@ a.record-refresh-button.compact {
 }
 
 .level-index-grid a {
-	background: var(--surface);
+	background-color: var(--surface);
+	background-image: linear-gradient(to top, rgba(213, 76, 76, 0.2), rgba(238, 137, 137, 0.09));
+	background-position: bottom;
+	background-repeat: no-repeat;
+	background-size: 100% var(--ap-progress, 0%);
 	border: 1px solid rgb(var(--line));
 	border-radius: 6px;
 	color: rgb(var(--text));
@@ -842,6 +846,7 @@ a.record-refresh-button.compact {
 
 .level-index-grid small {
 	align-self: end;
+	font-variant-numeric: tabular-nums;
 }
 
 .catalog-breadcrumb {
