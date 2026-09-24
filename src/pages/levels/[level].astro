@@ -1,6 +1,6 @@
 ---
 import ChartRow from '../../components/ChartRow.astro';
-import { CATALOG_SOURCE, chartsForLevel, levelToSlug, registeredLevels, songById, versionsNewestFirst } from '../../data/maimai';
+import { chartsForLevel, levelToSlug, registeredLevels, songById, versionsNewestFirst } from '../../data/maimai';
 import CatalogLayout from '../../layouts/CatalogLayout.astro';
 import { SITE_TITLE } from '../../consts';
 
@@ -34,7 +34,7 @@ const internalLevels = [...new Set(
 	<header class="catalog-page-header compact">
 		<p class="catalog-kicker">LEVEL</p>
 		<h1>{level}</h1>
-		<p>{charts.length} CHARTS · {perfectCount}/{charts.length} · {CATALOG_SOURCE.gameVersion}</p>
+		<p>{charts.length} CHARTS · {perfectCount}/{charts.length}</p>
 	</header>
 
 	<nav class="level-strip" aria-label="다른 레벨">
