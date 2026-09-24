@@ -14,11 +14,6 @@ const levels = registeredLevels().slice().reverse();
 		<p>{CHARTS.length} CHARTS · {CATALOG_SOURCE.gameVersion}</p>
 	</header>
 
-	<div class="chart-type-key page-key" aria-label="채보 유형">
-		<span><b class="type-badge type-standard">ST</b> STANDARD</span>
-		<span><b class="type-badge type-dx">DX</b> DELUXE</span>
-	</div>
-
 	<section class="level-index-grid" id="level-index-list" aria-label="레벨 목록">
 		{levels.map((level) => (
 			<a href={`${base}/levels/${level.replace('+', '-plus')}/`}>
