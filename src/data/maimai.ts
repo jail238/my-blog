@@ -256,8 +256,8 @@ export function registeredLevels() {
 }
 
 export const RECORDED_CHARTS = CHARTS.filter((chart) => chart.record).sort((a, b) => {
-	const apDifference = (apOrder[b.record?.combo ?? ''] ?? 0) - (apOrder[a.record?.combo ?? ''] ?? 0);
-	if (apDifference !== 0) return apDifference;
+	const ratingDifference = (b.record?.rating ?? 0) - (a.record?.rating ?? 0);
+	if (ratingDifference !== 0) return ratingDifference;
 
 	const achievementDifference = (b.record?.achievementValue ?? 0) - (a.record?.achievementValue ?? 0);
 	if (achievementDifference !== 0) return achievementDifference;
