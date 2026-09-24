@@ -1339,8 +1339,8 @@ a.record-refresh-button.compact {
 		gap: 0.55rem 0.75rem;
 		grid-template-areas:
 			'art song level'
-			'art tags level'
-			'art record level';
+			'art record level'
+			'art tags level';
 		grid-template-columns: 44px minmax(0, 1fr) 48px;
 		min-height: 88px;
 		padding: 0.75rem;

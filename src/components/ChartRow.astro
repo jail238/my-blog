@@ -33,10 +33,6 @@ const comboIcon = chart.record?.combo ? comboIcons[chart.record.combo] : undefin
 		<strong>{song.title}</strong>
 		<small>{song.artist}</small>
 	</span>
-	<span class="chart-tags">
-		<span class:list={['type-badge', `type-${chart.type.toLowerCase()}`]}>{typeLabel}</span>
-		<span class:list={['difficulty-badge', `difficulty-${difficultyClass}`]}>{chart.difficulty}</span>
-	</span>
 	<span
 		class="chart-record"
 		title={chart.record ? `DX ${chart.record.dxScore.toLocaleString('en-US')} / ${chart.record.dxScoreMax.toLocaleString('en-US')}` : undefined}
@@ -60,6 +56,10 @@ const comboIcon = chart.record?.combo ? comboIcons[chart.record.combo] : undefin
 				)}
 			</>
 		)}
+	</span>
+	<span class="chart-tags">
+		<span class:list={['type-badge', `type-${chart.type.toLowerCase()}`]}>{typeLabel}</span>
+		<span class:list={['difficulty-badge', `difficulty-${difficultyClass}`]}>{chart.difficulty}</span>
 	</span>
 	<span class="chart-level">
 		<strong>{chart.level}</strong>
