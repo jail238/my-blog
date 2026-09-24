@@ -14,6 +14,7 @@ export function getStaticPaths() {
 const { level } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const charts = chartsForLevel(level);
+const perfectCount = charts.filter((chart) => chart.record?.combo === 'AP' || chart.record?.combo === 'AP+').length;
 const levels = registeredLevels().slice().reverse();
 const internalLevels = [...new Set(
 	charts
@@ -33,7 +34,7 @@ const internalLevels = [...new Set(
 	<header class="catalog-page-header compact">
 		<p class="catalog-kicker">LEVEL</p>
 		<h1>{level}</h1>
-		<p>{charts.length} CHARTS · {CATALOG_SOURCE.gameVersion}</p>
+		<p>{charts.length} CHARTS · AP 이상 {perfectCount}/{charts.length} · {CATALOG_SOURCE.gameVersion}</p>
 	</header>
 
 	<nav class="level-strip" aria-label="다른 레벨">
@@ -73,6 +74,10 @@ const internalLevels = [...new Set(
 				{internalLevels.map((constant) => <option value={constant}>{constant}</option>)}
 			</select>
 		</label>
+		<label class="record-checkbox">
+			<input id="level-chart-include-perfect" type="checkbox" checked />
+			<span>AP/AP+ 완료 포함</span>
+		</label>
 		<button type="reset">초기화</button>
 	</form>
 
@@ -96,6 +101,7 @@ const internalLevels = [...new Set(
 	const typeSelect = document.querySelector('#level-chart-type');
 	const difficultySelect = document.querySelector('#level-chart-difficulty');
 	const constantSelect = document.querySelector('#level-chart-constant');
+	const includePerfectInput = document.querySelector('#level-chart-include-perfect');
 	const list = document.querySelector('#level-chart-list');
 	const count = document.querySelector('#level-chart-count');
 	const empty = document.querySelector('#level-chart-empty');
@@ -106,13 +112,15 @@ const internalLevels = [...new Set(
 		if (!(typeSelect instanceof HTMLSelectElement)) return;
 		if (!(difficultySelect instanceof HTMLSelectElement)) return;
 		if (!(constantSelect instanceof HTMLSelectElement)) return;
+		if (!(includePerfectInput instanceof HTMLInputElement)) return;
 
 		const query = queryInput.value.trim().toLocaleLowerCase('ko');
 		const matches = rows.filter((row) =>
 			(!query || row.dataset.search?.includes(query)) &&
 			(!typeSelect.value || row.dataset.type === typeSelect.value) &&
 			(!difficultySelect.value || row.dataset.difficulty === difficultySelect.value) &&
-			(!constantSelect.value || row.dataset.constant === constantSelect.value),
+			(!constantSelect.value || row.dataset.constant === constantSelect.value) &&
+			(includePerfectInput.checked || row.dataset.perfect !== 'true'),
 		);
 		const matchSet = new Set(matches);
 

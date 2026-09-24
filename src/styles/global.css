@@ -560,6 +560,10 @@ a.record-refresh-button.compact {
 	grid-template-columns: minmax(220px, 1fr) repeat(4, minmax(104px, 0.42fr)) auto;
 }
 
+.level-chart-filters {
+	grid-template-columns: minmax(210px, 1fr) repeat(3, minmax(104px, 0.4fr)) minmax(142px, auto) auto;
+}
+
 .record-filters label {
 	display: grid;
 	gap: 0.3rem;
@@ -570,6 +574,31 @@ a.record-refresh-button.compact {
 	color: rgb(var(--muted));
 	font-size: 0.66rem;
 	font-weight: 760;
+}
+
+.record-filters .record-checkbox {
+	align-items: center;
+	align-self: end;
+	border: 1px solid rgb(var(--line));
+	border-radius: 4px;
+	display: flex;
+	gap: 0.5rem;
+	height: 40px;
+	padding: 0 0.7rem;
+}
+
+.record-filters .record-checkbox input {
+	accent-color: #d85d5d;
+	flex: 0 0 auto;
+	height: 16px;
+	margin: 0;
+	width: 16px;
+}
+
+.record-filters .record-checkbox > span {
+	color: rgb(var(--text));
+	font-size: 0.7rem;
+	white-space: nowrap;
 }
 
 .record-filters input,

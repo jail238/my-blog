@@ -11,6 +11,7 @@ const { chart, song } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const typeLabel = chart.type === 'STANDARD' ? 'ST' : 'DX';
 const difficultyClass = chart.difficulty === 'Re:MASTER' ? 'remaster' : chart.difficulty.toLowerCase();
+const isPerfect = chart.record?.combo === 'AP' || chart.record?.combo === 'AP+';
 const comboIcons: Record<string, { file: string; label: string }> = {
 	FC: { file: 'fc.webp', label: 'FULL COMBO' },
 	'FC+': { file: 'fcp.webp', label: 'FULL COMBO+' },
@@ -27,6 +28,7 @@ const comboIcon = chart.record?.combo ? comboIcons[chart.record.combo] : undefin
 	data-type={chart.type}
 	data-difficulty={chart.difficulty}
 	data-constant={chart.constant?.toFixed(1)}
+	data-perfect={isPerfect ? 'true' : 'false'}
 >
 	<SongArtwork song={song} compact />
 	<span class="chart-song">
