@@ -1,6 +1,15 @@
 ---
 import SongArtwork from '../components/SongArtwork.astro';
-import { CHARTS, SONGS, chartsForSong, registeredLevels, songsForVersion, versionsNewestFirst } from '../data/maimai';
+import {
+	CHARTS,
+	PLAYER_PROFILE,
+	RECORDED_CHARTS,
+	SONGS,
+	registeredLevels,
+	songById,
+	songsForVersion,
+	versionsNewestFirst,
+} from '../data/maimai';
 import CatalogLayout from '../layouts/CatalogLayout.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
@@ -8,11 +17,18 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const levelOrder = registeredLevels().slice().reverse();
 const highlightedLevels = levelOrder.slice(0, 8);
 const activeVersions = versionsNewestFirst.filter((version) => songsForVersion(version.id).length > 0).slice(0, 6);
-const recordedCharts = SONGS.flatMap((song) =>
-	chartsForSong(song.id)
-		.filter((chart) => chart.record)
-		.map((chart) => ({ song, chart })),
+const recordedCharts = RECORDED_CHARTS.slice(0, 12)
+	.map((chart) => ({ chart, song: songById.get(chart.songId) }))
+	.filter((entry) => entry.song !== undefined);
+const snapshotParts = new Map(
+	new Intl.DateTimeFormat('en', {
+		year: 'numeric',
+		month: '2-digit',
+		day: '2-digit',
+		timeZone: 'Asia/Seoul',
+	}).formatToParts(new Date(PLAYER_PROFILE.updatedAt)).map((part) => [part.type, part.value]),
 );
+const snapshotDate = `${snapshotParts.get('year')}.${snapshotParts.get('month')}.${snapshotParts.get('day')}`;
 ---
 
 <CatalogLayout title={SITE_TITLE} description={SITE_DESCRIPTION} pageClass="maimai-home">
@@ -23,11 +39,11 @@ const recordedCharts = SONGS.flatMap((song) =>
 			<p class="catalog-kicker">MAIMAI RECORD ARCHIVE</p>
 			<h1 id="archive-title">M.S.K.</h1>
 			<div class="profile-metrics" aria-label="기록 요약">
-				<span><small>RATING</small><strong>14,772</strong></span>
+				<span><small>RATING</small><strong>{PLAYER_PROFILE.rating.toLocaleString('en-US')}</strong></span>
 				<span><small>CLASS</small><strong>B4</strong></span>
-				<span><small>PLAYS</small><strong>949</strong></span>
+				<span><small>PLAYS</small><strong>{PLAYER_PROFILE.playCount.toLocaleString('en-US')}</strong></span>
 			</div>
-			<p class="snapshot-date">2026.09.23</p>
+			<p class="snapshot-date">{snapshotDate}</p>
 		</div>
 	</section>
 
@@ -94,9 +110,13 @@ const recordedCharts = SONGS.flatMap((song) =>
 				<p class="catalog-kicker">REGISTERED RECORDS</p>
 				<h2 id="record-gallery-title">등록 기록</h2>
 			</div>
+			<div class="record-gallery-heading-meta">
+				<span>{RECORDED_CHARTS.length.toLocaleString('ko-KR')} CHARTS</span>
+				<a href={`${base}/records/`}>전체</a>
+			</div>
 		</div>
 		<div class="record-gallery-grid">
-			{recordedCharts.map(({ song, chart }) => (
+			{recordedCharts.map(({ song, chart }) => song && (
 				<a href={`${base}/songs/${song.id}/`}>
 					<SongArtwork song={song} compact />
 					<span class="record-copy">

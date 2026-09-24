@@ -63,7 +63,8 @@ const charts = chartsForSong(song.id);
 									{chart.record && (
 										<div class="song-chart-record">
 											<strong>{chart.record.achievement}</strong>
-											<span>{chart.record.rank}{chart.record.combo ? ` · ${chart.record.combo}` : ''}</span>
+											<span>{[chart.record.rank, chart.record.combo, chart.record.sync].filter(Boolean).join(' · ')}</span>
+											<small>DX {chart.record.dxScore.toLocaleString('en-US')} / {chart.record.dxScoreMax.toLocaleString('en-US')}</small>
 										</div>
 									)}
 								</div>

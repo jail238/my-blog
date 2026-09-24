@@ -10,7 +10,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "sync:catalog": "node scripts/sync-maimai-catalog.mjs"
+    "sync:catalog": "node scripts/sync-maimai-catalog.mjs",
+    "sync:records": "node scripts/sync-maishift-records.mjs",
+    "sync:data": "npm run sync:catalog && npm run sync:records"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",

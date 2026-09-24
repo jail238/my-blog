@@ -1,4 +1,5 @@
 import catalogData from './maimai.generated.json';
+import maishiftData from './maishift.generated.json';
 
 export type ChartType = 'STANDARD' | 'DX';
 export type Difficulty = 'BASIC' | 'ADVANCED' | 'EXPERT' | 'MASTER' | 'Re:MASTER';
@@ -22,8 +23,14 @@ export interface Song {
 
 export interface PlayRecord {
 	achievement: string;
+	achievementValue: number;
 	rank: string;
 	combo?: string;
+	sync?: string;
+	dxScore: number;
+	dxScoreMax: number;
+	rating: number;
+	maishiftTrackId: number;
 }
 
 export interface Chart {
@@ -46,6 +53,26 @@ interface GeneratedCatalog {
 	versions: MaimaiVersion[];
 	songs: Song[];
 	charts: Omit<Chart, 'record'>[];
+}
+
+interface GeneratedMaishiftData {
+	source: {
+		profileUrl: string;
+		recordsUrl: string;
+		handle: string;
+		region: string;
+		profileUpdatedAt: string;
+		generatedAt: string;
+	};
+	profile: {
+		name: string;
+		rating: number;
+		playCount: number;
+		currentPlayCount: number;
+		updatedAt: string;
+	};
+	total: number;
+	records: (PlayRecord & { chartId: string })[];
 }
 
 export const DIFFICULTY_LABELS: Record<Difficulty, string> = {
@@ -83,19 +110,19 @@ export const LEVEL_ORDER = [
 ] as const;
 
 const generatedCatalog = catalogData as GeneratedCatalog;
-
-const RECORD_OVERRIDES: Record<string, PlayRecord> = {
-	'1874:DX:EXPERT': { achievement: '100.5362%', rank: 'SSS+' },
-	'1527:DX:EXPERT': { achievement: '100.9193%', rank: 'SSS+', combo: 'FC+' },
-	'1485:DX:MASTER': { achievement: '100.6438%', rank: 'SSS+', combo: 'FC' },
-};
+const generatedMaishift = maishiftData as GeneratedMaishiftData;
+const recordsByChartId = new Map(
+	generatedMaishift.records.map(({ chartId, ...record }) => [chartId, record] as const),
+);
 
 export const CATALOG_SOURCE = generatedCatalog.source;
+export const MAISHIFT_SOURCE = generatedMaishift.source;
+export const PLAYER_PROFILE = generatedMaishift.profile;
 export const VERSIONS = generatedCatalog.versions;
 export const SONGS = generatedCatalog.songs;
 export const CHARTS: Chart[] = generatedCatalog.charts.map((chart) => ({
 	...chart,
-	record: RECORD_OVERRIDES[`${chart.songId}:${chart.type}:${chart.difficulty}`],
+	record: recordsByChartId.get(chart.id),
 }));
 
 const difficultyOrder: Record<Difficulty, number> = {
@@ -146,6 +173,16 @@ function validateCatalog() {
 		}
 		chartKeys.add(chartKey);
 	}
+
+	if (recordsByChartId.size !== generatedMaishift.total) {
+		throw new Error(`Maishift record count mismatch: ${recordsByChartId.size} !== ${generatedMaishift.total}`);
+	}
+
+	for (const chartId of recordsByChartId.keys()) {
+		if (!CHARTS.some((chart) => chart.id === chartId)) {
+			throw new Error(`Unknown Maishift chart id: ${chartId}`);
+		}
+	}
 }
 
 validateCatalog();
@@ -182,3 +219,15 @@ export function songsForVersion(versionId: string) {
 export function registeredLevels() {
 	return LEVEL_ORDER.filter((level) => CHARTS.some((chart) => chart.level === level));
 }
+
+export const RECORDED_CHARTS = CHARTS.filter((chart) => chart.record).sort((a, b) => {
+	const ratingDifference = (b.record?.rating ?? 0) - (a.record?.rating ?? 0);
+	if (ratingDifference !== 0) return ratingDifference;
+
+	const achievementDifference = (b.record?.achievementValue ?? 0) - (a.record?.achievementValue ?? 0);
+	if (achievementDifference !== 0) return achievementDifference;
+
+	const songA = songById.get(a.songId)?.title ?? '';
+	const songB = songById.get(b.songId)?.title ?? '';
+	return songA.localeCompare(songB, 'ko');
+});

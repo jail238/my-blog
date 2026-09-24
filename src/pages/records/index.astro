@@ -1,0 +1,152 @@
+---
+import SongArtwork from '../../components/SongArtwork.astro';
+import { LEVEL_ORDER, MAISHIFT_SOURCE, RECORDED_CHARTS, songById } from '../../data/maimai';
+import CatalogLayout from '../../layouts/CatalogLayout.astro';
+import { SITE_TITLE } from '../../consts';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const records = RECORDED_CHARTS.map((chart) => {
+	const song = songById.get(chart.songId);
+	return {
+		chart,
+		song,
+		status: [chart.record?.rank, chart.record?.combo, chart.record?.sync].filter(Boolean).join(' · '),
+	};
+}).filter((entry) => entry.song !== undefined);
+const recordedLevels = [...LEVEL_ORDER].reverse().filter((level) => records.some(({ chart }) => chart.level === level));
+---
+
+<CatalogLayout title={`내 기록 | ${SITE_TITLE}`} description="Maishift에서 가져온 maimai 플레이 기록" pageClass="records-page">
+	<nav class="catalog-breadcrumb" aria-label="현재 위치">
+		<a href={`${base}/`}>홈</a>
+		<span aria-hidden="true">/</span>
+		<strong>등록 기록</strong>
+	</nav>
+
+	<header class="catalog-page-header records-page-header">
+		<p class="catalog-kicker">MY RECORDS</p>
+		<h1>등록 기록</h1>
+		<p>
+			<strong>{records.length.toLocaleString('ko-KR')}</strong>개 채보 · <a href={MAISHIFT_SOURCE.profileUrl}>Maishift</a> 스냅샷
+		</p>
+	</header>
+
+	<form class="record-filters" id="record-filters">
+		<label class="record-search">
+			<span>검색</span>
+			<input id="record-query" type="search" placeholder="곡명 또는 아티스트" autocomplete="off" />
+		</label>
+		<label>
+			<span>채보</span>
+			<select id="record-type">
+				<option value="">전체</option>
+				<option value="STANDARD">ST</option>
+				<option value="DX">DX</option>
+			</select>
+		</label>
+		<label>
+			<span>난이도</span>
+			<select id="record-difficulty">
+				<option value="">전체</option>
+				<option value="BASIC">BASIC</option>
+				<option value="ADVANCED">ADVANCED</option>
+				<option value="EXPERT">EXPERT</option>
+				<option value="MASTER">MASTER</option>
+				<option value="Re:MASTER">Re:MASTER</option>
+			</select>
+		</label>
+		<label>
+			<span>레벨</span>
+			<select id="record-level">
+				<option value="">전체</option>
+				{recordedLevels.map((level) => <option value={level}>{level}</option>)}
+			</select>
+		</label>
+		<button type="reset">초기화</button>
+	</form>
+
+	<div class="record-result-bar" aria-live="polite">
+		<strong id="record-result-count">{records.length.toLocaleString('ko-KR')}개</strong>
+		<span>레이팅 기여도 높은 순</span>
+	</div>
+
+	<div class="record-list" id="record-list">
+		{records.map(({ song, chart, status }, index) => song && (
+			<a
+				class="record-list-row"
+				href={`${base}/songs/${song.id}/`}
+				hidden={index >= 50}
+				data-search={`${song.title} ${song.artist}`.toLocaleLowerCase('ko')}
+				data-type={chart.type}
+				data-difficulty={chart.difficulty}
+				data-level={chart.level}
+			>
+				<SongArtwork song={song} compact />
+				<span class="record-list-song">
+					<strong>{song.title}</strong>
+					<small>{song.artist}</small>
+				</span>
+				<span class="record-list-tags">
+					<span class:list={['type-badge', `type-${chart.type.toLowerCase()}`]}>{chart.type === 'STANDARD' ? 'ST' : 'DX'}</span>
+					<span class:list={['difficulty-badge', `difficulty-${chart.difficulty === 'Re:MASTER' ? 'remaster' : chart.difficulty.toLowerCase()}`]}>{chart.difficulty}</span>
+					<b>Lv {chart.level}</b>
+				</span>
+				<span class="record-list-score">
+					<strong>{chart.record?.achievement}</strong>
+					<small>{status}</small>
+				</span>
+				<span class="record-list-detail">
+					<strong>RATING {chart.record?.rating}</strong>
+					<small>DX {chart.record?.dxScore.toLocaleString('en-US')} / {chart.record?.dxScoreMax.toLocaleString('en-US')}</small>
+				</span>
+			</a>
+		))}
+	</div>
+
+	<div class="catalog-empty compact" id="record-empty" hidden><strong>조건에 맞는 기록이 없습니다.</strong></div>
+	<button class="record-more-button" id="record-more" type="button">50개 더 보기</button>
+</CatalogLayout>
+
+<script>
+	const form = document.querySelector('#record-filters');
+	const queryInput = document.querySelector('#record-query');
+	const typeSelect = document.querySelector('#record-type');
+	const difficultySelect = document.querySelector('#record-difficulty');
+	const levelSelect = document.querySelector('#record-level');
+	const count = document.querySelector('#record-result-count');
+	const empty = document.querySelector('#record-empty');
+	const more = document.querySelector('#record-more');
+	const rows = [...document.querySelectorAll<HTMLElement>('.record-list-row')];
+	let limit = 50;
+
+	function applyFilters(resetLimit = true) {
+		if (!(queryInput instanceof HTMLInputElement)) return;
+		if (!(typeSelect instanceof HTMLSelectElement)) return;
+		if (!(difficultySelect instanceof HTMLSelectElement)) return;
+		if (!(levelSelect instanceof HTMLSelectElement)) return;
+
+		if (resetLimit) limit = 50;
+		const query = queryInput.value.trim().toLocaleLowerCase('ko');
+		const matches = rows.filter((row) =>
+			(!query || row.dataset.search?.includes(query)) &&
+			(!typeSelect.value || row.dataset.type === typeSelect.value) &&
+			(!difficultySelect.value || row.dataset.difficulty === difficultySelect.value) &&
+			(!levelSelect.value || row.dataset.level === levelSelect.value),
+		);
+		const matchSet = new Set(matches.slice(0, limit));
+
+		for (const row of rows) row.hidden = !matchSet.has(row);
+		if (count) count.textContent = `${matches.length.toLocaleString('ko-KR')}개`;
+		if (empty instanceof HTMLElement) empty.hidden = matches.length > 0;
+		if (more instanceof HTMLButtonElement) more.hidden = matches.length <= limit;
+	}
+
+	form?.addEventListener('input', () => applyFilters());
+	form?.addEventListener('reset', () => requestAnimationFrame(() => applyFilters()));
+	more?.addEventListener('click', () => {
+		limit += 50;
+		applyFilters(false);
+	});
+
+	applyFilters();
+</script>
