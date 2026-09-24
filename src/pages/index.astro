@@ -25,6 +25,17 @@ const levelProgress = levelOrder.map((level) => {
 		apRate: charts.length > 0 ? (apCount / charts.length) * 100 : 0,
 	};
 });
+const versionProgress = versionsNewestFirst.map((version) => {
+	const charts = CHARTS.filter((chart) => chart.versionId === version.id && chart.difficulty !== 'Re:MASTER');
+	const apCount = charts.filter((chart) => chart.record?.combo === 'AP' || chart.record?.combo === 'AP+').length;
+	return {
+		version,
+		apCount,
+		totalCount: charts.length,
+		apRate: charts.length > 0 ? (apCount / charts.length) * 100 : 0,
+		songCount: songsForVersion(version.id).length,
+	};
+});
 const recordedCharts = RECORDED_CHARTS.slice(0, 12)
 	.map((chart) => ({ chart, song: songById.get(chart.songId) }))
 	.filter((entry) => entry.song !== undefined);
@@ -105,10 +116,14 @@ const snapshotDate = `${snapshotParts.get('year')}.${snapshotParts.get('month')}
 			</div>
 			<div class="home-index-scroll" role="region" aria-label="전체 버전 목록" tabindex="0">
 				<div class="version-quick-list">
-					{versionsNewestFirst.map((version) => (
-						<a href={`${base}/versions/${version.id}/`}>
+					{versionProgress.map(({ version, apCount, totalCount, apRate, songCount }) => (
+						<a
+							href={`${base}/versions/${version.id}/`}
+							style={`--ap-progress: ${apRate.toFixed(2)}%`}
+							title={`Re:MASTER 제외 AP 이상 ${apCount}/${totalCount}`}
+						>
 							<span>{version.shortName}</span>
-							<small>{songsForVersion(version.id).length}곡</small>
+							<small><b>{apCount}/{totalCount}</b> · {songCount}곡</small>
 						</a>
 					))}
 				</div>

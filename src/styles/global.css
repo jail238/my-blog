@@ -390,6 +390,10 @@ img {
 
 .version-quick-list a {
 	align-items: center;
+	background-image: linear-gradient(to right, rgba(213, 76, 76, 0.2), rgba(238, 137, 137, 0.09));
+	background-position: left;
+	background-repeat: no-repeat;
+	background-size: var(--ap-progress, 0%) 100%;
 	border-bottom: 1px solid rgb(var(--line));
 	color: rgb(var(--text));
 	display: flex;
@@ -407,6 +411,11 @@ img {
 .version-quick-list small {
 	color: rgb(var(--muted));
 	font-size: 0.72rem;
+	font-variant-numeric: tabular-nums;
+}
+
+.version-quick-list small b {
+	color: rgb(var(--text));
 }
 
 .record-gallery-grid {
