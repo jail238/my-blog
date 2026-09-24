@@ -1,0 +1,102 @@
+---
+import type { Chart, ChartType } from '../data/maimai';
+import { versionById } from '../data/maimai';
+
+interface Props {
+	type: ChartType;
+	charts: Chart[];
+}
+
+const { type, charts } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const typeLabel = type === 'STANDARD' ? 'ST' : 'DX';
+const difficultyOrder: Record<Chart['difficulty'], number> = {
+	BASIC: 0,
+	ADVANCED: 1,
+	EXPERT: 2,
+	MASTER: 3,
+	'Re:MASTER': 4,
+};
+const sortedCharts = [...charts].sort((a, b) => difficultyOrder[a.difficulty] - difficultyOrder[b.difficulty]);
+const chartVersions = [...new Set(sortedCharts.map((chart) => chart.versionId))]
+	.map((versionId) => versionById.get(versionId))
+	.filter((version) => version !== undefined);
+const comboIcons: Record<string, { file: string; label: string }> = {
+	FC: { file: 'fc.webp', label: 'FULL COMBO' },
+	'FC+': { file: 'fcp.webp', label: 'FULL COMBO+' },
+	AP: { file: 'ap.webp', label: 'ALL PERFECT' },
+	'AP+': { file: 'app.webp', label: 'ALL PERFECT+' },
+};
+---
+
+<section class="song-chart-group" aria-labelledby={`song-chart-${type.toLowerCase()}`}>
+	<header class="song-chart-group-heading">
+		<h3 id={`song-chart-${type.toLowerCase()}`}>
+			<span class:list={['type-badge', `type-${type.toLowerCase()}`]}>{typeLabel}</span>
+			채보
+		</h3>
+		<div class="song-chart-group-versions" aria-label={`${typeLabel} 채보 수록 버전`}>
+			{chartVersions.map((version) => (
+				<a class="song-chart-version" href={`${base}/versions/${version.id}/`}>{version.shortName}</a>
+			))}
+		</div>
+	</header>
+
+	<div class="song-chart-board-scroll" tabindex="0" role="region" aria-label={`${typeLabel} 채보 비교표`}>
+		<table class="song-chart-board" style={`--chart-count: ${sortedCharts.length};`}>
+			<thead>
+				<tr>
+					{sortedCharts.map((chart) => {
+						const difficultyClass = chart.difficulty === 'Re:MASTER' ? 'remaster' : chart.difficulty.toLowerCase();
+						return <th class:list={['song-chart-difficulty', `difficulty-${difficultyClass}`]} scope="col">{chart.difficulty}</th>;
+					})}
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="song-chart-board-levels">
+					{sortedCharts.map((chart) => (
+						<td>
+							<strong>{chart.level}</strong>
+							<span>{chart.constant?.toFixed(1) ?? '-'}</span>
+						</td>
+					))}
+				</tr>
+				<tr class="song-chart-board-records">
+					{sortedCharts.map((chart) => {
+						const comboIcon = chart.record?.combo ? comboIcons[chart.record.combo] : undefined;
+						return (
+							<td>
+								{chart.record ? (
+									<div
+										class="song-chart-score"
+										title={`DX ${chart.record.dxScore.toLocaleString('en-US')} / ${chart.record.dxScoreMax.toLocaleString('en-US')}`}
+									>
+										<div class="song-chart-score-primary">
+											<strong>{chart.record.achievement}</strong>
+											{comboIcon && (
+												<img
+													class="combo-icon"
+													src={`${base}/assets/maimai/music-icon/${comboIcon.file}`}
+													alt={comboIcon.label}
+													title={comboIcon.label}
+													width="80"
+													height="80"
+													loading="lazy"
+												/>
+											)}
+										</div>
+										<span>{chart.record.rank} · RATING {chart.record.rating}</span>
+										{chart.record.sync && <span>{chart.record.sync}</span>}
+										<small>DX {chart.record.dxScore.toLocaleString('en-US')} / {chart.record.dxScoreMax.toLocaleString('en-US')}</small>
+									</div>
+								) : (
+									<span class="song-chart-score-empty" aria-label="기록 없음">-</span>
+								)}
+							</td>
+						);
+					})}
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</section>

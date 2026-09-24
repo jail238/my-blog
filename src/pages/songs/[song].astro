@@ -1,6 +1,8 @@
 ---
 import SongArtwork from '../../components/SongArtwork.astro';
-import { SONGS, chartsForSong, versionById, versionGroupsForSong } from '../../data/maimai';
+import SongChartBoard from '../../components/SongChartBoard.astro';
+import type { ChartType } from '../../data/maimai';
+import { SONGS, chartsForSong, versionGroupsForSong } from '../../data/maimai';
 import CatalogLayout from '../../layouts/CatalogLayout.astro';
 import { SITE_TITLE } from '../../consts';
 
@@ -15,6 +17,9 @@ const { song } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const charts = chartsForSong(song.id);
 const versionGroups = versionGroupsForSong(song.id);
+const chartGroups = (['STANDARD', 'DX'] satisfies ChartType[])
+	.map((type) => ({ type, charts: charts.filter((chart) => chart.type === type) }))
+	.filter((group) => group.charts.length > 0);
 ---
 
 <CatalogLayout title={`${song.title} | ${SITE_TITLE}`} description={`${song.title} maimai 채보 및 기록`} pageClass="song-detail-page">
@@ -50,35 +55,9 @@ const versionGroups = versionGroupsForSong(song.id);
 				</div>
 			</div>
 			{
-				charts.length > 0 ? (
-					<div class="song-chart-list">
-						{charts.map((chart) => {
-							const difficultyClass = chart.difficulty === 'Re:MASTER' ? 'remaster' : chart.difficulty.toLowerCase();
-							const chartVersion = versionById.get(chart.versionId);
-							return (
-								<div class="song-chart-row">
-									<div class="song-chart-meta">
-										<span class:list={['type-badge', `type-${chart.type.toLowerCase()}`]}>{chart.type === 'STANDARD' ? 'ST' : 'DX'}</span>
-										<span class:list={['difficulty-badge', `difficulty-${difficultyClass}`]}>{chart.difficulty}</span>
-										{chartVersion && (
-											<a class="song-chart-version" href={`${base}/versions/${chartVersion.id}/`}>{chartVersion.shortName}</a>
-										)}
-									</div>
-									<div class="song-chart-level">
-										<small>LEVEL</small>
-										<strong>{chart.level}</strong>
-										{chart.constant && <span>{chart.constant.toFixed(1)}</span>}
-									</div>
-									{chart.record && (
-										<div class="song-chart-record">
-											<strong>{chart.record.achievement}</strong>
-											<span>{[chart.record.rank, chart.record.combo, chart.record.sync].filter(Boolean).join(' · ')}</span>
-											<small>DX {chart.record.dxScore.toLocaleString('en-US')} / {chart.record.dxScoreMax.toLocaleString('en-US')}</small>
-										</div>
-									)}
-								</div>
-							);
-						})}
+				chartGroups.length > 0 ? (
+					<div class="song-chart-groups">
+						{chartGroups.map((group) => <SongChartBoard type={group.type} charts={group.charts} />)}
 					</div>
 				) : (
 					<div class="catalog-empty compact"><strong>등록된 채보가 없습니다.</strong></div>
