@@ -11,7 +11,7 @@ import {
 	versionsNewestFirst,
 } from '../data/maimai';
 import CatalogLayout from '../layouts/CatalogLayout.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { RECORD_REFRESH_URL, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const levelOrder = registeredLevels().slice().reverse();
@@ -113,6 +113,13 @@ const snapshotDate = `${snapshotParts.get('year')}.${snapshotParts.get('month')}
 			<div class="record-gallery-heading-meta">
 				<span>{RECORDED_CHARTS.length.toLocaleString('ko-KR')} CHARTS</span>
 				<a href={`${base}/records/`}>전체</a>
+				<a
+					class="record-refresh-button compact"
+					href={RECORD_REFRESH_URL}
+					target="_blank"
+					rel="noreferrer"
+					title="GitHub Actions에서 Maishift 기록 갱신"
+				>기록 갱신</a>
 			</div>
 		</div>
 		<div class="record-gallery-grid">

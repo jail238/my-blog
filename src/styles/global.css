@@ -394,6 +394,37 @@ img {
 	font-weight: 760;
 }
 
+a.record-refresh-button {
+	align-items: center;
+	background: rgb(var(--text));
+	border: 1px solid rgb(var(--text));
+	border-radius: 4px;
+	color: #ffffff;
+	display: inline-flex;
+	font-size: 0.76rem;
+	font-weight: 760;
+	height: 40px;
+	justify-content: center;
+	padding: 0 1rem;
+	text-decoration: none;
+}
+
+a.record-refresh-button:hover {
+	background: #39434a;
+	border-color: #39434a;
+	color: #ffffff;
+}
+
+a.record-refresh-button:focus-visible {
+	outline: 2px solid rgba(107, 199, 180, 0.62);
+	outline-offset: 2px;
+}
+
+a.record-refresh-button.compact {
+	height: 32px;
+	padding: 0 0.75rem;
+}
+
 .record-gallery-grid > a {
 	align-items: center;
 	background: var(--surface);
@@ -441,7 +472,33 @@ img {
 	justify-items: end;
 }
 
-.records-page-header a {
+.records-page-header {
+	align-items: end;
+	display: grid;
+	grid-template-areas:
+		'kicker action'
+		'title action'
+		'meta action';
+	grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.records-page-header .catalog-kicker {
+	grid-area: kicker;
+}
+
+.records-page-header h1 {
+	grid-area: title;
+}
+
+.records-page-header > p:last-child {
+	grid-area: meta;
+}
+
+.records-page-header > .record-refresh-button {
+	grid-area: action;
+}
+
+.records-page-header > p a {
 	color: rgb(var(--muted));
 }
 

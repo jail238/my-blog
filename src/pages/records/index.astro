@@ -2,7 +2,7 @@
 import SongArtwork from '../../components/SongArtwork.astro';
 import { LEVEL_ORDER, MAISHIFT_SOURCE, RECORDED_CHARTS, songById } from '../../data/maimai';
 import CatalogLayout from '../../layouts/CatalogLayout.astro';
-import { SITE_TITLE } from '../../consts';
+import { RECORD_REFRESH_URL, SITE_TITLE } from '../../consts';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const records = RECORDED_CHARTS.map((chart) => {
@@ -26,6 +26,13 @@ const recordedLevels = [...LEVEL_ORDER].reverse().filter((level) => records.some
 	<header class="catalog-page-header records-page-header">
 		<p class="catalog-kicker">MY RECORDS</p>
 		<h1>등록 기록</h1>
+		<a
+			class="record-refresh-button"
+			href={RECORD_REFRESH_URL}
+			target="_blank"
+			rel="noreferrer"
+			title="GitHub Actions에서 Maishift 기록 갱신"
+		>기록 갱신</a>
 		<p>
 			<strong>{records.length.toLocaleString('ko-KR')}</strong>개 채보 · <a href={MAISHIFT_SOURCE.profileUrl}>Maishift</a> 스냅샷
 		</p>
