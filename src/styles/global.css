@@ -901,7 +901,7 @@ a.record-refresh-button.compact {
 	color: rgb(var(--text));
 	display: grid;
 	gap: 0.9rem;
-	grid-template-columns: 44px minmax(0, 1fr) auto minmax(128px, auto) 64px;
+	grid-template-columns: 44px minmax(0, 1fr) auto auto max-content;
 	min-height: 74px;
 	padding: 0.8rem 1rem;
 	text-decoration: none;
@@ -1130,7 +1130,7 @@ a.record-refresh-button.compact {
 	display: flex;
 	gap: 0.45rem;
 	justify-content: flex-end;
-	min-width: 128px;
+	min-width: 0;
 }
 
 .chart-record-copy {
