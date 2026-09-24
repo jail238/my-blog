@@ -28,6 +28,7 @@ const comboIcon = chart.record?.combo ? comboIcons[chart.record.combo] : undefin
 	data-type={chart.type}
 	data-difficulty={chart.difficulty}
 	data-constant={chart.constant?.toFixed(1)}
+	data-version={chart.versionId}
 	data-perfect={isPerfect ? 'true' : 'false'}
 >
 	<SongArtwork song={song} compact />

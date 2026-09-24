@@ -1,6 +1,6 @@
 ---
 import ChartRow from '../../components/ChartRow.astro';
-import { CATALOG_SOURCE, chartsForLevel, levelToSlug, registeredLevels, songById } from '../../data/maimai';
+import { CATALOG_SOURCE, chartsForLevel, levelToSlug, registeredLevels, songById, versionsNewestFirst } from '../../data/maimai';
 import CatalogLayout from '../../layouts/CatalogLayout.astro';
 import { SITE_TITLE } from '../../consts';
 
@@ -74,6 +74,13 @@ const internalLevels = [...new Set(
 				{internalLevels.map((constant) => <option value={constant}>{constant}</option>)}
 			</select>
 		</label>
+		<label>
+			<span>버전</span>
+			<select id="level-chart-version">
+				<option value="">전체</option>
+				{versionsNewestFirst.map((version) => <option value={version.id}>{version.shortName}</option>)}
+			</select>
+		</label>
 		<label class="record-checkbox">
 			<input id="level-chart-include-perfect" type="checkbox" checked />
 			<span>AP/AP+ 완료 포함</span>
@@ -101,6 +108,7 @@ const internalLevels = [...new Set(
 	const typeSelect = document.querySelector('#level-chart-type');
 	const difficultySelect = document.querySelector('#level-chart-difficulty');
 	const constantSelect = document.querySelector('#level-chart-constant');
+	const versionSelect = document.querySelector('#level-chart-version');
 	const includePerfectInput = document.querySelector('#level-chart-include-perfect');
 	const list = document.querySelector('#level-chart-list');
 	const count = document.querySelector('#level-chart-count');
@@ -112,6 +120,7 @@ const internalLevels = [...new Set(
 		if (!(typeSelect instanceof HTMLSelectElement)) return;
 		if (!(difficultySelect instanceof HTMLSelectElement)) return;
 		if (!(constantSelect instanceof HTMLSelectElement)) return;
+		if (!(versionSelect instanceof HTMLSelectElement)) return;
 		if (!(includePerfectInput instanceof HTMLInputElement)) return;
 
 		const query = queryInput.value.trim().toLocaleLowerCase('ko');
@@ -120,6 +129,7 @@ const internalLevels = [...new Set(
 			(!typeSelect.value || row.dataset.type === typeSelect.value) &&
 			(!difficultySelect.value || row.dataset.difficulty === difficultySelect.value) &&
 			(!constantSelect.value || row.dataset.constant === constantSelect.value) &&
+			(!versionSelect.value || row.dataset.version === versionSelect.value) &&
 			(includePerfectInput.checked || row.dataset.perfect !== 'true'),
 		);
 		const matchSet = new Set(matches);

@@ -561,7 +561,7 @@ a.record-refresh-button.compact {
 }
 
 .level-chart-filters {
-	grid-template-columns: minmax(210px, 1fr) repeat(3, minmax(104px, 0.4fr)) minmax(142px, auto) auto;
+	grid-template-columns: minmax(190px, 1fr) repeat(4, minmax(96px, 0.36fr)) minmax(142px, auto) auto;
 }
 
 .record-filters label {
