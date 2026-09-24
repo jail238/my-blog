@@ -250,6 +250,30 @@ img {
 	color: rgb(var(--text));
 }
 
+.home-index-scroll {
+	max-height: 360px;
+	overflow-y: auto;
+	overscroll-behavior: contain;
+	padding-right: 0.45rem;
+	scrollbar-color: rgb(var(--soft)) transparent;
+	scrollbar-gutter: stable;
+	scrollbar-width: thin;
+}
+
+.home-index-scroll:focus-visible {
+	outline: 2px solid rgba(107, 199, 180, 0.5);
+	outline-offset: 3px;
+}
+
+.home-index-scroll::-webkit-scrollbar {
+	width: 7px;
+}
+
+.home-index-scroll::-webkit-scrollbar-thumb {
+	background: rgb(var(--soft));
+	border-radius: 4px;
+}
+
 .level-quick-grid {
 	display: grid;
 	gap: 0.5rem;

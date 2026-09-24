@@ -15,8 +15,6 @@ import { RECORD_REFRESH_URL, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const levelOrder = registeredLevels().slice().reverse();
-const highlightedLevels = levelOrder.slice(0, 8);
-const activeVersions = versionsNewestFirst.filter((version) => songsForVersion(version.id).length > 0).slice(0, 6);
 const recordedCharts = RECORDED_CHARTS.slice(0, 12)
 	.map((chart) => ({ chart, song: songById.get(chart.songId) }))
 	.filter((entry) => entry.song !== undefined);
@@ -71,13 +69,15 @@ const snapshotDate = `${snapshotParts.get('year')}.${snapshotParts.get('month')}
 				</div>
 				<a href={`${base}/levels/`}>전체</a>
 			</div>
-			<div class="level-quick-grid">
-				{highlightedLevels.map((level) => (
-					<a href={`${base}/levels/${level.replace('+', '-plus')}/`}>
-						<strong>{level}</strong>
-						<small>{CHARTS.filter((chart) => chart.level === level).length}</small>
-					</a>
-				))}
+			<div class="home-index-scroll" role="region" aria-label="전체 레벨 목록" tabindex="0">
+				<div class="level-quick-grid">
+					{levelOrder.map((level) => (
+						<a href={`${base}/levels/${level.replace('+', '-plus')}/`}>
+							<strong>{level}</strong>
+							<small>{CHARTS.filter((chart) => chart.level === level).length}</small>
+						</a>
+					))}
+				</div>
 			</div>
 			<div class="chart-type-key" aria-label="채보 유형">
 				<span><b class="type-badge type-standard">ST</b> STANDARD</span>
@@ -93,13 +93,15 @@ const snapshotDate = `${snapshotParts.get('year')}.${snapshotParts.get('month')}
 				</div>
 				<a href={`${base}/versions/`}>전체</a>
 			</div>
-			<div class="version-quick-list">
-				{activeVersions.map((version) => (
-					<a href={`${base}/versions/${version.id}/`}>
-						<span>{version.shortName}</span>
-						<small>{songsForVersion(version.id).length}곡</small>
-					</a>
-				))}
+			<div class="home-index-scroll" role="region" aria-label="전체 버전 목록" tabindex="0">
+				<div class="version-quick-list">
+					{versionsNewestFirst.map((version) => (
+						<a href={`${base}/versions/${version.id}/`}>
+							<span>{version.shortName}</span>
+							<small>{songsForVersion(version.id).length}곡</small>
+						</a>
+					))}
+				</div>
 			</div>
 		</section>
 	</div>
