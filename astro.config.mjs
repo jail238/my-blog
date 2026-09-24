@@ -1,23 +1,12 @@
 // @ts-check
 
-import mdx from '@astrojs/mdx';
-import { unified } from '@astrojs/markdown-remark';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
-import rehypeKatex from 'rehype-katex';
-import remarkMath from 'remark-math';
-import rehypeYouTubeEmbeds from './src/utils/rehype-youtube-embeds.mjs';
 
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://misaki.love',
-	integrations: [mdx(), sitemap()],
-	markdown: {
-		processor: unified({
-			remarkPlugins: [remarkMath],
-			rehypePlugins: [rehypeKatex, rehypeYouTubeEmbeds],
-		}),
-	},
+	integrations: [sitemap()],
 	fonts: [
 		{
 			provider: fontProviders.local(),

@@ -16,7 +16,6 @@ export interface Song {
 	versionId: string;
 	genre: string;
 	tone: ArtworkTone;
-	resultImage?: string;
 }
 
 export interface PlayRecord {
@@ -148,7 +147,6 @@ export const SONGS: Song[] = [
 		versionId: 'prism-plus',
 		genre: 'ゲーム＆バラエティ',
 		tone: 'graphite',
-		resultImage: '/media/IMG_0543.jpeg',
 	},
 	{
 		id: 'enchanted-wanderer',
@@ -157,7 +155,6 @@ export const SONGS: Song[] = [
 		versionId: 'festival',
 		genre: 'maimai',
 		tone: 'mint',
-		resultImage: '/media/IMG_0541.jpeg',
 	},
 	{
 		id: 'phony',
@@ -166,7 +163,6 @@ export const SONGS: Song[] = [
 		versionId: 'festival',
 		genre: 'niconico＆ボーカロイド',
 		tone: 'violet',
-		resultImage: '/media/IMG_0542.jpeg',
 	},
 	{
 		id: 'oshama-scramble',

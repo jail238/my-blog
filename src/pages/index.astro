@@ -8,12 +8,16 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const levelOrder = registeredLevels().slice().reverse();
 const highlightedLevels = levelOrder.slice(0, 8);
 const activeVersions = versionsNewestFirst.filter((version) => songsForVersion(version.id).length > 0).slice(0, 6);
-const recordedSongs = SONGS.filter((song) => chartsForSong(song.id).some((chart) => chart.record));
+const recordedCharts = SONGS.flatMap((song) =>
+	chartsForSong(song.id)
+		.filter((chart) => chart.record)
+		.map((chart) => ({ song, chart })),
+);
 ---
 
 <CatalogLayout title={SITE_TITLE} description={SITE_DESCRIPTION} pageClass="maimai-home">
 	<section class="archive-cover" aria-labelledby="archive-title">
-		<img src={`${base}/media/IMG_0541.jpeg`} alt="maimai 플레이 결과 화면" />
+		<img src={`${base}/archive-cover.webp`} alt="원형 리듬 인터페이스 그래픽" />
 		<div class="archive-cover-overlay"></div>
 		<div class="archive-cover-copy">
 			<p class="catalog-kicker">MAIMAI RECORD ARCHIVE</p>
@@ -87,17 +91,21 @@ const recordedSongs = SONGS.filter((song) => chartsForSong(song.id).some((chart)
 	<section class="record-gallery" aria-labelledby="record-gallery-title">
 		<div class="catalog-section-heading">
 			<div>
-				<p class="catalog-kicker">PLAY LOG</p>
-				<h2 id="record-gallery-title">기록</h2>
+				<p class="catalog-kicker">REGISTERED RECORDS</p>
+				<h2 id="record-gallery-title">등록 기록</h2>
 			</div>
 		</div>
 		<div class="record-gallery-grid">
-			{recordedSongs.map((song) => (
+			{recordedCharts.map(({ song, chart }) => (
 				<a href={`${base}/songs/${song.id}/`}>
-					<SongArtwork title={song.title} tone={song.tone} image={song.resultImage} />
-					<span>
+					<SongArtwork title={song.title} tone={song.tone} compact />
+					<span class="record-copy">
 						<strong>{song.title}</strong>
-						<small>{song.artist}</small>
+						<small>{chart.type === 'STANDARD' ? 'ST' : 'DX'} · {chart.difficulty} · Lv {chart.level}</small>
+					</span>
+					<span class="record-score">
+						<strong>{chart.record?.achievement}</strong>
+						<small>{chart.record?.rank}{chart.record?.combo ? ` · ${chart.record.combo}` : ''}</small>
 					</span>
 				</a>
 			))}

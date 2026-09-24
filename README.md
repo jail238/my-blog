@@ -24,21 +24,7 @@ src/pages/versions/
 src/pages/songs/
 ```
 
-## Legacy Posts
-
-The existing Markdown blog and writing tools remain available under `/blog/` and `/write/`, but they are not part of the primary archive navigation.
-
-Blog posts are stored in:
-
-```text
-src/content/blog/
-```
-
-Media files are stored in:
-
-```text
-public/media/
-```
+Only the maimai archive is included in the public build. Previous blog posts, writing tools, comments, and uploaded media are not published from this repository state.
 
 ## Commands
 
@@ -53,5 +39,6 @@ npm run preview
 
 - Public song and level references are checked against the official maimai song list where available.
 - Personal results are static entries for now.
+- The cover artwork was generated specifically for the current archive and does not reuse previous uploads.
 - The project is not affiliated with SEGA.
 - Do not commit tokens or other private data.

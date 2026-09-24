@@ -36,7 +36,7 @@ const charts = chartsForSong(song.id);
 		</div>
 	</header>
 
-	<div class:list={['song-detail-grid', { 'has-result': song.resultImage }]}>
+	<div class="song-detail-grid">
 		<section class="song-chart-section" aria-labelledby="chart-heading">
 			<div class="catalog-section-heading">
 				<div>
@@ -76,13 +76,5 @@ const charts = chartsForSong(song.id);
 			}
 		</section>
 
-		{
-			song.resultImage && (
-				<figure class="result-image">
-					<img src={`${base}${song.resultImage}`} alt={`${song.title} 플레이 결과`} />
-					<figcaption>PLAY RESULT</figcaption>
-				</figure>
-			)
-		}
 	</div>
 </CatalogLayout>

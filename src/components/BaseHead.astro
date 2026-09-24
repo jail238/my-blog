@@ -2,8 +2,6 @@
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
 import '../styles/global.css';
-import 'katex/dist/katex.min.css';
-import { SITE_TITLE } from '../consts';
 import { Font } from 'astro:assets';
 
 interface Props {
@@ -15,24 +13,17 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const { title, description } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const socialImageURL = new URL(`${base}/og-image.png?v=20260625`, Astro.site);
+const socialImageURL = new URL(`${base}/og-image.png?v=20260924`, Astro.site);
 ---
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg?v=20260624`} />
-<link rel="icon" href={`${base}/favicon.ico?v=20260624`} />
-<link rel="apple-touch-icon" sizes="180x180" href={`${base}/apple-touch-icon.png?v=20260624`} />
-<link rel="manifest" href={`${base}/site.webmanifest?v=20260624`} />
-<meta name="theme-color" content="#f8f9fb" />
+<link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg?v=20260924`} />
+<link rel="apple-touch-icon" sizes="180x180" href={`${base}/apple-touch-icon.png?v=20260924`} />
+<link rel="manifest" href={`${base}/site.webmanifest?v=20260924`} />
+<meta name="theme-color" content="#f3f5f4" />
 <link rel="sitemap" href={`${base}/sitemap-index.xml`} />
-<link
-	rel="alternate"
-	type="application/rss+xml"
-	title={SITE_TITLE}
-	href={new URL(`${base}/rss.xml`, Astro.site)}
-/>
 <meta name="generator" content={Astro.generator} />
 
 <Font cssVariable="--font-atkinson" preload />
