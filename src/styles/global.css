@@ -431,6 +431,7 @@ img {
 
 .song-artwork {
 	align-items: center;
+	background: #e8edec;
 	border: 1px solid rgba(29, 37, 44, 0.12);
 	border-radius: 4px;
 	color: rgba(29, 37, 44, 0.78);
@@ -441,6 +442,7 @@ img {
 	height: 58px;
 	justify-content: center;
 	overflow: hidden;
+	position: relative;
 	width: 58px;
 }
 
@@ -450,12 +452,17 @@ img {
 	width: 44px;
 }
 
-.tone-mint { background: #dff2e9; }
-.tone-amber { background: #f8e9be; }
-.tone-coral { background: #f4d8d4; }
-.tone-violet { background: #e7def2; }
-.tone-blue { background: #dceaf3; }
-.tone-graphite { background: #dfe3e8; }
+.song-artwork-fallback {
+	color: rgba(29, 37, 44, 0.58);
+}
+
+.song-artwork > img {
+	height: 100%;
+	inset: 0;
+	object-fit: cover;
+	position: absolute;
+	width: 100%;
+}
 
 .catalog-page-header {
 	margin: 1rem 0 2rem;

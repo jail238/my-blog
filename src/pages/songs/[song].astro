@@ -27,7 +27,7 @@ const charts = chartsForSong(song.id);
 	</nav>
 
 	<header class="song-detail-header">
-		<SongArtwork title={song.title} tone={song.tone} />
+		<SongArtwork song={song} />
 		<div>
 			<p class="catalog-kicker">{song.genre}</p>
 			<h1>{song.title}</h1>

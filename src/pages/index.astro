@@ -98,7 +98,7 @@ const recordedCharts = SONGS.flatMap((song) =>
 		<div class="record-gallery-grid">
 			{recordedCharts.map(({ song, chart }) => (
 				<a href={`${base}/songs/${song.id}/`}>
-					<SongArtwork title={song.title} tone={song.tone} compact />
+					<SongArtwork song={song} compact />
 					<span class="record-copy">
 						<strong>{song.title}</strong>
 						<small>{chart.type === 'STANDARD' ? 'ST' : 'DX'} · {chart.difficulty} · Lv {chart.level}</small>

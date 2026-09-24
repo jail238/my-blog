@@ -14,7 +14,7 @@ const difficultyClass = chart.difficulty === 'Re:MASTER' ? 'remaster' : chart.di
 ---
 
 <a class="chart-row" href={`${base}/songs/${song.id}/`}>
-	<SongArtwork title={song.title} tone={song.tone} compact />
+	<SongArtwork song={song} compact />
 	<span class="chart-song">
 		<strong>{song.title}</strong>
 		<small>{song.artist}</small>
