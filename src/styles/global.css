@@ -1194,6 +1194,7 @@ a.record-refresh-button.compact {
 	height: auto;
 	min-height: 0;
 	padding: 0.55rem;
+	position: relative;
 }
 
 .chart-list[data-view='grid'] .chart-row:hover {
@@ -1223,6 +1224,7 @@ a.record-refresh-button.compact {
 	line-height: 1.35;
 	min-height: 2.7em;
 	overflow: hidden;
+	text-align: center;
 	text-overflow: ellipsis;
 	white-space: normal;
 }
@@ -1232,6 +1234,27 @@ a.record-refresh-button.compact {
 .chart-list[data-view='grid'] .chart-tags,
 .chart-list[data-view='grid'] .chart-level {
 	display: none;
+}
+
+.chart-list[data-view='grid'] .chart-row[data-perfect='true'] .chart-record {
+	display: block;
+	grid-area: auto;
+	min-width: 0;
+	pointer-events: none;
+	position: absolute;
+	right: 0.75rem;
+	top: 0.75rem;
+	z-index: 1;
+}
+
+.chart-list[data-view='grid'] .chart-row[data-perfect='true'] .chart-record-copy {
+	display: none;
+}
+
+.chart-list[data-view='grid'] .chart-row[data-perfect='true'] .combo-icon {
+	filter: drop-shadow(0 1px 3px rgba(29, 37, 44, 0.32));
+	height: 36px;
+	width: 36px;
 }
 
 .song-row-types,
@@ -1740,6 +1763,16 @@ a.record-refresh-button.compact {
 
 	.chart-list[data-view='grid'] .chart-song strong {
 		font-size: 0.76rem;
+	}
+
+	.chart-list[data-view='grid'] .chart-row[data-perfect='true'] .chart-record {
+		right: 0.6rem;
+		top: 0.6rem;
+	}
+
+	.chart-list[data-view='grid'] .chart-row[data-perfect='true'] .combo-icon {
+		height: 28px;
+		width: 28px;
 	}
 
 	.level-index-grid a {
