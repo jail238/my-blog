@@ -968,9 +968,12 @@ a.record-refresh-button.compact {
 }
 
 .chart-row:hover,
-.song-row:hover,
-.version-index-list > a:hover {
+.song-row:hover {
 	background: #f7f9f8;
+}
+
+.version-index-list > a:hover {
+	background-color: #f7f9f8;
 }
 
 .chart-song,
@@ -1020,6 +1023,11 @@ a.record-refresh-button.compact {
 
 .version-index-list > a {
 	align-items: center;
+	background-color: var(--surface);
+	background-image: linear-gradient(to right, rgba(213, 76, 76, 0.2), rgba(238, 137, 137, 0.09));
+	background-position: left;
+	background-repeat: no-repeat;
+	background-size: var(--ap-progress, 0%) 100%;
 	border-bottom: 1px solid rgb(var(--line));
 	color: rgb(var(--text));
 	display: grid;
@@ -1052,6 +1060,21 @@ a.record-refresh-button.compact {
 	color: rgb(var(--muted));
 	font-size: 0.74rem;
 	font-weight: 720;
+}
+
+.version-index-meta {
+	align-items: center;
+	color: rgb(var(--muted));
+	display: flex;
+	font-size: 0.74rem;
+	font-variant-numeric: tabular-nums;
+	font-weight: 720;
+	gap: 0.35rem;
+	white-space: nowrap;
+}
+
+.version-index-meta b {
+	color: rgb(var(--text));
 }
 
 .version-count.empty {

@@ -1,9 +1,22 @@
 ---
-import { songsForVersion, versionsNewestFirst } from '../../data/maimai';
+import { CHARTS, songsForVersion, versionsNewestFirst } from '../../data/maimai';
 import CatalogLayout from '../../layouts/CatalogLayout.astro';
 import { SITE_TITLE } from '../../consts';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const versionProgress = versionsNewestFirst.map((version) => {
+	const charts = CHARTS.filter((chart) => chart.versionId === version.id && chart.difficulty !== 'Re:MASTER');
+	const apCount = charts.filter((chart) => chart.record?.combo === 'AP' || chart.record?.combo === 'AP+').length;
+
+	return {
+		version,
+		apCount,
+		totalCount: charts.length,
+		apRate: charts.length > 0 ? (apCount / charts.length) * 100 : 0,
+		songCount: songsForVersion(version.id).length,
+	};
+});
 ---
 
 <CatalogLayout title={`버전 순 | ${SITE_TITLE}`} description="maimai 수록곡을 버전 순으로 정리한 아카이브" pageClass="version-index-page">
@@ -14,18 +27,23 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 	</header>
 
 	<section class="version-index-list" id="version-index-list" aria-label="버전 목록">
-		{versionsNewestFirst.map((version) => {
-			const songCount = songsForVersion(version.id).length;
+		{versionProgress.map(({ version, apCount, totalCount, apRate, songCount }) => {
 			return (
 				<a
 					href={`${base}/versions/${version.id}/`}
+					style={`--ap-progress: ${apRate.toFixed(2)}%`}
+					title={`Re:MASTER 제외 AP 이상 ${apCount}/${totalCount}`}
 				>
 					<span class="version-sequence">{String(version.order).padStart(2, '0')}</span>
 					<span class="version-name">
 						<strong>{version.shortName}</strong>
 						<small>{version.name}</small>
 					</span>
-					<span class:list={['version-count', { empty: songCount === 0 }]}>{songCount}곡</span>
+					<span class="version-index-meta">
+						<b>{apCount}/{totalCount}</b>
+						<span aria-hidden="true">·</span>
+						<span class:list={['version-count', { empty: songCount === 0 }]}>{songCount}곡</span>
+					</span>
 					<span class="version-arrow" aria-hidden="true">›</span>
 				</a>
 			);
