@@ -181,7 +181,7 @@ img {
 	color: rgb(var(--text));
 	display: grid;
 	gap: 0.85rem;
-	grid-template-columns: auto minmax(0, 1fr) auto auto;
+	grid-template-columns: auto minmax(0, 1fr) auto;
 	min-height: 76px;
 	padding: 1rem 1.15rem;
 	text-decoration: none;
@@ -202,7 +202,6 @@ img {
 	transform: translateY(-1px);
 }
 
-.mode-index,
 .archive-modes small {
 	color: rgb(var(--muted));
 	font-size: 0.7rem;

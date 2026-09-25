@@ -2,6 +2,7 @@
 import SongArtwork from '../components/SongArtwork.astro';
 import {
 	CHARTS,
+	MAISHIFT_SOURCE,
 	PLAYER_PROFILE,
 	RECORDED_CHARTS,
 	SONGS,
@@ -36,7 +37,14 @@ const versionProgress = versionsNewestFirst.map((version) => {
 		songCount: songsForVersion(version.id).length,
 	};
 });
-const recordedCharts = RECORDED_CHARTS.slice(0, 12)
+const recordedCharts = RECORDED_CHARTS
+	.filter((chart) => chart.record?.combo === 'AP' || chart.record?.combo === 'AP+')
+	.sort((a, b) => {
+		const timeA = Date.parse(a.record?.perfectAchievedAt ?? MAISHIFT_SOURCE.generatedAt);
+		const timeB = Date.parse(b.record?.perfectAchievedAt ?? MAISHIFT_SOURCE.generatedAt);
+		return timeB - timeA;
+	})
+	.slice(0, 12)
 	.map((chart) => ({ chart, song: songById.get(chart.songId) }))
 	.filter((entry) => entry.song !== undefined);
 const snapshotParts = new Map(
@@ -68,13 +76,11 @@ const snapshotDate = `${snapshotParts.get('year')}.${snapshotParts.get('month')}
 
 	<nav class="archive-modes" aria-label="아카이브 분류">
 		<a href={`${base}/levels/`}>
-			<span class="mode-index">01</span>
 			<strong>레벨 순</strong>
 			<small>{CHARTS.length} CHARTS</small>
 			<span class="mode-arrow" aria-hidden="true">›</span>
 		</a>
 		<a href={`${base}/versions/`}>
-			<span class="mode-index">02</span>
 			<strong>버전 순</strong>
 			<small>{SONGS.length} SONGS</small>
 			<span class="mode-arrow" aria-hidden="true">›</span>

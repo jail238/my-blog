@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "test": "node --test scripts/*.test.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "pin:circle-plus": "node scripts/sync-maishift-records.mjs --write-circle-plus-snapshot",

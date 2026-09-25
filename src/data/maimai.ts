@@ -25,6 +25,7 @@ export interface PlayRecord {
 	achievementValue: number;
 	rank: string;
 	combo?: string;
+	perfectAchievedAt?: string;
 	sync?: string;
 	dxScore: number;
 	dxScoreMax: number;
@@ -207,6 +208,16 @@ function validateCatalog() {
 	for (const chartId of recordsByChartId.keys()) {
 		if (!CHARTS.some((chart) => chart.id === chartId)) {
 			throw new Error(`Unknown Maishift chart id: ${chartId}`);
+		}
+	}
+
+	for (const [chartId, record] of recordsByChartId) {
+		const isPerfect = record.combo === 'AP' || record.combo === 'AP+';
+		if (isPerfect && (!record.perfectAchievedAt || Number.isNaN(Date.parse(record.perfectAchievedAt)))) {
+			throw new Error(`Missing AP achievement time for chart: ${chartId}`);
+		}
+		if (!isPerfect && record.perfectAchievedAt) {
+			throw new Error(`Unexpected AP achievement time for chart: ${chartId}`);
 		}
 	}
 }

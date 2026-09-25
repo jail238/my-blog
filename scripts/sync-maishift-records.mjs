@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { annotatePerfectAchievementTimes } from './perfect-achievement-history.mjs';
 
 const MAISHIFT_ORIGIN = 'https://maimai.shiftpsh.com';
 const HANDLE = process.env.MAISHIFT_HANDLE || 'elixir';
@@ -114,7 +115,7 @@ async function discoverServerFunctions(recordsHtml) {
 	if (!recordsBinding) throw new Error('Could not resolve the Maishift records function binding.');
 
 	const profileBinding = mainScript.match(
-		/Ne\(["']\/\{\-\$locale\}\/profile\/\$handle["']\)\(\{[\s\S]{0,1400}?loader:async\([^)]*\)=>await\s+([$\w]+)\(\{data:/,
+		/["']\/\{\-\$locale\}\/profile\/\$handle["']\)\(\{[\s\S]{0,1400}?loader:async\([^)]*\)=>await\s+([$\w]+)\(\{data:/,
 	)?.[1];
 	if (!profileBinding) throw new Error('Could not resolve the Maishift profile function binding.');
 
@@ -335,6 +336,19 @@ records.sort(
 		a.chartId.localeCompare(b.chartId, 'en', { numeric: true }),
 );
 
+let previousOutput;
+try {
+	previousOutput = JSON.parse(await readFile(OUTPUT_PATH, 'utf8'));
+} catch (error) {
+	if (error?.code !== 'ENOENT') throw error;
+}
+
+const generatedAt = new Date().toISOString();
+const recordsWithPerfectTimes = annotatePerfectAchievementTimes(records, {
+	previousRecords: previousOutput?.records ?? [],
+	detectedAt: generatedAt,
+	baselineAt: previousOutput?.source?.generatedAt ?? generatedAt,
+});
 const profile = profileData.userRecord.profile;
 const output = {
 	source: {
@@ -343,7 +357,7 @@ const output = {
 		handle: HANDLE,
 		region: REGION,
 		profileUpdatedAt: profile.updatedAt,
-		generatedAt: new Date().toISOString(),
+		generatedAt,
 	},
 	profile: {
 		name: profile.name,
@@ -353,15 +367,8 @@ const output = {
 		updatedAt: profile.updatedAt,
 	},
 	total: records.length,
-	records,
+	records: recordsWithPerfectTimes,
 };
-
-let previousOutput;
-try {
-	previousOutput = JSON.parse(await readFile(OUTPUT_PATH, 'utf8'));
-} catch (error) {
-	if (error?.code !== 'ENOENT') throw error;
-}
 
 if (
 	previousOutput &&

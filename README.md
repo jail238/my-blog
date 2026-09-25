@@ -17,6 +17,7 @@ The primary catalog has two views.
 - Level index cards show AP/AP+ completion progress. Level detail pages can filter by song, artist, chart type, difficulty, internal level, and chart-release version; they can also hide completed AP/AP+ charts and order results by AP+, AP, then achievement rate.
 - Version index rows show AP/AP+ progress excluding Re:MASTER charts. Version pages can be searched by song or artist and show BASIC, ADVANCED, EXPERT, and MASTER completion status for each ST/DX chart set.
 - Song pages keep ST and DX chart sets in separate comparison tables. The records page supports version filtering and orders records by rating.
+- The home record gallery shows the latest AP achievements and AP-to-AP+ promotions detected by record refreshes. Percentage-only updates keep their original achievement time and do not move back to the top.
 
 The public catalog is pinned to the International `CiRCLE PLUS` chart set. Public play records are imported from the Maishift profile and mapped to the same chart catalog.
 
@@ -43,6 +44,7 @@ npm run pin:circle-plus
 npm run sync:catalog
 npm run sync:records
 npm run sync:data
+npm test
 npm run dev
 npm run build
 npm run preview
@@ -57,7 +59,7 @@ npm run preview
 - The site's `기록 갱신` button opens the repository's `Refresh Maishift records` workflow. Run it while signed in as a repository owner to import, commit, and deploy the latest public records without a local development environment.
 - The same workflow checks for updates every day at 07:30 KST. It skips the commit and deployment when the public Maishift snapshot has not changed.
 - `MAGiCAL` stays in the version index but remains empty until International-region charts exist in the source data.
-- `npm run sync:records` refreshes achievements, ranks, combo/sync states, DX scores, and rating contribution.
+- `npm run sync:records` refreshes achievements, ranks, combo/sync states, DX scores, and rating contribution. It also preserves the first detected AP time and only replaces it when an AP record becomes AP+.
 - The FC, FC+, AP, and AP+ marks use the in-game image assets mirrored by the MIT-licensed [Lxns Network frontend](https://github.com/Lxns-Network/maimai-prober-frontend). See `THIRD_PARTY_NOTICES.md`.
 - Song jackets are loaded from the metadata provider; the archive cover was generated specifically for this site.
 - The project is not affiliated with SEGA.
