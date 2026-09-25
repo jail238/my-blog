@@ -1,0 +1,29 @@
+---
+interface Props {
+	combo?: string;
+	className?: string;
+}
+
+const comboIcons: Record<string, { file: string; label: string }> = {
+	FC: { file: 'fc.webp', label: 'FULL COMBO' },
+	'FC+': { file: 'fcp.webp', label: 'FULL COMBO+' },
+	AP: { file: 'ap.webp', label: 'ALL PERFECT' },
+	'AP+': { file: 'app.webp', label: 'ALL PERFECT+' },
+};
+
+const { combo, className } = Astro.props;
+const icon = combo ? comboIcons[combo] : undefined;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+{icon && (
+	<img
+		class:list={['combo-icon', className]}
+		src={`${base}/assets/maimai/music-icon/${icon.file}`}
+		alt={icon.label}
+		title={icon.label}
+		width="80"
+		height="80"
+		loading="lazy"
+	/>
+)}

@@ -1,5 +1,6 @@
 ---
 import SongArtwork from '../../components/SongArtwork.astro';
+import ComboIcon from '../../components/ComboIcon.astro';
 import { LEVEL_ORDER, MAISHIFT_SOURCE, PERFECT_RECORDED_CHARTS, songById, versionsNewestFirst } from '../../data/maimai';
 import CatalogLayout from '../../layouts/CatalogLayout.astro';
 import { RECORD_REFRESH_URL, SITE_TITLE } from '../../consts';
@@ -107,8 +108,11 @@ const filterLevels = [...LEVEL_ORDER].reverse();
 					<b>Lv {chart.level}</b>
 				</span>
 				<span class="record-list-score">
-					<strong>{chart.record?.achievement}</strong>
-					<small>{status}</small>
+					<span class="record-list-score-copy">
+						<strong>{chart.record?.achievement}</strong>
+						<small>{status}</small>
+					</span>
+					<ComboIcon combo={chart.record?.combo} />
 				</span>
 				<span class="record-list-detail">
 					<strong>RATING {chart.record?.rating}</strong>

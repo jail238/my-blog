@@ -486,9 +486,20 @@ a.record-refresh-button.compact {
 }
 
 .record-copy,
-.record-score {
+.record-score-copy {
 	display: grid;
 	min-width: 0;
+}
+
+.record-score {
+	align-items: center;
+	display: flex;
+	gap: 0.45rem;
+	justify-content: flex-end;
+}
+
+.record-score-copy {
+	justify-items: end;
 }
 
 .record-copy strong,
@@ -499,12 +510,12 @@ a.record-refresh-button.compact {
 }
 
 .record-copy strong,
-.record-score strong {
+.record-score-copy strong {
 	font-size: 0.84rem;
 }
 
 .record-copy small,
-.record-score small {
+.record-score-copy small {
 	color: rgb(var(--muted));
 	font-size: 0.65rem;
 }
@@ -813,17 +824,25 @@ a.record-refresh-button.compact {
 	white-space: nowrap;
 }
 
-.record-list-score,
 .record-list-detail {
 	display: grid;
 	justify-items: end;
 }
 
 .record-list-score {
+	align-items: center;
+	display: flex;
+	gap: 0.45rem;
 	grid-area: score;
+	justify-content: flex-end;
 }
 
-.record-list-score strong {
+.record-list-score-copy {
+	display: grid;
+	justify-items: end;
+}
+
+.record-list-score-copy strong {
 	font-size: 0.9rem;
 }
 
@@ -1703,6 +1722,10 @@ a.record-refresh-button.compact {
 
 	.record-score {
 		grid-column: 2;
+		justify-content: flex-start;
+	}
+
+	.record-score-copy {
 		justify-items: start;
 	}
 
@@ -1738,7 +1761,6 @@ a.record-refresh-button.compact {
 		padding: 0.7rem;
 	}
 
-	.record-list-score,
 	.record-list-detail {
 		justify-items: end;
 	}

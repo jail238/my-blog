@@ -1,5 +1,6 @@
 ---
 import SongArtwork from '../components/SongArtwork.astro';
+import ComboIcon from '../components/ComboIcon.astro';
 import {
 	CHARTS,
 	PERFECT_RECORDED_CHARTS,
@@ -157,8 +158,11 @@ const snapshotDate = `${snapshotParts.get('year')}.${snapshotParts.get('month')}
 						<small>{chart.type === 'STANDARD' ? 'ST' : 'DX'} · {chart.difficulty} · Lv {chart.level}</small>
 					</span>
 					<span class="record-score">
-						<strong>{chart.record?.achievement}</strong>
-						<small>{chart.record?.rank}{chart.record?.combo ? ` · ${chart.record.combo}` : ''}</small>
+						<span class="record-score-copy">
+							<strong>{chart.record?.achievement}</strong>
+							<small>{chart.record?.rank}{chart.record?.combo ? ` · ${chart.record.combo}` : ''}</small>
+						</span>
+						<ComboIcon combo={chart.record?.combo} />
 					</span>
 				</a>
 			))}
