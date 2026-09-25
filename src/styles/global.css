@@ -662,6 +662,80 @@ a.record-refresh-button.compact {
 	color: rgb(var(--text));
 }
 
+.level-chart-result-actions {
+	align-items: center;
+	display: flex;
+	gap: 0.75rem;
+}
+
+.level-chart-view-toggle {
+	align-items: center;
+	border: 1px solid rgb(var(--line));
+	border-radius: 4px;
+	display: inline-flex;
+	overflow: hidden;
+}
+
+.level-chart-view-button {
+	align-items: center;
+	background: var(--surface);
+	border: 0;
+	color: rgb(var(--muted));
+	cursor: pointer;
+	display: inline-flex;
+	height: 30px;
+	justify-content: center;
+	padding: 0;
+	width: 32px;
+}
+
+.level-chart-view-button + .level-chart-view-button {
+	border-left: 1px solid rgb(var(--line));
+}
+
+.level-chart-view-button:hover {
+	background: #f3f6f5;
+	color: rgb(var(--text));
+}
+
+.level-chart-view-button.active {
+	background: rgb(var(--text));
+	color: #ffffff;
+}
+
+.level-chart-view-button:focus-visible {
+	outline: 2px solid rgba(107, 199, 180, 0.62);
+	outline-offset: -3px;
+}
+
+.level-chart-view-icon {
+	color: inherit;
+	display: block;
+	height: 14px;
+	position: relative;
+	width: 14px;
+}
+
+.level-chart-view-icon::before {
+	background: currentColor;
+	content: '';
+	left: 0;
+	position: absolute;
+	top: 1px;
+}
+
+.level-chart-view-icon.list::before {
+	box-shadow: 0 5px currentColor, 0 10px currentColor;
+	height: 2px;
+	width: 14px;
+}
+
+.level-chart-view-icon.grid::before {
+	box-shadow: 8px 0 currentColor, 0 8px currentColor, 8px 8px currentColor;
+	height: 6px;
+	width: 6px;
+}
+
 .record-list {
 	background: var(--surface);
 	border: 1px solid rgb(var(--line));
@@ -1095,6 +1169,69 @@ a.record-refresh-button.compact {
 	min-height: 82px;
 	padding: 0.7rem 1rem;
 	text-decoration: none;
+}
+
+.chart-list[data-view='grid'] {
+	background: transparent;
+	border: 0;
+	border-radius: 0;
+	display: grid;
+	gap: 0.7rem;
+	grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+	overflow: visible;
+}
+
+.chart-list[data-view='grid'] .chart-row {
+	align-content: start;
+	background: var(--surface);
+	border: 1px solid rgb(var(--line));
+	border-radius: 4px;
+	display: grid;
+	gap: 0.55rem;
+	grid-template-columns: minmax(0, 1fr);
+	grid-template-areas: none;
+	grid-template-rows: auto auto;
+	height: auto;
+	min-height: 0;
+	padding: 0.55rem;
+}
+
+.chart-list[data-view='grid'] .chart-row:hover {
+	border-color: rgba(29, 37, 44, 0.38);
+	box-shadow: 0 5px 14px rgba(29, 37, 44, 0.06);
+}
+
+.chart-list[data-view='grid'] .song-artwork.compact {
+	aspect-ratio: 1;
+	grid-area: auto;
+	height: auto;
+	width: 100%;
+}
+
+.chart-list[data-view='grid'] .chart-song {
+	align-self: auto;
+	display: block;
+	grid-area: auto;
+	min-width: 0;
+}
+
+.chart-list[data-view='grid'] .chart-song strong {
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	display: -webkit-box;
+	font-size: 0.82rem;
+	line-height: 1.35;
+	min-height: 2.7em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: normal;
+}
+
+.chart-list[data-view='grid'] .chart-song small,
+.chart-list[data-view='grid'] .chart-record,
+.chart-list[data-view='grid'] .chart-tags,
+.chart-list[data-view='grid'] .chart-level {
+	display: none;
 }
 
 .song-row-types,
@@ -1589,6 +1726,20 @@ a.record-refresh-button.compact {
 		display: flex;
 		justify-content: space-between;
 		padding-top: 0.25rem;
+	}
+
+	.chart-list[data-view='grid'] {
+		gap: 0.5rem;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	.chart-list[data-view='grid'] .chart-row {
+		gap: 0.45rem;
+		padding: 0.45rem;
+	}
+
+	.chart-list[data-view='grid'] .chart-song strong {
+		font-size: 0.76rem;
 	}
 
 	.level-index-grid a {

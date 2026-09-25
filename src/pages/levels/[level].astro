@@ -88,12 +88,38 @@ const internalLevels = [...new Set(
 		<button type="reset">초기화</button>
 	</form>
 
-	<div class="record-result-bar" aria-live="polite">
-		<strong id="level-chart-count">{charts.length.toLocaleString('ko-KR')}개</strong>
-		<span>AP+ · AP · 달성률 순</span>
+	<div class="record-result-bar level-chart-result-bar">
+		<strong id="level-chart-count" aria-live="polite">{charts.length.toLocaleString('ko-KR')}개</strong>
+		<div class="level-chart-result-actions">
+			<span>AP+ · AP · 달성률 순</span>
+			<div class="level-chart-view-toggle" role="group" aria-label="보기 방식">
+				<button
+					type="button"
+					class="level-chart-view-button active"
+					data-level-chart-view="list"
+					aria-label="목록으로 보기"
+					aria-controls="level-chart-list"
+					aria-pressed="true"
+					title="목록으로 보기"
+				>
+					<span class="level-chart-view-icon list" aria-hidden="true"></span>
+				</button>
+				<button
+					type="button"
+					class="level-chart-view-button"
+					data-level-chart-view="grid"
+					aria-label="격자로 보기"
+					aria-controls="level-chart-list"
+					aria-pressed="false"
+					title="격자로 보기"
+				>
+					<span class="level-chart-view-icon grid" aria-hidden="true"></span>
+				</button>
+			</div>
+		</div>
 	</div>
 
-	<section class="chart-list" id="level-chart-list" aria-label={`LEVEL ${level} 채보`}>
+	<section class="chart-list" id="level-chart-list" data-view="list" aria-label={`LEVEL ${level} 채보`}>
 		{charts.map((chart) => {
 			const song = songById.get(chart.songId);
 			return song && <ChartRow chart={chart} song={song} />;
@@ -114,6 +140,26 @@ const internalLevels = [...new Set(
 	const count = document.querySelector('#level-chart-count');
 	const empty = document.querySelector('#level-chart-empty');
 	const rows = [...document.querySelectorAll<HTMLElement>('#level-chart-list .chart-row')];
+	const viewButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-level-chart-view]')];
+	type LevelChartView = 'list' | 'grid';
+	const viewStorageKey = 'misaki-level-chart-view';
+
+	function applyView(view: LevelChartView, persist = true) {
+		if (!(list instanceof HTMLElement)) return;
+		list.dataset.view = view;
+
+		for (const button of viewButtons) {
+			const active = button.dataset.levelChartView === view;
+			button.classList.toggle('active', active);
+			button.setAttribute('aria-pressed', String(active));
+		}
+
+		if (persist) {
+			try {
+				localStorage.setItem(viewStorageKey, view);
+			} catch {}
+		}
+	}
 
 	function applyFilters() {
 		if (!(queryInput instanceof HTMLInputElement)) return;
@@ -142,5 +188,17 @@ const internalLevels = [...new Set(
 
 	form?.addEventListener('input', applyFilters);
 	form?.addEventListener('reset', () => requestAnimationFrame(applyFilters));
+	for (const button of viewButtons) {
+		button.addEventListener('click', () => {
+			const view = button.dataset.levelChartView;
+			if (view === 'list' || view === 'grid') applyView(view);
+		});
+	}
+
+	let initialView: LevelChartView = 'list';
+	try {
+		if (localStorage.getItem(viewStorageKey) === 'grid') initialView = 'grid';
+	} catch {}
+	applyView(initialView, false);
 	applyFilters();
 </script>
