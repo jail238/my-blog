@@ -1,11 +1,11 @@
 ---
 import SongArtwork from '../../components/SongArtwork.astro';
-import { LEVEL_ORDER, MAISHIFT_SOURCE, RECORDED_CHARTS, songById, versionsNewestFirst } from '../../data/maimai';
+import { LEVEL_ORDER, MAISHIFT_SOURCE, PERFECT_RECORDED_CHARTS, songById, versionsNewestFirst } from '../../data/maimai';
 import CatalogLayout from '../../layouts/CatalogLayout.astro';
 import { RECORD_REFRESH_URL, SITE_TITLE } from '../../consts';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const records = RECORDED_CHARTS.map((chart) => {
+const records = PERFECT_RECORDED_CHARTS.map((chart) => {
 	const song = songById.get(chart.songId);
 	return {
 		chart,
@@ -16,7 +16,7 @@ const records = RECORDED_CHARTS.map((chart) => {
 const filterLevels = [...LEVEL_ORDER].reverse();
 ---
 
-<CatalogLayout title={`내 기록 | ${SITE_TITLE}`} description="Maishift에서 가져온 maimai 플레이 기록" pageClass="records-page">
+<CatalogLayout title={`내 기록 | ${SITE_TITLE}`} description="Maishift에서 가져온 maimai AP/AP+ 달성 기록" pageClass="records-page">
 	<nav class="catalog-breadcrumb" aria-label="현재 위치">
 		<a href={`${base}/`}>홈</a>
 		<span aria-hidden="true">/</span>
@@ -81,7 +81,7 @@ const filterLevels = [...LEVEL_ORDER].reverse();
 
 	<div class="record-result-bar" aria-live="polite">
 		<strong id="record-result-count">{records.length.toLocaleString('ko-KR')}개</strong>
-		<span>레이팅 높은 순</span>
+		<span>AP · AP+ 최신 달성 순</span>
 	</div>
 
 	<div class="record-list" id="record-list">

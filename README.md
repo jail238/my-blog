@@ -16,8 +16,8 @@ The primary catalog has two views.
 - `Version`: chart-release index. A song appears under every version that introduced one of its International ST or DX chart sets.
 - Level index cards show AP/AP+ completion progress. Level detail pages can filter by song, artist, chart type, difficulty, internal level, and chart-release version; they can also hide completed AP/AP+ charts and order results by AP+, AP, then achievement rate.
 - Version index rows show AP/AP+ progress excluding Re:MASTER charts. Version pages can be searched by song or artist and show BASIC, ADVANCED, EXPERT, and MASTER completion status for each ST/DX chart set.
-- Song pages keep ST and DX chart sets in separate comparison tables. The records page supports version filtering and orders records by rating.
-- The home record gallery shows the latest AP achievements and AP-to-AP+ promotions detected by record refreshes. Percentage-only updates keep their original achievement time and do not move back to the top.
+- Song pages keep ST and DX chart sets in separate comparison tables. The records page supports version filtering and accumulates AP/AP+ records in their detected achievement order.
+- The home record gallery shows the latest 12 entries from that AP/AP+ history. AP-to-AP+ promotions move back to the top, while percentage-only updates keep their original achievement time.
 
 The public catalog is pinned to the International `CiRCLE PLUS` chart set. Public play records are imported from the Maishift profile and mapped to the same chart catalog.
 

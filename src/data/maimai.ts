@@ -299,3 +299,11 @@ export const RECORDED_CHARTS = CHARTS.filter((chart) => chart.record).sort((a, b
 	const songB = songById.get(b.songId)?.title ?? '';
 	return songA.localeCompare(songB, 'ko');
 });
+
+export const PERFECT_RECORDED_CHARTS = RECORDED_CHARTS
+	.filter((chart) => chart.record?.combo === 'AP' || chart.record?.combo === 'AP+')
+	.sort((a, b) => {
+		const detectedAtA = Date.parse(a.record?.perfectAchievedAt ?? MAISHIFT_SOURCE.generatedAt);
+		const detectedAtB = Date.parse(b.record?.perfectAchievedAt ?? MAISHIFT_SOURCE.generatedAt);
+		return detectedAtB - detectedAtA;
+	});

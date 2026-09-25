@@ -2,9 +2,8 @@
 import SongArtwork from '../components/SongArtwork.astro';
 import {
 	CHARTS,
-	MAISHIFT_SOURCE,
+	PERFECT_RECORDED_CHARTS,
 	PLAYER_PROFILE,
-	RECORDED_CHARTS,
 	SONGS,
 	registeredLevels,
 	songById,
@@ -37,13 +36,7 @@ const versionProgress = versionsNewestFirst.map((version) => {
 		songCount: songsForVersion(version.id).length,
 	};
 });
-const recordedCharts = RECORDED_CHARTS
-	.filter((chart) => chart.record?.combo === 'AP' || chart.record?.combo === 'AP+')
-	.sort((a, b) => {
-		const timeA = Date.parse(a.record?.perfectAchievedAt ?? MAISHIFT_SOURCE.generatedAt);
-		const timeB = Date.parse(b.record?.perfectAchievedAt ?? MAISHIFT_SOURCE.generatedAt);
-		return timeB - timeA;
-	})
+const recordedCharts = PERFECT_RECORDED_CHARTS
 	.slice(0, 12)
 	.map((chart) => ({ chart, song: songById.get(chart.songId) }))
 	.filter((entry) => entry.song !== undefined);
@@ -144,7 +137,7 @@ const snapshotDate = `${snapshotParts.get('year')}.${snapshotParts.get('month')}
 				<h2 id="record-gallery-title">등록 기록</h2>
 			</div>
 			<div class="record-gallery-heading-meta">
-				<span>{RECORDED_CHARTS.length.toLocaleString('ko-KR')} CHARTS</span>
+				<span>{PERFECT_RECORDED_CHARTS.length.toLocaleString('ko-KR')} CHARTS</span>
 				<a href={`${base}/records/`}>전체</a>
 				<a
 					class="record-refresh-button compact"
