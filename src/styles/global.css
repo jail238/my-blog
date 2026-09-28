@@ -1223,6 +1223,74 @@ a.record-refresh-button.compact {
 	font-size: 0.68rem;
 }
 
+.plate-reference {
+	background: #091822;
+	border: 1px solid rgb(var(--line));
+	border-radius: 6px;
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(260px, 0.42fr);
+	margin: 1rem 0 0;
+	overflow: hidden;
+}
+
+.plate-reference-media {
+	display: block;
+	min-width: 0;
+	overflow: hidden;
+}
+
+.plate-reference-media img {
+	display: block;
+	height: 100%;
+	object-fit: cover;
+	width: 100%;
+}
+
+.plate-reference figcaption {
+	align-content: center;
+	background: rgb(var(--text));
+	color: var(--surface);
+	display: grid;
+	gap: 1rem;
+	padding: 1.25rem;
+}
+
+.plate-reference figcaption > span {
+	display: grid;
+	gap: 0.35rem;
+}
+
+.plate-reference figcaption strong {
+	font-size: 1rem;
+}
+
+.plate-reference figcaption small {
+	color: rgba(255, 255, 255, 0.72);
+	font-size: 0.7rem;
+	line-height: 1.55;
+}
+
+.plate-reference figcaption > a {
+	align-items: center;
+	color: var(--surface);
+	display: inline-flex;
+	font-size: 0.7rem;
+	font-weight: 760;
+	gap: 0.35rem;
+	justify-self: start;
+	text-decoration: none;
+}
+
+.plate-reference figcaption > a:hover {
+	text-decoration: underline;
+}
+
+.plate-reference figcaption > a:focus-visible,
+.plate-reference-media:focus-visible {
+	outline: 2px solid var(--surface);
+	outline-offset: -4px;
+}
+
 .plate-scope,
 .plate-note {
 	color: rgb(var(--muted));
@@ -1846,6 +1914,20 @@ a.record-refresh-button.compact {
 		grid-template-columns: 1fr;
 	}
 
+	.plate-reference {
+		grid-template-columns: 1fr;
+	}
+
+	.plate-reference-media img {
+		aspect-ratio: 16 / 9;
+		height: auto;
+	}
+
+	.plate-reference figcaption {
+		align-items: center;
+		grid-template-columns: minmax(0, 1fr) auto;
+	}
+
 	.plate-goal-grid {
 		border-left: 0;
 		border-top: 1px solid rgb(var(--line));
@@ -1937,6 +2019,19 @@ a.record-refresh-button.compact {
 
 	.plate-scope {
 		text-align: left;
+	}
+
+	.plate-reference figcaption {
+		gap: 0.75rem;
+		padding: 0.9rem 1rem;
+	}
+
+	.plate-reference figcaption strong {
+		font-size: 0.9rem;
+	}
+
+	.plate-reference figcaption small {
+		font-size: 0.64rem;
 	}
 
 	.archive-overview {

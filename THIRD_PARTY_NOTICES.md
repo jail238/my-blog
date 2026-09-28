@@ -28,3 +28,13 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+## SEGA maimai plate reference
+
+`public/assets/maimai/plate/official-plate-series.jpg` is an official maimai
+promotional image published by SEGA to show the in-game plate series:
+
+https://x.com/maimai_official/status/1217280804654477314
+
+Copyright © SEGA. The image is used only as a visual reference for the plate
+progress page. This project is not affiliated with or endorsed by SEGA.
