@@ -1249,7 +1249,7 @@ a.record-refresh-button.compact {
 
 .plate-progress-list {
 	display: grid;
-	gap: 1rem;
+	gap: 1.25rem;
 	margin-top: 1rem;
 }
 
