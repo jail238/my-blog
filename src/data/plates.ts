@@ -63,7 +63,7 @@ const plateGroupDefinitions: readonly PlateGroupDefinition[] = [
 		prefix: '舞',
 		assetId: 6151,
 		versionIds: classicVersionIds,
-		displayName: 'maimai–FiNALE · ST',
+		displayName: 'maimai ~ FiNALE',
 		includeReMaster: true,
 		chartType: 'STANDARD',
 		orderOffset: 0.5,
