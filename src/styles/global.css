@@ -200,6 +200,14 @@ img {
 	border-top: 3px solid var(--amber);
 }
 
+.archive-modes a.archive-mode-plate {
+	background-color: var(--surface);
+	background-image: linear-gradient(to right, rgba(230, 174, 69, 0.22), rgba(230, 174, 69, 0.08));
+	background-position: left;
+	background-repeat: no-repeat;
+	background-size: var(--plate-progress, 0%) 100%;
+}
+
 .archive-modes a:hover {
 	border-color: rgba(29, 37, 44, 0.38);
 	box-shadow: var(--shadow-soft);
@@ -209,7 +217,12 @@ img {
 .archive-modes small {
 	color: rgb(var(--muted));
 	font-size: 0.7rem;
+	font-variant-numeric: tabular-nums;
 	font-weight: 760;
+}
+
+.archive-mode-plate small b {
+	color: rgb(var(--text));
 }
 
 .archive-modes strong {

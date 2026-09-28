@@ -13,7 +13,7 @@ import {
 } from '../data/maimai';
 import CatalogLayout from '../layouts/CatalogLayout.astro';
 import { RECORD_REFRESH_URL, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
-import { PLATE_GROUPS } from '../data/plates';
+import { PLATE_GROUPS, plateProgress } from '../data/plates';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const levelOrder = registeredLevels().slice().reverse();
@@ -38,6 +38,11 @@ const versionProgress = versionsNewestFirst.map((version) => {
 		songCount: songsForVersion(version.id).length,
 	};
 });
+const plateGroupProgress = PLATE_GROUPS.map(plateProgress);
+const completedPlateCount = plateGroupProgress.filter(({ complete }) => complete).length;
+const completedPlateChartCount = plateGroupProgress.reduce((sum, { completedCount }) => sum + completedCount, 0);
+const totalPlateChartCount = plateGroupProgress.reduce((sum, { totalCount }) => sum + totalCount, 0);
+const plateChartRate = totalPlateChartCount > 0 ? (completedPlateChartCount / totalPlateChartCount) * 100 : 0;
 const recordedCharts = PERFECT_RECORDED_CHARTS
 	.slice(0, 12)
 	.map((chart) => ({ chart, song: songById.get(chart.songId) }))
@@ -80,9 +85,14 @@ const snapshotDate = `${snapshotParts.get('year')}.${snapshotParts.get('month')}
 			<small>{SONGS.length} SONGS</small>
 			<span class="mode-arrow" aria-hidden="true">›</span>
 		</a>
-		<a href={`${base}/plates/`}>
+		<a
+			class="archive-mode-plate"
+			href={`${base}/plates/`}
+			style={`--plate-progress: ${plateChartRate.toFixed(2)}%`}
+			title={`神 ${completedPlateCount}/${PLATE_GROUPS.length} · AP 이상 ${completedPlateChartCount}/${totalPlateChartCount}`}
+		>
 			<strong>플레이트</strong>
-			<small>{PLATE_GROUPS.length} VERSION GROUPS</small>
+			<small><b>{completedPlateCount}/{PLATE_GROUPS.length} 神</b> · AP {completedPlateChartCount.toLocaleString('ko-KR')}/{totalPlateChartCount.toLocaleString('ko-KR')}</small>
 			<span class="mode-arrow" aria-hidden="true">›</span>
 		</a>
 	</nav>
