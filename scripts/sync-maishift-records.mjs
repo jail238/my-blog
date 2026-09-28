@@ -8,7 +8,11 @@ const HANDLE = process.env.MAISHIFT_HANDLE || 'elixir';
 const REGION = process.env.MAISHIFT_REGION || 'ASIA';
 const RECORDS_URL = `${MAISHIFT_ORIGIN}/profile/${encodeURIComponent(HANDLE)}/records`;
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
-const CATALOG_PATH = resolve(SCRIPT_DIR, '../src/data/maimai.generated.json');
+const USE_CANDIDATE_CATALOG = process.argv.includes('--catalog-candidate');
+const CATALOG_PATH = resolve(
+	SCRIPT_DIR,
+	USE_CANDIDATE_CATALOG ? '../.cache/maimai.candidate.json' : '../src/data/maimai.generated.json',
+);
 const OUTPUT_PATH = resolve(SCRIPT_DIR, '../src/data/maishift.generated.json');
 const CIRCLE_PLUS_SNAPSHOT_PATH = resolve(SCRIPT_DIR, '../src/data/circle-plus.generated.json');
 const CIRCLE_PLUS_VERSION = 'CiRCLE PLUS';
@@ -201,6 +205,11 @@ function comparableSnapshot(data) {
 	return { ...data, source };
 }
 
+function comparableCirclePlusSnapshot(data) {
+	const { generatedAt: _generatedAt, ...source } = data.source;
+	return { ...data, source };
+}
+
 const recordsHtml = await fetchText(RECORDS_URL);
 const { profileHash, recordsHash } = await discoverServerFunctions(recordsHtml);
 const requestData = { handle: HANDLE, region: REGION };
@@ -242,7 +251,19 @@ for (const track of recordsData.tracks) {
 		matches = matches.filter(({ chart }) => chart.constant === track.l / 10);
 	}
 
-	if (matches.length === 0) continue;
+	if (matches.length === 0) {
+		if (WRITE_CIRCLE_PLUS_SNAPSHOT) {
+			unmatched.push({
+				title: maishiftSong.title,
+				artist: maishiftSong.artist,
+				type: maishiftSong.type,
+				difficulty,
+				trackId: track.i,
+				matches: [],
+			});
+		}
+		continue;
+	}
 
 	if (matches.length !== 1) {
 		unmatched.push({
@@ -290,6 +311,13 @@ for (const { track, chart } of mappedTracks) {
 }
 
 if (WRITE_CIRCLE_PLUS_SNAPSHOT) {
+	let previousCirclePlusSnapshot;
+	try {
+		previousCirclePlusSnapshot = JSON.parse(await readFile(CIRCLE_PLUS_SNAPSHOT_PATH, 'utf8'));
+	} catch (error) {
+		if (error?.code !== 'ENOENT') throw error;
+	}
+
 	const charts = mappedTracks
 		.map(({ track, chart }) => {
 			const expectedLevel = displayLevelForInternalLevel(track.l);
@@ -322,6 +350,13 @@ if (WRITE_CIRCLE_PLUS_SNAPSHOT) {
 			.sort((a, b) => a.songId.localeCompare(b.songId, 'en', { numeric: true })),
 		charts,
 	};
+	if (
+		previousCirclePlusSnapshot &&
+		JSON.stringify(comparableCirclePlusSnapshot(previousCirclePlusSnapshot)) ===
+			JSON.stringify(comparableCirclePlusSnapshot(snapshot))
+	) {
+		snapshot.source.generatedAt = previousCirclePlusSnapshot.source.generatedAt;
+	}
 
 	await mkdir(dirname(CIRCLE_PLUS_SNAPSHOT_PATH), { recursive: true });
 	await writeFile(CIRCLE_PLUS_SNAPSHOT_PATH, `${JSON.stringify(snapshot, null, 2)}\n`, 'utf8');

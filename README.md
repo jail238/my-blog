@@ -44,6 +44,7 @@ Only the maimai archive is included in the public build. Previous blog posts, wr
 ```bash
 npm install
 npm run pin:circle-plus
+npm run refresh:catalog
 npm run sync:catalog
 npm run sync:records
 npm run sync:data
@@ -58,9 +59,10 @@ npm run preview
 - Titles, artists, chart-specific version folders, and jacket URLs are generated from [SaltMeta](https://github.com/realtvop/SaltMeta), filtered to charts available in the `intl` region.
 - Display levels and internal constants are pinned from the complete Maishift `ASIA` chart set for `CiRCLE PLUS`. The build validates every chart so mixed-version level/constant pairs fail instead of being published.
 - `npm run pin:circle-plus` intentionally replaces the version snapshot. Do not run it for an ordinary record refresh.
+- `npm run refresh:catalog` generates a candidate from the current SaltMeta International catalog, validates every chart against the complete Maishift `ASIA` chart set, refreshes the pinned snapshot, and then regenerates the final catalog.
 - Public personal records are generated from the [Maishift profile](https://maimai.shiftpsh.com/profile/elixir/home). The sync stores scores only; it does not store cookies, login data, or tokens.
 - The site's `기록 갱신` button opens the repository's `Refresh Maishift records` workflow. Run it while signed in as a repository owner to import, commit, and deploy the latest public records without a local development environment.
-- The same workflow checks for updates every day at 07:30 KST. It skips the commit and deployment when the public Maishift snapshot has not changed.
+- Record refreshes are manual. A separate workflow checks the CiRCLE PLUS catalog every Saturday at 07:30 KST and only commits and deploys after catalog mapping, tests, and the full static build succeed. If the upstream data has not changed, it does nothing.
 - `MAGiCAL` stays in the version index but remains empty until International-region charts exist in the source data.
 - `npm run sync:records` refreshes achievements, ranks, combo/sync states, DX scores, and rating contribution. It also preserves the first detected AP time and only replaces it when an AP record becomes AP+.
 - Plate conditions follow [SEGA's official rules](https://maimai.sega.jp/news/2020-01-15/). The individual in-game plate images come from the [Lxns Network maimai asset mirror](https://maimai.lxns.net/docs/api/maimai), and version prefixes, the combined 真 group, and the maimai–FiNALE STANDARD scope for 舞神 follow the [documented collection list](https://gamerch.com/maimai/533650).

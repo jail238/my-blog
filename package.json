@@ -12,9 +12,12 @@
     "preview": "astro preview",
     "astro": "astro",
     "pin:circle-plus": "node scripts/sync-maishift-records.mjs --write-circle-plus-snapshot",
+    "pin:circle-plus:candidate": "node scripts/sync-maishift-records.mjs --write-circle-plus-snapshot --catalog-candidate",
+    "sync:catalog:candidate": "node scripts/sync-maimai-catalog.mjs --allow-catalog-changes",
     "sync:catalog": "node scripts/sync-maimai-catalog.mjs",
     "sync:records": "node scripts/sync-maishift-records.mjs",
-    "sync:data": "npm run sync:catalog && npm run sync:records"
+    "sync:data": "npm run sync:catalog && npm run sync:records",
+    "refresh:catalog": "npm run sync:catalog:candidate && npm run pin:circle-plus:candidate && npm run sync:catalog"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",

@@ -5,7 +5,11 @@ import { fileURLToPath } from 'node:url';
 const SOURCE_URL = 'https://meta.salt.realtvop.top/meta.next.json';
 const COVER_BASE_URL = 'https://meta.salt.realtvop.top/covers';
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
-const OUTPUT_PATH = resolve(SCRIPT_DIR, '../src/data/maimai.generated.json');
+const ALLOW_CATALOG_CHANGES = process.argv.includes('--allow-catalog-changes');
+const OUTPUT_PATH = resolve(
+	SCRIPT_DIR,
+	ALLOW_CATALOG_CHANGES ? '../.cache/maimai.candidate.json' : '../src/data/maimai.generated.json',
+);
 const CIRCLE_PLUS_SNAPSHOT_PATH = resolve(SCRIPT_DIR, '../src/data/circle-plus.generated.json');
 const TARGET_GAME_VERSION = 'CiRCLE PLUS';
 
@@ -72,6 +76,21 @@ function chartId(songId, type, difficulty) {
 	return `${songId}-${type.toLowerCase()}-${difficulty.toLowerCase().replace(':', '')}`;
 }
 
+function comparableCatalog(data) {
+	return {
+		versions: data.versions,
+		songs: data.songs,
+		charts: data.charts,
+	};
+}
+
+let previousOutput;
+try {
+	previousOutput = JSON.parse(await readFile(OUTPUT_PATH, 'utf8'));
+} catch (error) {
+	if (error?.code !== 'ENOENT') throw error;
+}
+
 const circlePlusSnapshot = JSON.parse(await readFile(CIRCLE_PLUS_SNAPSHOT_PATH, 'utf8'));
 if (circlePlusSnapshot.source.gameVersion !== TARGET_GAME_VERSION) {
 	throw new Error(
@@ -107,7 +126,7 @@ for (const music of metadata.musics) {
 
 	const songId = String(music.id);
 	const pinnedSong = pinnedSongById.get(songId);
-	if (!pinnedSong) continue;
+	if (!pinnedSong && !ALLOW_CATALOG_CHANGES) continue;
 
 	songs.push({
 		id: songId,
@@ -123,19 +142,20 @@ for (const music of metadata.musics) {
 		const type = chart.type === 'sd' ? 'STANDARD' : 'DX';
 		const id = chartId(songId, type, difficulty);
 		const pinnedChart = pinnedChartById.get(id);
-		if (!pinnedChart) continue;
-		const sourceVersionName = chart.regions.intl.version;
+		if (!pinnedChart && !ALLOW_CATALOG_CHANGES) continue;
+		const internationalChart = chart.regions.intl;
+		const sourceVersionName = internationalChart.version;
 		const sourceVersionId = versionIdBySourceName.get(sourceVersionName);
 		if (!sourceVersionId) {
 			throw new Error(`No known International version for ${id}: ${sourceVersionName}`);
 		}
-		if (!pinnedChart.versionId) {
+		if (pinnedChart && !pinnedChart.versionId) {
 			throw new Error(`Pinned chart has no version: ${id}`);
 		}
-		if (!versions.some((version) => version.id === pinnedChart.versionId)) {
+		if (pinnedChart && !versions.some((version) => version.id === pinnedChart.versionId)) {
 			throw new Error(`No known pinned version for ${id}: ${pinnedChart.versionId}`);
 		}
-		if (pinnedChart.versionId !== sourceVersionId) {
+		if (pinnedChart && pinnedChart.versionId !== sourceVersionId && !ALLOW_CATALOG_CHANGES) {
 			throw new Error(
 				`Pinned version mismatch for ${id}: ${pinnedChart.versionId} !== ${sourceVersionId}`,
 			);
@@ -146,9 +166,9 @@ for (const music of metadata.musics) {
 			songId,
 			type,
 			difficulty,
-			versionId: pinnedChart.versionId,
-			level: pinnedChart.level,
-			constant: pinnedChart.constant,
+			versionId: ALLOW_CATALOG_CHANGES ? sourceVersionId : pinnedChart.versionId,
+			level: ALLOW_CATALOG_CHANGES ? internationalChart.level : pinnedChart.level,
+			constant: ALLOW_CATALOG_CHANGES ? internationalChart.internalLevel : pinnedChart.constant,
 		});
 	}
 }
@@ -161,7 +181,10 @@ if (duplicateSongIds.length > 0) {
 	throw new Error(`Duplicate song ids: ${duplicateSongIds.map((song) => song.id).join(', ')}`);
 }
 
-if (songs.length !== circlePlusSnapshot.totalSongs || charts.length !== circlePlusSnapshot.totalCharts) {
+if (
+	!ALLOW_CATALOG_CHANGES &&
+	(songs.length !== circlePlusSnapshot.totalSongs || charts.length !== circlePlusSnapshot.totalCharts)
+) {
 	const generatedChartIds = new Set(charts.map((chart) => chart.id));
 	const missingChartIds = [...pinnedChartById.keys()].filter((id) => !generatedChartIds.has(id));
 	throw new Error(
@@ -184,6 +207,14 @@ const output = {
 	songs,
 	charts,
 };
+
+if (
+	previousOutput &&
+	JSON.stringify(comparableCatalog(previousOutput)) === JSON.stringify(comparableCatalog(output))
+) {
+	output.source.generatedAt = previousOutput.source.generatedAt;
+	output.source.sourceUpdatedAt = previousOutput.source.sourceUpdatedAt;
+}
 
 await mkdir(dirname(OUTPUT_PATH), { recursive: true });
 await writeFile(OUTPUT_PATH, `${JSON.stringify(output, null, 2)}\n`, 'utf8');
