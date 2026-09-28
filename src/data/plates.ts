@@ -1,11 +1,24 @@
-import { CHARTS, versionById } from './maimai';
+import { CHARTS, versionById, type ChartType } from './maimai';
 
 export interface PlateGroup {
 	id: string;
 	prefix: string;
 	name: string;
+	displayName?: string;
 	versionIds: string[];
+	includeReMaster: boolean;
+	chartType?: ChartType;
 	order: number;
+}
+
+interface PlateGroupDefinition {
+	id: string;
+	prefix: string;
+	versionIds: readonly string[];
+	displayName?: string;
+	includeReMaster?: boolean;
+	chartType?: ChartType;
+	orderOffset?: number;
 }
 
 export const PLATE_GOAL = {
@@ -14,7 +27,23 @@ export const PLATE_GOAL = {
 	condition: 'ALL PERFECT 이상',
 } as const;
 
-const plateGroupDefinitions = [
+const classicVersionIds = [
+	'maimai',
+	'maimai-plus',
+	'green',
+	'green-plus',
+	'orange',
+	'orange-plus',
+	'pink',
+	'pink-plus',
+	'murasaki',
+	'murasaki-plus',
+	'milk',
+	'milk-plus',
+	'finale',
+] as const;
+
+const plateGroupDefinitions: readonly PlateGroupDefinition[] = [
 	{ id: 'maimai', prefix: '真', versionIds: ['maimai', 'maimai-plus'] },
 	{ id: 'green', prefix: '超', versionIds: ['green'] },
 	{ id: 'green-plus', prefix: '檄', versionIds: ['green-plus'] },
@@ -27,6 +56,15 @@ const plateGroupDefinitions = [
 	{ id: 'milk', prefix: '白', versionIds: ['milk'] },
 	{ id: 'milk-plus', prefix: '雪', versionIds: ['milk-plus'] },
 	{ id: 'finale', prefix: '輝', versionIds: ['finale'] },
+	{
+		id: 'mai',
+		prefix: '舞',
+		versionIds: classicVersionIds,
+		displayName: 'maimai–FiNALE · ST',
+		includeReMaster: true,
+		chartType: 'STANDARD',
+		orderOffset: 0.5,
+	},
 	{ id: 'dx', prefix: '熊', versionIds: ['dx'] },
 	{ id: 'dx-plus', prefix: '華', versionIds: ['dx-plus'] },
 	{ id: 'splash', prefix: '爽', versionIds: ['splash'] },
@@ -41,11 +79,7 @@ const plateGroupDefinitions = [
 	{ id: 'prism-plus', prefix: '彩', versionIds: ['prism-plus'] },
 	{ id: 'circle', prefix: '丸', versionIds: ['circle'] },
 	{ id: 'circle-plus', prefix: '廻', versionIds: ['circle-plus'] },
-] as const satisfies readonly {
-	id: string;
-	prefix: string;
-	versionIds: readonly string[];
-}[];
+];
 
 function groupName(versionIds: readonly string[]) {
 	return versionIds.map((versionId) => versionById.get(versionId)?.shortName ?? versionId).join(' / ');
@@ -55,14 +89,20 @@ export const PLATE_GROUPS: PlateGroup[] = plateGroupDefinitions
 	.map((definition) => ({
 		...definition,
 		versionIds: [...definition.versionIds],
-		name: groupName(definition.versionIds),
-		order: Math.max(...definition.versionIds.map((versionId) => versionById.get(versionId)?.order ?? 0)),
+		name: definition.displayName ?? groupName(definition.versionIds),
+		includeReMaster: definition.includeReMaster ?? false,
+		order:
+			Math.max(...definition.versionIds.map((versionId) => versionById.get(versionId)?.order ?? 0)) +
+			(definition.orderOffset ?? 0),
 	}))
 	.sort((a, b) => a.order - b.order);
 
 export function plateCharts(group: PlateGroup) {
 	return CHARTS.filter(
-		(chart) => group.versionIds.includes(chart.versionId) && chart.difficulty !== 'Re:MASTER',
+		(chart) =>
+			group.versionIds.includes(chart.versionId) &&
+			(group.chartType === undefined || chart.type === group.chartType) &&
+			(group.includeReMaster || chart.difficulty !== 'Re:MASTER'),
 	);
 }
 

@@ -1388,6 +1388,11 @@ a.record-refresh-button.compact {
 	outline-offset: 3px;
 }
 
+.plate-version-range {
+	font-size: 0.9rem;
+	font-weight: 820;
+}
+
 .plate-version-separator {
 	color: rgb(var(--soft));
 	font-size: 0.78rem;

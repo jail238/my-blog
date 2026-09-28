@@ -21,7 +21,7 @@ const progress = PLATE_GROUPS.map((group) => ({
 	<header class="catalog-page-header">
 		<p class="catalog-kicker">PLATE PROGRESS</p>
 		<h1>플레이트</h1>
-		<p>{PLATE_GROUPS.length} VERSION GROUPS · BASIC–MASTER</p>
+		<p>{PLATE_GROUPS.length} PLATES · 神 ONLY</p>
 	</header>
 
 	<section class="plate-criteria" aria-label="플레이트 달성 조건">
@@ -50,7 +50,7 @@ const progress = PLATE_GROUPS.map((group) => ({
 		<figcaption>
 			<span>
 				<strong>실제 플레이트 예시</strong>
-				<small>SEGA 공식 이미지 · 이 페이지에서는 각 버전의 神만 추적합니다.</small>
+				<small>SEGA 공식 이미지 · 이 페이지에서는 神 플레이트만 추적합니다.</small>
 			</span>
 			<a
 				href="https://x.com/maimai_official/status/1217280804654477314"
@@ -62,7 +62,7 @@ const progress = PLATE_GROUPS.map((group) => ({
 		</figcaption>
 	</figure>
 
-	<p class="plate-scope">현재 국제판 CiRCLE PLUS 수록 기준 · Re:MASTER 제외</p>
+	<p class="plate-scope">현재 국제판 CiRCLE PLUS 수록 기준 · 舞神만 Re:MASTER 포함</p>
 
 	<section class="plate-index-list" aria-label="버전 플레이트 진행도">
 		{progress.map(({ group, versions, totalCount, completedCount, complete, rate }) => (
@@ -71,19 +71,23 @@ const progress = PLATE_GROUPS.map((group) => ({
 					<span class="plate-prefix" aria-hidden="true">{group.prefix}</span>
 					<span class="plate-version-copy">
 						<span class="plate-version-links">
-							{versions.map((version, index) => (
-								<>
-									{index > 0 && <span class="plate-version-separator" aria-hidden="true">/</span>}
-									<a
-										href={`${base}/versions/${version.id}/`}
-										aria-label={`${version.shortName} 버전 채보 보기`}
-									>
-										{version.shortName}<span aria-hidden="true">›</span>
-									</a>
-								</>
-							))}
+							{group.displayName ? (
+								<span class="plate-version-range">{group.displayName}</span>
+							) : (
+								versions.map((version, index) => (
+									<>
+										{index > 0 && <span class="plate-version-separator" aria-hidden="true">/</span>}
+										<a
+											href={`${base}/versions/${version.id}/`}
+											aria-label={`${version.shortName} 버전 채보 보기`}
+										>
+											{version.shortName}<span aria-hidden="true">›</span>
+										</a>
+									</>
+								))
+							)}
 						</span>
-						<small>{totalCount} CHARTS</small>
+						<small>{totalCount} CHARTS{group.includeReMaster && ' · BASIC–Re:MASTER'}</small>
 					</span>
 				</header>
 				<div class="plate-goal-grid">
@@ -103,5 +107,7 @@ const progress = PLATE_GROUPS.map((group) => ({
 		))}
 	</section>
 
-	<p class="plate-note">maimai와 maimai PLUS는 하나의 真神 범위입니다.</p>
+	<p class="plate-note">
+		maimai와 maimai PLUS는 하나의 真神 범위이며, 舞神은 maimai–FiNALE ST의 BASIC–Re:MASTER 전체 범위입니다.
+	</p>
 </CatalogLayout>
