@@ -6,7 +6,7 @@ import { SITE_TITLE } from '../../consts';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const versionProgress = versionsNewestFirst.map((version) => {
-	const charts = CHARTS.filter((chart) => chart.versionId === version.id && chart.difficulty !== 'Re:MASTER');
+	const charts = CHARTS.filter((chart) => chart.versionId === version.id);
 	const apCount = charts.filter((chart) => chart.record?.combo === 'AP' || chart.record?.combo === 'AP+').length;
 
 	return {
@@ -32,7 +32,7 @@ const versionProgress = versionsNewestFirst.map((version) => {
 				<a
 					href={`${base}/versions/${version.id}/`}
 					style={`--ap-progress: ${apRate.toFixed(2)}%`}
-					title={`Re:MASTER 제외 AP 이상 ${apCount}/${totalCount}`}
+					title={`AP 이상 ${apCount}/${totalCount}`}
 				>
 					<span class="version-sequence">{String(version.order).padStart(2, '0')}</span>
 					<span class="version-name">

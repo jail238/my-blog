@@ -9,7 +9,7 @@ interface Props {
 
 const { song, charts = [] } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const trackedDifficulties = ['BASIC', 'ADVANCED', 'EXPERT', 'MASTER'] as const satisfies readonly Difficulty[];
+const trackedDifficulties = ['BASIC', 'ADVANCED', 'EXPERT', 'MASTER', 'Re:MASTER'] as const satisfies readonly Difficulty[];
 const chartGroups = (['STANDARD', 'DX'] as const satisfies readonly ChartType[])
 	.map((type) => {
 		const typeCharts = charts.filter((chart) => chart.type === type);

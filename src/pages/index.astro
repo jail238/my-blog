@@ -13,6 +13,7 @@ import {
 } from '../data/maimai';
 import CatalogLayout from '../layouts/CatalogLayout.astro';
 import { RECORD_REFRESH_URL, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { PLATE_GROUPS } from '../data/plates';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const levelOrder = registeredLevels().slice().reverse();
@@ -27,7 +28,7 @@ const levelProgress = levelOrder.map((level) => {
 	};
 });
 const versionProgress = versionsNewestFirst.map((version) => {
-	const charts = CHARTS.filter((chart) => chart.versionId === version.id && chart.difficulty !== 'Re:MASTER');
+	const charts = CHARTS.filter((chart) => chart.versionId === version.id);
 	const apCount = charts.filter((chart) => chart.record?.combo === 'AP' || chart.record?.combo === 'AP+').length;
 	return {
 		version,
@@ -79,6 +80,11 @@ const snapshotDate = `${snapshotParts.get('year')}.${snapshotParts.get('month')}
 			<small>{SONGS.length} SONGS</small>
 			<span class="mode-arrow" aria-hidden="true">›</span>
 		</a>
+		<a href={`${base}/plates/`}>
+			<strong>플레이트작</strong>
+			<small>{PLATE_GROUPS.length} VERSION GROUPS</small>
+			<span class="mode-arrow" aria-hidden="true">›</span>
+		</a>
 	</nav>
 
 	<div class="archive-overview">
@@ -120,7 +126,7 @@ const snapshotDate = `${snapshotParts.get('year')}.${snapshotParts.get('month')}
 						<a
 							href={`${base}/versions/${version.id}/`}
 							style={`--ap-progress: ${apRate.toFixed(2)}%`}
-							title={`Re:MASTER 제외 AP 이상 ${apCount}/${totalCount}`}
+							title={`AP 이상 ${apCount}/${totalCount}`}
 						>
 							<span>{version.shortName}</span>
 							<small><b>{apCount}/{totalCount}</b> · {songCount}곡</small>
