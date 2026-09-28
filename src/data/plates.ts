@@ -58,7 +58,7 @@ export const PLATE_GROUPS: PlateGroup[] = plateGroupDefinitions
 		name: groupName(definition.versionIds),
 		order: Math.max(...definition.versionIds.map((versionId) => versionById.get(versionId)?.order ?? 0)),
 	}))
-	.sort((a, b) => b.order - a.order);
+	.sort((a, b) => a.order - b.order);
 
 export function plateCharts(group: PlateGroup) {
 	return CHARTS.filter(
