@@ -1458,9 +1458,10 @@ a.record-refresh-button.compact {
 }
 
 .song-perfect-markers {
-	display: grid;
+	display: inline-grid;
 	gap: 4px;
-	grid-template-columns: repeat(5, 12px);
+	grid-auto-columns: 12px;
+	grid-auto-flow: column;
 }
 
 .song-perfect-marker {

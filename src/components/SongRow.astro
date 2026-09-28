@@ -13,16 +13,18 @@ const trackedDifficulties = ['BASIC', 'ADVANCED', 'EXPERT', 'MASTER', 'Re:MASTER
 const chartGroups = (['STANDARD', 'DX'] as const satisfies readonly ChartType[])
 	.map((type) => {
 		const typeCharts = charts.filter((chart) => chart.type === type);
-		const markers = trackedDifficulties.map((difficulty) => {
-			const chart = typeCharts.find((candidate) => candidate.difficulty === difficulty);
-			const combo = chart?.record?.combo;
-			return {
-				difficulty,
-				available: chart !== undefined,
-				combo,
-				perfect: combo === 'AP' || combo === 'AP+',
-			};
-		});
+		const markers = trackedDifficulties
+			.map((difficulty) => {
+				const chart = typeCharts.find((candidate) => candidate.difficulty === difficulty);
+				const combo = chart?.record?.combo;
+				return {
+					difficulty,
+					available: chart !== undefined,
+					combo,
+					perfect: combo === 'AP' || combo === 'AP+',
+				};
+			})
+			.filter((marker) => marker.difficulty !== 'Re:MASTER' || marker.available);
 		return {
 			type,
 			label: type === 'STANDARD' ? 'ST' : 'DX',
