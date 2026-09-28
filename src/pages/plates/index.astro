@@ -1,9 +1,16 @@
 ---
 import { PLATE_GOAL, PLATE_GROUPS, plateProgress } from '../../data/plates';
+import { versionById } from '../../data/maimai';
 import CatalogLayout from '../../layouts/CatalogLayout.astro';
 import { SITE_TITLE } from '../../consts';
 
-const progress = PLATE_GROUPS.map(plateProgress);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const progress = PLATE_GROUPS.map((group) => ({
+	...plateProgress(group),
+	versions: group.versionIds
+		.map((versionId) => versionById.get(versionId))
+		.filter((version) => version !== undefined),
+}));
 ---
 
 <CatalogLayout
@@ -28,12 +35,24 @@ const progress = PLATE_GROUPS.map(plateProgress);
 	<p class="plate-scope">현재 국제판 CiRCLE PLUS 수록 기준 · Re:MASTER 제외</p>
 
 	<section class="plate-index-list" aria-label="버전 플레이트 진행도">
-		{progress.map(({ group, totalCount, completedCount, complete, rate }) => (
+		{progress.map(({ group, versions, totalCount, completedCount, complete, rate }) => (
 			<article class="plate-version-row">
 				<header class="plate-version-heading">
 					<span class="plate-prefix" aria-hidden="true">{group.prefix}</span>
-					<span>
-						<strong>{group.name}</strong>
+					<span class="plate-version-copy">
+						<span class="plate-version-links">
+							{versions.map((version, index) => (
+								<>
+									{index > 0 && <span class="plate-version-separator" aria-hidden="true">/</span>}
+									<a
+										href={`${base}/versions/${version.id}/`}
+										aria-label={`${version.shortName} 버전 채보 보기`}
+									>
+										{version.shortName}<span aria-hidden="true">›</span>
+									</a>
+								</>
+							))}
+						</span>
 						<small>{totalCount} CHARTS</small>
 					</span>
 				</header>

@@ -1266,16 +1266,50 @@ a.record-refresh-button.compact {
 	width: 42px;
 }
 
-.plate-version-heading > span:last-child {
+.plate-version-copy {
 	display: grid;
 	min-width: 0;
 }
 
-.plate-version-heading strong {
+.plate-version-links {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.25rem;
+	min-width: 0;
+}
+
+.plate-version-links a {
+	align-items: center;
+	display: inline-flex;
 	font-size: 0.9rem;
+	font-weight: 820;
+	gap: 0.3rem;
 	overflow: hidden;
+	text-decoration: none;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+}
+
+.plate-version-links a > span {
+	color: rgb(var(--soft));
+	font-size: 1rem;
+	line-height: 1;
+}
+
+.plate-version-links a:hover {
+	text-decoration: underline;
+}
+
+.plate-version-links a:focus-visible {
+	border-radius: 2px;
+	outline: 2px solid rgb(var(--text));
+	outline-offset: 3px;
+}
+
+.plate-version-separator {
+	color: rgb(var(--soft));
+	font-size: 0.78rem;
 }
 
 .plate-version-heading small {
