@@ -1182,22 +1182,17 @@ a.record-refresh-button.compact {
 	border: 1px solid rgb(var(--line));
 	border-radius: 6px;
 	display: grid;
-	grid-template-columns: repeat(4, minmax(0, 1fr));
+	grid-template-columns: 1fr;
 	overflow: hidden;
 }
 
 .plate-criterion {
-	align-items: baseline;
-	border-right: 1px solid rgb(var(--line));
+	align-items: center;
 	display: grid;
-	gap: 0.15rem 0.5rem;
-	grid-template-columns: auto 1fr;
+	gap: 0.5rem;
+	grid-template-columns: auto auto 1fr;
 	min-width: 0;
 	padding: 0.85rem 1rem;
-}
-
-.plate-criterion:last-child {
-	border-right: 0;
 }
 
 .plate-criterion strong {
@@ -1213,7 +1208,6 @@ a.record-refresh-button.compact {
 .plate-criterion small {
 	color: rgb(var(--muted));
 	font-size: 0.68rem;
-	grid-column: 1 / -1;
 }
 
 .plate-scope,
@@ -1293,7 +1287,7 @@ a.record-refresh-button.compact {
 .plate-goal-grid {
 	border-left: 1px solid rgb(var(--line));
 	display: grid;
-	grid-template-columns: repeat(4, minmax(0, 1fr));
+	grid-template-columns: 1fr;
 }
 
 .plate-goal-progress {
@@ -1341,33 +1335,10 @@ a.record-refresh-button.compact {
 	box-shadow: inset 0 -3px 0 var(--plate-fill);
 }
 
-.plate-goal-progress.is-unavailable {
-	background: #f7f8f7;
-	color: rgb(var(--soft));
-}
-
-.plate-goal-fc {
-	--plate-fill: #2f8f79;
-	--plate-fill-soft: rgba(107, 199, 180, 0.28);
-	--plate-fill-faint: rgba(107, 199, 180, 0.12);
-}
-
-.plate-goal-sss {
-	--plate-fill: #a87413;
-	--plate-fill-soft: rgba(230, 174, 69, 0.28);
-	--plate-fill-faint: rgba(230, 174, 69, 0.12);
-}
-
 .plate-goal-ap {
 	--plate-fill: #c45149;
 	--plate-fill-soft: rgba(239, 119, 105, 0.28);
 	--plate-fill-faint: rgba(239, 119, 105, 0.12);
-}
-
-.plate-goal-fdx {
-	--plate-fill: #536fa4;
-	--plate-fill-soft: rgba(112, 140, 194, 0.28);
-	--plate-fill-faint: rgba(112, 140, 194, 0.12);
 }
 
 .version-heading h1 {
@@ -1914,27 +1885,6 @@ a.record-refresh-button.compact {
 
 	.archive-modes a {
 		min-height: 66px;
-	}
-
-	.plate-criteria,
-	.plate-goal-grid {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-	}
-
-	.plate-criterion:nth-child(2) {
-		border-right: 0;
-	}
-
-	.plate-criterion:nth-child(n + 3) {
-		border-top: 1px solid rgb(var(--line));
-	}
-
-	.plate-goal-progress:nth-child(odd) {
-		border-left: 0;
-	}
-
-	.plate-goal-progress:nth-child(n + 3) {
-		border-top: 1px solid rgb(var(--line));
 	}
 
 	.plate-scope {

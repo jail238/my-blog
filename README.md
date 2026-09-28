@@ -14,10 +14,10 @@ The primary catalog has three views.
 
 - `Level`: chart-based index. STANDARD and DELUXE charts are stored and displayed separately as `ST` and `DX`.
 - `Version`: chart-release index. A song appears under every version that introduced one of its International ST or DX chart sets.
-- `Plate`: version-plate progress for 極 (FC), 将 (SSS), 神 (AP), and 舞舞 (FDX).
+- `Plate`: version-plate progress for 神 (AP).
 - Level index cards show AP/AP+ completion progress. Level detail pages can filter by song, artist, chart type, difficulty, internal level, and chart-release version; they can also hide completed AP/AP+ charts and order results by AP+, AP, then achievement rate.
 - Version index rows show AP/AP+ progress including Re:MASTER charts. Version pages can be searched by song or artist and show BASIC through Re:MASTER completion status for each ST/DX chart set.
-- Plate progress follows the in-game plate scope: BASIC through MASTER, excluding Re:MASTER. The original maimai and maimai PLUS releases share the 真 group, which has no 将 plate.
+- Plate progress follows the in-game 神 scope: BASIC through MASTER, excluding Re:MASTER. The original maimai and maimai PLUS releases share the 真神 group.
 - Song pages keep ST and DX chart sets in separate comparison tables. The records page supports version filtering and accumulates AP/AP+ records in their detected achievement order.
 - The home record gallery shows the latest 12 entries from that AP/AP+ history, and both the gallery and full history display the official AP/AP+ marks. AP-to-AP+ promotions move back to the top, while percentage-only updates keep their original achievement time.
 

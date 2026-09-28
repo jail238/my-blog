@@ -1,5 +1,5 @@
 ---
-import { PLATE_GOALS, PLATE_GROUPS, plateProgress } from '../../data/plates';
+import { PLATE_GOAL, PLATE_GROUPS, plateProgress } from '../../data/plates';
 import CatalogLayout from '../../layouts/CatalogLayout.astro';
 import { SITE_TITLE } from '../../consts';
 
@@ -8,7 +8,7 @@ const progress = PLATE_GROUPS.map(plateProgress);
 
 <CatalogLayout
 	title={`플레이트작 | ${SITE_TITLE}`}
-	description="maimai 버전 플레이트 달성 진행도"
+	description="maimai 버전 神 플레이트 달성 진행도"
 	pageClass="plate-index-page"
 >
 	<header class="catalog-page-header">
@@ -18,19 +18,17 @@ const progress = PLATE_GROUPS.map(plateProgress);
 	</header>
 
 	<section class="plate-criteria" aria-label="플레이트 달성 조건">
-		{PLATE_GOALS.map((goal) => (
-			<div class:list={['plate-criterion', `plate-goal-${goal.id}`]}>
-				<strong>{goal.suffix}</strong>
-				<span>{goal.shortLabel}</span>
-				<small>{goal.condition}</small>
-			</div>
-		))}
+		<div class="plate-criterion plate-goal-ap">
+			<strong>{PLATE_GOAL.suffix}</strong>
+			<span>{PLATE_GOAL.shortLabel}</span>
+			<small>{PLATE_GOAL.condition}</small>
+		</div>
 	</section>
 
 	<p class="plate-scope">현재 국제판 CiRCLE PLUS 수록 기준 · Re:MASTER 제외</p>
 
 	<section class="plate-index-list" aria-label="버전 플레이트 진행도">
-		{progress.map(({ group, totalCount, goals }) => (
+		{progress.map(({ group, totalCount, completedCount, complete, rate }) => (
 			<article class="plate-version-row">
 				<header class="plate-version-heading">
 					<span class="plate-prefix" aria-hidden="true">{group.prefix}</span>
@@ -40,27 +38,21 @@ const progress = PLATE_GROUPS.map(plateProgress);
 					</span>
 				</header>
 				<div class="plate-goal-grid">
-					{goals.map(({ goal, available, completedCount, complete, rate }) => (
-						<div
-							class:list={[
-								'plate-goal-progress',
-								`plate-goal-${goal.id}`,
-								{ 'is-complete': complete, 'is-unavailable': !available },
-							]}
-							style={`--plate-progress: ${rate.toFixed(2)}%`}
-							title={available ? `${group.prefix}${goal.suffix} ${completedCount}/${totalCount}` : `${group.prefix}${goal.suffix} 없음`}
-						>
-							<span>
-								<strong>{group.prefix}{goal.suffix}</strong>
-								<small>{available ? goal.shortLabel : '해당 없음'}</small>
-							</span>
-							<b>{available ? `${completedCount}/${totalCount}` : '—'}</b>
-						</div>
-					))}
+					<div
+						class:list={['plate-goal-progress', 'plate-goal-ap', { 'is-complete': complete }]}
+						style={`--plate-progress: ${rate.toFixed(2)}%`}
+						title={`${group.prefix}${PLATE_GOAL.suffix} ${completedCount}/${totalCount}`}
+					>
+						<span>
+							<strong>{group.prefix}{PLATE_GOAL.suffix}</strong>
+							<small>{PLATE_GOAL.shortLabel}</small>
+						</span>
+						<b>{completedCount}/{totalCount}</b>
+					</div>
 				</div>
 			</article>
 		))}
 	</section>
 
-	<p class="plate-note">maimai와 maimai PLUS는 하나의 真 플레이트 범위이며 真将은 존재하지 않습니다.</p>
+	<p class="plate-note">maimai와 maimai PLUS는 하나의 真神 범위입니다.</p>
 </CatalogLayout>

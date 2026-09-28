@@ -1,13 +1,4 @@
-import { CHARTS, versionById, type Chart, type PlayRecord } from './maimai';
-
-export type PlateGoalId = 'fc' | 'sss' | 'ap' | 'fdx';
-
-export interface PlateGoal {
-	id: PlateGoalId;
-	suffix: string;
-	shortLabel: string;
-	condition: string;
-}
+import { CHARTS, versionById } from './maimai';
 
 export interface PlateGroup {
 	id: string;
@@ -15,18 +6,16 @@ export interface PlateGroup {
 	name: string;
 	versionIds: string[];
 	order: number;
-	unavailableGoalIds?: PlateGoalId[];
 }
 
-export const PLATE_GOALS: PlateGoal[] = [
-	{ id: 'fc', suffix: '極', shortLabel: 'FC', condition: 'FULL COMBO 이상' },
-	{ id: 'sss', suffix: '将', shortLabel: 'SSS', condition: 'RANK SSS 이상' },
-	{ id: 'ap', suffix: '神', shortLabel: 'AP', condition: 'ALL PERFECT 이상' },
-	{ id: 'fdx', suffix: '舞舞', shortLabel: 'FDX', condition: 'FULL SYNC DX 이상' },
-];
+export const PLATE_GOAL = {
+	suffix: '神',
+	shortLabel: 'AP',
+	condition: 'ALL PERFECT 이상',
+} as const;
 
 const plateGroupDefinitions = [
-	{ id: 'maimai', prefix: '真', versionIds: ['maimai', 'maimai-plus'], unavailableGoalIds: ['sss'] },
+	{ id: 'maimai', prefix: '真', versionIds: ['maimai', 'maimai-plus'] },
 	{ id: 'green', prefix: '超', versionIds: ['green'] },
 	{ id: 'green-plus', prefix: '檄', versionIds: ['green-plus'] },
 	{ id: 'orange', prefix: '橙', versionIds: ['orange'] },
@@ -56,7 +45,6 @@ const plateGroupDefinitions = [
 	id: string;
 	prefix: string;
 	versionIds: readonly string[];
-	unavailableGoalIds?: readonly PlateGoalId[];
 }[];
 
 function groupName(versionIds: readonly string[]) {
@@ -69,7 +57,6 @@ export const PLATE_GROUPS: PlateGroup[] = plateGroupDefinitions
 		versionIds: [...definition.versionIds],
 		name: groupName(definition.versionIds),
 		order: Math.max(...definition.versionIds.map((versionId) => versionById.get(versionId)?.order ?? 0)),
-		unavailableGoalIds: definition.unavailableGoalIds ? [...definition.unavailableGoalIds] : undefined,
 	}))
 	.sort((a, b) => b.order - a.order);
 
@@ -79,45 +66,17 @@ export function plateCharts(group: PlateGroup) {
 	);
 }
 
-function recordMeetsGoal(record: PlayRecord | undefined, goalId: PlateGoalId) {
-	if (!record) return false;
-
-	switch (goalId) {
-		case 'fc':
-			return record.combo === 'FC' || record.combo === 'FC+' || record.combo === 'AP' || record.combo === 'AP+';
-		case 'sss':
-			return record.rank === 'SSS' || record.rank === 'SSS+';
-		case 'ap':
-			return record.combo === 'AP' || record.combo === 'AP+';
-		case 'fdx':
-			return record.sync === 'FDX' || record.sync === 'FDX+';
-	}
-}
-
-export function chartMeetsPlateGoal(chart: Chart, goalId: PlateGoalId) {
-	return recordMeetsGoal(chart.record, goalId);
-}
-
 export function plateProgress(group: PlateGroup) {
 	const charts = plateCharts(group);
-	const unavailableGoals = new Set(group.unavailableGoalIds ?? []);
+	const completedCount = charts.filter(
+		(chart) => chart.record?.combo === 'AP' || chart.record?.combo === 'AP+',
+	).length;
 
 	return {
 		group,
 		totalCount: charts.length,
-		goals: PLATE_GOALS.map((goal) => {
-			const available = !unavailableGoals.has(goal.id);
-			const completedCount = available
-				? charts.filter((chart) => chartMeetsPlateGoal(chart, goal.id)).length
-				: 0;
-
-			return {
-				goal,
-				available,
-				completedCount,
-				complete: available && charts.length > 0 && completedCount === charts.length,
-				rate: available && charts.length > 0 ? (completedCount / charts.length) * 100 : 0,
-			};
-		}),
+		completedCount,
+		complete: charts.length > 0 && completedCount === charts.length,
+		rate: charts.length > 0 ? (completedCount / charts.length) * 100 : 0,
 	};
 }
