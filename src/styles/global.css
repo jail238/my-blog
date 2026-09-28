@@ -1190,163 +1190,6 @@ a.record-refresh-button.compact {
 	color: rgb(var(--soft));
 }
 
-.plate-criteria {
-	background: var(--surface);
-	border: 1px solid rgb(var(--line));
-	border-radius: 6px;
-	display: grid;
-	grid-template-columns: 1fr;
-	overflow: hidden;
-}
-
-.plate-criterion {
-	align-items: center;
-	display: grid;
-	gap: 0.5rem;
-	grid-template-columns: auto auto 1fr;
-	min-width: 0;
-	padding: 0.85rem 1rem;
-}
-
-.plate-criterion strong {
-	color: var(--plate-fill);
-	font-size: 1.15rem;
-}
-
-.plate-criterion span {
-	font-size: 0.74rem;
-	font-weight: 820;
-}
-
-.plate-criterion small {
-	color: rgb(var(--muted));
-	font-size: 0.68rem;
-}
-
-.plate-reference {
-	background: #091822;
-	border: 1px solid rgb(var(--line));
-	border-radius: 6px;
-	display: grid;
-	grid-template-columns: minmax(0, 1fr) minmax(260px, 0.42fr);
-	margin: 1rem 0 0;
-	overflow: hidden;
-}
-
-.plate-reference-media {
-	display: block;
-	min-width: 0;
-	overflow: hidden;
-}
-
-.plate-reference-media img {
-	display: block;
-	height: 100%;
-	object-fit: cover;
-	width: 100%;
-}
-
-.plate-reference figcaption {
-	align-content: center;
-	background: rgb(var(--text));
-	color: var(--surface);
-	display: grid;
-	gap: 1rem;
-	padding: 1.25rem;
-}
-
-.plate-reference figcaption > span {
-	display: grid;
-	gap: 0.35rem;
-}
-
-.plate-reference figcaption strong {
-	font-size: 1rem;
-}
-
-.plate-reference figcaption small {
-	color: rgba(255, 255, 255, 0.72);
-	font-size: 0.7rem;
-	line-height: 1.55;
-}
-
-.plate-reference figcaption > a {
-	align-items: center;
-	color: var(--surface);
-	display: inline-flex;
-	font-size: 0.7rem;
-	font-weight: 760;
-	gap: 0.35rem;
-	justify-self: start;
-	text-decoration: none;
-}
-
-.plate-reference figcaption > a:hover {
-	text-decoration: underline;
-}
-
-.plate-reference figcaption > a:focus-visible,
-.plate-reference-media:focus-visible {
-	outline: 2px solid var(--surface);
-	outline-offset: -4px;
-}
-
-.plate-scope,
-.plate-note {
-	color: rgb(var(--muted));
-	font-size: 0.72rem;
-	font-weight: 700;
-}
-
-.plate-scope {
-	margin: 0.75rem 0 1rem;
-	text-align: right;
-}
-
-.plate-note {
-	margin: 0.75rem 0 0;
-}
-
-.plate-index-list {
-	background: var(--surface);
-	border: 1px solid rgb(var(--line));
-	border-radius: 6px;
-	overflow: hidden;
-}
-
-.plate-version-row {
-	border-bottom: 1px solid rgb(var(--line));
-	display: grid;
-	grid-template-columns: minmax(220px, 0.82fr) minmax(0, 2fr);
-	min-height: 84px;
-}
-
-.plate-version-row:last-child {
-	border-bottom: 0;
-}
-
-.plate-version-heading {
-	align-items: center;
-	display: grid;
-	gap: 0.8rem;
-	grid-template-columns: 42px minmax(0, 1fr);
-	min-width: 0;
-	padding: 0.9rem 1rem;
-}
-
-.plate-prefix {
-	align-items: center;
-	background: #f3f5f4;
-	border: 1px solid rgb(var(--line));
-	border-radius: 4px;
-	display: flex;
-	font-size: 1.25rem;
-	font-weight: 840;
-	height: 42px;
-	justify-content: center;
-	width: 42px;
-}
-
 .plate-version-copy {
 	display: grid;
 	min-width: 0;
@@ -1398,67 +1241,100 @@ a.record-refresh-button.compact {
 	font-size: 0.78rem;
 }
 
-.plate-version-heading small {
+.plate-version-copy > small {
 	color: rgb(var(--muted));
 	font-size: 0.68rem;
 	font-weight: 740;
 }
 
-.plate-goal-grid {
-	border-left: 1px solid rgb(var(--line));
+.plate-progress-list {
 	display: grid;
-	grid-template-columns: 1fr;
+	gap: 1rem;
+	margin-top: 1rem;
 }
 
-.plate-goal-progress {
+.plate-progress-item {
+	--plate-fill: #df6d64;
+	background: var(--surface);
+	border: 1px solid rgb(var(--line));
+	border-radius: 6px;
+	overflow: hidden;
+}
+
+.plate-progress-item.is-complete {
+	border-color: var(--plate-fill);
+}
+
+.plate-art {
 	align-items: center;
-	background-color: var(--surface);
-	background-image: linear-gradient(to right, var(--plate-fill-soft), var(--plate-fill-faint));
-	background-position: left;
-	background-repeat: no-repeat;
-	background-size: var(--plate-progress, 0%) 100%;
-	border-left: 1px solid rgb(var(--line));
+	background: #f4f6f5;
 	display: flex;
-	gap: 0.4rem;
+	justify-content: center;
+	min-height: 116px;
+	padding: 0.8rem 1rem;
+}
+
+.plate-art img {
+	display: block;
+	height: auto;
+	max-width: 720px;
+	object-fit: contain;
+	width: 100%;
+}
+
+.plate-progress-copy {
+	border-top: 1px solid rgb(var(--line));
+	display: grid;
+	gap: 0.7rem;
+	padding: 0.85rem 1rem 1rem;
+}
+
+.plate-progress-heading {
+	align-items: center;
+	display: flex;
 	justify-content: space-between;
 	min-width: 0;
-	padding: 0.8rem;
 }
 
-.plate-goal-progress:first-child {
-	border-left: 0;
-}
-
-.plate-goal-progress > span {
+.plate-progress-summary {
+	align-items: baseline;
 	display: grid;
-	min-width: 0;
+	gap: 0.75rem;
+	grid-template-columns: minmax(0, 1fr) auto auto;
 }
 
-.plate-goal-progress strong {
-	font-size: 0.82rem;
-	white-space: nowrap;
+.plate-progress-summary strong {
+	font-size: 0.78rem;
 }
 
-.plate-goal-progress small {
-	color: rgb(var(--muted));
-	font-size: 0.64rem;
-	font-weight: 740;
-}
-
-.plate-goal-progress > b {
-	font-size: 0.74rem;
+.plate-progress-summary span,
+.plate-progress-summary b {
+	font-size: 0.76rem;
 	font-variant-numeric: tabular-nums;
 	white-space: nowrap;
 }
 
-.plate-goal-progress.is-complete {
-	box-shadow: inset 0 -3px 0 var(--plate-fill);
+.plate-progress-summary span {
+	color: rgb(var(--muted));
+	font-weight: 720;
 }
 
-.plate-goal-ap {
-	--plate-fill: #c45149;
-	--plate-fill-soft: rgba(239, 119, 105, 0.28);
-	--plate-fill-faint: rgba(239, 119, 105, 0.12);
+.plate-progress-summary b {
+	font-size: 0.86rem;
+}
+
+.plate-progress-track {
+	background: #e8ecea;
+	border-radius: 3px;
+	height: 10px;
+	overflow: hidden;
+}
+
+.plate-progress-track > span {
+	background: var(--plate-fill);
+	display: block;
+	height: 100%;
+	min-width: 0;
 }
 
 .version-heading h1 {
@@ -1915,29 +1791,6 @@ a.record-refresh-button.compact {
 		grid-template-columns: 1fr;
 	}
 
-	.plate-version-row {
-		grid-template-columns: 1fr;
-	}
-
-	.plate-reference {
-		grid-template-columns: 1fr;
-	}
-
-	.plate-reference-media img {
-		aspect-ratio: 16 / 9;
-		height: auto;
-	}
-
-	.plate-reference figcaption {
-		align-items: center;
-		grid-template-columns: minmax(0, 1fr) auto;
-	}
-
-	.plate-goal-grid {
-		border-left: 0;
-		border-top: 1px solid rgb(var(--line));
-	}
-
 	.level-index-grid,
 	.record-gallery-grid {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2020,23 +1873,6 @@ a.record-refresh-button.compact {
 
 	.archive-modes a {
 		min-height: 66px;
-	}
-
-	.plate-scope {
-		text-align: left;
-	}
-
-	.plate-reference figcaption {
-		gap: 0.75rem;
-		padding: 0.9rem 1rem;
-	}
-
-	.plate-reference figcaption strong {
-		font-size: 0.9rem;
-	}
-
-	.plate-reference figcaption small {
-		font-size: 0.64rem;
 	}
 
 	.archive-overview {

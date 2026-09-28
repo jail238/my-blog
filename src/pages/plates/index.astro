@@ -21,91 +21,62 @@ const progress = PLATE_GROUPS.map((group) => ({
 	<header class="catalog-page-header">
 		<p class="catalog-kicker">PLATE PROGRESS</p>
 		<h1>플레이트</h1>
-		<p>{PLATE_GROUPS.length} PLATES · 神 ONLY</p>
+		<p>{PLATE_GROUPS.length} PLATES</p>
 	</header>
 
-	<section class="plate-criteria" aria-label="플레이트 달성 조건">
-		<div class="plate-criterion plate-goal-ap">
-			<strong>{PLATE_GOAL.suffix}</strong>
-			<span>{PLATE_GOAL.shortLabel}</span>
-			<small>{PLATE_GOAL.condition}</small>
-		</div>
-	</section>
-
-	<figure class="plate-reference">
-		<a
-			class="plate-reference-media"
-			href="https://x.com/maimai_official/status/1217280804654477314"
-			target="_blank"
-			rel="noreferrer"
-			aria-label="SEGA 공식 플레이트 홍보 이미지 원문 보기"
-		>
-			<img
-				src={`${base}/assets/maimai/plate/official-plate-series.jpg`}
-				alt="maimai 버전별 극, 장, 신, 무무, 패자 플레이트의 실제 인게임 외형"
-				width="1200"
-				height="675"
-			/>
-		</a>
-		<figcaption>
-			<span>
-				<strong>실제 플레이트 예시</strong>
-				<small>SEGA 공식 이미지 · 이 페이지에서는 神 플레이트만 추적합니다.</small>
-			</span>
-			<a
-				href="https://x.com/maimai_official/status/1217280804654477314"
-				target="_blank"
-				rel="noreferrer"
-			>
-				공식 원문<span aria-hidden="true">↗</span>
-			</a>
-		</figcaption>
-	</figure>
-
-	<p class="plate-scope">현재 국제판 CiRCLE PLUS 수록 기준 · 舞神만 Re:MASTER 포함</p>
-
-	<section class="plate-index-list" aria-label="버전 플레이트 진행도">
+	<section class="plate-progress-list" aria-label="플레이트 진행도">
 		{progress.map(({ group, versions, totalCount, completedCount, complete, rate }) => (
-			<article class="plate-version-row">
-				<header class="plate-version-heading">
-					<span class="plate-prefix" aria-hidden="true">{group.prefix}</span>
-					<span class="plate-version-copy">
-						<span class="plate-version-links">
-							{group.displayName ? (
-								<span class="plate-version-range">{group.displayName}</span>
-							) : (
-								versions.map((version, index) => (
-									<>
-										{index > 0 && <span class="plate-version-separator" aria-hidden="true">/</span>}
-										<a
-											href={`${base}/versions/${version.id}/`}
-											aria-label={`${version.shortName} 버전 채보 보기`}
-										>
-											{version.shortName}<span aria-hidden="true">›</span>
-										</a>
-									</>
-								))
-							)}
+			<article class:list={['plate-progress-item', { 'is-complete': complete }]}>
+				<div class="plate-art">
+					<img
+						src={`${base}/assets/maimai/plate/${group.assetId}.png`}
+						alt={`${group.prefix}${PLATE_GOAL.suffix} 플레이트`}
+						width="720"
+						height="116"
+						loading="lazy"
+						decoding="async"
+					/>
+				</div>
+				<div class="plate-progress-copy">
+					<header class="plate-progress-heading">
+						<span class="plate-version-copy">
+							<span class="plate-version-links">
+								{group.displayName ? (
+									<span class="plate-version-range">{group.displayName}</span>
+								) : (
+									versions.map((version, index) => (
+										<>
+											{index > 0 && <span class="plate-version-separator" aria-hidden="true">/</span>}
+											<a
+												href={`${base}/versions/${version.id}/`}
+												aria-label={`${version.shortName} 버전 채보 보기`}
+											>
+												{version.shortName}<span aria-hidden="true">›</span>
+											</a>
+										</>
+									))
+								)}
+							</span>
+							<small>{totalCount} CHARTS{group.includeReMaster && ' · BASIC–Re:MASTER'}</small>
 						</span>
-						<small>{totalCount} CHARTS{group.includeReMaster && ' · BASIC–Re:MASTER'}</small>
-					</span>
-				</header>
-				<div class="plate-goal-grid">
+					</header>
+					<div class="plate-progress-summary">
+						<strong>플레이트 진행 상황</strong>
+						<span>{completedCount}/{totalCount}</span>
+						<b>{rate.toFixed(1)}%</b>
+					</div>
 					<div
-						class:list={['plate-goal-progress', 'plate-goal-ap', { 'is-complete': complete }]}
-						style={`--plate-progress: ${rate.toFixed(2)}%`}
-						title={`${group.prefix}${PLATE_GOAL.suffix} ${completedCount}/${totalCount}`}
+						class="plate-progress-track"
+						role="progressbar"
+						aria-label={`${group.prefix}${PLATE_GOAL.suffix} 진행률`}
+						aria-valuemin="0"
+						aria-valuemax="100"
+						aria-valuenow={rate.toFixed(1)}
 					>
-						<span>
-							<strong>{group.prefix}{PLATE_GOAL.suffix}</strong>
-							<small>{PLATE_GOAL.shortLabel}</small>
-						</span>
-						<b>{completedCount}/{totalCount}</b>
+						<span style={`width: ${rate.toFixed(2)}%`}></span>
 					</div>
 				</div>
 			</article>
 		))}
 	</section>
-
-	<p class="plate-note">舞神은 maimai–FiNALE ST의 BASIC–Re:MASTER 전체 범위입니다.</p>
 </CatalogLayout>
