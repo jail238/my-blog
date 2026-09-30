@@ -1,13 +1,15 @@
 ---
 import type { Chart, ChartType } from '../data/maimai';
 import { versionById } from '../data/maimai';
+import { buildMaimaiYoutubeQuery, buildMaimaiYoutubeUrl } from '../utils/maimai-youtube.js';
 
 interface Props {
 	type: ChartType;
 	charts: Chart[];
+	songTitle: string;
 }
 
-const { type, charts } = Astro.props;
+const { type, charts, songTitle } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const typeLabel = type === 'STANDARD' ? 'ST' : 'DX';
 const difficultyOrder: Record<Chart['difficulty'], number> = {
@@ -92,6 +94,25 @@ const comboIcons: Record<string, { file: string; label: string }> = {
 								) : (
 									<span class="song-chart-score-empty" aria-label="기록 없음">-</span>
 								)}
+							</td>
+						);
+					})}
+				</tr>
+				<tr class="song-chart-board-actions">
+					{sortedCharts.map((chart) => {
+						const query = buildMaimaiYoutubeQuery(songTitle, type, chart.difficulty);
+						return (
+							<td>
+								<a
+									class="song-chart-youtube"
+									href={buildMaimaiYoutubeUrl(songTitle, type, chart.difficulty)}
+									target="_blank"
+									rel="noreferrer"
+									aria-label={`YouTube에서 ${query} 검색`}
+									title={query}
+								>
+									YouTube 검색 <span aria-hidden="true">↗</span>
+								</a>
 							</td>
 						);
 					})}

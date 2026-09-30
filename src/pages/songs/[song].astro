@@ -34,6 +34,7 @@ const chartGroups = (['STANDARD', 'DX'] satisfies ChartType[])
 		<div>
 			<p class="catalog-kicker">{song.genre}</p>
 			<h1>{song.title}</h1>
+			{song.koreanTitle && <p class="song-title-ko" lang="ko">{song.koreanTitle}</p>}
 			<p class="song-artist">{song.artist}</p>
 			<div class="song-version-links" aria-label="채보별 수록 버전">
 				{versionGroups.map(({ version, types }) => (
@@ -57,7 +58,7 @@ const chartGroups = (['STANDARD', 'DX'] satisfies ChartType[])
 			{
 				chartGroups.length > 0 ? (
 					<div class="song-chart-groups">
-						{chartGroups.map((group) => <SongChartBoard type={group.type} charts={group.charts} />)}
+						{chartGroups.map((group) => <SongChartBoard type={group.type} charts={group.charts} songTitle={song.title} />)}
 					</div>
 				) : (
 					<div class="catalog-empty compact"><strong>등록된 채보가 없습니다.</strong></div>

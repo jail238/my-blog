@@ -4,14 +4,22 @@ import { fileURLToPath } from 'node:url';
 
 const SOURCE_URL = 'https://meta.salt.realtvop.top/meta.next.json';
 const COVER_BASE_URL = 'https://meta.salt.realtvop.top/covers';
+const KOREAN_TITLES_URL = 'https://maimai.team-carol.com/api/aliases';
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const ALLOW_CATALOG_CHANGES = process.argv.includes('--allow-catalog-changes');
-const OUTPUT_PATH = resolve(
-	SCRIPT_DIR,
-	ALLOW_CATALOG_CHANGES ? '../.cache/maimai.candidate.json' : '../src/data/maimai.generated.json',
-);
+const CATALOG_OUTPUT_PATH = resolve(SCRIPT_DIR, '../src/data/maimai.generated.json');
+const OUTPUT_PATH = ALLOW_CATALOG_CHANGES
+	? resolve(SCRIPT_DIR, '../.cache/maimai.candidate.json')
+	: CATALOG_OUTPUT_PATH;
 const CIRCLE_PLUS_SNAPSHOT_PATH = resolve(SCRIPT_DIR, '../src/data/circle-plus.generated.json');
 const TARGET_GAME_VERSION = 'CiRCLE PLUS';
+const JAPANESE_TITLE_PATTERN = /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/u;
+const KOREAN_TITLE_OVERRIDES = new Map([
+	['フラグメンツ -T.V. maimai edit-', '프래그먼츠 -T.V. maimai edit-'],
+	['GET!! 夢&DREAM', 'GET!! 꿈&DREAM'],
+	['【東方ニコカラ】秘神マターラ feat.魂音泉【IOSYS】', '【동방 니코카라】비신 마타라 feat. 타마온센【IOSYS】'],
+	['バラバラ〜仮初レインボーローズ〜', '바라바라 ~카리소메 레인보우 로즈~'],
+]);
 
 const VERSION_DEFINITIONS = [
 	['maimai', 'maimai', 'maimai'],
@@ -84,12 +92,57 @@ function comparableCatalog(data) {
 	};
 }
 
-let previousOutput;
-try {
-	previousOutput = JSON.parse(await readFile(OUTPUT_PATH, 'utf8'));
-} catch (error) {
-	if (error?.code !== 'ENOENT') throw error;
+async function readJsonIfExists(path) {
+	try {
+		return JSON.parse(await readFile(path, 'utf8'));
+	} catch (error) {
+		if (error?.code !== 'ENOENT') throw error;
+		return undefined;
+	}
 }
+
+async function loadKoreanTitles(fallbackSongs = []) {
+	const fallbackTitles = new Map(
+		fallbackSongs
+			.filter((song) => song.koreanTitle)
+			.map((song) => [song.title, song.koreanTitle]),
+	);
+
+	try {
+		const response = await fetch(KOREAN_TITLES_URL);
+		if (!response.ok) {
+			throw new Error(`Korean title request failed: ${response.status} ${response.statusText}`);
+		}
+
+		const payload = await response.json();
+		if (!Array.isArray(payload.aliases)) {
+			throw new Error('Korean title response has no aliases array.');
+		}
+
+		const titles = new Map();
+		for (const row of payload.aliases) {
+			if (row?.isTranslation === true && typeof row.title === 'string' && typeof row.alias === 'string') {
+				titles.set(row.title, row.alias.trim());
+			}
+		}
+		if (titles.size < 500) {
+			throw new Error(`Korean title response is unexpectedly small: ${titles.size}`);
+		}
+
+		for (const [title, koreanTitle] of KOREAN_TITLE_OVERRIDES) titles.set(title, koreanTitle);
+		return titles;
+	} catch (error) {
+		if (fallbackTitles.size === 0) throw error;
+		console.warn(`Korean title refresh skipped; preserving ${fallbackTitles.size} existing titles.`, error);
+		for (const [title, koreanTitle] of KOREAN_TITLE_OVERRIDES) fallbackTitles.set(title, koreanTitle);
+		return fallbackTitles;
+	}
+}
+
+const previousOutput = await readJsonIfExists(OUTPUT_PATH);
+const translationFallbackOutput =
+	previousOutput ?? (OUTPUT_PATH !== CATALOG_OUTPUT_PATH ? await readJsonIfExists(CATALOG_OUTPUT_PATH) : undefined);
+const koreanTitlesPromise = loadKoreanTitles(translationFallbackOutput?.songs);
 
 const circlePlusSnapshot = JSON.parse(await readFile(CIRCLE_PLUS_SNAPSHOT_PATH, 'utf8'));
 if (circlePlusSnapshot.source.gameVersion !== TARGET_GAME_VERSION) {
@@ -114,6 +167,7 @@ if (!response.ok) {
 
 const sourceUpdatedAt = response.headers.get('last-modified');
 const metadata = await response.json();
+const koreanTitles = await koreanTitlesPromise;
 const songs = [];
 const charts = [];
 
@@ -127,11 +181,13 @@ for (const music of metadata.musics) {
 	const songId = String(music.id);
 	const pinnedSong = pinnedSongById.get(songId);
 	if (!pinnedSong && !ALLOW_CATALOG_CHANGES) continue;
+	const koreanTitle = JAPANESE_TITLE_PATTERN.test(music.title) ? koreanTitles.get(music.title) : undefined;
 
 	songs.push({
 		id: songId,
 		sourceId: music.id,
 		title: music.title,
+		...(koreanTitle ? { koreanTitle } : {}),
 		artist: music.artist,
 		genre: music.category,
 		artworkUrl: coverUrl(music.id),
@@ -176,6 +232,16 @@ for (const music of metadata.musics) {
 songs.sort((a, b) => a.sourceId - b.sourceId);
 charts.sort((a, b) => a.songId.localeCompare(b.songId, 'en', { numeric: true }) || a.id.localeCompare(b.id));
 
+const untranslatedJapaneseTitles = songs.filter(
+	(song) => JAPANESE_TITLE_PATTERN.test(song.title) && !song.koreanTitle,
+);
+if (untranslatedJapaneseTitles.length > 0) {
+	console.warn(
+		`Missing Korean titles for ${untranslatedJapaneseTitles.length} songs: ` +
+			untranslatedJapaneseTitles.slice(0, 20).map((song) => song.title).join(', '),
+	);
+}
+
 const duplicateSongIds = songs.filter((song, index) => songs.findIndex((candidate) => candidate.id === song.id) !== index);
 if (duplicateSongIds.length > 0) {
 	throw new Error(`Duplicate song ids: ${duplicateSongIds.map((song) => song.id).join(', ')}`);
@@ -196,6 +262,7 @@ if (
 const output = {
 	source: {
 		url: SOURCE_URL,
+		koreanTitlesUrl: KOREAN_TITLES_URL,
 		region: 'intl',
 		gameVersion: TARGET_GAME_VERSION,
 		chartDataUrl: circlePlusSnapshot.source.recordsUrl,

@@ -15,6 +15,7 @@ export interface Song {
 	id: string;
 	sourceId: number;
 	title: string;
+	koreanTitle?: string;
 	artist: string;
 	genre: string;
 	artworkUrl: string;
@@ -47,6 +48,7 @@ export interface Chart {
 interface GeneratedCatalog {
 	source: {
 		url: string;
+		koreanTitlesUrl: string;
 		region: 'intl';
 		gameVersion: 'CiRCLE PLUS';
 		chartDataUrl: string;
