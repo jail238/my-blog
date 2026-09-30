@@ -40,9 +40,6 @@ const versionProgress = versionsNewestFirst.map((version) => {
 });
 const plateGroupProgress = PLATE_GROUPS.map(plateProgress);
 const completedPlateCount = plateGroupProgress.filter(({ complete }) => complete).length;
-const completedPlateChartCount = plateGroupProgress.reduce((sum, { completedCount }) => sum + completedCount, 0);
-const totalPlateChartCount = plateGroupProgress.reduce((sum, { totalCount }) => sum + totalCount, 0);
-const plateChartRate = totalPlateChartCount > 0 ? (completedPlateChartCount / totalPlateChartCount) * 100 : 0;
 const recordedCharts = PERFECT_RECORDED_CHARTS
 	.slice(0, 12)
 	.map((chart) => ({ chart, song: songById.get(chart.songId) }))
@@ -76,23 +73,18 @@ const snapshotDate = `${snapshotParts.get('year')}.${snapshotParts.get('month')}
 
 	<nav class="archive-modes" aria-label="아카이브 분류">
 		<a href={`${base}/levels/`}>
-			<strong>레벨 순</strong>
+			<strong>레벨</strong>
 			<small>{CHARTS.length} CHARTS</small>
 			<span class="mode-arrow" aria-hidden="true">›</span>
 		</a>
 		<a href={`${base}/versions/`}>
-			<strong>버전 순</strong>
+			<strong>버전</strong>
 			<small>{SONGS.length} SONGS</small>
 			<span class="mode-arrow" aria-hidden="true">›</span>
 		</a>
-		<a
-			class="archive-mode-plate"
-			href={`${base}/plates/`}
-			style={`--plate-progress: ${plateChartRate.toFixed(2)}%`}
-			title={`神 ${completedPlateCount}/${PLATE_GROUPS.length} · AP 이상 ${completedPlateChartCount}/${totalPlateChartCount}`}
-		>
+		<a href={`${base}/plates/`}>
 			<strong>플레이트</strong>
-			<small><b>{completedPlateCount}/{PLATE_GROUPS.length} 神</b> · AP {completedPlateChartCount.toLocaleString('ko-KR')}/{totalPlateChartCount.toLocaleString('ko-KR')}</small>
+			<small>{completedPlateCount}/{PLATE_GROUPS.length} 神</small>
 			<span class="mode-arrow" aria-hidden="true">›</span>
 		</a>
 	</nav>
