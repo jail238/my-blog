@@ -27,6 +27,8 @@ export interface PlayRecord {
 	rank: string;
 	combo?: string;
 	perfectAchievedAt?: string;
+	apAchievedAt?: string;
+	apPlusAchievedAt?: string;
 	sync?: string;
 	dxScore: number;
 	dxScoreMax: number;
@@ -75,6 +77,7 @@ interface GeneratedMaishiftData {
 			lastSnapshotAt: string;
 			lastUserRecordId: number;
 			snapshotCount: number;
+			milestoneVersion?: number;
 		};
 	};
 	profile: {
@@ -225,7 +228,32 @@ function validateCatalog() {
 		if (isPerfect && (!record.perfectAchievedAt || Number.isNaN(Date.parse(record.perfectAchievedAt)))) {
 			throw new Error(`Missing AP achievement time for chart: ${chartId}`);
 		}
-		if (!isPerfect && record.perfectAchievedAt) {
+		if (record.combo === 'AP' && (!record.apAchievedAt || Number.isNaN(Date.parse(record.apAchievedAt)))) {
+			throw new Error(`Missing AP milestone for chart: ${chartId}`);
+		}
+		if (record.combo === 'AP' && record.apPlusAchievedAt) {
+			throw new Error(`Unexpected AP+ milestone for AP chart: ${chartId}`);
+		}
+		if (record.combo === 'AP+' && (!record.apPlusAchievedAt || Number.isNaN(Date.parse(record.apPlusAchievedAt)))) {
+			throw new Error(`Missing AP+ milestone for chart: ${chartId}`);
+		}
+		if (
+			record.combo === 'AP+' &&
+			record.apAchievedAt &&
+			Date.parse(record.apAchievedAt) >= Date.parse(record.apPlusAchievedAt ?? '')
+		) {
+			throw new Error(`AP milestone must precede AP+ for chart: ${chartId}`);
+		}
+		const currentMilestone =
+			record.combo === 'AP'
+				? record.apAchievedAt
+				: record.combo === 'AP+'
+					? record.apPlusAchievedAt
+					: undefined;
+		if (isPerfect && Date.parse(record.perfectAchievedAt ?? '') !== Date.parse(currentMilestone ?? '')) {
+			throw new Error(`Perfect sort time does not match the current milestone for chart: ${chartId}`);
+		}
+		if (!isPerfect && (record.perfectAchievedAt || record.apAchievedAt || record.apPlusAchievedAt)) {
 			throw new Error(`Unexpected AP achievement time for chart: ${chartId}`);
 		}
 	}

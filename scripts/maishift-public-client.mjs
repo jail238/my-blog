@@ -147,6 +147,7 @@ export async function callMaishiftServerFunction(hash, data) {
 					'x-tsr-serverfn': 'true',
 					'user-agent': 'M.S.K. archive record sync',
 				},
+				signal: AbortSignal.timeout(15_000),
 			});
 		} catch (error) {
 			lastError = error;

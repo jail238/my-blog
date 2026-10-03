@@ -27,6 +27,7 @@ const OUTPUT_PATH = resolve(SCRIPT_DIR, '../src/data/maishift.generated.json');
 const CIRCLE_PLUS_SNAPSHOT_PATH = resolve(SCRIPT_DIR, '../src/data/circle-plus.generated.json');
 const CIRCLE_PLUS_VERSION = 'CiRCLE PLUS';
 const WRITE_CIRCLE_PLUS_SNAPSHOT = process.argv.includes('--write-circle-plus-snapshot');
+const PERFECT_MILESTONE_VERSION = 3;
 
 function normalizeTitle(value) {
 	return value
@@ -92,15 +93,6 @@ function comparableCirclePlusSnapshot(data) {
 	return { ...data, source };
 }
 
-function latestSnapshotPerKstDay(entries) {
-	const latestByDay = new Map();
-	for (const entry of entries) {
-		const kstDay = new Date(Date.parse(entry.capturedAt) + 9 * 60 * 60 * 1_000).toISOString().slice(0, 10);
-		latestByDay.set(kstDay, entry);
-	}
-	return [...latestByDay.values()];
-}
-
 async function mapWithConcurrency(items, concurrency, mapper) {
 	const results = new Array(items.length);
 	let nextIndex = 0;
@@ -118,7 +110,7 @@ async function mapWithConcurrency(items, concurrency, mapper) {
 
 async function fetchPerfectHistorySnapshots(entries, recordsHash) {
 	let completed = 0;
-	return mapWithConcurrency(entries, 4, async (entry) => {
+	return mapWithConcurrency(entries, 2, async (entry) => {
 		const snapshotData = await callMaishiftServerFunction(recordsHash, {
 			handle: `${HANDLE}~${entry.userRecordId}`,
 			region: REGION,
@@ -368,22 +360,26 @@ let recordHistory = previousOutput?.source?.recordHistory;
 if (profileData.pastRecordsVisible) {
 	if (historyEntries.length === 0) throw new Error('Maishift record history is public but contains no snapshots.');
 	const lastProcessedId = Number(recordHistory?.lastUserRecordId ?? 0);
-	const pendingEntries = latestSnapshotPerKstDay(
-		recordHistory
-			? historyEntries.filter((entry) => entry.userRecordId > lastProcessedId)
-			: historyEntries,
-	);
+	const requiresFullMilestoneBackfill = Number(recordHistory?.milestoneVersion ?? 0) < PERFECT_MILESTONE_VERSION;
+	const pendingEntries = recordHistory && !requiresFullMilestoneBackfill
+		? historyEntries.filter((entry) => entry.userRecordId > lastProcessedId)
+		: historyEntries;
 	if (pendingEntries.length > 0) {
-		console.log(`Backfilling AP/AP+ dates from ${pendingEntries.length} Maishift history days.`);
+		console.log(`Backfilling AP/AP+ milestones from ${pendingEntries.length} Maishift history snapshots.`);
 		const beforeTimes = new Map(
-			recordsWithPerfectTimes.map((record) => [record.chartId, record.perfectAchievedAt]),
+			recordsWithPerfectTimes.map((record) => [
+				record.chartId,
+				[record.perfectAchievedAt, record.apAchievedAt, record.apPlusAchievedAt].join('\u0000'),
+			]),
 		);
 		const historySnapshots = await fetchPerfectHistorySnapshots(pendingEntries, recordsHash);
 		recordsWithPerfectTimes = backfillPerfectAchievementTimes(recordsWithPerfectTimes, historySnapshots);
 		const correctedDates = recordsWithPerfectTimes.filter(
-			(record) => record.perfectAchievedAt !== beforeTimes.get(record.chartId),
+			(record) =>
+				[record.perfectAchievedAt, record.apAchievedAt, record.apPlusAchievedAt].join('\u0000') !==
+				beforeTimes.get(record.chartId),
 		).length;
-		console.log(`Backfilled AP/AP+ dates: ${correctedDates}`);
+		console.log(`Backfilled AP/AP+ milestones: ${correctedDates}`);
 	}
 
 	const firstHistory = historyEntries[0];
@@ -394,6 +390,7 @@ if (profileData.pastRecordsVisible) {
 		lastSnapshotAt: lastHistory.capturedAt,
 		lastUserRecordId: lastHistory.userRecordId,
 		snapshotCount: historyEntries.length,
+		milestoneVersion: PERFECT_MILESTONE_VERSION,
 	};
 } else if (recordHistory) {
 	recordHistory = { ...recordHistory, visibility: 'private' };

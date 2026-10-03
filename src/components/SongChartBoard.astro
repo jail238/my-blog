@@ -72,8 +72,11 @@ const comboIcons: Record<string, { file: string; label: string }> = {
 							? getDxScoreStarCount(chart.record.dxScore, chart.record.dxScoreMax)
 							: 0;
 						const dxStarAssetSize = dxStars === 5 ? 70 : 46;
-						const perfectDate = chart.record?.perfectAchievedAt
-							? formatKstDate(chart.record.perfectAchievedAt)
+						const apDate = chart.record?.apAchievedAt
+							? formatKstDate(chart.record.apAchievedAt)
+							: undefined;
+						const apPlusDate = chart.record?.apPlusAchievedAt
+							? formatKstDate(chart.record.apPlusAchievedAt)
 							: undefined;
 						return (
 							<td>
@@ -115,7 +118,8 @@ const comboIcons: Record<string, { file: string; label: string }> = {
 												/>
 											)}
 										</small>
-										{perfectDate && <small class="song-chart-perfect-date">{chart.record.combo} 확인 {perfectDate}</small>}
+										{apDate && <small class="song-chart-perfect-date"><time datetime={chart.record.apAchievedAt}>{apDate}</time> AP 달성</small>}
+										{apPlusDate && <small class="song-chart-perfect-date"><time datetime={chart.record.apPlusAchievedAt}>{apPlusDate}</time> AP+ 달성</small>}
 									</div>
 								) : (
 									<span class="song-chart-score-empty" aria-label="기록 없음">-</span>
