@@ -1771,27 +1771,19 @@ a.record-refresh-button.compact {
 .song-chart-score .song-chart-dx-score {
 	align-items: center;
 	display: flex;
-	flex-direction: column;
-	gap: 0.08rem;
+	gap: 0.22rem;
 }
 
 .song-chart-score .song-chart-dx-stars {
 	align-items: center;
 	display: inline-flex;
-	gap: 0.18rem;
+	gap: 0.03rem;
 }
 
-.song-chart-score .song-chart-dx-stars-filled {
-	color: #e0a318;
-}
-
-.song-chart-score .song-chart-dx-stars-empty {
-	color: #aeb6bb;
-}
-
-.song-chart-score .song-chart-dx-stars b {
-	color: rgb(var(--ink));
-	font-size: 0.62rem;
+.song-chart-score .song-chart-dx-star {
+	display: block;
+	height: 1rem;
+	width: 1rem;
 }
 
 .song-chart-score .song-chart-perfect-date {

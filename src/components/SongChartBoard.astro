@@ -1,7 +1,7 @@
 ---
 import type { Chart, ChartType } from '../data/maimai';
 import { versionById } from '../data/maimai';
-import { getDxScorePercentage, getDxScoreStarCount } from '../utils/maimai-dx-score.js';
+import { getDxScoreStarCount } from '../utils/maimai-dx-score.js';
 import { formatKstDate } from '../utils/maimai-record-date.js';
 import { buildMaimaiYoutubeQuery, buildMaimaiYoutubeUrl } from '../utils/maimai-youtube.js';
 
@@ -71,9 +71,7 @@ const comboIcons: Record<string, { file: string; label: string }> = {
 						const dxStars = chart.record
 							? getDxScoreStarCount(chart.record.dxScore, chart.record.dxScoreMax)
 							: 0;
-						const dxPercentage = chart.record
-							? getDxScorePercentage(chart.record.dxScore, chart.record.dxScoreMax)
-							: 0;
+						const dxStarAssetRate = dxStars >= 5 ? 3 : dxStars >= 3 ? 2 : 1;
 						const perfectDate = chart.record?.perfectAchievedAt
 							? formatKstDate(chart.record.perfectAchievedAt)
 							: undefined;
@@ -82,7 +80,7 @@ const comboIcons: Record<string, { file: string; label: string }> = {
 								{chart.record ? (
 									<div
 										class="song-chart-score"
-										title={`DX ${chart.record.dxScore.toLocaleString('en-US')} / ${chart.record.dxScoreMax.toLocaleString('en-US')}`}
+										title={`DX ${chart.record.dxScore}/${chart.record.dxScoreMax}`}
 									>
 										<div class="song-chart-score-primary">
 											<strong>{chart.record.achievement}</strong>
@@ -100,16 +98,25 @@ const comboIcons: Record<string, { file: string; label: string }> = {
 										</div>
 										<span>{chart.record.rank} · RATING {chart.record.rating}</span>
 										{chart.record.sync && <span>{chart.record.sync}</span>}
-										<small class="song-chart-dx-score">
-											<span>DX {chart.record.dxScore.toLocaleString('en-US')} / {chart.record.dxScoreMax.toLocaleString('en-US')}</span>
-											<span
-												class="song-chart-dx-stars"
-												aria-label={`DX 스코어 ${dxStars}성, ${dxPercentage.toFixed(1)}퍼센트`}
-											>
-												<span class="song-chart-dx-stars-filled" aria-hidden="true">{'★'.repeat(dxStars)}</span>
-												<span class="song-chart-dx-stars-empty" aria-hidden="true">{'☆'.repeat(5 - dxStars)}</span>
-												<b>{dxStars}성</b>
-											</span>
+										<small
+											class="song-chart-dx-score"
+											aria-label={`DX ${chart.record.dxScore}/${chart.record.dxScoreMax}, ${dxStars}성`}
+										>
+											<span>DX {chart.record.dxScore}/{chart.record.dxScoreMax}</span>
+											{dxStars > 0 && (
+												<span class="song-chart-dx-stars" aria-hidden="true">
+													{Array.from({ length: dxStars }, () => (
+														<img
+															class="song-chart-dx-star"
+															src={`${base}/assets/maimai/dx-score/${dxStarAssetRate}.webp`}
+															alt=""
+															width="20"
+															height="20"
+															loading="lazy"
+														/>
+													))}
+												</span>
+											)}
 										</small>
 										{perfectDate && <small class="song-chart-perfect-date">{chart.record.combo} 확인 {perfectDate}</small>}
 									</div>

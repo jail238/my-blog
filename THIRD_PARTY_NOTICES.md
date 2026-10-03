@@ -31,10 +31,15 @@ SOFTWARE.
 
 ## Lxns Network maimai prober frontend
 
-The files under `public/assets/maimai/music-icon/` were obtained from the
-Lxns Network maimai prober frontend asset mirror:
+The files under `public/assets/maimai/music-icon/` and
+`public/assets/maimai/dx-score/` were obtained from the Lxns Network maimai
+prober frontend asset mirror:
 
 https://github.com/Lxns-Network/maimai-prober-frontend
+
+DX score star source snapshot:
+
+https://github.com/Lxns-Network/maimai-prober-frontend/tree/cebc0910f62780e22f8f2798c1e2216ecb6f6f11/public/assets/maimai/dx_score
 
 MIT License
 
