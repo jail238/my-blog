@@ -1,11 +1,19 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { findProfileFunctionBinding } from './maishift-build-parser.mjs';
 import { addMaishiftCatalogFallbacks } from './maishift-catalog-fallback.mjs';
-import { annotatePerfectAchievementTimes } from './perfect-achievement-history.mjs';
+import {
+	callMaishiftServerFunction,
+	discoverMaishiftServerFunctions,
+	fetchMaishiftText,
+	MAISHIFT_ORIGIN,
+	parseMaishiftRecordHistory,
+} from './maishift-public-client.mjs';
+import {
+	annotatePerfectAchievementTimes,
+	backfillPerfectAchievementTimes,
+} from './perfect-achievement-history.mjs';
 
-const MAISHIFT_ORIGIN = 'https://maimai.shiftpsh.com';
 const HANDLE = process.env.MAISHIFT_HANDLE || 'elixir';
 const REGION = process.env.MAISHIFT_REGION || 'ASIA';
 const RECORDS_URL = `${MAISHIFT_ORIGIN}/profile/${encodeURIComponent(HANDLE)}/records`;
@@ -19,131 +27,6 @@ const OUTPUT_PATH = resolve(SCRIPT_DIR, '../src/data/maishift.generated.json');
 const CIRCLE_PLUS_SNAPSHOT_PATH = resolve(SCRIPT_DIR, '../src/data/circle-plus.generated.json');
 const CIRCLE_PLUS_VERSION = 'CiRCLE PLUS';
 const WRITE_CIRCLE_PLUS_SNAPSHOT = process.argv.includes('--write-circle-plus-snapshot');
-
-const SPECIAL_VALUES = [undefined, null, true, false];
-
-function deserialize(value) {
-	if (!value || typeof value !== 'object') return value;
-
-	switch (value.t) {
-		case 0:
-		case 1:
-		case 5:
-			return value.s;
-		case 2:
-			return SPECIAL_VALUES[value.s];
-		case 9:
-			return value.a.map(deserialize);
-		case 10:
-		case 11:
-			return Object.fromEntries(value.p.k.map((key, index) => [key, deserialize(value.p.v[index])]));
-		default:
-			throw new Error(`Unsupported Maishift serialization type: ${value.t}`);
-	}
-}
-
-function serverFunctionPayload(data) {
-	return {
-		t: {
-			t: 10,
-			i: 0,
-			p: {
-				k: ['data'],
-				v: [
-					{
-						t: 10,
-						i: 1,
-						p: {
-							k: Object.keys(data),
-							v: Object.values(data).map((value) => ({ t: 1, s: value })),
-						},
-						o: 0,
-					},
-				],
-			},
-			o: 0,
-		},
-		f: 63,
-		m: [],
-	};
-}
-
-async function fetchText(url) {
-	const response = await fetch(url, {
-		headers: { 'user-agent': 'M.S.K. archive record sync' },
-	});
-	if (!response.ok) throw new Error(`Request failed: ${response.status} ${url}`);
-	return response.text();
-}
-
-function escapeRegExp(value) {
-	return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
-
-function bindingHash(mainScript, binding) {
-	const bindingIndex = mainScript.indexOf(`${binding}=`);
-	if (bindingIndex < 0) throw new Error(`Could not find Maishift server function binding: ${binding}`);
-
-	const match = mainScript.slice(bindingIndex, bindingIndex + 500).match(/["']([a-f0-9]{64})["']/);
-	if (!match) throw new Error(`Could not find Maishift server function hash for: ${binding}`);
-	return match[1];
-}
-
-async function discoverServerFunctions(recordsHtml) {
-	const allScriptLinks = [...recordsHtml.matchAll(/<link\b[^>]*\bhref=["']([^"']+\.js)["'][^>]*>/gi)].map((match) => match[1]);
-	const routeScriptLinks = allScriptLinks.filter((path) => /\/index-[^/]+\.js$/.test(path));
-	const scriptLinks = [...routeScriptLinks, ...allScriptLinks.filter((path) => !routeScriptLinks.includes(path))];
-
-	let recordsScript;
-	for (const path of scriptLinks) {
-		const source = await fetchText(new URL(path, MAISHIFT_ORIGIN));
-		if (source.includes('profile-tracks')) {
-			recordsScript = source;
-			break;
-		}
-	}
-	if (!recordsScript) throw new Error('Could not locate the Maishift records page script.');
-
-	const mainPath = recordsScript.match(/from["']\.\/(main-[^"']+\.js)["']/)?.[1];
-	if (!mainPath) throw new Error('Could not locate the Maishift main script.');
-
-	const recordsAlias = recordsScript.match(/queryKey:\[\s*["']profile-tracks["'][\s\S]{0,800}?queryFn:\(\)=>\s*([$\w]+)\(\{data:/)?.[1];
-	if (!recordsAlias) throw new Error('Could not locate the Maishift records function alias.');
-
-	const importName = recordsScript.match(
-		new RegExp(`(?:\\{|,)\\s*([$\\w]+)\\s+as\\s+${escapeRegExp(recordsAlias)}(?:,|\\})`),
-	)?.[1];
-	if (!importName) throw new Error('Could not resolve the Maishift records function import.');
-
-	const mainScript = await fetchText(new URL(`/assets/${mainPath}`, MAISHIFT_ORIGIN));
-	const exportBlock = mainScript.slice(mainScript.lastIndexOf('export{'));
-	const recordsBinding = exportBlock.match(new RegExp(`([$\\w]+)\\s+as\\s+${escapeRegExp(importName)}(?:,|\\})`))?.[1];
-	if (!recordsBinding) throw new Error('Could not resolve the Maishift records function binding.');
-
-	const profileBinding = findProfileFunctionBinding(mainScript);
-
-	return {
-		profileHash: bindingHash(mainScript, profileBinding),
-		recordsHash: bindingHash(mainScript, recordsBinding),
-	};
-}
-
-async function callServerFunction(hash, data) {
-	const payload = encodeURIComponent(JSON.stringify(serverFunctionPayload(data)));
-	const response = await fetch(`${MAISHIFT_ORIGIN}/_serverFn/${hash}?payload=${payload}`, {
-		headers: {
-			accept: 'application/json',
-			'x-tsr-serverfn': 'true',
-			'user-agent': 'M.S.K. archive record sync',
-		},
-	});
-	if (!response.ok) throw new Error(`Maishift server function failed: ${response.status}`);
-
-	const serialized = await response.json();
-	const decoded = deserialize(serialized);
-	if (decoded.error) throw new Error(`Maishift returned an error: ${decoded.error}`);
-	return decoded.result;
-}
 
 function normalizeTitle(value) {
 	return value
@@ -209,14 +92,68 @@ function comparableCirclePlusSnapshot(data) {
 	return { ...data, source };
 }
 
-const recordsHtml = await fetchText(RECORDS_URL);
-const { profileHash, recordsHash } = await discoverServerFunctions(recordsHtml);
+function latestSnapshotPerKstDay(entries) {
+	const latestByDay = new Map();
+	for (const entry of entries) {
+		const kstDay = new Date(Date.parse(entry.capturedAt) + 9 * 60 * 60 * 1_000).toISOString().slice(0, 10);
+		latestByDay.set(kstDay, entry);
+	}
+	return [...latestByDay.values()];
+}
+
+async function mapWithConcurrency(items, concurrency, mapper) {
+	const results = new Array(items.length);
+	let nextIndex = 0;
+	await Promise.all(
+		Array.from({ length: Math.min(concurrency, items.length) }, async () => {
+			while (nextIndex < items.length) {
+				const index = nextIndex;
+				nextIndex += 1;
+				results[index] = await mapper(items[index], index);
+			}
+		}),
+	);
+	return results;
+}
+
+async function fetchPerfectHistorySnapshots(entries, recordsHash) {
+	let completed = 0;
+	return mapWithConcurrency(entries, 4, async (entry) => {
+		const snapshotData = await callMaishiftServerFunction(recordsHash, {
+			handle: `${HANDLE}~${entry.userRecordId}`,
+			region: REGION,
+		});
+		completed += 1;
+		if (completed % 10 === 0 || completed === entries.length) {
+			console.log(`Fetched Maishift history: ${completed}/${entries.length}`);
+		}
+		return {
+			userRecordId: entry.userRecordId,
+			capturedAt: entry.capturedAt,
+			records: snapshotData.tracks.flatMap((track) => {
+				const combo = comboLabels[track.r?.c] ?? track.r?.c;
+				return combo === 'AP' || combo === 'AP+'
+					? [{ maishiftTrackId: track.i, combo }]
+					: [];
+			}),
+		};
+	});
+}
+
+const recordsHtml = await fetchMaishiftText(RECORDS_URL);
+const { profileHash, recordsHash, historyHash } = await discoverMaishiftServerFunctions(recordsHtml);
 const requestData = { handle: HANDLE, region: REGION };
 const [profileData, recordsData, catalogText] = await Promise.all([
-	callServerFunction(profileHash, requestData),
-	callServerFunction(recordsHash, requestData),
+	callMaishiftServerFunction(profileHash, requestData),
+	callMaishiftServerFunction(recordsHash, requestData),
 	readFile(CATALOG_PATH, 'utf8'),
 ]);
+const profile = profileData.userRecord.profile;
+const historyEntries = profileData.pastRecordsVisible
+	? parseMaishiftRecordHistory(await callMaishiftServerFunction(historyHash, requestData)).sort(
+			(a, b) => Date.parse(a.capturedAt) - Date.parse(b.capturedAt),
+		)
+	: [];
 
 const catalog = JSON.parse(catalogText);
 if (USE_CANDIDATE_CATALOG) {
@@ -422,12 +359,45 @@ try {
 }
 
 const generatedAt = new Date().toISOString();
-const profile = profileData.userRecord.profile;
-const recordsWithPerfectTimes = annotatePerfectAchievementTimes(records, {
+let recordsWithPerfectTimes = annotatePerfectAchievementTimes(records, {
 	previousRecords: previousOutput?.records ?? [],
 	detectedAt: profile.updatedAt ?? generatedAt,
 	baselineAt: previousOutput?.source?.generatedAt ?? profile.createdAt ?? profile.updatedAt ?? generatedAt,
 });
+let recordHistory = previousOutput?.source?.recordHistory;
+if (profileData.pastRecordsVisible) {
+	if (historyEntries.length === 0) throw new Error('Maishift record history is public but contains no snapshots.');
+	const lastProcessedId = Number(recordHistory?.lastUserRecordId ?? 0);
+	const pendingEntries = latestSnapshotPerKstDay(
+		recordHistory
+			? historyEntries.filter((entry) => entry.userRecordId > lastProcessedId)
+			: historyEntries,
+	);
+	if (pendingEntries.length > 0) {
+		console.log(`Backfilling AP/AP+ dates from ${pendingEntries.length} Maishift history days.`);
+		const beforeTimes = new Map(
+			recordsWithPerfectTimes.map((record) => [record.chartId, record.perfectAchievedAt]),
+		);
+		const historySnapshots = await fetchPerfectHistorySnapshots(pendingEntries, recordsHash);
+		recordsWithPerfectTimes = backfillPerfectAchievementTimes(recordsWithPerfectTimes, historySnapshots);
+		const correctedDates = recordsWithPerfectTimes.filter(
+			(record) => record.perfectAchievedAt !== beforeTimes.get(record.chartId),
+		).length;
+		console.log(`Backfilled AP/AP+ dates: ${correctedDates}`);
+	}
+
+	const firstHistory = historyEntries[0];
+	const lastHistory = historyEntries.at(-1);
+	recordHistory = {
+		visibility: 'public',
+		firstSnapshotAt: firstHistory.capturedAt,
+		lastSnapshotAt: lastHistory.capturedAt,
+		lastUserRecordId: lastHistory.userRecordId,
+		snapshotCount: historyEntries.length,
+	};
+} else if (recordHistory) {
+	recordHistory = { ...recordHistory, visibility: 'private' };
+}
 const output = {
 	source: {
 		profileUrl: `${MAISHIFT_ORIGIN}/profile/${HANDLE}/home`,
@@ -436,6 +406,7 @@ const output = {
 		region: REGION,
 		profileUpdatedAt: profile.updatedAt,
 		generatedAt,
+		...(recordHistory ? { recordHistory } : {}),
 	},
 	profile: {
 		name: profile.name,

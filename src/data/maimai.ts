@@ -69,6 +69,13 @@ interface GeneratedMaishiftData {
 		region: string;
 		profileUpdatedAt: string;
 		generatedAt: string;
+		recordHistory?: {
+			visibility: 'public' | 'private';
+			firstSnapshotAt: string;
+			lastSnapshotAt: string;
+			lastUserRecordId: number;
+			snapshotCount: number;
+		};
 	};
 	profile: {
 		name: string;
