@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { access } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 
 import { getDxScorePercentage, getDxScoreStarCount } from '../src/utils/maimai-dx-score.js';
@@ -31,8 +31,22 @@ test('DX star helpers handle invalid and over-max scores', () => {
 	assert.equal(getDxScorePercentage(800, 756), 100);
 });
 
-test('official DX star image tiers are bundled', async () => {
-	await Promise.all(
-		[1, 2, 3].map((rate) => access(new URL(`../public/assets/maimai/dx-score/${rate}.webp`, import.meta.url))),
-	);
+test('official numbered DX star images are bundled', async () => {
+	const assetSpecs = [
+		{ stars: 1, size: 46 },
+		{ stars: 2, size: 46 },
+		{ stars: 3, size: 46 },
+		{ stars: 4, size: 46 },
+		{ stars: 5, size: 70 },
+	];
+	const assets = await Promise.all(assetSpecs.map(async ({ stars, size }) => ({
+		asset: await readFile(new URL(`../public/assets/maimai/dx-score/${stars}.png`, import.meta.url)),
+		size,
+	})));
+
+	for (const { asset, size } of assets) {
+		assert.equal(asset.subarray(1, 4).toString(), 'PNG');
+		assert.equal(asset.readUInt32BE(16), size);
+		assert.equal(asset.readUInt32BE(20), size);
+	}
 });

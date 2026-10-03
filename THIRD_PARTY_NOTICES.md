@@ -31,7 +31,7 @@ SOFTWARE.
 
 ## Lxns Network maimai prober frontend
 
-The files under `public/assets/maimai/music-icon/` and
+The files under `public/assets/maimai/music-icon/` and the `.webp` files under
 `public/assets/maimai/dx-score/` were obtained from the Lxns Network maimai
 prober frontend asset mirror:
 
@@ -62,6 +62,18 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+## SEGA maimai numbered DX star assets
+
+The numbered PNG files under `public/assets/maimai/dx-score/` were obtained
+from the official International maimai DX NET asset endpoint:
+
+https://maimaidx-eng.com/maimai-mobile/img/music_icon_dxstar_1.png
+
+The final filename number ranges from `1` through `5`.
+
+Copyright © SEGA. The images are used to identify the corresponding DX score
+star tier. This project is not affiliated with or endorsed by SEGA.
 
 ## SEGA maimai plate assets
 
