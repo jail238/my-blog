@@ -5,9 +5,9 @@
     "region": "intl",
     "gameVersion": "CiRCLE PLUS",
     "chartDataUrl": "https://maimai.shiftpsh.com/profile/elixir/records",
-    "chartDataPinnedAt": "2026-09-24T14:25:53.634Z",
-    "sourceUpdatedAt": "Fri, 25 Sep 2026 12:30:40 GMT",
-    "generatedAt": "2026-09-30T06:56:51.114Z"
+    "chartDataPinnedAt": "2026-10-03T01:48:30.734Z",
+    "sourceUpdatedAt": "Sat, 03 Oct 2026 00:53:19 GMT",
+    "generatedAt": "2026-10-03T01:48:32.874Z"
   },
   "versions": [
     {
@@ -9299,14 +9299,6 @@
       "artworkUrl": "https://meta.salt.realtvop.top/covers/001638.png"
     },
     {
-      "id": "1639",
-      "sourceId": 1639,
-      "title": "Burn My Soul",
-      "artist": "She is Legend",
-      "genre": "POPS＆アニメ",
-      "artworkUrl": "https://meta.salt.realtvop.top/covers/001639.png"
-    },
-    {
       "id": "1640",
       "sourceId": 1640,
       "title": "with U",
@@ -12174,6 +12166,40 @@
       "artist": "Nor「ブルーアーカイブ -Blue Archive-」",
       "genre": "ゲーム＆バラエティ",
       "artworkUrl": "https://meta.salt.realtvop.top/covers/001996.png"
+    },
+    {
+      "id": "1997",
+      "sourceId": 1997,
+      "title": "キスキツネ",
+      "koreanTitle": "키스키츠네",
+      "artist": "HIMEHINA",
+      "genre": "POPS＆アニメ",
+      "artworkUrl": "https://meta.salt.realtvop.top/covers/001997.png"
+    },
+    {
+      "id": "1998",
+      "sourceId": 1998,
+      "title": "WWW",
+      "artist": "HIMEHINA",
+      "genre": "POPS＆アニメ",
+      "artworkUrl": "https://meta.salt.realtvop.top/covers/001998.png"
+    },
+    {
+      "id": "1999",
+      "sourceId": 1999,
+      "title": "うたかたよいかないで",
+      "koreanTitle": "물거품이여 가지 말아줘",
+      "artist": "HIMEHINA",
+      "genre": "POPS＆アニメ",
+      "artworkUrl": "https://meta.salt.realtvop.top/covers/001999.png"
+    },
+    {
+      "id": "maishift-18942",
+      "sourceId": 18942,
+      "title": "OV3RCLOCK",
+      "artist": "Alicemetix",
+      "genre": "UNKNOWN",
+      "artworkUrl": "https://maimaidx-eng.com/maimai-mobile/img/Music/360427dd3d2c96ca.png"
     }
   ],
   "charts": [
@@ -15027,8 +15053,8 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "versionId": "maimai-plus",
-      "level": "7+",
-      "constant": 7.8
+      "level": "8",
+      "constant": 8.5
     },
     {
       "id": "131-standard-basic",
@@ -22380,8 +22406,8 @@
       "type": "STANDARD",
       "difficulty": "ADVANCED",
       "versionId": "orange",
-      "level": "8",
-      "constant": 8.2
+      "level": "8+",
+      "constant": 8.9
     },
     {
       "id": "383-standard-basic",
@@ -54145,42 +54171,6 @@
       "constant": 13.8
     },
     {
-      "id": "1639-dx-advanced",
-      "songId": "1639",
-      "type": "DX",
-      "difficulty": "ADVANCED",
-      "versionId": "buddies",
-      "level": "7+",
-      "constant": 7.8
-    },
-    {
-      "id": "1639-dx-basic",
-      "songId": "1639",
-      "type": "DX",
-      "difficulty": "BASIC",
-      "versionId": "buddies",
-      "level": "4",
-      "constant": 4
-    },
-    {
-      "id": "1639-dx-expert",
-      "songId": "1639",
-      "type": "DX",
-      "difficulty": "EXPERT",
-      "versionId": "buddies",
-      "level": "10",
-      "constant": 10.5
-    },
-    {
-      "id": "1639-dx-master",
-      "songId": "1639",
-      "type": "DX",
-      "difficulty": "MASTER",
-      "versionId": "buddies",
-      "level": "12+",
-      "constant": 12.8
-    },
-    {
       "id": "1640-dx-advanced",
       "songId": "1640",
       "type": "DX",
@@ -66455,6 +66445,150 @@
       "versionId": "circle-plus",
       "level": "13",
       "constant": 13.2
+    },
+    {
+      "id": "1997-dx-advanced",
+      "songId": "1997",
+      "type": "DX",
+      "difficulty": "ADVANCED",
+      "versionId": "circle-plus",
+      "level": "6",
+      "constant": 6.5
+    },
+    {
+      "id": "1997-dx-basic",
+      "songId": "1997",
+      "type": "DX",
+      "difficulty": "BASIC",
+      "versionId": "circle-plus",
+      "level": "2",
+      "constant": 2
+    },
+    {
+      "id": "1997-dx-expert",
+      "songId": "1997",
+      "type": "DX",
+      "difficulty": "EXPERT",
+      "versionId": "circle-plus",
+      "level": "10",
+      "constant": 10.5
+    },
+    {
+      "id": "1997-dx-master",
+      "songId": "1997",
+      "type": "DX",
+      "difficulty": "MASTER",
+      "versionId": "circle-plus",
+      "level": "13+",
+      "constant": 13.8
+    },
+    {
+      "id": "1998-dx-advanced",
+      "songId": "1998",
+      "type": "DX",
+      "difficulty": "ADVANCED",
+      "versionId": "circle-plus",
+      "level": "6",
+      "constant": 6.5
+    },
+    {
+      "id": "1998-dx-basic",
+      "songId": "1998",
+      "type": "DX",
+      "difficulty": "BASIC",
+      "versionId": "circle-plus",
+      "level": "2",
+      "constant": 2
+    },
+    {
+      "id": "1998-dx-expert",
+      "songId": "1998",
+      "type": "DX",
+      "difficulty": "EXPERT",
+      "versionId": "circle-plus",
+      "level": "10+",
+      "constant": 10.7
+    },
+    {
+      "id": "1998-dx-master",
+      "songId": "1998",
+      "type": "DX",
+      "difficulty": "MASTER",
+      "versionId": "circle-plus",
+      "level": "13",
+      "constant": 13.4
+    },
+    {
+      "id": "1999-dx-advanced",
+      "songId": "1999",
+      "type": "DX",
+      "difficulty": "ADVANCED",
+      "versionId": "circle-plus",
+      "level": "7",
+      "constant": 7
+    },
+    {
+      "id": "1999-dx-basic",
+      "songId": "1999",
+      "type": "DX",
+      "difficulty": "BASIC",
+      "versionId": "circle-plus",
+      "level": "3",
+      "constant": 3
+    },
+    {
+      "id": "1999-dx-expert",
+      "songId": "1999",
+      "type": "DX",
+      "difficulty": "EXPERT",
+      "versionId": "circle-plus",
+      "level": "10",
+      "constant": 10
+    },
+    {
+      "id": "1999-dx-master",
+      "songId": "1999",
+      "type": "DX",
+      "difficulty": "MASTER",
+      "versionId": "circle-plus",
+      "level": "13",
+      "constant": 13.2
+    },
+    {
+      "id": "maishift-18942-dx-advanced",
+      "songId": "maishift-18942",
+      "type": "DX",
+      "difficulty": "ADVANCED",
+      "versionId": "circle-plus",
+      "level": "7+",
+      "constant": 7.6
+    },
+    {
+      "id": "maishift-18942-dx-basic",
+      "songId": "maishift-18942",
+      "type": "DX",
+      "difficulty": "BASIC",
+      "versionId": "circle-plus",
+      "level": "6",
+      "constant": 6
+    },
+    {
+      "id": "maishift-18942-dx-expert",
+      "songId": "maishift-18942",
+      "type": "DX",
+      "difficulty": "EXPERT",
+      "versionId": "circle-plus",
+      "level": "12+",
+      "constant": 12.6
+    },
+    {
+      "id": "maishift-18942-dx-master",
+      "songId": "maishift-18942",
+      "type": "DX",
+      "difficulty": "MASTER",
+      "versionId": "circle-plus",
+      "level": "14+",
+      "constant": 14.8
     }
   ]
 }

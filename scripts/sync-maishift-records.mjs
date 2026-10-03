@@ -1,6 +1,8 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { findProfileFunctionBinding } from './maishift-build-parser.mjs';
+import { addMaishiftCatalogFallbacks } from './maishift-catalog-fallback.mjs';
 import { annotatePerfectAchievementTimes } from './perfect-achievement-history.mjs';
 
 const MAISHIFT_ORIGIN = 'https://maimai.shiftpsh.com';
@@ -118,10 +120,7 @@ async function discoverServerFunctions(recordsHtml) {
 	const recordsBinding = exportBlock.match(new RegExp(`([$\\w]+)\\s+as\\s+${escapeRegExp(importName)}(?:,|\\})`))?.[1];
 	if (!recordsBinding) throw new Error('Could not resolve the Maishift records function binding.');
 
-	const profileBinding = mainScript.match(
-		/["']\/\{\-\$locale\}\/profile\/\$handle["']\)\(\{[\s\S]{0,1400}?loader:async\([^)]*\)=>await\s+([$\w]+)\(\{data:/,
-	)?.[1];
-	if (!profileBinding) throw new Error('Could not resolve the Maishift profile function binding.');
+	const profileBinding = findProfileFunctionBinding(mainScript);
 
 	return {
 		profileHash: bindingHash(mainScript, profileBinding),
@@ -220,6 +219,19 @@ const [profileData, recordsData, catalogText] = await Promise.all([
 ]);
 
 const catalog = JSON.parse(catalogText);
+if (USE_CANDIDATE_CATALOG) {
+	const additions = addMaishiftCatalogFallbacks(catalog, recordsData);
+	if (additions.addedSongs > 0 || additions.addedCharts > 0) {
+		catalog.songs.sort((a, b) => a.sourceId - b.sourceId);
+		catalog.charts.sort(
+			(a, b) => a.songId.localeCompare(b.songId, 'en', { numeric: true }) || a.id.localeCompare(b.id),
+		);
+		await writeFile(CATALOG_PATH, `${JSON.stringify(catalog, null, 2)}\n`, 'utf8');
+		console.log(
+			`Added Maishift fallback metadata: ${additions.addedSongs} songs, ${additions.addedCharts} charts`,
+		);
+	}
+}
 const catalogSongById = new Map(catalog.songs.map((song) => [song.id, song]));
 const catalogCharts = new Map();
 for (const chart of catalog.charts) {
@@ -288,8 +300,8 @@ if (unmatched.length > 0) {
 	throw new Error(`Could not resolve ${unmatched.length} Maishift tracks:\n${JSON.stringify(unmatched, null, 2)}`);
 }
 
-if (mappedTracks.length !== catalog.charts.length) {
-	throw new Error(`Maishift catalog coverage mismatch: ${mappedTracks.length} !== ${catalog.charts.length}`);
+if (mappedTracks.length !== recordsData.tracks.length) {
+	throw new Error(`Maishift track coverage mismatch: ${mappedTracks.length} !== ${recordsData.tracks.length}`);
 }
 
 const records = [];
@@ -318,23 +330,41 @@ if (WRITE_CIRCLE_PLUS_SNAPSHOT) {
 		if (error?.code !== 'ENOENT') throw error;
 	}
 
-	const charts = mappedTracks
-		.map(({ track, chart }) => {
+	const trackByChartId = new Map(mappedTracks.map(({ track, chart }) => [chart.id, track]));
+	let correctedDisplayLevels = 0;
+	const charts = catalog.charts
+		.map((chart) => {
+			const track = trackByChartId.get(chart.id);
+			if (!track) {
+				return {
+					chartId: chart.id,
+					songId: chart.songId,
+					type: chart.type,
+					difficulty: chart.difficulty,
+					versionId: chart.versionId,
+					level: chart.level,
+					constant: chart.constant,
+				};
+			}
 			const expectedLevel = displayLevelForInternalLevel(track.l);
 			if (chart.level !== expectedLevel) {
-				throw new Error(
-					`CiRCLE PLUS level mismatch for ${chart.id}: ${chart.level} !== ${expectedLevel} (${track.l / 10})`,
-				);
+				correctedDisplayLevels += 1;
 			}
 
 			return {
 				chartId: chart.id,
+				songId: chart.songId,
+				type: chart.type,
+				difficulty: chart.difficulty,
 				versionId: chart.versionId,
-				level: chart.level,
+				level: expectedLevel,
 				constant: track.l / 10,
 			};
 		})
 		.sort((a, b) => a.chartId.localeCompare(b.chartId, 'en', { numeric: true }));
+	if (correctedDisplayLevels > 0) {
+		console.log(`Corrected ${correctedDisplayLevels} display levels from current Maishift constants.`);
+	}
 
 	const snapshot = {
 		source: {
@@ -346,7 +376,20 @@ if (WRITE_CIRCLE_PLUS_SNAPSHOT) {
 		totalSongs: catalog.songs.length,
 		totalCharts: charts.length,
 		songs: catalog.songs
-			.map(({ id }) => ({ songId: id }))
+			.map((song) => ({
+				songId: song.id,
+				...(song.metadataSource === 'maishift'
+					? {
+						fallbackMetadata: {
+							sourceId: song.sourceId,
+							title: song.title,
+							artist: song.artist,
+							genre: song.genre,
+							artworkUrl: song.artworkUrl,
+						},
+					}
+					: {}),
+			}))
 			.sort((a, b) => a.songId.localeCompare(b.songId, 'en', { numeric: true })),
 		charts,
 	};
@@ -379,12 +422,12 @@ try {
 }
 
 const generatedAt = new Date().toISOString();
+const profile = profileData.userRecord.profile;
 const recordsWithPerfectTimes = annotatePerfectAchievementTimes(records, {
 	previousRecords: previousOutput?.records ?? [],
-	detectedAt: generatedAt,
-	baselineAt: previousOutput?.source?.generatedAt ?? generatedAt,
+	detectedAt: profile.updatedAt ?? generatedAt,
+	baselineAt: previousOutput?.source?.generatedAt ?? profile.createdAt ?? profile.updatedAt ?? generatedAt,
 });
-const profile = profileData.userRecord.profile;
 const output = {
 	source: {
 		profileUrl: `${MAISHIFT_ORIGIN}/profile/${HANDLE}/home`,

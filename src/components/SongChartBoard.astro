@@ -1,6 +1,8 @@
 ---
 import type { Chart, ChartType } from '../data/maimai';
 import { versionById } from '../data/maimai';
+import { getDxScorePercentage, getDxScoreStarCount } from '../utils/maimai-dx-score.js';
+import { formatKstDate } from '../utils/maimai-record-date.js';
 import { buildMaimaiYoutubeQuery, buildMaimaiYoutubeUrl } from '../utils/maimai-youtube.js';
 
 interface Props {
@@ -66,6 +68,15 @@ const comboIcons: Record<string, { file: string; label: string }> = {
 				<tr class="song-chart-board-records">
 					{sortedCharts.map((chart) => {
 						const comboIcon = chart.record?.combo ? comboIcons[chart.record.combo] : undefined;
+						const dxStars = chart.record
+							? getDxScoreStarCount(chart.record.dxScore, chart.record.dxScoreMax)
+							: 0;
+						const dxPercentage = chart.record
+							? getDxScorePercentage(chart.record.dxScore, chart.record.dxScoreMax)
+							: 0;
+						const perfectDate = chart.record?.perfectAchievedAt
+							? formatKstDate(chart.record.perfectAchievedAt)
+							: undefined;
 						return (
 							<td>
 								{chart.record ? (
@@ -89,7 +100,18 @@ const comboIcons: Record<string, { file: string; label: string }> = {
 										</div>
 										<span>{chart.record.rank} · RATING {chart.record.rating}</span>
 										{chart.record.sync && <span>{chart.record.sync}</span>}
-										<small>DX {chart.record.dxScore.toLocaleString('en-US')} / {chart.record.dxScoreMax.toLocaleString('en-US')}</small>
+										<small class="song-chart-dx-score">
+											<span>DX {chart.record.dxScore.toLocaleString('en-US')} / {chart.record.dxScoreMax.toLocaleString('en-US')}</span>
+											<span
+												class="song-chart-dx-stars"
+												aria-label={`DX 스코어 ${dxStars}성, ${dxPercentage.toFixed(1)}퍼센트`}
+											>
+												<span class="song-chart-dx-stars-filled" aria-hidden="true">{'★'.repeat(dxStars)}</span>
+												<span class="song-chart-dx-stars-empty" aria-hidden="true">{'☆'.repeat(5 - dxStars)}</span>
+												<b>{dxStars}성</b>
+											</span>
+										</small>
+										{perfectDate && <small class="song-chart-perfect-date">{chart.record.combo} 확인 {perfectDate}</small>}
 									</div>
 								) : (
 									<span class="song-chart-score-empty" aria-label="기록 없음">-</span>

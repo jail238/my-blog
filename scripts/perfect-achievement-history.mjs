@@ -12,6 +12,7 @@ export function annotatePerfectAchievementTimes(
 	{ previousRecords = [], detectedAt, baselineAt = detectedAt },
 ) {
 	const previousByChartId = new Map(previousRecords.map((record) => [record.chartId, record]));
+	const hasPreviousSnapshot = previousRecords.length > 0;
 
 	return records.map((record) => {
 		const { perfectAchievedAt: _stalePerfectAchievedAt, ...nextRecord } = record;
@@ -20,7 +21,9 @@ export function annotatePerfectAchievementTimes(
 
 		const previousRecord = previousByChartId.get(record.chartId);
 		const previousRank = perfectRank(previousRecord?.combo);
-		const perfectAchievedAt = currentRank > previousRank
+		const perfectAchievedAt = !hasPreviousSnapshot
+			? baselineAt
+			: currentRank > previousRank
 			? detectedAt
 			: previousRecord?.perfectAchievedAt ?? baselineAt;
 

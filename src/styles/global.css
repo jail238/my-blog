@@ -1704,7 +1704,7 @@ a.record-refresh-button.compact {
 }
 
 .song-chart-board-records td {
-	height: 88px;
+	height: 112px;
 	padding: 0.6rem 0.4rem;
 	vertical-align: middle;
 }
@@ -1766,6 +1766,37 @@ a.record-refresh-button.compact {
 	color: rgb(var(--muted));
 	font-size: 0.62rem;
 	white-space: nowrap;
+}
+
+.song-chart-score .song-chart-dx-score {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	gap: 0.08rem;
+}
+
+.song-chart-score .song-chart-dx-stars {
+	align-items: center;
+	display: inline-flex;
+	gap: 0.18rem;
+}
+
+.song-chart-score .song-chart-dx-stars-filled {
+	color: #e0a318;
+}
+
+.song-chart-score .song-chart-dx-stars-empty {
+	color: #aeb6bb;
+}
+
+.song-chart-score .song-chart-dx-stars b {
+	color: rgb(var(--ink));
+	font-size: 0.62rem;
+}
+
+.song-chart-score .song-chart-perfect-date {
+	color: #a62a24;
+	font-weight: 720;
 }
 
 .song-chart-score .combo-icon {

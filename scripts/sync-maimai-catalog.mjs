@@ -229,6 +229,36 @@ for (const music of metadata.musics) {
 	}
 }
 
+if (!ALLOW_CATALOG_CHANGES) {
+	const generatedSongIds = new Set(songs.map((song) => song.id));
+	for (const pinnedSong of circlePlusSnapshot.songs) {
+		if (generatedSongIds.has(pinnedSong.songId)) continue;
+		if (!pinnedSong.fallbackMetadata) {
+			throw new Error(`Pinned song has no catalog or fallback metadata: ${pinnedSong.songId}`);
+		}
+		songs.push({ id: pinnedSong.songId, ...pinnedSong.fallbackMetadata });
+		generatedSongIds.add(pinnedSong.songId);
+	}
+
+	const generatedChartIds = new Set(charts.map((chart) => chart.id));
+	for (const pinnedChart of circlePlusSnapshot.charts) {
+		if (generatedChartIds.has(pinnedChart.chartId)) continue;
+		if (!pinnedChart.songId || !pinnedChart.type || !pinnedChart.difficulty) {
+			throw new Error(`Pinned chart has no fallback metadata: ${pinnedChart.chartId}`);
+		}
+		charts.push({
+			id: pinnedChart.chartId,
+			songId: pinnedChart.songId,
+			type: pinnedChart.type,
+			difficulty: pinnedChart.difficulty,
+			versionId: pinnedChart.versionId,
+			level: pinnedChart.level,
+			constant: pinnedChart.constant,
+		});
+		generatedChartIds.add(pinnedChart.chartId);
+	}
+}
+
 songs.sort((a, b) => a.sourceId - b.sourceId);
 charts.sort((a, b) => a.songId.localeCompare(b.songId, 'en', { numeric: true }) || a.id.localeCompare(b.id));
 

@@ -14,6 +14,18 @@ function record(chartId, combo, achievementValue, perfectAchievedAt) {
 	};
 }
 
+test('uses the profile baseline for the first imported snapshot', () => {
+	const current = [record('chart-a', 'AP', 1009000)];
+
+	const [result] = annotatePerfectAchievementTimes(current, {
+		previousRecords: [],
+		detectedAt,
+		baselineAt,
+	});
+
+	assert.equal(result.perfectAchievedAt, baselineAt);
+});
+
 test('uses the baseline time for an existing AP record without history', () => {
 	const previous = [record('chart-a', 'AP', 1008000)];
 	const current = [record('chart-a', 'AP', 1009000)];
