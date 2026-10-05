@@ -90,6 +90,16 @@ const levels = registeredLevels().slice().reverse();
 	<div class="record-result-bar level-chart-result-bar">
 		<strong id="difficulty-chart-count" aria-live="polite">{charts.length.toLocaleString('ko-KR')}개</strong>
 		<div class="level-chart-result-actions">
+			<select
+				class="difficulty-chart-page-size"
+				id="difficulty-chart-page-size"
+				aria-label="페이지당 표시 개수"
+				title="페이지당 표시 개수"
+			>
+				<option value="30">30개 보기</option>
+				<option value="50">50개 보기</option>
+				<option value="100">100개 보기</option>
+			</select>
 			<div class="difficulty-chart-sort-toggle" role="group" aria-label="정렬 기준">
 				<button
 					type="button"
@@ -163,6 +173,11 @@ const levels = registeredLevels().slice().reverse();
 		})}
 	</section>
 	<div class="catalog-empty compact" id="difficulty-chart-empty" hidden><strong>조건에 맞는 채보가 없습니다.</strong></div>
+	<nav class="difficulty-chart-pagination" id="difficulty-chart-pagination" aria-label="채보 페이지 이동">
+		<button type="button" id="difficulty-chart-prev" aria-label="이전 페이지" title="이전 페이지">←</button>
+		<span id="difficulty-chart-page-status" aria-live="polite">1 / 1</span>
+		<button type="button" id="difficulty-chart-next" aria-label="다음 페이지" title="다음 페이지">→</button>
+	</nav>
 </CatalogLayout>
 
 <script>
@@ -175,6 +190,11 @@ const levels = registeredLevels().slice().reverse();
 	const list = document.querySelector('#difficulty-chart-list');
 	const count = document.querySelector('#difficulty-chart-count');
 	const empty = document.querySelector('#difficulty-chart-empty');
+	const pageSizeSelect = document.querySelector('#difficulty-chart-page-size');
+	const pagination = document.querySelector('#difficulty-chart-pagination');
+	const previousPageButton = document.querySelector('#difficulty-chart-prev');
+	const nextPageButton = document.querySelector('#difficulty-chart-next');
+	const pageStatus = document.querySelector('#difficulty-chart-page-status');
 	const rows = [...document.querySelectorAll<HTMLElement>('#difficulty-chart-list .chart-row')];
 	const originalRowOrder = new Map(rows.map((row, index) => [row, index]));
 	const sortKeyButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-difficulty-chart-sort-key]')];
@@ -187,8 +207,13 @@ const levels = registeredLevels().slice().reverse();
 	const sortDirectionStorageKey = 'misaki-difficulty-chart-sort-direction';
 	const legacySortStorageKey = 'misaki-difficulty-chart-sort';
 	const viewStorageKey = 'misaki-level-chart-view';
+	const pageSizeStorageKey = 'misaki-difficulty-chart-page-size';
 	let activeSortKey: ChartSortKey = 'ap-plus';
 	let activeSortDirection: ChartSortDirection = 'desc';
+	let orderedRows = [...rows];
+	let filteredRows = [...rows];
+	let pageSize = 30;
+	let currentPage = 1;
 
 	function levelValue(row: HTMLElement) {
 		const constant = Number.parseFloat(row.dataset.constant ?? '');
@@ -216,7 +241,7 @@ const levels = registeredLevels().slice().reverse();
 		list.dataset.sortKey = key;
 		list.dataset.sortDirection = direction;
 
-		const sortedRows = [...rows].sort((a, b) => {
+		orderedRows = [...rows].sort((a, b) => {
 			const difference = direction === 'desc'
 				? sortValue(b, key) - sortValue(a, key)
 				: sortValue(a, key) - sortValue(b, key);
@@ -224,7 +249,7 @@ const levels = registeredLevels().slice().reverse();
 			return (originalRowOrder.get(a) ?? 0) - (originalRowOrder.get(b) ?? 0);
 		});
 
-		for (const row of sortedRows) list.append(row);
+		for (const row of orderedRows) list.append(row);
 		for (const button of sortKeyButtons) {
 			const active = button.dataset.difficultyChartSortKey === key;
 			button.classList.toggle('active', active);
@@ -246,6 +271,8 @@ const levels = registeredLevels().slice().reverse();
 				localStorage.setItem(sortDirectionStorageKey, direction);
 			} catch {}
 		}
+
+		applyFilters();
 	}
 
 	function applyView(view: ChartView, persist = true) {
@@ -265,7 +292,27 @@ const levels = registeredLevels().slice().reverse();
 		}
 	}
 
-	function applyFilters() {
+	function renderPage() {
+		const total = filteredRows.length;
+		const totalPages = Math.ceil(total / pageSize);
+		currentPage = totalPages === 0 ? 1 : Math.min(Math.max(currentPage, 1), totalPages);
+		const start = (currentPage - 1) * pageSize;
+		const end = Math.min(start + pageSize, total);
+		const visibleRows = new Set(filteredRows.slice(start, end));
+
+		for (const row of rows) row.hidden = !visibleRows.has(row);
+		if (list instanceof HTMLElement) list.hidden = total === 0;
+		if (count) count.textContent = total === 0
+			? '0개'
+			: `${(start + 1).toLocaleString('ko-KR')}-${end.toLocaleString('ko-KR')} / ${total.toLocaleString('ko-KR')}개`;
+		if (empty instanceof HTMLElement) empty.hidden = total > 0;
+		if (pagination instanceof HTMLElement) pagination.hidden = totalPages <= 1;
+		if (pageStatus) pageStatus.textContent = totalPages === 0 ? '0 / 0' : `${currentPage} / ${totalPages}`;
+		if (previousPageButton instanceof HTMLButtonElement) previousPageButton.disabled = currentPage <= 1;
+		if (nextPageButton instanceof HTMLButtonElement) nextPageButton.disabled = totalPages === 0 || currentPage >= totalPages;
+	}
+
+	function applyFilters(resetPage = true) {
 		if (!(queryInput instanceof HTMLInputElement)) return;
 		if (!(typeSelect instanceof HTMLSelectElement)) return;
 		if (!(levelSelect instanceof HTMLSelectElement)) return;
@@ -273,23 +320,42 @@ const levels = registeredLevels().slice().reverse();
 		if (!(includePerfectInput instanceof HTMLInputElement)) return;
 
 		const query = queryInput.value.trim().toLocaleLowerCase('ko');
-		const matches = rows.filter((row) =>
+		if (resetPage) currentPage = 1;
+		filteredRows = orderedRows.filter((row) =>
 			(!query || row.dataset.search?.includes(query)) &&
 			(!typeSelect.value || row.dataset.type === typeSelect.value) &&
 			(!levelSelect.value || row.dataset.level === levelSelect.value) &&
 			(!versionSelect.value || row.dataset.version === versionSelect.value) &&
 			(includePerfectInput.checked || row.dataset.perfect !== 'true'),
 		);
-		const matchSet = new Set(matches);
-
-		for (const row of rows) row.hidden = !matchSet.has(row);
-		if (list instanceof HTMLElement) list.hidden = matches.length === 0;
-		if (count) count.textContent = `${matches.length.toLocaleString('ko-KR')}개`;
-		if (empty instanceof HTMLElement) empty.hidden = matches.length > 0;
+		renderPage();
 	}
 
-	form?.addEventListener('input', applyFilters);
-	form?.addEventListener('reset', () => requestAnimationFrame(applyFilters));
+	function movePage(offset: number) {
+		const totalPages = Math.ceil(filteredRows.length / pageSize);
+		if (totalPages <= 1) return;
+		const nextPage = Math.min(Math.max(currentPage + offset, 1), totalPages);
+		if (nextPage === currentPage) return;
+		currentPage = nextPage;
+		renderPage();
+		if (list instanceof HTMLElement) list.scrollIntoView({ block: 'start' });
+	}
+
+	form?.addEventListener('input', () => applyFilters());
+	form?.addEventListener('reset', () => requestAnimationFrame(() => applyFilters()));
+	pageSizeSelect?.addEventListener('change', () => {
+		if (!(pageSizeSelect instanceof HTMLSelectElement)) return;
+		const nextPageSize = Number.parseInt(pageSizeSelect.value, 10);
+		if (nextPageSize !== 30 && nextPageSize !== 50 && nextPageSize !== 100) return;
+		pageSize = nextPageSize;
+		currentPage = 1;
+		try {
+			localStorage.setItem(pageSizeStorageKey, String(pageSize));
+		} catch {}
+		renderPage();
+	});
+	previousPageButton?.addEventListener('click', () => movePage(-1));
+	nextPageButton?.addEventListener('click', () => movePage(1));
 	for (const button of sortKeyButtons) {
 		button.addEventListener('click', () => {
 			const key = button.dataset.difficultyChartSortKey;
@@ -324,8 +390,10 @@ const levels = registeredLevels().slice().reverse();
 			activeSortDirection = 'asc';
 		}
 		if (localStorage.getItem(viewStorageKey) === 'grid') initialView = 'grid';
+		const storedPageSize = Number.parseInt(localStorage.getItem(pageSizeStorageKey) ?? '', 10);
+		if (storedPageSize === 30 || storedPageSize === 50 || storedPageSize === 100) pageSize = storedPageSize;
 	} catch {}
-	applySort(activeSortKey, activeSortDirection, false);
+	if (pageSizeSelect instanceof HTMLSelectElement) pageSizeSelect.value = String(pageSize);
 	applyView(initialView, false);
-	applyFilters();
+	applySort(activeSortKey, activeSortDirection, false);
 </script>
