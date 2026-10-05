@@ -90,30 +90,53 @@ const levels = registeredLevels().slice().reverse();
 	<div class="record-result-bar level-chart-result-bar">
 		<strong id="difficulty-chart-count" aria-live="polite">{charts.length.toLocaleString('ko-KR')}개</strong>
 		<div class="level-chart-result-actions">
-			<div class="difficulty-chart-sort-toggle" role="group" aria-label="정렬 방식">
+			<div class="difficulty-chart-sort-toggle" role="group" aria-label="정렬 기준">
 				<button
 					type="button"
 					class="difficulty-chart-sort-button active"
-					data-difficulty-chart-sort="progress"
+					data-difficulty-chart-sort-key="ap-plus"
 					aria-pressed="true"
-					title="AP+, AP, 달성률 순으로 정렬"
-				>AP+ · AP · 달성률 순</button>
+					title="AP+ 달성 여부로 정렬"
+				>AP+</button>
 				<button
 					type="button"
 					class="difficulty-chart-sort-button"
-					data-difficulty-chart-sort="level-desc"
-					aria-label="난이도 높은 순"
+					data-difficulty-chart-sort-key="ap"
 					aria-pressed="false"
-					title="내부 레벨이 높은 순으로 정렬"
-				>난이도 ↓</button>
+					title="AP 이상 달성 여부로 정렬"
+				>AP</button>
 				<button
 					type="button"
 					class="difficulty-chart-sort-button"
-					data-difficulty-chart-sort="level-asc"
-					aria-label="난이도 낮은 순"
+					data-difficulty-chart-sort-key="achievement"
 					aria-pressed="false"
-					title="내부 레벨이 낮은 순으로 정렬"
-				>난이도 ↑</button>
+					title="달성률로 정렬"
+				>달성률</button>
+				<button
+					type="button"
+					class="difficulty-chart-sort-button"
+					data-difficulty-chart-sort-key="level"
+					aria-pressed="false"
+					title="내부 레벨로 정렬"
+				>난이도</button>
+			</div>
+			<div class="difficulty-chart-direction-toggle" role="group" aria-label="정렬 방향">
+				<button
+					type="button"
+					class="difficulty-chart-direction-button active"
+					data-difficulty-chart-sort-direction="desc"
+					aria-label="내림차순"
+					aria-pressed="true"
+					title="내림차순"
+				>↓</button>
+				<button
+					type="button"
+					class="difficulty-chart-direction-button"
+					data-difficulty-chart-sort-direction="asc"
+					aria-label="오름차순"
+					aria-pressed="false"
+					title="오름차순"
+				>↑</button>
 			</div>
 			<div class="level-chart-view-toggle" role="group" aria-label="보기 방식">
 				<button
@@ -163,12 +186,18 @@ const levels = registeredLevels().slice().reverse();
 	const empty = document.querySelector('#difficulty-chart-empty');
 	const rows = [...document.querySelectorAll<HTMLElement>('#difficulty-chart-list .chart-row')];
 	const originalRowOrder = new Map(rows.map((row, index) => [row, index]));
-	const sortButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-difficulty-chart-sort]')];
+	const sortKeyButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-difficulty-chart-sort-key]')];
+	const sortDirectionButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-difficulty-chart-sort-direction]')];
 	const viewButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-difficulty-chart-view]')];
-	type ChartSort = 'progress' | 'level-desc' | 'level-asc';
+	type ChartSortKey = 'ap-plus' | 'ap' | 'achievement' | 'level';
+	type ChartSortDirection = 'desc' | 'asc';
 	type ChartView = 'list' | 'grid';
-	const sortStorageKey = 'misaki-difficulty-chart-sort';
+	const sortKeyStorageKey = 'misaki-difficulty-chart-sort-key';
+	const sortDirectionStorageKey = 'misaki-difficulty-chart-sort-direction';
+	const legacySortStorageKey = 'misaki-difficulty-chart-sort';
 	const viewStorageKey = 'misaki-level-chart-view';
+	let activeSortKey: ChartSortKey = 'ap-plus';
+	let activeSortDirection: ChartSortDirection = 'desc';
 
 	function levelValue(row: HTMLElement) {
 		const constant = Number.parseFloat(row.dataset.constant ?? '');
@@ -180,30 +209,46 @@ const levels = registeredLevels().slice().reverse();
 		return displayedLevel + (level.endsWith('+') ? 0.5 : 0);
 	}
 
-	function applySort(sort: ChartSort, persist = true) {
+	function sortValue(row: HTMLElement, key: ChartSortKey) {
+		if (key === 'ap-plus') return row.dataset.apPlus === 'true' ? 1 : 0;
+		if (key === 'ap') return row.dataset.ap === 'true' ? 1 : 0;
+		if (key === 'level') return levelValue(row);
+
+		const achievement = Number.parseFloat(row.dataset.achievement ?? '');
+		return Number.isFinite(achievement) ? achievement : 0;
+	}
+
+	function applySort(key: ChartSortKey, direction: ChartSortDirection, persist = true) {
 		if (!(list instanceof HTMLElement)) return;
-		list.dataset.sort = sort;
+		activeSortKey = key;
+		activeSortDirection = direction;
+		list.dataset.sortKey = key;
+		list.dataset.sortDirection = direction;
 
 		const sortedRows = [...rows].sort((a, b) => {
-			if (sort !== 'progress') {
-				const levelDifference = sort === 'level-desc'
-					? levelValue(b) - levelValue(a)
-					: levelValue(a) - levelValue(b);
-				if (levelDifference !== 0) return levelDifference;
-			}
+			const difference = direction === 'desc'
+				? sortValue(b, key) - sortValue(a, key)
+				: sortValue(a, key) - sortValue(b, key);
+			if (difference !== 0) return difference;
 			return (originalRowOrder.get(a) ?? 0) - (originalRowOrder.get(b) ?? 0);
 		});
 
 		for (const row of sortedRows) list.append(row);
-		for (const button of sortButtons) {
-			const active = button.dataset.difficultyChartSort === sort;
+		for (const button of sortKeyButtons) {
+			const active = button.dataset.difficultyChartSortKey === key;
+			button.classList.toggle('active', active);
+			button.setAttribute('aria-pressed', String(active));
+		}
+		for (const button of sortDirectionButtons) {
+			const active = button.dataset.difficultyChartSortDirection === direction;
 			button.classList.toggle('active', active);
 			button.setAttribute('aria-pressed', String(active));
 		}
 
 		if (persist) {
 			try {
-				localStorage.setItem(sortStorageKey, sort);
+				localStorage.setItem(sortKeyStorageKey, key);
+				localStorage.setItem(sortDirectionStorageKey, direction);
 			} catch {}
 		}
 	}
@@ -250,10 +295,18 @@ const levels = registeredLevels().slice().reverse();
 
 	form?.addEventListener('input', applyFilters);
 	form?.addEventListener('reset', () => requestAnimationFrame(applyFilters));
-	for (const button of sortButtons) {
+	for (const button of sortKeyButtons) {
 		button.addEventListener('click', () => {
-			const sort = button.dataset.difficultyChartSort;
-			if (sort === 'progress' || sort === 'level-desc' || sort === 'level-asc') applySort(sort);
+			const key = button.dataset.difficultyChartSortKey;
+			if (key === 'ap-plus' || key === 'ap' || key === 'achievement' || key === 'level') {
+				applySort(key, activeSortDirection);
+			}
+		});
+	}
+	for (const button of sortDirectionButtons) {
+		button.addEventListener('click', () => {
+			const direction = button.dataset.difficultyChartSortDirection;
+			if (direction === 'desc' || direction === 'asc') applySort(activeSortKey, direction);
 		});
 	}
 	for (const button of viewButtons) {
@@ -263,15 +316,24 @@ const levels = registeredLevels().slice().reverse();
 		});
 	}
 
-	let initialSort: ChartSort = 'progress';
 	let initialView: ChartView = 'list';
 	try {
-		const storedSort = localStorage.getItem(sortStorageKey);
-		if (storedSort === 'level' || storedSort === 'level-desc') initialSort = 'level-desc';
-		if (storedSort === 'level-asc') initialSort = 'level-asc';
+		const storedSortKey = localStorage.getItem(sortKeyStorageKey);
+		const storedSortDirection = localStorage.getItem(sortDirectionStorageKey);
+		if (storedSortKey === 'ap-plus' || storedSortKey === 'ap' || storedSortKey === 'achievement' || storedSortKey === 'level') {
+			activeSortKey = storedSortKey;
+		} else {
+			const legacySort = localStorage.getItem(legacySortStorageKey);
+			if (legacySort === 'level' || legacySort === 'level-desc' || legacySort === 'level-asc') activeSortKey = 'level';
+		}
+		if (storedSortDirection === 'asc' || storedSortDirection === 'desc') {
+			activeSortDirection = storedSortDirection;
+		} else if (localStorage.getItem(legacySortStorageKey) === 'level-asc') {
+			activeSortDirection = 'asc';
+		}
 		if (localStorage.getItem(viewStorageKey) === 'grid') initialView = 'grid';
 	} catch {}
-	applySort(initialSort, false);
+	applySort(activeSortKey, activeSortDirection, false);
 	applyView(initialView, false);
 	applyFilters();
 </script>

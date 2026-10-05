@@ -31,6 +31,9 @@ const comboIcon = chart.record?.combo ? comboIcons[chart.record.combo] : undefin
 	data-constant={chart.constant?.toFixed(1)}
 	data-version={chart.versionId}
 	data-perfect={isPerfect ? 'true' : 'false'}
+	data-ap-plus={chart.record?.combo === 'AP+' ? 'true' : 'false'}
+	data-ap={isPerfect ? 'true' : 'false'}
+	data-achievement={chart.record?.achievementValue ?? 0}
 >
 	<SongArtwork song={song} compact />
 	<span class="chart-song">

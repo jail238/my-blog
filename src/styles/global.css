@@ -692,6 +692,7 @@ a.record-refresh-button.compact {
 }
 
 .difficulty-chart-sort-toggle,
+.difficulty-chart-direction-toggle,
 .level-chart-view-toggle {
 	align-items: center;
 	border: 1px solid rgb(var(--line));
@@ -701,6 +702,7 @@ a.record-refresh-button.compact {
 }
 
 .difficulty-chart-sort-button,
+.difficulty-chart-direction-button,
 .level-chart-view-button {
 	align-items: center;
 	background: var(--surface);
@@ -725,24 +727,36 @@ a.record-refresh-button.compact {
 	width: 32px;
 }
 
+.difficulty-chart-direction-button {
+	font-family: inherit;
+	font-size: 0.9rem;
+	font-weight: 800;
+	padding: 0;
+	width: 30px;
+}
+
 .difficulty-chart-sort-button + .difficulty-chart-sort-button,
+.difficulty-chart-direction-button + .difficulty-chart-direction-button,
 .level-chart-view-button + .level-chart-view-button {
 	border-left: 1px solid rgb(var(--line));
 }
 
 .difficulty-chart-sort-button:hover,
+.difficulty-chart-direction-button:hover,
 .level-chart-view-button:hover {
 	background: #f3f6f5;
 	color: rgb(var(--text));
 }
 
 .difficulty-chart-sort-button.active,
+.difficulty-chart-direction-button.active,
 .level-chart-view-button.active {
 	background: rgb(var(--text));
 	color: #ffffff;
 }
 
 .difficulty-chart-sort-button:focus-visible,
+.difficulty-chart-direction-button:focus-visible,
 .level-chart-view-button:focus-visible {
 	outline: 2px solid rgba(107, 199, 180, 0.62);
 	outline-offset: -3px;
@@ -2213,7 +2227,9 @@ a.record-refresh-button.compact {
 	}
 
 	.level-chart-result-actions {
+		flex-wrap: wrap;
 		gap: 0.45rem;
+		justify-content: flex-end;
 		margin-left: auto;
 		max-width: 100%;
 	}
