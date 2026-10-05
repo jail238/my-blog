@@ -101,10 +101,19 @@ const levels = registeredLevels().slice().reverse();
 				<button
 					type="button"
 					class="difficulty-chart-sort-button"
-					data-difficulty-chart-sort="level"
+					data-difficulty-chart-sort="level-desc"
+					aria-label="난이도 높은 순"
 					aria-pressed="false"
 					title="내부 레벨이 높은 순으로 정렬"
-				>난이도 순</button>
+				>난이도 ↓</button>
+				<button
+					type="button"
+					class="difficulty-chart-sort-button"
+					data-difficulty-chart-sort="level-asc"
+					aria-label="난이도 낮은 순"
+					aria-pressed="false"
+					title="내부 레벨이 낮은 순으로 정렬"
+				>난이도 ↑</button>
 			</div>
 			<div class="level-chart-view-toggle" role="group" aria-label="보기 방식">
 				<button
@@ -156,7 +165,7 @@ const levels = registeredLevels().slice().reverse();
 	const originalRowOrder = new Map(rows.map((row, index) => [row, index]));
 	const sortButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-difficulty-chart-sort]')];
 	const viewButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-difficulty-chart-view]')];
-	type ChartSort = 'progress' | 'level';
+	type ChartSort = 'progress' | 'level-desc' | 'level-asc';
 	type ChartView = 'list' | 'grid';
 	const sortStorageKey = 'misaki-difficulty-chart-sort';
 	const viewStorageKey = 'misaki-level-chart-view';
@@ -176,8 +185,10 @@ const levels = registeredLevels().slice().reverse();
 		list.dataset.sort = sort;
 
 		const sortedRows = [...rows].sort((a, b) => {
-			if (sort === 'level') {
-				const levelDifference = levelValue(b) - levelValue(a);
+			if (sort !== 'progress') {
+				const levelDifference = sort === 'level-desc'
+					? levelValue(b) - levelValue(a)
+					: levelValue(a) - levelValue(b);
 				if (levelDifference !== 0) return levelDifference;
 			}
 			return (originalRowOrder.get(a) ?? 0) - (originalRowOrder.get(b) ?? 0);
@@ -242,7 +253,7 @@ const levels = registeredLevels().slice().reverse();
 	for (const button of sortButtons) {
 		button.addEventListener('click', () => {
 			const sort = button.dataset.difficultyChartSort;
-			if (sort === 'progress' || sort === 'level') applySort(sort);
+			if (sort === 'progress' || sort === 'level-desc' || sort === 'level-asc') applySort(sort);
 		});
 	}
 	for (const button of viewButtons) {
@@ -255,7 +266,9 @@ const levels = registeredLevels().slice().reverse();
 	let initialSort: ChartSort = 'progress';
 	let initialView: ChartView = 'list';
 	try {
-		if (localStorage.getItem(sortStorageKey) === 'level') initialSort = 'level';
+		const storedSort = localStorage.getItem(sortStorageKey);
+		if (storedSort === 'level' || storedSort === 'level-desc') initialSort = 'level-desc';
+		if (storedSort === 'level-asc') initialSort = 'level-asc';
 		if (localStorage.getItem(viewStorageKey) === 'grid') initialView = 'grid';
 	} catch {}
 	applySort(initialSort, false);

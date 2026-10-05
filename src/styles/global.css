@@ -2206,6 +2206,23 @@ a.record-refresh-button.compact {
 }
 
 @media (max-width: 420px) {
+	.level-chart-result-bar {
+		align-items: flex-start;
+		flex-wrap: wrap;
+		gap: 0.45rem;
+	}
+
+	.level-chart-result-actions {
+		gap: 0.45rem;
+		margin-left: auto;
+		max-width: 100%;
+	}
+
+	.difficulty-chart-sort-button {
+		font-size: 0.6rem;
+		padding-inline: 0.4rem;
+	}
+
 	.chart-row {
 		column-gap: 0.3rem;
 		grid-template-columns: 38px minmax(0, 1fr) auto 30px;
