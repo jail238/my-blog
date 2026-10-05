@@ -304,7 +304,7 @@ const levels = registeredLevels().slice().reverse();
 		if (list instanceof HTMLElement) list.hidden = total === 0;
 		if (count) count.textContent = total === 0
 			? '0개'
-			: `${(start + 1).toLocaleString('ko-KR')}-${end.toLocaleString('ko-KR')} / ${total.toLocaleString('ko-KR')}개`;
+			: `${(start + 1).toLocaleString('ko-KR')}-${end.toLocaleString('ko-KR')}/${total.toLocaleString('ko-KR')}개`;
 		if (empty instanceof HTMLElement) empty.hidden = total > 0;
 		if (pagination instanceof HTMLElement) pagination.hidden = totalPages <= 1;
 		if (pageStatus) pageStatus.textContent = totalPages === 0 ? '0 / 0' : `${currentPage} / ${totalPages}`;

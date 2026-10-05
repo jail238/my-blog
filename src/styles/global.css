@@ -2133,6 +2133,23 @@ a.record-refresh-button.compact {
 		width: 100%;
 	}
 
+	.level-chart-result-bar {
+		align-items: stretch;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.level-chart-result-bar > strong {
+		white-space: nowrap;
+	}
+
+	.level-chart-result-actions {
+		flex-wrap: wrap;
+		gap: 0.45rem;
+		justify-content: flex-start;
+		width: 100%;
+	}
+
 	.record-list-row {
 		gap: 0.45rem 0.65rem;
 		grid-template-areas:
@@ -2280,17 +2297,11 @@ a.record-refresh-button.compact {
 
 @media (max-width: 420px) {
 	.level-chart-result-bar {
-		align-items: flex-start;
-		flex-wrap: wrap;
 		gap: 0.45rem;
 	}
 
 	.level-chart-result-actions {
-		flex-wrap: wrap;
-		gap: 0.45rem;
-		justify-content: flex-end;
-		margin-left: auto;
-		max-width: 100%;
+		margin-left: 0;
 	}
 
 	.difficulty-chart-sort-button {
