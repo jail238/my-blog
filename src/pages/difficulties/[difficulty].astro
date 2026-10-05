@@ -90,7 +90,22 @@ const levels = registeredLevels().slice().reverse();
 	<div class="record-result-bar level-chart-result-bar">
 		<strong id="difficulty-chart-count" aria-live="polite">{charts.length.toLocaleString('ko-KR')}개</strong>
 		<div class="level-chart-result-actions">
-			<span>AP+ · AP · 달성률 순</span>
+			<div class="difficulty-chart-sort-toggle" role="group" aria-label="정렬 방식">
+				<button
+					type="button"
+					class="difficulty-chart-sort-button active"
+					data-difficulty-chart-sort="progress"
+					aria-pressed="true"
+					title="AP+, AP, 달성률 순으로 정렬"
+				>AP+ · AP · 달성률 순</button>
+				<button
+					type="button"
+					class="difficulty-chart-sort-button"
+					data-difficulty-chart-sort="level"
+					aria-pressed="false"
+					title="내부 레벨이 높은 순으로 정렬"
+				>난이도 순</button>
+			</div>
 			<div class="level-chart-view-toggle" role="group" aria-label="보기 방식">
 				<button
 					type="button"
@@ -138,9 +153,49 @@ const levels = registeredLevels().slice().reverse();
 	const count = document.querySelector('#difficulty-chart-count');
 	const empty = document.querySelector('#difficulty-chart-empty');
 	const rows = [...document.querySelectorAll<HTMLElement>('#difficulty-chart-list .chart-row')];
+	const originalRowOrder = new Map(rows.map((row, index) => [row, index]));
+	const sortButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-difficulty-chart-sort]')];
 	const viewButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-difficulty-chart-view]')];
+	type ChartSort = 'progress' | 'level';
 	type ChartView = 'list' | 'grid';
+	const sortStorageKey = 'misaki-difficulty-chart-sort';
 	const viewStorageKey = 'misaki-level-chart-view';
+
+	function levelValue(row: HTMLElement) {
+		const constant = Number.parseFloat(row.dataset.constant ?? '');
+		if (Number.isFinite(constant)) return constant;
+
+		const level = row.dataset.level ?? '';
+		const displayedLevel = Number.parseInt(level, 10);
+		if (!Number.isFinite(displayedLevel)) return 0;
+		return displayedLevel + (level.endsWith('+') ? 0.5 : 0);
+	}
+
+	function applySort(sort: ChartSort, persist = true) {
+		if (!(list instanceof HTMLElement)) return;
+		list.dataset.sort = sort;
+
+		const sortedRows = [...rows].sort((a, b) => {
+			if (sort === 'level') {
+				const levelDifference = levelValue(b) - levelValue(a);
+				if (levelDifference !== 0) return levelDifference;
+			}
+			return (originalRowOrder.get(a) ?? 0) - (originalRowOrder.get(b) ?? 0);
+		});
+
+		for (const row of sortedRows) list.append(row);
+		for (const button of sortButtons) {
+			const active = button.dataset.difficultyChartSort === sort;
+			button.classList.toggle('active', active);
+			button.setAttribute('aria-pressed', String(active));
+		}
+
+		if (persist) {
+			try {
+				localStorage.setItem(sortStorageKey, sort);
+			} catch {}
+		}
+	}
 
 	function applyView(view: ChartView, persist = true) {
 		if (!(list instanceof HTMLElement)) return;
@@ -184,6 +239,12 @@ const levels = registeredLevels().slice().reverse();
 
 	form?.addEventListener('input', applyFilters);
 	form?.addEventListener('reset', () => requestAnimationFrame(applyFilters));
+	for (const button of sortButtons) {
+		button.addEventListener('click', () => {
+			const sort = button.dataset.difficultyChartSort;
+			if (sort === 'progress' || sort === 'level') applySort(sort);
+		});
+	}
 	for (const button of viewButtons) {
 		button.addEventListener('click', () => {
 			const view = button.dataset.difficultyChartView;
@@ -191,10 +252,13 @@ const levels = registeredLevels().slice().reverse();
 		});
 	}
 
+	let initialSort: ChartSort = 'progress';
 	let initialView: ChartView = 'list';
 	try {
+		if (localStorage.getItem(sortStorageKey) === 'level') initialSort = 'level';
 		if (localStorage.getItem(viewStorageKey) === 'grid') initialView = 'grid';
 	} catch {}
+	applySort(initialSort, false);
 	applyView(initialView, false);
 	applyFilters();
 </script>
