@@ -1,4 +1,5 @@
 ---
+import { ChevronsUpDown } from '@lucide/astro';
 import ChartRow from '../../components/ChartRow.astro';
 import {
 	DIFFICULTIES,
@@ -90,29 +91,32 @@ const levels = registeredLevels().slice().reverse();
 	<div class="record-result-bar level-chart-result-bar">
 		<strong id="difficulty-chart-count" aria-live="polite">{charts.length.toLocaleString('ko-KR')}개</strong>
 		<div class="level-chart-result-actions">
-			<select
-				class="difficulty-chart-page-size"
-				id="difficulty-chart-page-size"
-				aria-label="페이지당 표시 개수"
-				title="페이지당 표시 개수"
-			>
-				<option value="30">30개 보기</option>
-				<option value="50">50개 보기</option>
-				<option value="100">100개 보기</option>
-			</select>
+			<div class="difficulty-chart-page-size-control">
+				<select
+					class="difficulty-chart-page-size"
+					id="difficulty-chart-page-size"
+					aria-label="페이지당 표시 개수"
+					title="페이지당 표시 개수"
+				>
+					<option value="30">30개 보기</option>
+					<option value="50">50개 보기</option>
+					<option value="100">100개 보기</option>
+				</select>
+				<ChevronsUpDown class="difficulty-chart-page-size-icon" aria-hidden="true" />
+			</div>
 			<div class="difficulty-chart-sort-toggle" role="group" aria-label="정렬 기준">
 				<button
 					type="button"
-					class="difficulty-chart-sort-button active"
+					class="difficulty-chart-sort-button"
 					data-difficulty-chart-sort-key="ap-plus"
-					aria-pressed="true"
+					aria-pressed="false"
 					title="AP+ 달성 여부로 정렬"
 				>AP+</button>
 				<button
 					type="button"
-					class="difficulty-chart-sort-button"
+					class="difficulty-chart-sort-button active"
 					data-difficulty-chart-sort-key="ap"
-					aria-pressed="false"
+					aria-pressed="true"
 					title="AP 이상 달성 여부로 정렬"
 				>AP</button>
 				<button
@@ -137,7 +141,7 @@ const levels = registeredLevels().slice().reverse();
 					data-difficulty-chart-sort-direction="desc"
 					aria-label="현재 내림차순, 누르면 오름차순"
 					title="현재 내림차순 · 누르면 오름차순"
-				>↓</button>
+				>↑</button>
 			</div>
 			<div class="level-chart-view-toggle" role="group" aria-label="보기 방식">
 				<button
@@ -205,10 +209,11 @@ const levels = registeredLevels().slice().reverse();
 	type ChartView = 'list' | 'grid';
 	const sortKeyStorageKey = 'misaki-difficulty-chart-sort-key';
 	const sortDirectionStorageKey = 'misaki-difficulty-chart-sort-direction';
-	const legacySortStorageKey = 'misaki-difficulty-chart-sort';
+	const sortPreferenceVersionStorageKey = 'misaki-difficulty-chart-sort-preference-version';
+	const sortPreferenceVersion = 'ap-desc-v1';
 	const viewStorageKey = 'misaki-level-chart-view';
 	const pageSizeStorageKey = 'misaki-difficulty-chart-page-size';
-	let activeSortKey: ChartSortKey = 'ap-plus';
+	let activeSortKey: ChartSortKey = 'ap';
 	let activeSortDirection: ChartSortDirection = 'desc';
 	let orderedRows = [...rows];
 	let filteredRows = [...rows];
@@ -260,13 +265,14 @@ const levels = registeredLevels().slice().reverse();
 			const currentLabel = isDescending ? '내림차순' : '오름차순';
 			const nextLabel = isDescending ? '오름차순' : '내림차순';
 			sortDirectionButton.dataset.difficultyChartSortDirection = direction;
-			sortDirectionButton.textContent = isDescending ? '↓' : '↑';
+			sortDirectionButton.textContent = isDescending ? '↑' : '↓';
 			sortDirectionButton.setAttribute('aria-label', `현재 ${currentLabel}, 누르면 ${nextLabel}`);
 			sortDirectionButton.title = `현재 ${currentLabel} · 누르면 ${nextLabel}`;
 		}
 
 		if (persist) {
 			try {
+				localStorage.setItem(sortPreferenceVersionStorageKey, sortPreferenceVersion);
 				localStorage.setItem(sortKeyStorageKey, key);
 				localStorage.setItem(sortDirectionStorageKey, direction);
 			} catch {}
@@ -376,18 +382,19 @@ const levels = registeredLevels().slice().reverse();
 
 	let initialView: ChartView = 'list';
 	try {
-		const storedSortKey = localStorage.getItem(sortKeyStorageKey);
-		const storedSortDirection = localStorage.getItem(sortDirectionStorageKey);
-		if (storedSortKey === 'ap-plus' || storedSortKey === 'ap' || storedSortKey === 'achievement' || storedSortKey === 'level') {
-			activeSortKey = storedSortKey;
+		if (localStorage.getItem(sortPreferenceVersionStorageKey) === sortPreferenceVersion) {
+			const storedSortKey = localStorage.getItem(sortKeyStorageKey);
+			const storedSortDirection = localStorage.getItem(sortDirectionStorageKey);
+			if (storedSortKey === 'ap-plus' || storedSortKey === 'ap' || storedSortKey === 'achievement' || storedSortKey === 'level') {
+				activeSortKey = storedSortKey;
+			}
+			if (storedSortDirection === 'asc' || storedSortDirection === 'desc') {
+				activeSortDirection = storedSortDirection;
+			}
 		} else {
-			const legacySort = localStorage.getItem(legacySortStorageKey);
-			if (legacySort === 'level' || legacySort === 'level-desc' || legacySort === 'level-asc') activeSortKey = 'level';
-		}
-		if (storedSortDirection === 'asc' || storedSortDirection === 'desc') {
-			activeSortDirection = storedSortDirection;
-		} else if (localStorage.getItem(legacySortStorageKey) === 'level-asc') {
-			activeSortDirection = 'asc';
+			localStorage.setItem(sortPreferenceVersionStorageKey, sortPreferenceVersion);
+			localStorage.setItem(sortKeyStorageKey, activeSortKey);
+			localStorage.setItem(sortDirectionStorageKey, activeSortDirection);
 		}
 		if (localStorage.getItem(viewStorageKey) === 'grid') initialView = 'grid';
 		const storedPageSize = Number.parseInt(localStorage.getItem(pageSizeStorageKey) ?? '', 10);
