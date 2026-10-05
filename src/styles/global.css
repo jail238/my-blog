@@ -736,7 +736,6 @@ a.record-refresh-button.compact {
 }
 
 .difficulty-chart-sort-button + .difficulty-chart-sort-button,
-.difficulty-chart-direction-button + .difficulty-chart-direction-button,
 .level-chart-view-button + .level-chart-view-button {
 	border-left: 1px solid rgb(var(--line));
 }

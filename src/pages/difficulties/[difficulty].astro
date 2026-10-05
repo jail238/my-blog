@@ -125,18 +125,9 @@ const levels = registeredLevels().slice().reverse();
 					type="button"
 					class="difficulty-chart-direction-button active"
 					data-difficulty-chart-sort-direction="desc"
-					aria-label="내림차순"
-					aria-pressed="true"
-					title="내림차순"
+					aria-label="현재 내림차순, 누르면 오름차순"
+					title="현재 내림차순 · 누르면 오름차순"
 				>↓</button>
-				<button
-					type="button"
-					class="difficulty-chart-direction-button"
-					data-difficulty-chart-sort-direction="asc"
-					aria-label="오름차순"
-					aria-pressed="false"
-					title="오름차순"
-				>↑</button>
 			</div>
 			<div class="level-chart-view-toggle" role="group" aria-label="보기 방식">
 				<button
@@ -187,7 +178,7 @@ const levels = registeredLevels().slice().reverse();
 	const rows = [...document.querySelectorAll<HTMLElement>('#difficulty-chart-list .chart-row')];
 	const originalRowOrder = new Map(rows.map((row, index) => [row, index]));
 	const sortKeyButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-difficulty-chart-sort-key]')];
-	const sortDirectionButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-difficulty-chart-sort-direction]')];
+	const sortDirectionButton = document.querySelector<HTMLButtonElement>('[data-difficulty-chart-sort-direction]');
 	const viewButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-difficulty-chart-view]')];
 	type ChartSortKey = 'ap-plus' | 'ap' | 'achievement' | 'level';
 	type ChartSortDirection = 'desc' | 'asc';
@@ -239,10 +230,14 @@ const levels = registeredLevels().slice().reverse();
 			button.classList.toggle('active', active);
 			button.setAttribute('aria-pressed', String(active));
 		}
-		for (const button of sortDirectionButtons) {
-			const active = button.dataset.difficultyChartSortDirection === direction;
-			button.classList.toggle('active', active);
-			button.setAttribute('aria-pressed', String(active));
+		if (sortDirectionButton) {
+			const isDescending = direction === 'desc';
+			const currentLabel = isDescending ? '내림차순' : '오름차순';
+			const nextLabel = isDescending ? '오름차순' : '내림차순';
+			sortDirectionButton.dataset.difficultyChartSortDirection = direction;
+			sortDirectionButton.textContent = isDescending ? '↓' : '↑';
+			sortDirectionButton.setAttribute('aria-label', `현재 ${currentLabel}, 누르면 ${nextLabel}`);
+			sortDirectionButton.title = `현재 ${currentLabel} · 누르면 ${nextLabel}`;
 		}
 
 		if (persist) {
@@ -303,12 +298,9 @@ const levels = registeredLevels().slice().reverse();
 			}
 		});
 	}
-	for (const button of sortDirectionButtons) {
-		button.addEventListener('click', () => {
-			const direction = button.dataset.difficultyChartSortDirection;
-			if (direction === 'desc' || direction === 'asc') applySort(activeSortKey, direction);
-		});
-	}
+	sortDirectionButton?.addEventListener('click', () => {
+		applySort(activeSortKey, activeSortDirection === 'desc' ? 'asc' : 'desc');
+	});
 	for (const button of viewButtons) {
 		button.addEventListener('click', () => {
 			const view = button.dataset.difficultyChartView;
