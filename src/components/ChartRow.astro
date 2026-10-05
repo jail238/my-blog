@@ -27,6 +27,7 @@ const comboIcon = chart.record?.combo ? comboIcons[chart.record.combo] : undefin
 	data-search={`${song.title} ${song.artist}`.toLocaleLowerCase('ko')}
 	data-type={chart.type}
 	data-difficulty={chart.difficulty}
+	data-level={chart.level}
 	data-constant={chart.constant?.toFixed(1)}
 	data-version={chart.versionId}
 	data-perfect={isPerfect ? 'true' : 'false'}

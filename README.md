@@ -10,9 +10,10 @@ Personal maimai record archive built with Astro.
 
 ## Archive
 
-The primary catalog has three views.
+The primary catalog has four views.
 
 - `Level`: chart-based index. STANDARD and DELUXE charts are stored and displayed separately as `ST` and `DX`.
+- `Difficulty`: BASIC, ADVANCED, EXPERT, MASTER, and Re:MASTER chart indexes with AP/AP+ progress and chart filters.
 - `Version`: chart-release index. A song appears under every version that introduced one of its International ST or DX chart sets.
 - `Plate`: version-plate progress for 神 (AP).
 - Level index cards show AP/AP+ completion progress. Level detail pages can filter by song, artist, chart type, difficulty, internal level, and chart-release version; they can also hide completed AP/AP+ charts and order results by AP+, AP, then achievement rate.
@@ -31,6 +32,7 @@ src/data/maishift.generated.json
 scripts/sync-maimai-catalog.mjs
 scripts/sync-maishift-records.mjs
 src/pages/levels/
+src/pages/difficulties/
 src/pages/versions/
 src/pages/plates/
 src/pages/songs/

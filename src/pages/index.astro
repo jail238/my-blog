@@ -3,6 +3,7 @@ import SongArtwork from '../components/SongArtwork.astro';
 import ComboIcon from '../components/ComboIcon.astro';
 import {
 	CHARTS,
+	DIFFICULTIES,
 	PERFECT_RECORDED_CHARTS,
 	PLAYER_PROFILE,
 	SONGS,
@@ -65,7 +66,7 @@ const snapshotDate = `${snapshotParts.get('year')}.${snapshotParts.get('month')}
 			<div class="profile-metrics" aria-label="기록 요약">
 				<span><small>RATING</small><strong>{PLAYER_PROFILE.rating.toLocaleString('en-US')}</strong></span>
 				<span><small>CLASS</small><strong>B4</strong></span>
-				<span><small>PLAYS</small><strong>{PLAYER_PROFILE.playCount.toLocaleString('en-US')}</strong></span>
+				<span><small>COINS</small><strong>{PLAYER_PROFILE.playCount.toLocaleString('en-US')}</strong></span>
 			</div>
 			<p class="snapshot-date">{snapshotDate}</p>
 		</div>
@@ -75,6 +76,11 @@ const snapshotDate = `${snapshotParts.get('year')}.${snapshotParts.get('month')}
 		<a href={`${base}/levels/`}>
 			<strong>레벨</strong>
 			<small>{CHARTS.length} CHARTS</small>
+			<span class="mode-arrow" aria-hidden="true">›</span>
+		</a>
+		<a href={`${base}/difficulties/`}>
+			<strong>난이도</strong>
+			<small>{DIFFICULTIES.length} DIFFICULTIES</small>
 			<span class="mode-arrow" aria-hidden="true">›</span>
 		</a>
 		<a href={`${base}/versions/`}>

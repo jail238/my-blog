@@ -1,0 +1,200 @@
+---
+import ChartRow from '../../components/ChartRow.astro';
+import {
+	DIFFICULTIES,
+	chartsForDifficulty,
+	difficultyToSlug,
+	registeredLevels,
+	songById,
+	versionsNewestFirst,
+	type Difficulty,
+} from '../../data/maimai';
+import CatalogLayout from '../../layouts/CatalogLayout.astro';
+import { SITE_TITLE } from '../../consts';
+
+export function getStaticPaths() {
+	return DIFFICULTIES.map((difficulty) => ({
+		params: { difficulty: difficultyToSlug(difficulty) },
+		props: { difficulty },
+	}));
+}
+
+interface Props {
+	difficulty: Difficulty;
+}
+
+const { difficulty } = Astro.props as Props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const slug = difficultyToSlug(difficulty);
+const charts = chartsForDifficulty(difficulty);
+const perfectCount = charts.filter((chart) => chart.record?.combo === 'AP' || chart.record?.combo === 'AP+').length;
+const levels = registeredLevels().slice().reverse();
+---
+
+<CatalogLayout title={`${difficulty} | ${SITE_TITLE}`} description={`maimai ${difficulty} 채보 목록`} pageClass="difficulty-detail-page">
+	<nav class="catalog-breadcrumb" aria-label="현재 위치">
+		<a href={`${base}/difficulties/`}>난이도</a>
+		<span aria-hidden="true">/</span>
+		<strong>{difficulty}</strong>
+	</nav>
+
+	<header class:list={['catalog-page-header', 'compact', 'difficulty-detail-heading', `difficulty-tone-${slug}`]}>
+		<p class="catalog-kicker">DIFFICULTY</p>
+		<h1>{difficulty}</h1>
+		<p>{charts.length} CHARTS · {perfectCount}/{charts.length}</p>
+	</header>
+
+	<nav class="level-strip difficulty-strip" aria-label="다른 난이도">
+		{DIFFICULTIES.map((item) => (
+			<a
+				class:list={{ active: item === difficulty }}
+				href={`${base}/difficulties/${difficultyToSlug(item)}/`}
+			>{item}</a>
+		))}
+	</nav>
+
+	<form class="record-filters difficulty-chart-filters" id="difficulty-chart-filters">
+		<label class="record-search">
+			<span>검색</span>
+			<input id="difficulty-chart-query" type="search" placeholder="곡명 또는 아티스트" autocomplete="off" />
+		</label>
+		<label>
+			<span>채보</span>
+			<select id="difficulty-chart-type">
+				<option value="">전체</option>
+				<option value="STANDARD">ST</option>
+				<option value="DX">DX</option>
+			</select>
+		</label>
+		<label>
+			<span>레벨</span>
+			<select id="difficulty-chart-level">
+				<option value="">전체</option>
+				{levels.map((level) => <option value={level}>{level}</option>)}
+			</select>
+		</label>
+		<label>
+			<span>버전</span>
+			<select id="difficulty-chart-version">
+				<option value="">전체</option>
+				{versionsNewestFirst.map((version) => <option value={version.id}>{version.shortName}</option>)}
+			</select>
+		</label>
+		<label class="record-checkbox">
+			<input id="difficulty-chart-include-perfect" type="checkbox" checked />
+			<span>AP/AP+ 완료 포함</span>
+		</label>
+		<button type="reset">초기화</button>
+	</form>
+
+	<div class="record-result-bar level-chart-result-bar">
+		<strong id="difficulty-chart-count" aria-live="polite">{charts.length.toLocaleString('ko-KR')}개</strong>
+		<div class="level-chart-result-actions">
+			<span>AP+ · AP · 달성률 순</span>
+			<div class="level-chart-view-toggle" role="group" aria-label="보기 방식">
+				<button
+					type="button"
+					class="level-chart-view-button active"
+					data-difficulty-chart-view="list"
+					aria-label="목록으로 보기"
+					aria-controls="difficulty-chart-list"
+					aria-pressed="true"
+					title="목록으로 보기"
+				>
+					<span class="level-chart-view-icon list" aria-hidden="true"></span>
+				</button>
+				<button
+					type="button"
+					class="level-chart-view-button"
+					data-difficulty-chart-view="grid"
+					aria-label="격자로 보기"
+					aria-controls="difficulty-chart-list"
+					aria-pressed="false"
+					title="격자로 보기"
+				>
+					<span class="level-chart-view-icon grid" aria-hidden="true"></span>
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<section class="chart-list" id="difficulty-chart-list" data-view="list" aria-label={`${difficulty} 채보`}>
+		{charts.map((chart) => {
+			const song = songById.get(chart.songId);
+			return song && <ChartRow chart={chart} song={song} />;
+		})}
+	</section>
+	<div class="catalog-empty compact" id="difficulty-chart-empty" hidden><strong>조건에 맞는 채보가 없습니다.</strong></div>
+</CatalogLayout>
+
+<script>
+	const form = document.querySelector('#difficulty-chart-filters');
+	const queryInput = document.querySelector('#difficulty-chart-query');
+	const typeSelect = document.querySelector('#difficulty-chart-type');
+	const levelSelect = document.querySelector('#difficulty-chart-level');
+	const versionSelect = document.querySelector('#difficulty-chart-version');
+	const includePerfectInput = document.querySelector('#difficulty-chart-include-perfect');
+	const list = document.querySelector('#difficulty-chart-list');
+	const count = document.querySelector('#difficulty-chart-count');
+	const empty = document.querySelector('#difficulty-chart-empty');
+	const rows = [...document.querySelectorAll<HTMLElement>('#difficulty-chart-list .chart-row')];
+	const viewButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-difficulty-chart-view]')];
+	type ChartView = 'list' | 'grid';
+	const viewStorageKey = 'misaki-level-chart-view';
+
+	function applyView(view: ChartView, persist = true) {
+		if (!(list instanceof HTMLElement)) return;
+		list.dataset.view = view;
+
+		for (const button of viewButtons) {
+			const active = button.dataset.difficultyChartView === view;
+			button.classList.toggle('active', active);
+			button.setAttribute('aria-pressed', String(active));
+		}
+
+		if (persist) {
+			try {
+				localStorage.setItem(viewStorageKey, view);
+			} catch {}
+		}
+	}
+
+	function applyFilters() {
+		if (!(queryInput instanceof HTMLInputElement)) return;
+		if (!(typeSelect instanceof HTMLSelectElement)) return;
+		if (!(levelSelect instanceof HTMLSelectElement)) return;
+		if (!(versionSelect instanceof HTMLSelectElement)) return;
+		if (!(includePerfectInput instanceof HTMLInputElement)) return;
+
+		const query = queryInput.value.trim().toLocaleLowerCase('ko');
+		const matches = rows.filter((row) =>
+			(!query || row.dataset.search?.includes(query)) &&
+			(!typeSelect.value || row.dataset.type === typeSelect.value) &&
+			(!levelSelect.value || row.dataset.level === levelSelect.value) &&
+			(!versionSelect.value || row.dataset.version === versionSelect.value) &&
+			(includePerfectInput.checked || row.dataset.perfect !== 'true'),
+		);
+		const matchSet = new Set(matches);
+
+		for (const row of rows) row.hidden = !matchSet.has(row);
+		if (list instanceof HTMLElement) list.hidden = matches.length === 0;
+		if (count) count.textContent = `${matches.length.toLocaleString('ko-KR')}개`;
+		if (empty instanceof HTMLElement) empty.hidden = matches.length > 0;
+	}
+
+	form?.addEventListener('input', applyFilters);
+	form?.addEventListener('reset', () => requestAnimationFrame(applyFilters));
+	for (const button of viewButtons) {
+		button.addEventListener('click', () => {
+			const view = button.dataset.difficultyChartView;
+			if (view === 'list' || view === 'grid') applyView(view);
+		});
+	}
+
+	let initialView: ChartView = 'list';
+	try {
+		if (localStorage.getItem(viewStorageKey) === 'grid') initialView = 'grid';
+	} catch {}
+	applyView(initialView, false);
+	applyFilters();
+</script>

@@ -169,7 +169,7 @@ img {
 .archive-modes {
 	display: grid;
 	gap: 0.75rem;
-	grid-template-columns: repeat(3, minmax(0, 1fr));
+	grid-template-columns: repeat(4, minmax(0, 1fr));
 	margin: 0.75rem 0 2rem;
 }
 
@@ -193,6 +193,10 @@ img {
 }
 
 .archive-modes a:nth-child(2) {
+	border-top: 3px solid #8a67ad;
+}
+
+.archive-modes a:nth-child(3) {
 	border-top: 3px solid var(--coral);
 }
 
@@ -577,6 +581,10 @@ a.record-refresh-button.compact {
 
 .level-chart-filters {
 	grid-template-columns: minmax(190px, 1fr) repeat(4, minmax(96px, 0.36fr)) minmax(142px, auto) auto;
+}
+
+.difficulty-chart-filters {
+	grid-template-columns: minmax(220px, 1fr) repeat(3, minmax(104px, 0.4fr)) minmax(142px, auto) auto;
 }
 
 .record-filters label {
@@ -982,6 +990,68 @@ a.record-refresh-button.compact {
 .level-index-grid small {
 	align-self: end;
 	font-variant-numeric: tabular-nums;
+}
+
+.difficulty-index-grid {
+	display: grid;
+	gap: 0.65rem;
+	grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.difficulty-index-card {
+	--difficulty-accent: #68727c;
+	background-color: var(--surface);
+	background-image: linear-gradient(to top, rgba(213, 76, 76, 0.2), rgba(238, 137, 137, 0.09));
+	background-position: bottom;
+	background-repeat: no-repeat;
+	background-size: 100% var(--ap-progress, 0%);
+	border: 1px solid rgb(var(--line));
+	border-radius: 6px;
+	border-top: 3px solid var(--difficulty-accent);
+	color: rgb(var(--text));
+	display: grid;
+	height: 148px;
+	padding: 1rem;
+	text-decoration: none;
+	transition: border-color 140ms ease, box-shadow 140ms ease, transform 140ms ease;
+}
+
+.difficulty-index-card:hover {
+	box-shadow: var(--shadow-soft);
+	transform: translateY(-1px);
+}
+
+.difficulty-index-card span,
+.difficulty-index-card small {
+	color: rgb(var(--muted));
+	font-size: 0.68rem;
+	font-weight: 760;
+}
+
+.difficulty-index-card strong {
+	align-self: center;
+	font-size: 1.45rem;
+	overflow-wrap: anywhere;
+}
+
+.difficulty-index-card small {
+	align-self: end;
+	font-variant-numeric: tabular-nums;
+}
+
+.difficulty-tone-basic { --difficulty-accent: #45a96f; }
+.difficulty-tone-advanced { --difficulty-accent: #c69a17; }
+.difficulty-tone-expert { --difficulty-accent: #d55e56; }
+.difficulty-tone-master { --difficulty-accent: #8060a8; }
+.difficulty-tone-remaster { --difficulty-accent: #aa79b3; }
+
+.difficulty-detail-heading {
+	border-left: 4px solid var(--difficulty-accent);
+	padding-left: 1rem;
+}
+
+.difficulty-strip a {
+	min-width: max-content;
 }
 
 .catalog-breadcrumb {
@@ -1840,6 +1910,10 @@ a.record-refresh-button.compact {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 
+	.difficulty-index-grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
 	.record-filters {
 		grid-template-columns: minmax(200px, 1fr) repeat(2, minmax(108px, 0.45fr));
 	}
@@ -1927,6 +2001,10 @@ a.record-refresh-button.compact {
 	.level-quick-grid,
 	.level-index-grid,
 	.record-gallery-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.difficulty-index-grid {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 

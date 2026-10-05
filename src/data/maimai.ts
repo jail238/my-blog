@@ -4,6 +4,8 @@ import maishiftData from './maishift.generated.json';
 export type ChartType = 'STANDARD' | 'DX';
 export type Difficulty = 'BASIC' | 'ADVANCED' | 'EXPERT' | 'MASTER' | 'Re:MASTER';
 
+export const DIFFICULTIES: readonly Difficulty[] = ['BASIC', 'ADVANCED', 'EXPERT', 'MASTER', 'Re:MASTER'];
+
 export interface MaimaiVersion {
 	id: string;
 	name: string;
@@ -149,6 +151,14 @@ const difficultyOrder: Record<Difficulty, number> = {
 	'Re:MASTER': 5,
 };
 
+const difficultySlugs: Record<Difficulty, string> = {
+	BASIC: 'basic',
+	ADVANCED: 'advanced',
+	EXPERT: 'expert',
+	MASTER: 'master',
+	'Re:MASTER': 'remaster',
+};
+
 const apOrder: Record<string, number> = {
 	'AP+': 2,
 	AP: 1,
@@ -265,24 +275,34 @@ export function levelToSlug(level: string) {
 	return level.replace('+', '-plus');
 }
 
+export function difficultyToSlug(difficulty: Difficulty) {
+	return difficultySlugs[difficulty];
+}
+
+function compareProgressCharts(a: Chart, b: Chart) {
+	const apDifference = (apOrder[b.record?.combo ?? ''] ?? 0) - (apOrder[a.record?.combo ?? ''] ?? 0);
+	if (apDifference !== 0) return apDifference;
+
+	const achievementDifference = (b.record?.achievementValue ?? 0) - (a.record?.achievementValue ?? 0);
+	if (achievementDifference !== 0) return achievementDifference;
+
+	const constantDifference = (b.constant ?? 0) - (a.constant ?? 0);
+	if (constantDifference !== 0) return constantDifference;
+
+	const songA = songById.get(a.songId)?.title ?? '';
+	const songB = songById.get(b.songId)?.title ?? '';
+	const songDifference = songA.localeCompare(songB, 'ko');
+	if (songDifference !== 0) return songDifference;
+
+	return difficultyOrder[b.difficulty] - difficultyOrder[a.difficulty];
+}
+
 export function chartsForLevel(level: string) {
-	return CHARTS.filter((chart) => chart.level === level).sort((a, b) => {
-		const apDifference = (apOrder[b.record?.combo ?? ''] ?? 0) - (apOrder[a.record?.combo ?? ''] ?? 0);
-		if (apDifference !== 0) return apDifference;
+	return CHARTS.filter((chart) => chart.level === level).sort(compareProgressCharts);
+}
 
-		const achievementDifference = (b.record?.achievementValue ?? 0) - (a.record?.achievementValue ?? 0);
-		if (achievementDifference !== 0) return achievementDifference;
-
-		const constantDifference = (b.constant ?? 0) - (a.constant ?? 0);
-		if (constantDifference !== 0) return constantDifference;
-
-		const songA = songById.get(a.songId)?.title ?? '';
-		const songB = songById.get(b.songId)?.title ?? '';
-		const songDifference = songA.localeCompare(songB, 'ko');
-		if (songDifference !== 0) return songDifference;
-
-		return difficultyOrder[b.difficulty] - difficultyOrder[a.difficulty];
-	});
+export function chartsForDifficulty(difficulty: Difficulty) {
+	return CHARTS.filter((chart) => chart.difficulty === difficulty).sort(compareProgressCharts);
 }
 
 export function chartsForSong(songId: string) {
