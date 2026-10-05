@@ -1686,14 +1686,93 @@ a.record-refresh-button.compact {
 
 .song-detail-header h1 {
 	font-size: 2rem;
+	margin: 0;
+	min-width: 0;
+	overflow-wrap: anywhere;
+}
+
+.song-title-row {
+	align-items: flex-start;
+	display: flex;
+	gap: 0.45rem;
+	max-width: 100%;
+	min-width: 0;
+	width: fit-content;
+}
+
+.song-title-row-original {
 	margin-bottom: 0.15rem;
+}
+
+.song-title-row-translated {
+	gap: 0.28rem;
+	margin-bottom: 0.32rem;
 }
 
 .song-title-ko {
 	color: rgb(var(--muted));
 	font-size: 0.78rem;
 	font-weight: 650;
-	margin: 0 0 0.32rem;
+	margin: 0;
+	min-width: 0;
+	overflow-wrap: anywhere;
+}
+
+.song-title-copy {
+	align-items: center;
+	background: transparent;
+	border: 0;
+	border-radius: 3px;
+	color: rgb(var(--muted));
+	cursor: pointer;
+	display: inline-flex;
+	flex: 0 0 auto;
+	height: 28px;
+	justify-content: center;
+	margin-top: 0.12rem;
+	padding: 0;
+	transition: background-color 120ms ease, color 120ms ease;
+	width: 28px;
+}
+
+.song-title-row-translated .song-title-copy {
+	height: 20px;
+	margin-top: -0.06rem;
+	width: 20px;
+}
+
+.song-title-copy:hover {
+	background: rgb(var(--soft));
+	color: rgb(var(--text));
+}
+
+.song-title-copy:focus-visible {
+	outline: 2px solid var(--coral);
+	outline-offset: 2px;
+}
+
+.song-title-copy.copied {
+	color: var(--mint);
+}
+
+.song-title-copy-icon {
+	height: 15px;
+	stroke-width: 2;
+	width: 15px;
+}
+
+.song-title-row-translated .song-title-copy-icon {
+	height: 13px;
+	width: 13px;
+}
+
+.song-title-copy-success,
+.song-title-copy.copied .song-title-copy-default {
+	display: none;
+}
+
+.song-title-copy.copied .song-title-copy-success {
+	display: block;
 }
 
 .song-artist {

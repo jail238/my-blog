@@ -1,0 +1,70 @@
+---
+import { Check, Copy } from '@lucide/astro';
+
+interface Props {
+	label: string;
+	text: string;
+}
+
+const { label, text } = Astro.props;
+---
+
+<button
+	type="button"
+	class="song-title-copy"
+	data-copy-label={label}
+	data-copy-title={text}
+	aria-label={label}
+	title={label}
+>
+	<Copy class="song-title-copy-icon song-title-copy-default" aria-hidden="true" />
+	<Check class="song-title-copy-icon song-title-copy-success" aria-hidden="true" />
+</button>
+
+<script>
+	const feedbackTimers = new WeakMap<HTMLButtonElement, number>();
+
+	async function writeToClipboard(text: string) {
+		if (navigator.clipboard?.writeText) {
+			await navigator.clipboard.writeText(text);
+			return;
+		}
+
+		const textarea = document.createElement('textarea');
+		textarea.value = text;
+		textarea.setAttribute('readonly', '');
+		textarea.style.position = 'fixed';
+		textarea.style.opacity = '0';
+		document.body.append(textarea);
+		textarea.select();
+		const copied = document.execCommand('copy');
+		textarea.remove();
+
+		if (!copied) throw new Error('Clipboard copy failed');
+	}
+
+	function showFeedback(button: HTMLButtonElement, label: string, copied: boolean) {
+		window.clearTimeout(feedbackTimers.get(button));
+		button.classList.toggle('copied', copied);
+		button.setAttribute('aria-label', copied ? '복사됨' : '복사 실패');
+		button.title = copied ? '복사됨' : '복사 실패';
+
+		feedbackTimers.set(button, window.setTimeout(() => {
+			button.classList.remove('copied');
+			button.setAttribute('aria-label', label);
+			button.title = label;
+		}, 1500));
+	}
+
+	document.addEventListener('click', (event) => {
+		if (!(event.target instanceof Element)) return;
+
+		const button = event.target.closest<HTMLButtonElement>('[data-copy-title]');
+		const text = button?.dataset.copyTitle;
+		const label = button?.dataset.copyLabel ?? '제목 복사';
+		if (!button || !text) return;
+
+		showFeedback(button, label, true);
+		void writeToClipboard(text).catch(() => showFeedback(button, label, false));
+	});
+</script>

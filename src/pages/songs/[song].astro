@@ -1,6 +1,7 @@
 ---
 import SongArtwork from '../../components/SongArtwork.astro';
 import SongChartBoard from '../../components/SongChartBoard.astro';
+import SongTitleCopyButton from '../../components/SongTitleCopyButton.astro';
 import type { ChartType } from '../../data/maimai';
 import { SONGS, chartsForSong, versionGroupsForSong } from '../../data/maimai';
 import CatalogLayout from '../../layouts/CatalogLayout.astro';
@@ -33,8 +34,16 @@ const chartGroups = (['STANDARD', 'DX'] satisfies ChartType[])
 		<SongArtwork song={song} />
 		<div>
 			<p class="catalog-kicker">{song.genre}</p>
-			<h1>{song.title}</h1>
-			{song.koreanTitle && <p class="song-title-ko" lang="ko">{song.koreanTitle}</p>}
+			<div class="song-title-row song-title-row-original">
+				<h1>{song.title}</h1>
+				<SongTitleCopyButton text={song.title} label="원제목 복사" />
+			</div>
+			{song.koreanTitle && (
+				<div class="song-title-row song-title-row-translated" lang="ko">
+					<p class="song-title-ko">{song.koreanTitle}</p>
+					<SongTitleCopyButton text={song.koreanTitle} label="한국어 제목 복사" />
+				</div>
+			)}
 			<p class="song-artist">{song.artist}</p>
 			<div class="song-version-links" aria-label="채보별 수록 버전">
 				{versionGroups.map(({ version, types }) => (
