@@ -50,6 +50,18 @@ test('home record metrics sit on the cover without a snapshot label or date', ()
   assert.match(css, /\.profile-metrics small\s*\{[^}]*color:\s*#ffffff/);
 });
 
+test('home cover uses the full image ratio rather than a cropped fixed-height banner', () => {
+  const css = readFileSync(new URL('src/styles/global.css', root), 'utf8');
+  for (const [, rule] of css.matchAll(/\.archive-cover\s*\{([^}]+)\}/g)) {
+    assert.doesNotMatch(rule, /(?:min-|max-)?height\s*:/);
+  }
+  const image = css.match(/\.archive-cover-image\s*\{([^}]+)\}/)?.[1] ?? '';
+  assert.match(image, /height:\s*auto/);
+  assert.match(image, /width:\s*100%/);
+  assert.doesNotMatch(image, /object-fit:\s*cover|position:\s*absolute/);
+  assert.match(css, /\.cover-layout\s*\{[^}]*inset:\s*0;[^}]*position:\s*absolute/);
+});
+
 test('archive accents and progress use neutral grays with readable active controls', () => {
   const css = readFileSync(new URL('src/styles/global.css', root), 'utf8');
   const palette = css.match(/:root\s*\{([^}]+)\}/)?.[1] ?? '';
