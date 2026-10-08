@@ -17,9 +17,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const songs = songsForVersion(version.id);
 ---
 
-<CatalogLayout title={`${version.shortName} | ${SITE_TITLE}`} description={`${version.name} 수록곡 목록`} pageClass="version-detail-page">
-	<nav class="catalog-breadcrumb" aria-label="현재 위치">
-		<a href={`${base}/versions/`}>버전</a>
+<CatalogLayout title={`${version.shortName} | ${SITE_TITLE}`} description={`${version.name} song list`} pageClass="version-detail-page">
+	<nav class="catalog-breadcrumb" aria-label="Breadcrumb">
+		<a href={`${base}/versions/`}>Version</a>
 		<span aria-hidden="true">/</span>
 		<strong>{version.shortName}</strong>
 	</nav>
@@ -36,12 +36,12 @@ const songs = songsForVersion(version.id);
 				<CatalogSearch
 					id="version-songs"
 					targetId="version-song-list"
-					placeholder="곡명 또는 아티스트"
+					placeholder="Song title or artist"
 					initialCount={songs.length}
-					sortLabel="곡명 순"
-					emptyMessage="조건에 맞는 곡이 없습니다."
+					sortLabel="Title order"
+					emptyMessage="No matching songs."
 				/>
-				<section class="song-list" id="version-song-list" aria-label={`${version.shortName} 수록곡`}>
+				<section class="song-list" id="version-song-list" aria-label={`${version.shortName} songs`}>
 					{songs.map((song) => (
 						<SongRow song={song} charts={chartsForSongVersion(song.id, version.id)} />
 					))}
@@ -49,7 +49,7 @@ const songs = songsForVersion(version.id);
 			</>
 		) : (
 			<section class="catalog-empty">
-				<strong>등록된 곡이 없습니다.</strong>
+				<strong>No songs available.</strong>
 			</section>
 		)
 	}

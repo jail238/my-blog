@@ -19,20 +19,20 @@ const versionProgress = versionsNewestFirst.map((version) => {
 });
 ---
 
-<CatalogLayout title={`버전 | ${SITE_TITLE}`} description="maimai 수록곡을 버전별로 정리한 아카이브" pageClass="version-index-page">
+<CatalogLayout title={`Version | ${SITE_TITLE}`} description="maimai songs organized by version" pageClass="version-index-page">
 	<header class="catalog-page-header">
 		<p class="catalog-kicker">VERSION INDEX</p>
-		<h1>버전</h1>
+		<h1>Version</h1>
 		<p>{versionsNewestFirst.length} VERSIONS</p>
 	</header>
 
-	<section class="version-index-list" id="version-index-list" aria-label="버전 목록">
+	<section class="version-index-list" id="version-index-list" aria-label="Version list">
 		{versionProgress.map(({ version, apCount, totalCount, apRate, songCount }) => {
 			return (
 				<a
 					href={`${base}/versions/${version.id}/`}
 					style={`--ap-progress: ${apRate.toFixed(2)}%`}
-					title={`AP 이상 ${apCount}/${totalCount}`}
+					title={`AP / AP+ ${apCount}/${totalCount}`}
 				>
 					<span class="version-sequence">{String(version.order).padStart(2, '0')}</span>
 					<span class="version-name">
@@ -42,7 +42,7 @@ const versionProgress = versionsNewestFirst.map((version) => {
 					<span class="version-index-meta">
 						<b>{apCount}/{totalCount}</b>
 						<span aria-hidden="true">·</span>
-						<span class:list={['version-count', { empty: songCount === 0 }]}>{songCount}곡</span>
+						<span class:list={['version-count', { empty: songCount === 0 }]}>{songCount} songs</span>
 					</span>
 					<span class="version-arrow" aria-hidden="true">›</span>
 				</a>

@@ -17,20 +17,20 @@ const difficultyProgress = DIFFICULTIES.map((difficulty) => {
 });
 ---
 
-<CatalogLayout title={`난이도 | ${SITE_TITLE}`} description="maimai 채보를 난이도별로 정리한 아카이브" pageClass="difficulty-index-page">
+<CatalogLayout title={`Difficulty | ${SITE_TITLE}`} description="maimai charts organized by difficulty" pageClass="difficulty-index-page">
 	<header class="catalog-page-header">
 		<p class="catalog-kicker">DIFFICULTY INDEX</p>
-		<h1>난이도</h1>
+		<h1>Difficulty</h1>
 		<p>{DIFFICULTIES.length} DIFFICULTIES · {CHARTS.length} CHARTS</p>
 	</header>
 
-	<section class="difficulty-index-grid" aria-label="난이도 목록">
+	<section class="difficulty-index-grid" aria-label="Difficulty list">
 		{difficultyProgress.map(({ difficulty, slug, apCount, totalCount, apRate }) => (
 			<a
 				class:list={['difficulty-index-card', `difficulty-tone-${slug}`]}
 				href={`${base}/difficulties/${slug}/`}
 				style={`--ap-progress: ${apRate.toFixed(2)}%`}
-				title={`AP 이상 ${apCount}/${totalCount} (${apRate.toFixed(1)}%)`}
+				title={`AP / AP+ ${apCount}/${totalCount} (${apRate.toFixed(1)}%)`}
 			>
 				<span>DIFFICULTY</span>
 				<strong>{difficulty}</strong>

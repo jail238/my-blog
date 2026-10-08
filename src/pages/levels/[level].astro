@@ -25,9 +25,9 @@ const internalLevels = [...new Set(
 )].sort((a, b) => Number(a) - Number(b));
 ---
 
-<CatalogLayout title={`LEVEL ${level} | ${SITE_TITLE}`} description={`maimai LEVEL ${level} 채보 목록`} pageClass="level-detail-page">
-	<nav class="catalog-breadcrumb" aria-label="현재 위치">
-		<a href={`${base}/levels/`}>레벨</a>
+<CatalogLayout title={`LEVEL ${level} | ${SITE_TITLE}`} description={`maimai LEVEL ${level} chart list`} pageClass="level-detail-page">
+	<nav class="catalog-breadcrumb" aria-label="Breadcrumb">
+		<a href={`${base}/levels/`}>Level</a>
 		<span aria-hidden="true">/</span>
 		<strong>{level}</strong>
 	</nav>
@@ -38,7 +38,7 @@ const internalLevels = [...new Set(
 		<p>{charts.length} CHARTS · {perfectCount}/{charts.length}</p>
 	</header>
 
-	<nav class="level-strip" aria-label="다른 레벨">
+	<nav class="level-strip" aria-label="Other levels">
 		{levels.map((item) => (
 			<a class:list={{ active: item === level }} href={`${base}/levels/${levelToSlug(item)}/`}>{item}</a>
 		))}
@@ -46,21 +46,21 @@ const internalLevels = [...new Set(
 
 	<form class="record-filters level-chart-filters" id="level-chart-filters">
 		<label class="record-search">
-			<span>검색</span>
-			<input id="level-chart-query" type="search" placeholder="곡명 또는 아티스트" autocomplete="off" />
+			<span>Search</span>
+			<input id="level-chart-query" type="search" placeholder="Song title or artist" autocomplete="off" />
 		</label>
 		<label>
-			<span>채보</span>
+			<span>Chart type</span>
 			<select id="level-chart-type">
-				<option value="">전체</option>
+				<option value="">All</option>
 				<option value="STANDARD">ST</option>
 				<option value="DX">DX</option>
 			</select>
 		</label>
 		<label>
-			<span>난이도</span>
+			<span>Difficulty</span>
 			<select id="level-chart-difficulty">
-				<option value="">전체</option>
+				<option value="">All</option>
 				<option value="BASIC">BASIC</option>
 				<option value="ADVANCED">ADVANCED</option>
 				<option value="EXPERT">EXPERT</option>
@@ -69,39 +69,39 @@ const internalLevels = [...new Set(
 			</select>
 		</label>
 		<label>
-			<span>내부 레벨</span>
+			<span>Constant</span>
 			<select id="level-chart-constant">
-				<option value="">전체</option>
+				<option value="">All</option>
 				{internalLevels.map((constant) => <option value={constant}>{constant}</option>)}
 			</select>
 		</label>
 		<label>
-			<span>버전</span>
+			<span>Version</span>
 			<select id="level-chart-version">
-				<option value="">전체</option>
+				<option value="">All</option>
 				{versionsNewestFirst.map((version) => <option value={version.id}>{version.shortName}</option>)}
 			</select>
 		</label>
 		<label class="record-checkbox">
 			<input id="level-chart-include-perfect" type="checkbox" checked />
-			<span>AP/AP+ 완료 포함</span>
+			<span>Include AP/AP+</span>
 		</label>
-		<button type="reset">초기화</button>
+		<button type="reset">Reset</button>
 	</form>
 
 	<div class="record-result-bar level-chart-result-bar">
-		<strong id="level-chart-count" aria-live="polite">{charts.length.toLocaleString('ko-KR')}개</strong>
+		<strong id="level-chart-count" aria-live="polite">{charts.length.toLocaleString('en-US')} charts</strong>
 		<div class="level-chart-result-actions">
-			<span>AP+ · AP · 달성률 순</span>
-			<div class="level-chart-view-toggle" role="group" aria-label="보기 방식">
+			<span>AP+ · AP · Achievement</span>
+			<div class="level-chart-view-toggle" role="group" aria-label="View mode">
 				<button
 					type="button"
 					class="level-chart-view-button active"
 					data-level-chart-view="list"
-					aria-label="목록으로 보기"
+					aria-label="List view"
 					aria-controls="level-chart-list"
 					aria-pressed="true"
-					title="목록으로 보기"
+					title="List view"
 				>
 					<List size={18} aria-hidden="true" />
 				</button>
@@ -109,10 +109,10 @@ const internalLevels = [...new Set(
 					type="button"
 					class="level-chart-view-button"
 					data-level-chart-view="grid"
-					aria-label="격자로 보기"
+					aria-label="Grid view"
 					aria-controls="level-chart-list"
 					aria-pressed="false"
-					title="격자로 보기"
+					title="Grid view"
 				>
 					<LayoutGrid size={18} aria-hidden="true" />
 				</button>
@@ -120,13 +120,13 @@ const internalLevels = [...new Set(
 		</div>
 	</div>
 
-	<section class="chart-list" id="level-chart-list" data-view="list" aria-label={`LEVEL ${level} 채보`}>
+	<section class="chart-list" id="level-chart-list" data-view="list" aria-label={`LEVEL ${level} Charts`}>
 		{charts.map((chart) => {
 			const song = songById.get(chart.songId);
 			return song && <ChartRow chart={chart} song={song} />;
 		})}
 	</section>
-	<div class="catalog-empty compact" id="level-chart-empty" hidden><strong>조건에 맞는 채보가 없습니다.</strong></div>
+	<div class="catalog-empty compact" id="level-chart-empty" hidden><strong>No matching charts.</strong></div>
 </CatalogLayout>
 
 <script>
@@ -183,7 +183,7 @@ const internalLevels = [...new Set(
 
 		for (const row of rows) row.hidden = !matchSet.has(row);
 		if (list instanceof HTMLElement) list.hidden = matches.length === 0;
-		if (count) count.textContent = `${matches.length.toLocaleString('ko-KR')}개`;
+		if (count) count.textContent = `${matches.length.toLocaleString('en-US')} charts`;
 		if (empty instanceof HTMLElement) empty.hidden = matches.length > 0;
 	}
 

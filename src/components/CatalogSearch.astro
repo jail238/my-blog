@@ -22,14 +22,14 @@ const emptyId = `${id}-empty`;
 	data-empty={emptyId}
 >
 	<label class="record-search">
-		<span>검색</span>
+		<span>Search</span>
 		<input type="search" placeholder={placeholder} autocomplete="off" />
 	</label>
-	<button type="reset">초기화</button>
+	<button type="reset">Reset</button>
 </form>
 
 <div class="record-result-bar" aria-live="polite">
-	<strong id={countId}>{initialCount.toLocaleString('ko-KR')}개</strong>
+	<strong id={countId}>{initialCount.toLocaleString('en-US')} songs</strong>
 	<span>{sortLabel}</span>
 </div>
 
@@ -52,7 +52,7 @@ const emptyId = `${id}-empty`;
 
 			for (const row of rows) row.hidden = !matchSet.has(row);
 			target.hidden = matches.length === 0;
-			if (count) count.textContent = `${matches.length.toLocaleString('ko-KR')}개`;
+			if (count) count.textContent = `${matches.length.toLocaleString('en-US')} songs`;
 			if (empty instanceof HTMLElement) empty.hidden = matches.length > 0;
 		}
 

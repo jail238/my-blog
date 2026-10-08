@@ -32,9 +32,9 @@ const perfectCount = charts.filter((chart) => chart.record?.combo === 'AP' || ch
 const levels = registeredLevels().slice().reverse();
 ---
 
-<CatalogLayout title={`${difficulty} | ${SITE_TITLE}`} description={`maimai ${difficulty} 채보 목록`} pageClass="difficulty-detail-page">
-	<nav class="catalog-breadcrumb" aria-label="현재 위치">
-		<a href={`${base}/difficulties/`}>난이도</a>
+<CatalogLayout title={`${difficulty} | ${SITE_TITLE}`} description={`maimai ${difficulty} chart list`} pageClass="difficulty-detail-page">
+	<nav class="catalog-breadcrumb" aria-label="Breadcrumb">
+		<a href={`${base}/difficulties/`}>Difficulty</a>
 		<span aria-hidden="true">/</span>
 		<strong>{difficulty}</strong>
 	</nav>
@@ -45,7 +45,7 @@ const levels = registeredLevels().slice().reverse();
 		<p>{charts.length} CHARTS · {perfectCount}/{charts.length}</p>
 	</header>
 
-	<nav class="level-strip difficulty-strip" aria-label="다른 난이도">
+	<nav class="level-strip difficulty-strip" aria-label="Other difficulties">
 		{DIFFICULTIES.map((item) => (
 			<a
 				class:list={{ active: item === difficulty }}
@@ -56,102 +56,102 @@ const levels = registeredLevels().slice().reverse();
 
 	<form class="record-filters difficulty-chart-filters" id="difficulty-chart-filters">
 		<label class="record-search">
-			<span>검색</span>
-			<input id="difficulty-chart-query" type="search" placeholder="곡명 또는 아티스트" autocomplete="off" />
+			<span>Search</span>
+			<input id="difficulty-chart-query" type="search" placeholder="Song title or artist" autocomplete="off" />
 		</label>
 		<label>
-			<span>채보</span>
+			<span>Chart type</span>
 			<select id="difficulty-chart-type">
-				<option value="">전체</option>
+				<option value="">All</option>
 				<option value="STANDARD">ST</option>
 				<option value="DX">DX</option>
 			</select>
 		</label>
 		<label>
-			<span>레벨</span>
+			<span>Level</span>
 			<select id="difficulty-chart-level">
-				<option value="">전체</option>
+				<option value="">All</option>
 				{levels.map((level) => <option value={level}>{level}</option>)}
 			</select>
 		</label>
 		<label>
-			<span>버전</span>
+			<span>Version</span>
 			<select id="difficulty-chart-version">
-				<option value="">전체</option>
+				<option value="">All</option>
 				{versionsNewestFirst.map((version) => <option value={version.id}>{version.shortName}</option>)}
 			</select>
 		</label>
 		<label class="record-checkbox">
 			<input id="difficulty-chart-include-perfect" type="checkbox" checked />
-			<span>AP/AP+ 완료 포함</span>
+			<span>Include AP/AP+</span>
 		</label>
-		<button type="reset">초기화</button>
+		<button type="reset">Reset</button>
 	</form>
 
 	<div class="record-result-bar level-chart-result-bar">
-		<strong id="difficulty-chart-count" aria-live="polite">{charts.length.toLocaleString('ko-KR')}개</strong>
+		<strong id="difficulty-chart-count" aria-live="polite">{charts.length.toLocaleString('en-US')} charts</strong>
 		<div class="level-chart-result-actions">
 			<div class="difficulty-chart-page-size-control">
 				<select
 					class="difficulty-chart-page-size"
 					id="difficulty-chart-page-size"
-					aria-label="페이지당 표시 개수"
-					title="페이지당 표시 개수"
+					aria-label="Items per page"
+					title="Items per page"
 				>
-					<option value="30">30개 보기</option>
-					<option value="50">50개 보기</option>
-					<option value="100">100개 보기</option>
+					<option value="30">Show 30</option>
+					<option value="50">Show 50</option>
+					<option value="100">Show 100</option>
 				</select>
 				<ChevronsUpDown class="difficulty-chart-page-size-icon" aria-hidden="true" />
 			</div>
-			<div class="difficulty-chart-sort-toggle" role="group" aria-label="정렬 기준">
+			<div class="difficulty-chart-sort-toggle" role="group" aria-label="Sort by">
 				<button
 					type="button"
 					class="difficulty-chart-sort-button"
 					data-difficulty-chart-sort-key="ap-plus"
 					aria-pressed="false"
-					title="AP+ 달성 여부로 정렬"
+					title="Sort by AP+ completion"
 				>AP+</button>
 				<button
 					type="button"
 					class="difficulty-chart-sort-button active"
 					data-difficulty-chart-sort-key="ap"
 					aria-pressed="true"
-					title="AP 이상 달성 여부로 정렬"
+					title="Sort by AP / AP+ completion"
 				>AP</button>
 				<button
 					type="button"
 					class="difficulty-chart-sort-button"
 					data-difficulty-chart-sort-key="achievement"
 					aria-pressed="false"
-					title="달성률로 정렬"
-				>달성률</button>
+					title="Sort by achievement"
+				>Rate</button>
 				<button
 					type="button"
 					class="difficulty-chart-sort-button"
 					data-difficulty-chart-sort-key="level"
 					aria-pressed="false"
-					title="내부 레벨로 정렬"
-				>난이도</button>
+					title="Sort by chart constant"
+				>Level</button>
 			</div>
-			<div class="difficulty-chart-direction-toggle" role="group" aria-label="정렬 방향">
+			<div class="difficulty-chart-direction-toggle" role="group" aria-label="Sort direction">
 				<button
 					type="button"
 					class="difficulty-chart-direction-button active"
 					data-difficulty-chart-sort-direction="desc"
-					aria-label="현재 내림차순, 누르면 오름차순"
-					title="현재 내림차순 · 누르면 오름차순"
+					aria-label="Descending; click to sort ascending"
+					title="Descending; click to sort ascending"
 				>↑</button>
 			</div>
-			<div class="level-chart-view-toggle" role="group" aria-label="보기 방식">
+			<div class="level-chart-view-toggle" role="group" aria-label="View mode">
 				<button
 					type="button"
 					class="level-chart-view-button active"
 					data-difficulty-chart-view="list"
-					aria-label="목록으로 보기"
+					aria-label="List view"
 					aria-controls="difficulty-chart-list"
 					aria-pressed="true"
-					title="목록으로 보기"
+					title="List view"
 				>
 					<List size={18} aria-hidden="true" />
 				</button>
@@ -159,10 +159,10 @@ const levels = registeredLevels().slice().reverse();
 					type="button"
 					class="level-chart-view-button"
 					data-difficulty-chart-view="grid"
-					aria-label="격자로 보기"
+					aria-label="Grid view"
 					aria-controls="difficulty-chart-list"
 					aria-pressed="false"
-					title="격자로 보기"
+					title="Grid view"
 				>
 					<LayoutGrid size={18} aria-hidden="true" />
 				</button>
@@ -170,17 +170,17 @@ const levels = registeredLevels().slice().reverse();
 		</div>
 	</div>
 
-	<section class="chart-list" id="difficulty-chart-list" data-view="list" aria-label={`${difficulty} 채보`}>
+	<section class="chart-list" id="difficulty-chart-list" data-view="list" aria-label={`${difficulty} Charts`}>
 		{charts.map((chart) => {
 			const song = songById.get(chart.songId);
 			return song && <ChartRow chart={chart} song={song} />;
 		})}
 	</section>
-	<div class="catalog-empty compact" id="difficulty-chart-empty" hidden><strong>조건에 맞는 채보가 없습니다.</strong></div>
-	<nav class="difficulty-chart-pagination" id="difficulty-chart-pagination" aria-label="채보 페이지 이동">
-		<button type="button" id="difficulty-chart-prev" aria-label="이전 페이지" title="이전 페이지"><ArrowLeft size={18} aria-hidden="true" /></button>
+	<div class="catalog-empty compact" id="difficulty-chart-empty" hidden><strong>No matching charts.</strong></div>
+	<nav class="difficulty-chart-pagination" id="difficulty-chart-pagination" aria-label="Chart pagination">
+		<button type="button" id="difficulty-chart-prev" aria-label="Previous page" title="Previous page"><ArrowLeft size={18} aria-hidden="true" /></button>
 		<span id="difficulty-chart-page-status" aria-live="polite">1 / 1</span>
-		<button type="button" id="difficulty-chart-next" aria-label="다음 페이지" title="다음 페이지"><ArrowRight size={18} aria-hidden="true" /></button>
+		<button type="button" id="difficulty-chart-next" aria-label="Next page" title="Next page"><ArrowRight size={18} aria-hidden="true" /></button>
 	</nav>
 </CatalogLayout>
 
@@ -262,12 +262,12 @@ const levels = registeredLevels().slice().reverse();
 		}
 		if (sortDirectionButton) {
 			const isDescending = direction === 'desc';
-			const currentLabel = isDescending ? '내림차순' : '오름차순';
-			const nextLabel = isDescending ? '오름차순' : '내림차순';
+			const currentLabel = isDescending ? 'descending' : 'ascending';
+			const nextLabel = isDescending ? 'ascending' : 'descending';
 			sortDirectionButton.dataset.difficultyChartSortDirection = direction;
 			sortDirectionButton.textContent = isDescending ? '↑' : '↓';
-			sortDirectionButton.setAttribute('aria-label', `현재 ${currentLabel}, 누르면 ${nextLabel}`);
-			sortDirectionButton.title = `현재 ${currentLabel} · 누르면 ${nextLabel}`;
+			sortDirectionButton.setAttribute('aria-label', `${currentLabel}; click to sort ${nextLabel}`);
+			sortDirectionButton.title = `${currentLabel}; click to sort ${nextLabel}`;
 		}
 
 		if (persist) {
@@ -309,8 +309,8 @@ const levels = registeredLevels().slice().reverse();
 		for (const row of rows) row.hidden = !visibleRows.has(row);
 		if (list instanceof HTMLElement) list.hidden = total === 0;
 		if (count) count.textContent = total === 0
-			? '0개'
-			: `${(start + 1).toLocaleString('ko-KR')}-${end.toLocaleString('ko-KR')}/${total.toLocaleString('ko-KR')}개`;
+			? '0 charts'
+			: `${(start + 1).toLocaleString('en-US')}-${end.toLocaleString('en-US')}/${total.toLocaleString('en-US')} charts`;
 		if (empty instanceof HTMLElement) empty.hidden = total > 0;
 		if (pagination instanceof HTMLElement) pagination.hidden = totalPages <= 1;
 		if (pageStatus) pageStatus.textContent = totalPages === 0 ? '0 / 0' : `${currentPage} / ${totalPages}`;

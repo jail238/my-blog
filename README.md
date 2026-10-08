@@ -70,6 +70,6 @@ npm run preview
 - `npm run sync:records` refreshes achievements, ranks, combo/sync states, DX scores, and rating contribution. When Maishift history is public, it incrementally checks new snapshots and backfills the first snapshot containing the current AP state; an AP+ record uses the first AP+ snapshot rather than its earlier AP snapshot. Available history begins on 2026-03-07, so the site labels these as confirmation dates rather than claiming exact play times.
 - Plate conditions follow [SEGA's official rules](https://maimai.sega.jp/news/2020-01-15/). The individual in-game plate images come from the [Lxns Network maimai asset mirror](https://maimai.lxns.net/docs/api/maimai), and version prefixes, the combined 真 group, and the maimai–FiNALE STANDARD scope for 舞神 follow the [documented collection list](https://gamerch.com/maimai/533650).
 - The FC, FC+, AP, and AP+ marks use the in-game image assets mirrored by the MIT-licensed [Lxns Network frontend](https://github.com/Lxns-Network/maimai-prober-frontend). Numbered DX-star icons come from the official International DX NET asset endpoint. See `THIRD_PARTY_NOTICES.md`.
-- Song jackets are loaded from the metadata provider; the archive cover was generated specifically for this site.
+- Song jackets are loaded from the metadata provider; the homepage cover is supplied by the site owner and served as responsive WebP images.
 - The project is not affiliated with SEGA.
 - Do not commit tokens or other private data.

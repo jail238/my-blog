@@ -29,7 +29,7 @@ const chartGroups = (['STANDARD', 'DX'] as const satisfies readonly ChartType[])
 			type,
 			label: type === 'STANDARD' ? 'ST' : 'DX',
 			markers,
-			perfectLabel: markers.filter((marker) => marker.perfect).map((marker) => marker.difficulty).join(', ') || '없음',
+			perfectLabel: markers.filter((marker) => marker.perfect).map((marker) => marker.difficulty).join(', ') || 'None',
 		};
 	})
 	.filter((group) => group.markers.some((marker) => marker.available));
@@ -48,7 +48,7 @@ const chartGroups = (['STANDARD', 'DX'] as const satisfies readonly ChartType[])
 	{chartGroups.length > 0 && (
 		<span
 			class="song-row-types"
-			aria-label={chartGroups.map((group) => `${group.label} AP 이상: ${group.perfectLabel}`).join('; ')}
+			aria-label={chartGroups.map((group) => `${group.label} AP / AP+: ${group.perfectLabel}`).join('; ')}
 		>
 			{chartGroups.map((group) => (
 				<span class="song-row-chart-group">
@@ -60,7 +60,7 @@ const chartGroups = (['STANDARD', 'DX'] as const satisfies readonly ChartType[])
 									`perfect-${marker.difficulty.toLowerCase()}`,
 									{ 'is-perfect': marker.perfect, 'is-unavailable': !marker.available },
 								]}
-								title={`${marker.difficulty}: ${marker.available ? (marker.perfect ? marker.combo : '미달성') : '채보 없음'}`}
+								title={`${marker.difficulty}: ${marker.available ? (marker.perfect ? marker.combo : 'Not completed') : 'No chart'}`}
 							/>
 						))}
 					</span>

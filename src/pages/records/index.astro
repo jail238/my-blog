@@ -17,45 +17,45 @@ const records = PERFECT_RECORDED_CHARTS.map((chart) => {
 const filterLevels = [...LEVEL_ORDER].reverse();
 ---
 
-<CatalogLayout title={`내 기록 | ${SITE_TITLE}`} description="Maishift에서 가져온 maimai AP/AP+ 달성 기록" pageClass="records-page">
-	<nav class="catalog-breadcrumb" aria-label="현재 위치">
-		<a href={`${base}/`}>홈</a>
+<CatalogLayout title={`Records | ${SITE_TITLE}`} description="maimai AP/AP+ achievements imported from Maishift" pageClass="records-page">
+	<nav class="catalog-breadcrumb" aria-label="Breadcrumb">
+		<a href={`${base}/`}>Home</a>
 		<span aria-hidden="true">/</span>
-		<strong>등록 기록</strong>
+		<strong>Records</strong>
 	</nav>
 
 	<header class="catalog-page-header records-page-header">
 		<p class="catalog-kicker">MY RECORDS</p>
-		<h1>등록 기록</h1>
+		<h1>Records</h1>
 		<a
 			class="record-refresh-button"
 			href={RECORD_REFRESH_URL}
 			target="_blank"
 			rel="noreferrer"
-			title="GitHub Actions에서 Maishift 기록 갱신"
-		>기록 갱신</a>
+			title="Refresh Maishift records via GitHub Actions"
+		>Refresh records</a>
 		<p>
-			<strong>{records.length.toLocaleString('ko-KR')}</strong>개 채보 · <a href={MAISHIFT_SOURCE.profileUrl}>Maishift</a> 스냅샷
+			<strong>{records.length.toLocaleString('en-US')}</strong> charts · <a href={MAISHIFT_SOURCE.profileUrl}>Maishift</a> snapshot
 		</p>
 	</header>
 
 	<form class="record-filters records-filter-grid" id="record-filters">
 		<label class="record-search">
-			<span>검색</span>
-			<input id="record-query" type="search" placeholder="곡명 또는 아티스트" autocomplete="off" />
+			<span>Search</span>
+			<input id="record-query" type="search" placeholder="Song title or artist" autocomplete="off" />
 		</label>
 		<label>
-			<span>채보</span>
+			<span>Chart type</span>
 			<select id="record-type">
-				<option value="">전체</option>
+				<option value="">All</option>
 				<option value="STANDARD">ST</option>
 				<option value="DX">DX</option>
 			</select>
 		</label>
 		<label>
-			<span>난이도</span>
+			<span>Difficulty</span>
 			<select id="record-difficulty">
-				<option value="">전체</option>
+				<option value="">All</option>
 				<option value="BASIC">BASIC</option>
 				<option value="ADVANCED">ADVANCED</option>
 				<option value="EXPERT">EXPERT</option>
@@ -64,25 +64,25 @@ const filterLevels = [...LEVEL_ORDER].reverse();
 			</select>
 		</label>
 		<label>
-			<span>레벨</span>
+			<span>Level</span>
 			<select id="record-level">
-				<option value="">전체</option>
+				<option value="">All</option>
 				{filterLevels.map((level) => <option value={level}>{level}</option>)}
 			</select>
 		</label>
 		<label>
-			<span>버전</span>
+			<span>Version</span>
 			<select id="record-version">
-				<option value="">전체</option>
+				<option value="">All</option>
 				{versionsNewestFirst.map((version) => <option value={version.id}>{version.shortName}</option>)}
 			</select>
 		</label>
-		<button type="reset">초기화</button>
+		<button type="reset">Reset</button>
 	</form>
 
 	<div class="record-result-bar" aria-live="polite">
-		<strong id="record-result-count">{records.length.toLocaleString('ko-KR')}개</strong>
-		<span>AP · AP+ 최신 달성 순</span>
+		<strong id="record-result-count">{records.length.toLocaleString('en-US')} charts</strong>
+		<span>Latest AP / AP+ achievements</span>
 	</div>
 
 	<div class="record-list" id="record-list">
@@ -122,8 +122,8 @@ const filterLevels = [...LEVEL_ORDER].reverse();
 		))}
 	</div>
 
-	<div class="catalog-empty compact" id="record-empty" hidden><strong>조건에 맞는 기록이 없습니다.</strong></div>
-	<button class="record-more-button" id="record-more" type="button">50개 더 보기</button>
+	<div class="catalog-empty compact" id="record-empty" hidden><strong>No matching records.</strong></div>
+	<button class="record-more-button" id="record-more" type="button">Load 50 more</button>
 </CatalogLayout>
 
 <script>
@@ -158,7 +158,7 @@ const filterLevels = [...LEVEL_ORDER].reverse();
 		const matchSet = new Set(matches.slice(0, limit));
 
 		for (const row of rows) row.hidden = !matchSet.has(row);
-		if (count) count.textContent = `${matches.length.toLocaleString('ko-KR')}개`;
+		if (count) count.textContent = `${matches.length.toLocaleString('en-US')} charts`;
 		if (empty instanceof HTMLElement) empty.hidden = matches.length > 0;
 		if (more instanceof HTMLButtonElement) more.hidden = matches.length <= limit;
 	}

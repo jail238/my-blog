@@ -14,23 +14,23 @@ const progress = PLATE_GROUPS.map((group) => ({
 ---
 
 <CatalogLayout
-	title={`플레이트 | ${SITE_TITLE}`}
-	description="maimai 버전 神 플레이트 달성 진행도"
+	title={`Plate | ${SITE_TITLE}`}
+	description="maimai 神 plate progress by version"
 	pageClass="plate-index-page"
 >
 	<header class="catalog-page-header">
 		<p class="catalog-kicker">PLATE PROGRESS</p>
-		<h1>플레이트</h1>
+		<h1>Plate</h1>
 		<p>{PLATE_GROUPS.length} PLATES</p>
 	</header>
 
-	<section class="plate-progress-list" aria-label="플레이트 진행도">
+	<section class="plate-progress-list" aria-label="Plate progress">
 		{progress.map(({ group, versions, totalCount, completedCount, complete, rate }) => (
 			<article class:list={['plate-progress-item', { 'is-complete': complete }]}>
 				<div class="plate-art">
 					<img
 						src={`${base}/assets/maimai/plate/${group.assetId}.png`}
-						alt={`${group.prefix}${PLATE_GOAL.suffix} 플레이트`}
+						alt={`${group.prefix}${PLATE_GOAL.suffix} Plate`}
 						width="720"
 						height="116"
 						loading="lazy"
@@ -49,7 +49,7 @@ const progress = PLATE_GROUPS.map((group) => ({
 											{index > 0 && <span class="plate-version-separator" aria-hidden="true">/</span>}
 											<a
 												href={`${base}/versions/${version.id}/`}
-												aria-label={`${version.shortName} 버전 채보 보기`}
+												aria-label={`${version.shortName} version charts`}
 											>
 												{version.shortName}<span aria-hidden="true">›</span>
 											</a>
@@ -57,18 +57,18 @@ const progress = PLATE_GROUPS.map((group) => ({
 									))
 								)}
 							</span>
-							<small>{totalCount} CHARTS{group.includeReMaster && ' · Re:MASTER 포함'}</small>
+							<small>{totalCount} CHARTS{group.includeReMaster && ' · Includes Re:MASTER'}</small>
 						</span>
 					</header>
 					<div class="plate-progress-summary">
-						<strong>플레이트 진행 상황</strong>
+						<strong>Plate progress</strong>
 						<span>{completedCount}/{totalCount}</span>
 						<b>{rate.toFixed(1)}%</b>
 					</div>
 					<div
 						class="plate-progress-track"
 						role="progressbar"
-						aria-label={`${group.prefix}${PLATE_GOAL.suffix} 진행률`}
+						aria-label={`${group.prefix}${PLATE_GOAL.suffix} progress`}
 						aria-valuemin="0"
 						aria-valuemax="100"
 						aria-valuenow={rate.toFixed(1)}

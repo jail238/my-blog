@@ -23,9 +23,9 @@ const chartGroups = (['STANDARD', 'DX'] satisfies ChartType[])
 	.filter((group) => group.charts.length > 0);
 ---
 
-<CatalogLayout title={`${song.title} | ${SITE_TITLE}`} description={`${song.title} maimai 채보 및 기록`} pageClass="song-detail-page">
-	<nav class="catalog-breadcrumb" aria-label="현재 위치">
-		<a href={`${base}/versions/`}>버전</a>
+<CatalogLayout title={`${song.title} | ${SITE_TITLE}`} description={`${song.title} maimai charts and records`} pageClass="song-detail-page">
+	<nav class="catalog-breadcrumb" aria-label="Breadcrumb">
+		<a href={`${base}/versions/`}>Version</a>
 		<span aria-hidden="true">/</span>
 		<strong>{song.title}</strong>
 	</nav>
@@ -36,16 +36,16 @@ const chartGroups = (['STANDARD', 'DX'] satisfies ChartType[])
 			<p class="catalog-kicker">{song.genre}</p>
 			<div class="song-title-row song-title-row-original">
 				<h1>{song.title}</h1>
-				<SongTitleCopyButton text={song.title} label="원제목 복사" />
+				<SongTitleCopyButton text={song.title} label="Copy original title" />
 			</div>
 			{song.koreanTitle && (
 				<div class="song-title-row song-title-row-translated" lang="ko">
 					<p class="song-title-ko">{song.koreanTitle}</p>
-					<SongTitleCopyButton text={song.koreanTitle} label="한국어 제목 복사" />
+					<SongTitleCopyButton text={song.koreanTitle} label="Copy Korean title" />
 				</div>
 			)}
 			<p class="song-artist">{song.artist}</p>
-			<div class="song-version-links" aria-label="채보별 수록 버전">
+			<div class="song-version-links" aria-label="Chart versions">
 				{versionGroups.map(({ version, types }) => (
 					<a class="song-version-link" href={`${base}/versions/${version.id}/`}>
 						<span>{types.map((type) => type === 'STANDARD' ? 'ST' : 'DX').join(' · ')}</span>
@@ -61,7 +61,7 @@ const chartGroups = (['STANDARD', 'DX'] satisfies ChartType[])
 			<div class="catalog-section-heading">
 				<div>
 					<p class="catalog-kicker">CHARTS</p>
-					<h2 id="chart-heading">채보</h2>
+					<h2 id="chart-heading">Charts</h2>
 				</div>
 			</div>
 			{
@@ -70,7 +70,7 @@ const chartGroups = (['STANDARD', 'DX'] satisfies ChartType[])
 						{chartGroups.map((group) => <SongChartBoard type={group.type} charts={group.charts} songTitle={song.title} />)}
 					</div>
 				) : (
-					<div class="catalog-empty compact"><strong>등록된 채보가 없습니다.</strong></div>
+					<div class="catalog-empty compact"><strong>No charts available.</strong></div>
 				)
 			}
 		</section>

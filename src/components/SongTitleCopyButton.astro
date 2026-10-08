@@ -46,8 +46,8 @@ const { label, text } = Astro.props;
 	function showFeedback(button: HTMLButtonElement, label: string, copied: boolean) {
 		window.clearTimeout(feedbackTimers.get(button));
 		button.classList.toggle('copied', copied);
-		button.setAttribute('aria-label', copied ? '복사됨' : '복사 실패');
-		button.title = copied ? '복사됨' : '복사 실패';
+		button.setAttribute('aria-label', copied ? 'Copied' : 'Copy failed');
+		button.title = copied ? 'Copied' : 'Copy failed';
 
 		feedbackTimers.set(button, window.setTimeout(() => {
 			button.classList.remove('copied');
@@ -61,7 +61,7 @@ const { label, text } = Astro.props;
 
 		const button = event.target.closest<HTMLButtonElement>('[data-copy-title]');
 		const text = button?.dataset.copyTitle;
-		const label = button?.dataset.copyLabel ?? '제목 복사';
+		const label = button?.dataset.copyLabel ?? 'Copy title';
 		if (!button || !text) return;
 
 		showFeedback(button, label, true);

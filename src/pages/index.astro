@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import archiveCover from '../assets/archive-rooftop.webp';
 import SongArtwork from '../components/SongArtwork.astro';
 import ComboIcon from '../components/ComboIcon.astro';
 import { ArrowUpRight, ChartNoAxesColumnIncreasing, Layers3, Disc3, Award, RefreshCw, ArrowRight } from '@lucide/astro';
@@ -58,14 +60,29 @@ const snapshotDate = `${snapshotParts.get('year')}.${snapshotParts.get('month')}
 ---
 
 <CatalogLayout title={SITE_TITLE} description={SITE_DESCRIPTION} pageClass="maimai-home">
-	<section class="archive-profile" aria-labelledby="archive-title">
+	<section class="archive-cover" aria-labelledby="archive-title">
+		<Image
+			src={archiveCover}
+			alt="A quiet rooftop at night, with a woman looking at her phone between apartment buildings."
+			class="archive-cover-image"
+			widths={[640, 960, 1584]}
+			sizes="100vw"
+			quality={88}
+			loading="eager"
+			fetchpriority="high"
+		/>
+		<div class="home-section-inner cover-copy">
+			<h1 id="archive-title">M.S.K.</h1>
+			<p>maimai Record Archive</p>
+		</div>
+	</section>
+	<section class="archive-profile" aria-label="Record summary">
 		<div class="home-section-inner profile-layout">
-			<div class="profile-title">
-				<p class="catalog-kicker">MAIMAI RECORD ARCHIVE</p>
-				<h1 id="archive-title">M.S.K.<span>maimai 기록</span></h1>
-				<p class="snapshot-date">{snapshotDate}</p>
+			<div class="profile-summary">
+				<p class="catalog-kicker">RECORD SNAPSHOT</p>
+				<p class="snapshot-date"><time datetime={PLAYER_PROFILE.updatedAt}>{snapshotDate}</time></p>
 			</div>
-			<div class="profile-metrics" aria-label="기록 요약">
+			<div class="profile-metrics">
 				<span><small>RATING</small><strong>{PLAYER_PROFILE.rating.toLocaleString('en-US')}</strong></span>
 				<span><small>CLASS</small><strong>B4</strong></span>
 				<span><small>COINS</small><strong>{PLAYER_PROFILE.playCount.toLocaleString('en-US')}</strong></span>
@@ -73,28 +90,28 @@ const snapshotDate = `${snapshotParts.get('year')}.${snapshotParts.get('month')}
 		</div>
 	</section>
 
-	<nav class="archive-modes home-section-inner" aria-label="아카이브 분류">
+	<nav class="archive-modes home-section-inner" aria-label="Archive categories">
 		<a href={`${base}/levels/`}>
 			<ChartNoAxesColumnIncreasing class="mode-icon" aria-hidden="true" />
-			<strong>레벨</strong>
+			<strong>Level</strong>
 			<small>{CHARTS.length} CHARTS</small>
 			<ArrowUpRight class="mode-arrow" aria-hidden="true" />
 		</a>
 		<a href={`${base}/difficulties/`}>
 			<Layers3 class="mode-icon" aria-hidden="true" />
-			<strong>난이도</strong>
+			<strong>Difficulty</strong>
 			<small>{DIFFICULTIES.length} DIFFICULTIES</small>
 			<ArrowUpRight class="mode-arrow" aria-hidden="true" />
 		</a>
 		<a href={`${base}/versions/`}>
 			<Disc3 class="mode-icon" aria-hidden="true" />
-			<strong>버전</strong>
+			<strong>Version</strong>
 			<small>{SONGS.length} SONGS</small>
 			<ArrowUpRight class="mode-arrow" aria-hidden="true" />
 		</a>
 		<a href={`${base}/plates/`}>
 			<Award class="mode-icon" aria-hidden="true" />
-			<strong>플레이트</strong>
+			<strong>Plate</strong>
 			<small>{completedPlateCount}/{PLATE_GROUPS.length} 神</small>
 			<ArrowUpRight class="mode-arrow" aria-hidden="true" />
 		</a>
@@ -105,17 +122,17 @@ const snapshotDate = `${snapshotParts.get('year')}.${snapshotParts.get('month')}
 			<div class="catalog-section-heading">
 				<div>
 					<p class="catalog-kicker">LEVEL INDEX</p>
-					<h2 id="level-overview-title">레벨</h2>
+					<h2 id="level-overview-title">Level</h2>
 				</div>
-				<a href={`${base}/levels/`}>전체 <ArrowRight size={16} aria-hidden="true" /></a>
+				<a href={`${base}/levels/`}>All <ArrowRight size={16} aria-hidden="true" /></a>
 			</div>
-			<div class="home-index-scroll" role="region" aria-label="전체 레벨 목록" tabindex="0">
+			<div class="home-index-scroll" role="region" aria-label="All levels" tabindex="0">
 				<div class="level-quick-grid">
 					{levelProgress.map(({ level, apCount, totalCount, apRate }) => (
 						<a
 							href={`${base}/levels/${level.replace('+', '-plus')}/`}
 							style={`--ap-progress: ${apRate.toFixed(2)}%`}
-							title={`AP 이상 ${apCount}/${totalCount}`}
+							title={`AP / AP+ ${apCount}/${totalCount}`}
 						>
 							<strong>{level}</strong>
 							<small>{apCount}/{totalCount}</small>
@@ -129,20 +146,20 @@ const snapshotDate = `${snapshotParts.get('year')}.${snapshotParts.get('month')}
 			<div class="catalog-section-heading">
 				<div>
 					<p class="catalog-kicker">VERSION INDEX</p>
-					<h2 id="version-overview-title">버전</h2>
+					<h2 id="version-overview-title">Version</h2>
 				</div>
-				<a href={`${base}/versions/`}>전체 <ArrowRight size={16} aria-hidden="true" /></a>
+				<a href={`${base}/versions/`}>All <ArrowRight size={16} aria-hidden="true" /></a>
 			</div>
-			<div class="home-index-scroll" role="region" aria-label="전체 버전 목록" tabindex="0">
+			<div class="home-index-scroll" role="region" aria-label="All versions" tabindex="0">
 				<div class="version-quick-list">
 					{versionProgress.map(({ version, apCount, totalCount, apRate, songCount }) => (
 						<a
 							href={`${base}/versions/${version.id}/`}
 							style={`--ap-progress: ${apRate.toFixed(2)}%`}
-							title={`AP 이상 ${apCount}/${totalCount}`}
+							title={`AP / AP+ ${apCount}/${totalCount}`}
 						>
 							<span>{version.shortName}</span>
-							<small><b>{apCount}/{totalCount}</b> · {songCount}곡</small>
+							<small><b>{apCount}/{totalCount}</b> · {songCount} songs</small>
 						</a>
 					))}
 				</div>
@@ -155,18 +172,18 @@ const snapshotDate = `${snapshotParts.get('year')}.${snapshotParts.get('month')}
 		<div class="catalog-section-heading">
 			<div>
 				<p class="catalog-kicker">REGISTERED RECORDS</p>
-				<h2 id="record-gallery-title">등록 기록</h2>
+				<h2 id="record-gallery-title">Records</h2>
 			</div>
 			<div class="record-gallery-heading-meta">
-				<span>{PERFECT_RECORDED_CHARTS.length.toLocaleString('ko-KR')} CHARTS</span>
-				<a href={`${base}/records/`}>전체 <ArrowRight size={16} aria-hidden="true" /></a>
+				<span>{PERFECT_RECORDED_CHARTS.length.toLocaleString('en-US')} CHARTS</span>
+				<a href={`${base}/records/`}>All <ArrowRight size={16} aria-hidden="true" /></a>
 				<a
 					class="record-refresh-button compact"
 					href={RECORD_REFRESH_URL}
 					target="_blank"
 					rel="noreferrer"
-					title="GitHub Actions에서 Maishift 기록 갱신"
-					><RefreshCw size={14} aria-hidden="true" />기록 갱신</a>
+					title="Refresh Maishift records via GitHub Actions"
+					><RefreshCw size={14} aria-hidden="true" />Refresh records</a>
 			</div>
 		</div>
 		<div class="record-gallery-grid">

@@ -17,19 +17,19 @@ const levelProgress = levels.map((level) => {
 });
 ---
 
-<CatalogLayout title={`레벨 | ${SITE_TITLE}`} description="maimai 채보를 레벨별로 정리한 아카이브" pageClass="level-index-page">
+<CatalogLayout title={`Level | ${SITE_TITLE}`} description="maimai charts organized by level" pageClass="level-index-page">
 	<header class="catalog-page-header">
 		<p class="catalog-kicker">LEVEL INDEX</p>
-		<h1>레벨</h1>
+		<h1>Level</h1>
 		<p>{CHARTS.length} CHARTS · {CATALOG_SOURCE.gameVersion}</p>
 	</header>
 
-	<section class="level-index-grid" id="level-index-list" aria-label="레벨 목록">
+	<section class="level-index-grid" id="level-index-list" aria-label="Level list">
 		{levelProgress.map(({ level, apCount, totalCount, apRate }) => (
 			<a
 				href={`${base}/levels/${level.replace('+', '-plus')}/`}
 				style={`--ap-progress: ${apRate.toFixed(2)}%`}
-				title={`AP 이상 ${apCount}/${totalCount} (${apRate.toFixed(1)}%)`}
+				title={`AP / AP+ ${apCount}/${totalCount} (${apRate.toFixed(1)}%)`}
 			>
 				<span>LEVEL</span>
 				<strong>{level}</strong>
