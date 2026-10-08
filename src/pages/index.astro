@@ -48,15 +48,6 @@ const recordedCharts = PERFECT_RECORDED_CHARTS
 	.slice(0, 12)
 	.map((chart) => ({ chart, song: songById.get(chart.songId) }))
 	.filter((entry) => entry.song !== undefined);
-const snapshotParts = new Map(
-	new Intl.DateTimeFormat('en', {
-		year: 'numeric',
-		month: '2-digit',
-		day: '2-digit',
-		timeZone: 'Asia/Seoul',
-	}).formatToParts(new Date(PLAYER_PROFILE.updatedAt)).map((part) => [part.type, part.value]),
-);
-const snapshotDate = `${snapshotParts.get('year')}.${snapshotParts.get('month')}.${snapshotParts.get('day')}`;
 ---
 
 <CatalogLayout title={SITE_TITLE} description={SITE_DESCRIPTION} pageClass="maimai-home">
@@ -71,18 +62,12 @@ const snapshotDate = `${snapshotParts.get('year')}.${snapshotParts.get('month')}
 			loading="eager"
 			fetchpriority="high"
 		/>
-		<div class="home-section-inner cover-copy">
-			<h1 id="archive-title">M.S.K.</h1>
-			<p>maimai Record Archive</p>
-		</div>
-	</section>
-	<section class="archive-profile" aria-label="Record summary">
-		<div class="home-section-inner profile-layout">
-			<div class="profile-summary">
-				<p class="catalog-kicker">RECORD SNAPSHOT</p>
-				<p class="snapshot-date"><time datetime={PLAYER_PROFILE.updatedAt}>{snapshotDate}</time></p>
+		<div class="home-section-inner cover-layout">
+			<div class="cover-copy">
+				<h1 id="archive-title">M.S.K.</h1>
+				<p>maimai Record Archive</p>
 			</div>
-			<div class="profile-metrics">
+			<div class="profile-metrics" aria-label="Record summary">
 				<span><small>RATING</small><strong>{PLAYER_PROFILE.rating.toLocaleString('en-US')}</strong></span>
 				<span><small>CLASS</small><strong>B4</strong></span>
 				<span><small>COINS</small><strong>{PLAYER_PROFILE.playCount.toLocaleString('en-US')}</strong></span>
