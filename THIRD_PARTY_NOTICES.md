@@ -2,29 +2,44 @@
 
 ## Self-hosted typefaces
 
-The site uses Poppins for display headings and Pretendard JP Variable for
-body text, numbers, Korean, and Japanese. Font binaries are served locally,
-with no font CDN requests from visitors. Pretendard JP's official
-unicode-range subsets load only the character groups used on each page.
+The site uses Poppins for display headings, Pretendard JP Variable for
+Japanese and body text, and Pretendard Variable for Korean and remaining
+characters. Font binaries are served locally, with no font CDN requests
+from visitors. Both Pretendard families use official v1.3.9 unicode-range
+subsets, loading only the character groups used on each page. Color emoji
+use the device's Apple Color Emoji, Segoe UI Emoji, or Noto Color Emoji.
 
 - Poppins by Indian Type Foundry: https://github.com/itfoundry/Poppins
   Latin WOFF2 files are distributed by Google Fonts.
 - Pretendard JP v1.3.9 by Kil Hyung-jin:
   https://github.com/orioncactus/pretendard/tree/v1.3.9/packages/pretendard-jp
+- Pretendard v1.3.9 by Kil Hyung-jin:
+  https://github.com/orioncactus/pretendard/tree/v1.3.9/packages/pretendard
 - Noto Sans JP by the Noto Project Authors:
   https://github.com/google/fonts/tree/main/ofl/notosansjp
-  Version 2.004-H2 is subsetted to 11 symbols missing from the Pretendard JP
-  files used by the catalog, plus parentheses so combining halfwidth marks
-  can shape in the same font. The modified 400/700 WOFF2 faces are renamed
-  Archive Symbols and only render those Unicode characters. Rebuild them
-  with `python scripts/subset-symbol-fonts.py NotoSansJP.ttf` using FontTools
-  with Brotli support and the official variable TTF source.
+  Version 2.004-H2 supplies 23 characters, including parentheses so
+  combining halfwidth marks shape in the same font.
+- Noto Sans, Noto Sans Symbols 2, Noto Sans Math, Noto Sans Armenian, and
+  Noto Sans SC by the Noto Project Authors:
+  https://github.com/google/fonts/tree/main/ofl
+  These supply six additional characters absent from the JP source.
+  The disjoint subsets are merged into renamed Archive Symbols 400/700
+  WOFF2 faces, covering 29 characters without replacing ordinary letters.
+  Rebuild with `scripts/subset-symbol-fonts.py --help`, FontTools with Brotli,
+  and the official TTF sources. Noto Sans SC inputs are the 400/700 files
+  returned by Google Fonts' text subset for U+867E.
 
 All active typefaces are licensed under the SIL Open Font License 1.1.
 Full license and copyright notices are included in
 `src/assets/fonts/Poppins-LICENSE.txt` and
 `src/assets/fonts/Pretendard-LICENSE.txt` and
-`src/assets/fonts/ArchiveSymbols-LICENSE.txt`.
+`src/assets/fonts/ArchiveSymbols-LICENSE.txt` and the five
+`src/assets/fonts/notosans*-LICENSE.txt` files.
+
+`node scripts/catalog-font-audit.mjs` checks every catalog title, translation,
+artist, and genre against the actual CSS font order, unicode ranges, binary
+glyph coverage, and combining clusters at weights 400/600/700. It also runs
+in `npm test`, including when the weekly catalog update adds new songs.
 
 Previous typeface assets retained in the repository are not loaded by the
 current interface:

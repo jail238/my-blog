@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import test from 'node:test';
 import sharp from 'sharp';
 import { create as createFont } from 'fontkit';
+import { auditCatalogFonts, unicodeRanges } from './catalog-font-audit.mjs';
 
 const root = new URL('../', import.meta.url);
 
@@ -110,7 +111,8 @@ test('display and multilingual text fonts are self-hosted WOFF2 with character s
 
 test('symbol fallback has real glyphs for kaomoji and missing catalog symbols at both weights', () => {
   const css = readFileSync(new URL('src/styles/global.css', root), 'utf8');
-  const codepoints = [0x2200, 0x2208, 0x22bf, 0x2642, 0x266d, 0x2934, 0x32f0, 0xff65, 0xff69, 0xff84, 0xff9f];
+  const codepoints = [0x2200, 0x2208, 0x22bf, 0x2642, 0x266d, 0x2934, 0x32f0, 0xff65, 0xff69, 0xff84, 0xff9f,
+    0x01c2, 0x039b, 0x039e, 0x03a6, 0x03a7, 0x03a8, 0x03b1, 0x03b5, 0x03bd, 0x042f, 0x0578, 0x211d, 0x2161, 0x237a, 0x272a, 0x867e];
   const faces = [...css.matchAll(/@font-face\s*\{([^}]+)\}/g)]
     .map((match) => match[1]).filter((face) => face.includes("font-family: 'Archive Symbols'"));
   assert.equal(faces.length, 2);
@@ -123,7 +125,7 @@ test('symbol fallback has real glyphs for kaomoji and missing catalog symbols at
     assert.match(face, /U\+0028-0029/);
     for (const cp of [0x28, 0x29]) assert.ok(font.hasGlyphForCodePoint(cp));
     for (const cp of codepoints) {
-      assert.ok(face.includes(`U+${cp.toString(16).toUpperCase()}`));
+      assert.ok(unicodeRanges(face).some(([start, end]) => cp >= start && cp <= end));
       assert.ok(font.hasGlyphForCodePoint(cp), `Missing glyph U+${cp.toString(16)}`);
       assert.ok(font.glyphForCodePoint(cp).path.toSVG().length > 0);
     }
@@ -131,30 +133,15 @@ test('symbol fallback has real glyphs for kaomoji and missing catalog symbols at
   }
 });
 
-test('catalog characters advertised by the webfont ranges have actual glyph coverage', () => {
-  const directory = new URL('src/assets/fonts/pretendard-jp/', root);
-  const css = readFileSync(new URL('pretendard-jp.css', directory), 'utf8');
-  const declared = new Set();
-  const supported = new Set();
-  for (const [, face] of css.matchAll(/@font-face\s*\{([^}]+)\}/g)) {
-    const path = face.match(/src:\s*url\(([^)]+)\)/)[1];
-    const font = createFont(readFileSync(new URL(path, directory)));
-    for (const cp of font.characterSet) supported.add(cp);
-    for (const [, start, end] of face.matchAll(/U\+([0-9a-f]+)(?:-([0-9a-f]+))?/gi)) {
-      for (let cp = parseInt(start, 16); cp <= parseInt(end ?? start, 16); cp++) declared.add(cp);
-    }
-  }
-  for (const style of ['regular', 'bold']) {
-    const font = createFont(readFileSync(new URL(`src/assets/fonts/archive-symbols-${style}.woff2`, root)));
-    for (const cp of font.characterSet) supported.add(cp);
-  }
+test('every catalog title, translation and artist has glyph and combining-cluster coverage', () => {
   const { songs } = JSON.parse(readFileSync(new URL('src/data/maimai.generated.json', root), 'utf8'));
-  for (const song of songs) {
-    for (const key of ['title', 'koreanTitle', 'artist', 'genre']) {
-      for (const character of song[key] ?? '') {
-        const cp = character.codePointAt(0);
-        if (declared.has(cp)) assert.ok(supported.has(cp), `${song.id}: missing U+${cp.toString(16)}`);
-      }
-    }
-  }
+  const report = auditCatalogFonts(songs);
+  assert.equal(report.songs, songs.length);
+  assert.deepEqual(report.failures, []);
+});
+
+test('font audit does not silently skip undeclared characters or malformed source text', () => {
+  const report = auditCatalogFonts([{ id: 'audit', title: '\u{10ffff}\ufffd' }]);
+  assert.ok(report.failures.some((failure) => failure.reason === 'Missing declared glyph'));
+  assert.ok(report.failures.some((failure) => failure.reason === 'Invalid source character'));
 });
