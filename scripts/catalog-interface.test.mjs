@@ -36,3 +36,26 @@ test('the supplied rooftop cover keeps its original dimensions and uses responsi
   assert.match(home, /loading="eager"/);
   assert.match(home, /fetchpriority="high"/);
 });
+
+test('archive accents and progress use neutral grays with readable active controls', () => {
+  const css = readFileSync(new URL('src/styles/global.css', root), 'utf8');
+  const palette = css.match(/:root\s*\{([^}]+)\}/)?.[1] ?? '';
+  const tokens = [
+    'canvas', 'brand', 'brand-hover', 'brand-strong', 'brand-soft',
+    'control-hover', 'progress-start', 'progress-end', 'progress-solid',
+  ];
+  const channel = (token) => {
+    const hex = palette.match(new RegExp(`--${token}:\\s*(#[0-9a-f]{6})`, 'i'))?.[1];
+    assert.ok(hex, `Missing color token: ${token}`);
+    const rgb = [1, 3, 5].map((offset) => Number.parseInt(hex.slice(offset, offset + 2), 16));
+    assert.equal(rgb[0], rgb[1], `${token} is not neutral`);
+    assert.equal(rgb[1], rgb[2], `${token} is not neutral`);
+    return rgb[0] / 255;
+  };
+  for (const token of tokens) channel(token);
+  for (const token of ['brand-strong', 'brand-hover']) {
+    const value = channel(token);
+    const luminance = value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
+    assert.ok(1.05 / (luminance + 0.05) >= 4.5, `${token} has low white-text contrast`);
+  }
+});
