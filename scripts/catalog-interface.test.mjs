@@ -59,3 +59,25 @@ test('archive accents and progress use neutral grays with readable active contro
     assert.ok(1.05 / (luminance + 0.05) >= 4.5, `${token} has low white-text contrast`);
   }
 });
+
+test('display and multilingual text fonts are self-hosted WOFF2 with character subsets', () => {
+  const css = readFileSync(new URL('src/styles/global.css', root), 'utf8');
+  assert.match(css, /--font-display: 'Poppins', 'Pretendard JP Variable'/);
+  assert.match(css, /--font-text: 'Pretendard JP Variable'/);
+  assert.doesNotMatch(css, /SUITE|Zen Kaku Gothic/);
+  const directory = new URL('src/assets/fonts/pretendard-jp/', root);
+  const subsets = readFileSync(new URL('pretendard-jp.css', directory), 'utf8');
+  const sources = [...subsets.matchAll(/src:\s*url\(([^)]+)\)/g)];
+  assert.equal(sources.length, 119);
+  assert.equal([...subsets.matchAll(/unicode-range:/g)].length, sources.length);
+  for (const [, source] of sources) {
+    assert.match(source, /^\.\/woff2-dynamic-subset\//);
+    assert.equal(readFileSync(new URL(source, directory)).subarray(0, 4).toString(), 'wOF2');
+  }
+  for (const font of ['poppins-latin-semibold', 'poppins-latin-bold']) {
+    assert.equal(readFileSync(new URL(`src/assets/fonts/${font}.woff2`, root)).subarray(0, 4).toString(), 'wOF2');
+  }
+  const head = readFileSync(new URL('src/components/BaseHead.astro', root), 'utf8');
+  assert.match(head, /href=\{textFont\} as="font"/);
+  assert.match(head, /href=\{displayFont\} as="font"/);
+});

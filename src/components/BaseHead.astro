@@ -2,7 +2,8 @@
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
 import '../styles/global.css';
-import suiteFont from '../assets/fonts/suite-variable.woff2?url';
+import textFont from '../assets/fonts/pretendard-jp/woff2-dynamic-subset/PretendardJPVariable.subset.117.woff2?url';
+import displayFont from '../assets/fonts/poppins-latin-semibold.woff2?url';
 
 interface Props {
 	title: string;
@@ -24,7 +25,8 @@ const socialImageURL = new URL(`${base}/og-image.png?v=20260924`, Astro.site);
 <link rel="apple-touch-icon" sizes="180x180" href={`${base}/apple-touch-icon.png?v=20260924b`} />
 <link rel="manifest" href={`${base}/site.webmanifest?v=20260924b`} />
 <meta name="theme-color" content="#f5f5f5" />
-<link rel="preload" href={suiteFont} as="font" type="font/woff2" crossorigin />
+<link rel="preload" href={textFont} as="font" type="font/woff2" crossorigin />
+<link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin />
 <link rel="sitemap" href={`${base}/sitemap-index.xml`} />
 <meta name="generator" content={Astro.generator} />
 

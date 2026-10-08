@@ -7,6 +7,7 @@ Personal maimai record archive built with Astro.
 - URL: https://misaki.love
 - Framework: Astro
 - Deploy: GitHub Pages + GitHub Actions
+- Typography: self-hosted Poppins display headings with Pretendard JP Variable for body text and multilingual song names. Official unicode-range subsets keep Japanese and Korean font loading page-specific.
 
 ## Archive
 

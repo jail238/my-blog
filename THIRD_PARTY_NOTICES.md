@@ -2,15 +2,29 @@
 
 ## Self-hosted typefaces
 
-The site uses SUITE Variable for Korean and Latin text, and Zen Kaku Gothic
-New for Japanese text. Font binaries are served locally, with no font CDN
-requests from visitors.
+The site uses Poppins for display headings and Pretendard JP Variable for
+body text, numbers, Korean, and Japanese. Font binaries are served locally,
+with no font CDN requests from visitors. Pretendard JP's official
+unicode-range subsets load only the character groups used on each page.
+
+- Poppins by Indian Type Foundry: https://github.com/itfoundry/Poppins
+  Latin WOFF2 files are distributed by Google Fonts.
+- Pretendard JP v1.3.9 by Kil Hyung-jin:
+  https://github.com/orioncactus/pretendard/tree/v1.3.9/packages/pretendard-jp
+
+Both active typefaces are licensed under the SIL Open Font License 1.1.
+Full license and copyright notices are included in
+`src/assets/fonts/Poppins-LICENSE.txt` and
+`src/assets/fonts/Pretendard-LICENSE.txt`.
+
+Previous typeface assets retained in the repository are not loaded by the
+current interface:
 
 - SUITE by Sun: https://github.com/sun-typeface/SUITE
 - Zen Kaku Gothic New by Yoshimichi Ohira and the Zen Project Authors:
   https://github.com/googlefonts/zen-kakugothic
 
-Both typefaces are licensed under the SIL Open Font License 1.1. Full license
+Both previous typefaces are licensed under the SIL Open Font License 1.1. Full license
 and copyright notices are included in `src/assets/fonts/SUITE-LICENSE.txt`
 and `src/assets/fonts/ZenKakuGothicNew-LICENSE.txt`. The Zen Kaku Gothic New
 files were losslessly converted from the Google Fonts TTF distribution to
