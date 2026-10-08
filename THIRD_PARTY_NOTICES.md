@@ -11,11 +11,20 @@ unicode-range subsets load only the character groups used on each page.
   Latin WOFF2 files are distributed by Google Fonts.
 - Pretendard JP v1.3.9 by Kil Hyung-jin:
   https://github.com/orioncactus/pretendard/tree/v1.3.9/packages/pretendard-jp
+- Noto Sans JP by the Noto Project Authors:
+  https://github.com/google/fonts/tree/main/ofl/notosansjp
+  Version 2.004-H2 is subsetted to 11 symbols missing from the Pretendard JP
+  files used by the catalog, plus parentheses so combining halfwidth marks
+  can shape in the same font. The modified 400/700 WOFF2 faces are renamed
+  Archive Symbols and only render those Unicode characters. Rebuild them
+  with `python scripts/subset-symbol-fonts.py NotoSansJP.ttf` using FontTools
+  with Brotli support and the official variable TTF source.
 
-Both active typefaces are licensed under the SIL Open Font License 1.1.
+All active typefaces are licensed under the SIL Open Font License 1.1.
 Full license and copyright notices are included in
 `src/assets/fonts/Poppins-LICENSE.txt` and
-`src/assets/fonts/Pretendard-LICENSE.txt`.
+`src/assets/fonts/Pretendard-LICENSE.txt` and
+`src/assets/fonts/ArchiveSymbols-LICENSE.txt`.
 
 Previous typeface assets retained in the repository are not loaded by the
 current interface:
