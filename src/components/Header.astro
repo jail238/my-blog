@@ -22,8 +22,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 </header>
 <style>
 	.site-header {
-		background: rgba(255, 255, 255, 0.94);
-		backdrop-filter: blur(14px);
+		background: rgba(255, 255, 255, 0.97);
 		border-bottom: 1px solid rgb(var(--line));
 		margin: 0;
 		padding: 0 1.25rem;
@@ -37,7 +36,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 		justify-content: space-between;
 		margin: 0 auto;
 		max-width: 1180px;
-		min-height: 64px;
+		min-height: 62px;
 	}
 	.site-brand {
 		align-items: baseline;
@@ -58,24 +57,24 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 	.internal-links {
 		align-items: center;
 		display: flex;
-		gap: 1.4rem;
+		gap: 1.25rem;
 	}
 	nav a {
 		color: rgb(var(--muted));
 		font-size: 0.86rem;
 		font-weight: 700;
-		padding: 1.2rem 0;
+		padding: 1.15rem 0;
 		position: relative;
 		text-decoration: none;
 		transition: color 140ms ease;
 	}
 	nav a:hover,
 	nav a.active {
-		color: rgb(var(--text));
+		color: var(--brand-strong);
 		text-decoration: none;
 	}
 	.internal-links :global(a.active)::after {
-		background: rgb(var(--text));
+		background: var(--brand);
 		bottom: -1px;
 		content: '';
 		height: 2px;
