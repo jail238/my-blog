@@ -1,5 +1,21 @@
 # Third-party notices
 
+## Self-hosted typefaces
+
+The site uses SUITE Variable for Korean and Latin text, and Zen Kaku Gothic
+New for Japanese text. Font binaries are served locally, with no font CDN
+requests from visitors.
+
+- SUITE by Sun: https://github.com/sun-typeface/SUITE
+- Zen Kaku Gothic New by Yoshimichi Ohira and the Zen Project Authors:
+  https://github.com/googlefonts/zen-kakugothic
+
+Both typefaces are licensed under the SIL Open Font License 1.1. Full license
+and copyright notices are included in `src/assets/fonts/SUITE-LICENSE.txt`
+and `src/assets/fonts/ZenKakuGothicNew-LICENSE.txt`. The Zen Kaku Gothic New
+files were losslessly converted from the Google Fonts TTF distribution to
+WOFF2; no glyphs or names were changed.
+
 ## Carol extension
 
 Korean display titles for Japanese song names are synchronized from the Carol
