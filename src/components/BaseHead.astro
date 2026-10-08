@@ -2,7 +2,6 @@
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
 import '../styles/global.css';
-import { Font } from 'astro:assets';
 
 interface Props {
 	title: string;
@@ -26,8 +25,6 @@ const socialImageURL = new URL(`${base}/og-image.png?v=20260924`, Astro.site);
 <meta name="theme-color" content="#f5f7fa" />
 <link rel="sitemap" href={`${base}/sitemap-index.xml`} />
 <meta name="generator" content={Astro.generator} />
-
-<Font cssVariable="--font-atkinson" preload />
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />

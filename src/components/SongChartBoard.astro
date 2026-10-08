@@ -1,4 +1,5 @@
 ---
+import { Play, ArrowUpRight } from '@lucide/astro';
 import type { Chart, ChartType } from '../data/maimai';
 import { versionById } from '../data/maimai';
 import { getDxScoreStarCount } from '../utils/maimai-dx-score.js';
@@ -141,7 +142,7 @@ const comboIcons: Record<string, { file: string; label: string }> = {
 									aria-label={`YouTube에서 ${query} 검색`}
 									title={query}
 								>
-									YouTube 검색 <span aria-hidden="true">↗</span>
+									<Play size={15} aria-hidden="true" />YouTube 검색 <ArrowUpRight size={13} aria-hidden="true" />
 								</a>
 							</td>
 						);

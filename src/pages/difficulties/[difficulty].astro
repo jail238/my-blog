@@ -1,5 +1,5 @@
 ---
-import { ChevronsUpDown } from '@lucide/astro';
+import { ChevronsUpDown, List, LayoutGrid, ArrowLeft, ArrowRight } from '@lucide/astro';
 import ChartRow from '../../components/ChartRow.astro';
 import {
 	DIFFICULTIES,
@@ -153,7 +153,7 @@ const levels = registeredLevels().slice().reverse();
 					aria-pressed="true"
 					title="목록으로 보기"
 				>
-					<span class="level-chart-view-icon list" aria-hidden="true"></span>
+					<List size={18} aria-hidden="true" />
 				</button>
 				<button
 					type="button"
@@ -164,7 +164,7 @@ const levels = registeredLevels().slice().reverse();
 					aria-pressed="false"
 					title="격자로 보기"
 				>
-					<span class="level-chart-view-icon grid" aria-hidden="true"></span>
+					<LayoutGrid size={18} aria-hidden="true" />
 				</button>
 			</div>
 		</div>
@@ -178,9 +178,9 @@ const levels = registeredLevels().slice().reverse();
 	</section>
 	<div class="catalog-empty compact" id="difficulty-chart-empty" hidden><strong>조건에 맞는 채보가 없습니다.</strong></div>
 	<nav class="difficulty-chart-pagination" id="difficulty-chart-pagination" aria-label="채보 페이지 이동">
-		<button type="button" id="difficulty-chart-prev" aria-label="이전 페이지" title="이전 페이지">←</button>
+		<button type="button" id="difficulty-chart-prev" aria-label="이전 페이지" title="이전 페이지"><ArrowLeft size={18} aria-hidden="true" /></button>
 		<span id="difficulty-chart-page-status" aria-live="polite">1 / 1</span>
-		<button type="button" id="difficulty-chart-next" aria-label="다음 페이지" title="다음 페이지">→</button>
+		<button type="button" id="difficulty-chart-next" aria-label="다음 페이지" title="다음 페이지"><ArrowRight size={18} aria-hidden="true" /></button>
 	</nav>
 </CatalogLayout>
 

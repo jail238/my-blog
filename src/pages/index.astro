@@ -1,6 +1,7 @@
 ---
 import SongArtwork from '../components/SongArtwork.astro';
 import ComboIcon from '../components/ComboIcon.astro';
+import { ArrowUpRight, ChartNoAxesColumnIncreasing, Layers3, Disc3, Award, RefreshCw, ArrowRight } from '@lucide/astro';
 import {
 	CHARTS,
 	DIFFICULTIES,
@@ -57,52 +58,56 @@ const snapshotDate = `${snapshotParts.get('year')}.${snapshotParts.get('month')}
 ---
 
 <CatalogLayout title={SITE_TITLE} description={SITE_DESCRIPTION} pageClass="maimai-home">
-	<section class="archive-cover" aria-labelledby="archive-title">
-		<img src={`${base}/archive-cover.webp`} alt="원형 리듬 인터페이스 그래픽" />
-		<div class="archive-cover-overlay"></div>
-		<div class="archive-cover-copy">
-			<p class="catalog-kicker">MAIMAI RECORD ARCHIVE</p>
-			<h1 id="archive-title">M.S.K.</h1>
+	<section class="archive-profile" aria-labelledby="archive-title">
+		<div class="home-section-inner profile-layout">
+			<div class="profile-title">
+				<p class="catalog-kicker">MAIMAI RECORD ARCHIVE</p>
+				<h1 id="archive-title">M.S.K.<span>maimai 기록</span></h1>
+				<p class="snapshot-date">{snapshotDate}</p>
+			</div>
 			<div class="profile-metrics" aria-label="기록 요약">
 				<span><small>RATING</small><strong>{PLAYER_PROFILE.rating.toLocaleString('en-US')}</strong></span>
 				<span><small>CLASS</small><strong>B4</strong></span>
 				<span><small>COINS</small><strong>{PLAYER_PROFILE.playCount.toLocaleString('en-US')}</strong></span>
 			</div>
-			<p class="snapshot-date">{snapshotDate}</p>
 		</div>
 	</section>
 
-	<nav class="archive-modes" aria-label="아카이브 분류">
+	<nav class="archive-modes home-section-inner" aria-label="아카이브 분류">
 		<a href={`${base}/levels/`}>
+			<ChartNoAxesColumnIncreasing class="mode-icon" aria-hidden="true" />
 			<strong>레벨</strong>
 			<small>{CHARTS.length} CHARTS</small>
-			<span class="mode-arrow" aria-hidden="true">›</span>
+			<ArrowUpRight class="mode-arrow" aria-hidden="true" />
 		</a>
 		<a href={`${base}/difficulties/`}>
+			<Layers3 class="mode-icon" aria-hidden="true" />
 			<strong>난이도</strong>
 			<small>{DIFFICULTIES.length} DIFFICULTIES</small>
-			<span class="mode-arrow" aria-hidden="true">›</span>
+			<ArrowUpRight class="mode-arrow" aria-hidden="true" />
 		</a>
 		<a href={`${base}/versions/`}>
+			<Disc3 class="mode-icon" aria-hidden="true" />
 			<strong>버전</strong>
 			<small>{SONGS.length} SONGS</small>
-			<span class="mode-arrow" aria-hidden="true">›</span>
+			<ArrowUpRight class="mode-arrow" aria-hidden="true" />
 		</a>
 		<a href={`${base}/plates/`}>
+			<Award class="mode-icon" aria-hidden="true" />
 			<strong>플레이트</strong>
 			<small>{completedPlateCount}/{PLATE_GROUPS.length} 神</small>
-			<span class="mode-arrow" aria-hidden="true">›</span>
+			<ArrowUpRight class="mode-arrow" aria-hidden="true" />
 		</a>
 	</nav>
 
-	<div class="archive-overview">
+	<div class="archive-overview home-section-inner">
 		<section class="overview-block" aria-labelledby="level-overview-title">
 			<div class="catalog-section-heading">
 				<div>
 					<p class="catalog-kicker">LEVEL INDEX</p>
 					<h2 id="level-overview-title">레벨</h2>
 				</div>
-				<a href={`${base}/levels/`}>전체</a>
+				<a href={`${base}/levels/`}>전체 <ArrowRight size={16} aria-hidden="true" /></a>
 			</div>
 			<div class="home-index-scroll" role="region" aria-label="전체 레벨 목록" tabindex="0">
 				<div class="level-quick-grid">
@@ -126,7 +131,7 @@ const snapshotDate = `${snapshotParts.get('year')}.${snapshotParts.get('month')}
 					<p class="catalog-kicker">VERSION INDEX</p>
 					<h2 id="version-overview-title">버전</h2>
 				</div>
-				<a href={`${base}/versions/`}>전체</a>
+				<a href={`${base}/versions/`}>전체 <ArrowRight size={16} aria-hidden="true" /></a>
 			</div>
 			<div class="home-index-scroll" role="region" aria-label="전체 버전 목록" tabindex="0">
 				<div class="version-quick-list">
@@ -146,6 +151,7 @@ const snapshotDate = `${snapshotParts.get('year')}.${snapshotParts.get('month')}
 	</div>
 
 	<section class="record-gallery" aria-labelledby="record-gallery-title">
+		<div class="home-section-inner">
 		<div class="catalog-section-heading">
 			<div>
 				<p class="catalog-kicker">REGISTERED RECORDS</p>
@@ -153,14 +159,14 @@ const snapshotDate = `${snapshotParts.get('year')}.${snapshotParts.get('month')}
 			</div>
 			<div class="record-gallery-heading-meta">
 				<span>{PERFECT_RECORDED_CHARTS.length.toLocaleString('ko-KR')} CHARTS</span>
-				<a href={`${base}/records/`}>전체</a>
+				<a href={`${base}/records/`}>전체 <ArrowRight size={16} aria-hidden="true" /></a>
 				<a
 					class="record-refresh-button compact"
 					href={RECORD_REFRESH_URL}
 					target="_blank"
 					rel="noreferrer"
 					title="GitHub Actions에서 Maishift 기록 갱신"
-				>기록 갱신</a>
+					><RefreshCw size={14} aria-hidden="true" />기록 갱신</a>
 			</div>
 		</div>
 		<div class="record-gallery-grid">
@@ -180,6 +186,7 @@ const snapshotDate = `${snapshotParts.get('year')}.${snapshotParts.get('month')}
 					</span>
 				</a>
 			))}
+		</div>
 		</div>
 	</section>
 </CatalogLayout>

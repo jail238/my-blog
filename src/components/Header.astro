@@ -9,7 +9,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 	<nav>
 		<a class="site-brand" href={`${base}/`}>
 			<strong>{SITE_TITLE}</strong>
-			<small>MISAKI ARCHIVE</small>
 		</a>
 		<div class="internal-links">
 			<HeaderLink href={`${base}/`}>홈</HeaderLink>
@@ -22,10 +21,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 </header>
 <style>
 	.site-header {
-		background: rgba(255, 255, 255, 0.97);
-		border-bottom: 1px solid rgb(var(--line));
+		background: #ffffff;
+		border-bottom: 1px solid #eef1f2;
 		margin: 0;
-		padding: 0 1.25rem;
+		padding: 0 2rem;
 		position: sticky;
 		top: 0;
 		z-index: 20;
@@ -36,7 +35,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 		justify-content: space-between;
 		margin: 0 auto;
 		max-width: 1180px;
-		min-height: 62px;
+		min-height: 80px;
 	}
 	.site-brand {
 		align-items: baseline;
@@ -46,8 +45,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 		text-decoration: none;
 	}
 	.site-brand strong {
-		font-size: 1rem;
-		font-weight: 820;
+		font-size: 1.5rem;
+		font-weight: 700;
 	}
 	.site-brand small {
 		color: rgb(var(--muted));
@@ -57,13 +56,14 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 	.internal-links {
 		align-items: center;
 		display: flex;
-		gap: 1.25rem;
+		gap: 0.5rem;
 	}
 	nav a {
 		color: rgb(var(--muted));
-		font-size: 0.86rem;
-		font-weight: 700;
-		padding: 1.15rem 0;
+		border-radius: 4px;
+		font-size: 0.94rem;
+		font-weight: 500;
+		padding: 0.6rem 1rem;
 		position: relative;
 		text-decoration: none;
 		transition: color 140ms ease;
@@ -74,30 +74,33 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 		text-decoration: none;
 	}
 	.internal-links :global(a.active)::after {
-		background: var(--brand);
-		bottom: -1px;
-		content: '';
-		height: 2px;
-		left: 0;
-		position: absolute;
-		width: 100%;
+		content: none;
+	}
+	.internal-links :global(a.active) {
+		background: var(--brand-soft);
+		color: var(--brand-strong);
 	}
 	@media (max-width: 720px) {
 		.site-header {
 			padding: 0 0.9rem;
 		}
 		nav {
-			min-height: 58px;
+			min-height: 64px;
 		}
 		.site-brand small {
 			display: none;
 		}
 		.internal-links {
-			gap: 0.65rem;
+			gap: 0.15rem;
 		}
 		nav a {
 			font-size: 0.76rem;
-			padding: 1.05rem 0;
+			padding: 0.55rem 0.5rem;
 		}
+		.site-brand strong { font-size: 1.2rem; }
+	}
+	@media (max-width: 360px) {
+		.site-header { padding: 0 0.75rem; }
+		nav a { padding-inline: 0.35rem; }
 	}
 </style>
