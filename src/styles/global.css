@@ -394,6 +394,9 @@ a.record-refresh-button.compact { height: 38px; padding-inline: 16px; }
 	transition: box-shadow 180ms, border-color 180ms;
 }
 .chart-row { grid-template-columns: 52px minmax(0, 1fr) auto auto 36px; }
+/* Keep trailing columns anchored when an empty score is hidden. */
+.chart-row > .chart-tags { grid-column: 4; }
+.chart-row > .chart-level { grid-column: 5; }
 .chart-row:hover, .song-row:hover, .record-list-row:hover { border-color: #c9dfca; box-shadow: var(--shadow-raised); }
 .song-artwork {
 	align-items: center;
