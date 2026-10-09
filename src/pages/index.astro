@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import archiveCover from '../assets/archive-rooftop.webp';
+import archiveCity from '../assets/archive-city.webp';
 import SongArtwork from '../components/SongArtwork.astro';
 import ComboIcon from '../components/ComboIcon.astro';
 import { ArrowUpRight, ChartNoAxesColumnIncreasing, Layers3, Disc3, Award, RefreshCw, ArrowRight } from '@lucide/astro';
@@ -52,16 +53,58 @@ const recordedCharts = PERFECT_RECORDED_CHARTS
 
 <CatalogLayout title={SITE_TITLE} description={SITE_DESCRIPTION} pageClass="maimai-home">
 	<section class="archive-cover" aria-labelledby="archive-title">
-		<Image
-			src={archiveCover}
-			alt="A quiet rooftop at night, with a woman looking at her phone between apartment buildings."
-			class="archive-cover-image"
-			widths={[640, 960, 1584]}
-			sizes="100vw"
-			quality={88}
-			loading="eager"
-			fetchpriority="high"
-		/>
+		<template data-archive-cover="rooftop">
+			<Image
+				src={archiveCover}
+				alt="A quiet rooftop at night, with a woman looking at her phone between apartment buildings."
+				class="archive-cover-image"
+				widths={[640, 960, 1584]}
+				sizes="100vw"
+				quality={88}
+				loading="eager"
+				fetchpriority="high"
+			/>
+		</template>
+		<template data-archive-cover="city">
+			<Image
+				src={archiveCity}
+				alt="A black-and-white rooftop illustration of a woman overlooking the city at night."
+				class="archive-cover-image"
+				widths={[640, 960, 1584]}
+				sizes="100vw"
+				quality={88}
+				loading="eager"
+				fetchpriority="high"
+			/>
+		</template>
+		<noscript>
+			<Image
+				src={archiveCover}
+				alt="A quiet rooftop at night, with a woman looking at her phone between apartment buildings."
+				class="archive-cover-image"
+				widths={[640, 960, 1584]}
+				sizes="100vw"
+				quality={88}
+				loading="eager"
+				fetchpriority="high"
+			/>
+		</noscript>
+		<script is:inline>
+			(() => {
+				const cover = document.currentScript.closest('.archive-cover');
+				const templates = [...cover.querySelectorAll('template[data-archive-cover]')];
+				const storageKey = 'msk.archive-cover';
+				let previous;
+				try { previous = sessionStorage.getItem(storageKey); } catch {}
+				const remaining = templates.filter((template) => template.dataset.archiveCover !== previous);
+				const choices = remaining.length ? remaining : templates;
+				if (!choices.length) return;
+				const selected = choices[Math.floor(Math.random() * choices.length)];
+				cover.prepend(selected.content.cloneNode(true));
+				cover.dataset.cover = selected.dataset.archiveCover;
+				try { sessionStorage.setItem(storageKey, selected.dataset.archiveCover); } catch {}
+			})();
+		</script>
 		<div class="home-section-inner cover-layout">
 			<div class="cover-copy">
 				<h1 id="archive-title">M.S.K.</h1>

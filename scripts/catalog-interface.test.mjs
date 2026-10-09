@@ -28,15 +28,18 @@ test('catalog interface templates use English without changing multilingual song
   assert.match(readFileSync(new URL('src/layouts/CatalogLayout.astro', root), 'utf8'), /lang="en"/);
 });
 
-test('the supplied rooftop cover keeps its original dimensions and uses responsive eager loading', async () => {
-  const metadata = await sharp(readFileSync(new URL('src/assets/archive-rooftop.webp', root))).metadata();
-  assert.equal(metadata.format, 'webp');
-  assert.equal(metadata.width, 1584);
-  assert.equal(metadata.height, 672);
+test('both supplied covers keep their full original dimensions and responsive eager loading', async () => {
+  for (const name of ['archive-rooftop', 'archive-city']) {
+    const metadata = await sharp(readFileSync(new URL(`src/assets/${name}.webp`, root))).metadata();
+    assert.equal(metadata.format, 'webp');
+    assert.equal(metadata.width, 1584);
+    assert.equal(metadata.height, 672);
+  }
   const home = readFileSync(new URL('src/pages/index.astro', root), 'utf8');
   assert.match(home, /widths=\{\[640, 960, 1584\]\}/);
   assert.match(home, /loading="eager"/);
   assert.match(home, /fetchpriority="high"/);
+  assert.match(home, /<noscript>[\s\S]*?src=\{archiveCover\}/);
 });
 
 test('home record metrics sit on the cover without a snapshot label or date', () => {
