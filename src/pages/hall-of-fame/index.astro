@@ -1,0 +1,50 @@
+---
+import SongArtwork from '../../components/SongArtwork.astro';
+import { CHARTS, songById } from '../../data/maimai';
+import CatalogLayout from '../../layouts/CatalogLayout.astro';
+import { SITE_TITLE } from '../../consts';
+import { hallOfFameGroups } from '../../utils/hall-of-fame.js';
+import '../../styles/hall-of-fame.css';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const groups = hallOfFameGroups(CHARTS);
+const perfectCount = groups.reduce((sum, group) => sum + group.perfectCharts.length, 0);
+const totalCount = groups.reduce((sum, group) => sum + group.totalCount, 0);
+---
+
+<CatalogLayout title={`Hall of Fame | ${SITE_TITLE}`} description="AP and AP+ chart achievements by internal level, from 1.0 to 15.0." pageClass="hall-page">
+	<header class="catalog-page-header">
+		<p class="catalog-kicker">AP / AP+</p>
+		<h1>Hall of Fame</h1>
+		<p>{perfectCount.toLocaleString('en-US')}/{totalCount.toLocaleString('en-US')}</p>
+	</header>
+
+	<div class="hall-collection">
+		{groups.map(({ constant, level, totalCount, perfectCharts }) => (
+			<section class="hall-group" aria-labelledby={`constant-${Math.round(constant * 10)}`} data-constant={constant.toFixed(1)}>
+				<header class="hall-group-heading">
+					<h2 id={`constant-${Math.round(constant * 10)}`}>{constant.toFixed(1)}</h2>
+					<span class="hall-level">Lv {level}</span>
+					<span class="hall-count" aria-label={`${perfectCharts.length} of ${totalCount} charts achieved AP or AP+`}>{perfectCharts.length}/{totalCount}</span>
+				</header>
+				{perfectCharts.length > 0 && (
+					<div class="hall-jackets">
+						{perfectCharts.map((chart) => {
+							const song = songById.get(chart.songId)!;
+							const typeLabel = chart.type === 'STANDARD' ? 'ST' : 'DX';
+							const difficultyClass = chart.difficulty === 'Re:MASTER' ? 'remaster' : chart.difficulty.toLowerCase();
+							const label = `${song.title} · ${typeLabel} ${chart.difficulty} · Lv ${chart.level} (${constant.toFixed(1)}) · ${chart.record?.combo} · ${chart.record?.achievement}`;
+							return (
+								<a class="hall-chart" href={`${base}/songs/${song.id}/`} aria-label={label} title={label} data-chart-id={chart.id}>
+									<SongArtwork song={song} />
+									<span class:list={['hall-type', `hall-type-${difficultyClass}`]}>{typeLabel}</span>
+									<strong class="hall-achievement">{chart.record?.achievement}</strong>
+								</a>
+							);
+						})}
+					</div>
+				)}
+			</section>
+		))}
+	</div>
+</CatalogLayout>
