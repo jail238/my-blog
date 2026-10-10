@@ -1,6 +1,6 @@
 import { plannerCloud, loadPlannerEntries, addPlannerEntries, changePlannerEntry, type PlannerEntry } from '../utils/planner-cloud';
 import { finishPlannerSignIn, plannerRedirectUrl } from '../utils/planner-auth.js';
-import { entriesOnDate, hasOpenGoal, isDateKey, monthCells, shiftMonth, songMatches, statusChange, statusOnDate, todayInKorea } from '../utils/planner.js';
+import { editChange, entriesOnDate, hasOpenGoal, isDateKey, monthCells, shiftMonth, songMatches, statusChange, statusOnDate, todayInKorea } from '../utils/planner.js';
 
 interface PlannerSong { id: string; title: string; koreanTitle?: string; artist: string; artworkUrl: string }
 interface PlannerChart { id: string; songId: string; type: string; difficulty: string; level: string; constant?: number; version: string; record?: { achievement: string; combo?: string } }
@@ -12,6 +12,10 @@ export function initializePlanner() {
   const get = <T extends HTMLElement>(id: string) => document.getElementById(`planner-${id}`) as T;
   const picker = get<HTMLDialogElement>('picker');
   const auth = get<HTMLDialogElement>('auth');
+  const editor = get<HTMLDialogElement>('editor');
+  const deleteDialog = get<HTMLDialogElement>('delete-dialog');
+  const editDate = get<HTMLInputElement>('edit-date');
+  const editTarget = get<HTMLSelectElement>('edit-target');
   const query = get<HTMLInputElement>('query');
   const addDate = get<HTMLInputElement>('add-date');
   const type = get<HTMLSelectElement>('type');
@@ -38,6 +42,9 @@ export function initializePlanner() {
   let refreshing = false;
   let catalogReady = false;
   let signingIn = false;
+  let editingEntry: PlannerEntry | null = null;
+  let deletingEntry: PlannerEntry | null = null;
+  let deletedEntry: PlannerEntry | null = null;
   const dayFormat = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', timeZone: 'UTC' });
   const fullFormat = new Intl.DateTimeFormat('en-US', { dateStyle: 'full', timeZone: 'UTC' });
   const dateObject = (value: string) => new Date(`${value}T00:00:00Z`);
@@ -50,7 +57,7 @@ export function initializePlanner() {
   }
 
   function message(text: string, error = false, authMessage = false) {
-    const node = get<HTMLElement>(authMessage ? 'auth-message' : picker.open ? 'picker-message' : 'message');
+    const node = get<HTMLElement>(authMessage ? 'auth-message' : editor.open ? 'edit-message' : deleteDialog.open ? 'delete-message' : picker.open ? 'picker-message' : 'message');
     node.textContent = text;
     node.dataset.error = String(error);
     node.hidden = !text;
@@ -165,13 +172,18 @@ export function initializePlanner() {
       if (chart?.record) { meta.append(document.createTextNode(' · '), record(chart)); }
       copy.append(meta);
       const actions = element('div', 'planner-entry-actions');
+      const statusActions = element('div', 'planner-entry-action-group');
       if (status === 'pending') {
-        actions.append(action(`Complete ${entry.target} goal`, 'check', () => void changeStatus(entry, 'completed')),
+        statusActions.append(action(`Complete ${entry.target} goal`, 'check', () => void changeStatus(entry, 'completed')),
           action('Skip goal', 'skip', () => void changeStatus(entry, 'skipped')));
       } else {
-        actions.append(element('span', 'planner-status', status === 'completed' ? 'Completed' : 'Skipped'),
+        statusActions.append(element('span', 'planner-status', status === 'completed' ? 'Completed' : 'Skipped'),
           action('Undo status', 'undo', () => void changeStatus(entry, 'pending')));
       }
+      const editActions = element('div', 'planner-entry-action-group');
+      editActions.append(action('Edit goal', 'edit', () => openEntryDialog(entry, false)),
+        action('Delete goal', 'delete', () => openEntryDialog(entry, true)));
+      actions.append(statusActions, editActions);
       row.append(artwork(song), copy, actions);
       return row;
     });
@@ -182,6 +194,50 @@ export function initializePlanner() {
     get<HTMLButtonElement>('sign-in').hidden = !!userId;
     get<HTMLButtonElement>('sign-out').hidden = !userId;
     get<HTMLButtonElement>('sign-out').disabled = busy;
+    renderEntryControls();
+  }
+
+  function stale(entry: PlannerEntry | null) {
+    return !!entry && entries.find((item) => item.id === entry.id)?.revision !== entry.revision;
+  }
+
+  function renderEntryControls() {
+    const disabled = busy || refreshing || !ready;
+    get<HTMLButtonElement>('save-edit').disabled = disabled || !editingEntry || stale(editingEntry);
+    get<HTMLButtonElement>('confirm-delete').disabled = disabled || !deletingEntry || stale(deletingEntry);
+    editDate.disabled = busy;
+    editTarget.disabled = busy;
+    for (const button of root!.querySelectorAll<HTMLButtonElement>('[data-close-entry-dialog]')) button.disabled = busy;
+    get('delete-notice').hidden = !deletedEntry;
+    get<HTMLButtonElement>('restore').disabled = disabled;
+    get<HTMLButtonElement>('dismiss-delete').disabled = busy;
+    if (!disabled && ((editor.open && stale(editingEntry)) || (deleteDialog.open && stale(deletingEntry)))) {
+      message('This goal changed on another device. Close this window and open it again.', true);
+    }
+  }
+
+  function openEntryDialog(entry: PlannerEntry, deleting: boolean) {
+    if (!ready || busy || refreshing) return;
+    const chart = chartsById.get(entry.chart_id);
+    const song = chart ? songsById.get(chart.songId) : undefined;
+    const copy = element('div', 'planner-entry-copy');
+    copy.append(element('strong', 'planner-entry-title', song?.title ?? entry.chart_id), tags(chart, entry.target),
+      element('div', 'planner-entry-meta', `Since ${entry.start_date}`));
+    get(deleting ? 'delete-chart' : 'edit-chart').replaceChildren(artwork(song), copy);
+    if (deleting) {
+      deletingEntry = entry;
+      deleteDialog.showModal();
+      get('cancel-delete').focus();
+    } else {
+      editingEntry = entry;
+      editDate.value = entry.start_date;
+      editDate.max = entry.resolved_date ?? '2099-12-31';
+      editTarget.value = entry.target;
+      editor.showModal();
+      editDate.focus();
+    }
+    message('');
+    renderEntryControls();
   }
 
   function renderSelection() {
@@ -272,6 +328,13 @@ export function initializePlanner() {
     generation++;
     userId = nextId;
     entries = [];
+    editor.close();
+    deleteDialog.close();
+    editingEntry = null;
+    deletingEntry = null;
+    deletedEntry = null;
+    get('edit-chart').replaceChildren();
+    get('delete-chart').replaceChildren();
     selected.clear();
     ready = false;
     busy = false;
@@ -283,19 +346,65 @@ export function initializePlanner() {
   }
 
   async function changeStatus(entry: PlannerEntry, status: PlannerEntry['status']) {
+    try { await mutateEntry(entry, statusChange(entry, status, date), () => message('')); }
+    catch (error) { message(errorMessage(error), true); }
+  }
+
+  async function mutateEntry(entry: PlannerEntry, change: Parameters<typeof changePlannerEntry>[1], onSaved: (updated: PlannerEntry) => void) {
     if (!ready || busy || refreshing) return;
     const currentGeneration = generation;
     busy = true;
     get('sync').textContent = 'Saving';
     render();
     try {
-      const updated = await changePlannerEntry(entry, statusChange(entry, status, date));
+      const updated = await changePlannerEntry(entry, change);
       if (currentGeneration !== generation) return;
-      entries = entries.map((item) => item.id === updated.id ? updated : item);
+      entries = entries.filter((item) => item.id !== updated.id);
+      if (!updated.deleted_at) entries.push(updated);
       get('sync').textContent = 'Synced';
-      message('');
+      onSaved(updated);
     } catch (error) { if (currentGeneration === generation) message(errorMessage(error), true); }
     finally { if (currentGeneration === generation) { busy = false; render(); await refresh(false); } }
+  }
+
+  get('edit-form').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!editingEntry || stale(editingEntry)) return;
+    try {
+      const change = editChange(editingEntry, editTarget.value, editDate.value);
+      await mutateEntry(editingEntry, change, (updated) => {
+        editor.close();
+        selectDate(updated.start_date);
+        message('Goal updated.');
+      });
+    } catch (error) { message(errorMessage(error), true); }
+  });
+  get('confirm-delete').addEventListener('click', async () => {
+    if (!deletingEntry || stale(deletingEntry)) return;
+    await mutateEntry(deletingEntry, { deleted_at: new Date().toISOString() }, (updated) => {
+      deletedEntry = updated;
+      deleteDialog.close();
+      message('');
+    });
+  });
+  get('restore').addEventListener('click', async () => {
+    if (!deletedEntry) return;
+    await mutateEntry(deletedEntry, { deleted_at: null }, (updated) => {
+      deletedEntry = null;
+      selectDate(updated.start_date);
+      message('Goal restored.');
+    });
+  });
+  get('dismiss-delete').addEventListener('click', () => { deletedEntry = null; renderEntryControls(); });
+  for (const button of root.querySelectorAll<HTMLButtonElement>('[data-close-entry-dialog]')) {
+    button.addEventListener('click', () => { if (!busy) button.closest('dialog')?.close(); });
+  }
+  for (const dialog of [editor, deleteDialog]) {
+    dialog.addEventListener('cancel', (event) => { if (busy) event.preventDefault(); });
+    dialog.addEventListener('close', () => {
+      if (dialog === editor) editingEntry = null;
+      else deletingEntry = null;
+    });
   }
 
   function openAuth() {

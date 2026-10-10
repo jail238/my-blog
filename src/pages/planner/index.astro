@@ -1,5 +1,5 @@
 ---
-import { ChevronLeft, ChevronRight, Plus, Search, X, Check, SkipForward, Undo2, RefreshCw, LogIn, LogOut, CalendarDays, LoaderCircle } from '@lucide/astro';
+import { ChevronLeft, ChevronRight, Plus, Search, X, Check, SkipForward, Undo2, RefreshCw, LogIn, LogOut, CalendarDays, LoaderCircle, Pencil, Trash2 } from '@lucide/astro';
 import CatalogLayout from '../../layouts/CatalogLayout.astro';
 import { SITE_TITLE } from '../../consts';
 import { validatePlannerConfig } from '../../utils/planner-config.js';
@@ -20,6 +20,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       </div>
     </header>
     <p id="planner-message" class="planner-message" role="status" hidden></p>
+    <div id="planner-delete-notice" class="planner-delete-notice" hidden><span role="status">Goal deleted.</span><button id="planner-restore" class="planner-button" type="button"><Undo2 size={16} />Undo</button><button id="planner-dismiss-delete" class="planner-icon-button" type="button" title="Dismiss" aria-label="Dismiss deletion notice"><X size={16} /></button></div>
     <noscript><p>JavaScript is required for the planner.</p></noscript>
     <div class="planner-layout">
       <aside class="planner-calendar" aria-label="Calendar">
@@ -72,6 +73,25 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       <button class="planner-button planner-load-more" id="planner-more" hidden>Load more</button>
       <div class="planner-picker-footer"><span id="planner-selection-count" aria-live="polite">0 selected</span><button class="planner-button" id="planner-clear-selection">Clear</button><button class="planner-button primary" id="planner-add-selected" disabled><Plus size={17} />Add selected</button></div>
     </dialog>
+    <dialog id="planner-editor" class="planner-dialog planner-entry-dialog" aria-labelledby="planner-editor-title">
+      <div class="planner-dialog-heading"><h2 id="planner-editor-title">Edit goal</h2><button class="planner-icon-button" type="button" data-close-entry-dialog title="Close" aria-label="Close edit goal"><X size={20} /></button></div>
+      <form id="planner-edit-form">
+        <div class="planner-entry-dialog-body">
+          <div id="planner-edit-chart" class="planner-dialog-chart"></div>
+          <div class="planner-edit-fields">
+            <label><span>Date</span><input id="planner-edit-date" type="date" min="2000-01-01" max="2099-12-31" required /></label>
+            <label><span>Target</span><select id="planner-edit-target"><option>AP</option><option>SSS+</option></select></label>
+          </div>
+          <p id="planner-edit-message" class="planner-message" role="status" hidden></p>
+        </div>
+        <div class="planner-entry-dialog-footer"><button class="planner-button" type="button" data-close-entry-dialog>Cancel</button><button id="planner-save-edit" class="planner-button primary" type="submit"><Check size={17} />Save</button></div>
+      </form>
+    </dialog>
+    <dialog id="planner-delete-dialog" class="planner-dialog planner-entry-dialog" aria-labelledby="planner-delete-title">
+      <div class="planner-dialog-heading"><h2 id="planner-delete-title">Delete goal?</h2><button class="planner-icon-button" type="button" data-close-entry-dialog title="Close" aria-label="Close delete goal"><X size={20} /></button></div>
+      <div class="planner-entry-dialog-body"><div id="planner-delete-chart" class="planner-dialog-chart"></div><p id="planner-delete-message" class="planner-message" role="status" hidden></p></div>
+      <div class="planner-entry-dialog-footer"><button id="planner-cancel-delete" class="planner-button" type="button" data-close-entry-dialog>Cancel</button><button id="planner-confirm-delete" class="planner-button planner-delete-button" type="button"><Trash2 size={17} />Delete</button></div>
+    </dialog>
     <dialog id="planner-auth" class="planner-dialog planner-auth" aria-labelledby="planner-auth-title">
       <div class="planner-dialog-heading"><h2 id="planner-auth-title">Sign in</h2><form method="dialog"><button class="planner-icon-button" aria-label="Close sign in" title="Close"><X size={20} /></button></form></div>
       <div class="planner-auth-form"><button id="planner-github-sign-in" class="planner-button primary" type="button"><LogIn size={18} />Continue with GitHub</button></div>
@@ -80,6 +100,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <template id="planner-icon-check"><Check size={17} /></template>
     <template id="planner-icon-skip"><SkipForward size={17} /></template>
     <template id="planner-icon-undo"><Undo2 size={17} /></template>
+    <template id="planner-icon-edit"><Pencil size={17} /></template>
+    <template id="planner-icon-delete"><Trash2 size={17} /></template>
     <template id="planner-icon-loading"><LoaderCircle size={17} /></template>
   </div>
 </CatalogLayout>

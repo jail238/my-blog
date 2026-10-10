@@ -9,6 +9,7 @@ export interface PlannerEntry {
   start_date: string;
   status: 'pending' | 'completed' | 'skipped';
   resolved_date: string | null;
+  deleted_at: string | null;
   revision: number;
   created_at: string;
   updated_at: string;
@@ -23,7 +24,7 @@ export async function loadPlannerEntries(userId: string): Promise<PlannerEntry[]
   if (!plannerCloud) throw new Error('Cloud connection required.');
   const entries: PlannerEntry[] = [];
   for (let page = 0; page < 100; page++) {
-    const { data, error } = await plannerCloud.from('planner_entries').select('*').eq('user_id', userId)
+    const { data, error } = await plannerCloud.from('planner_entries').select('*').eq('user_id', userId).is('deleted_at', null)
       .order('id').range(page * 1000, page * 1000 + 999);
     if (error) throw error;
     entries.push(...data);
@@ -40,7 +41,7 @@ export async function addPlannerEntries(userId: string, chartIds: string[], targ
   return data as PlannerEntry[];
 }
 
-export async function changePlannerEntry(entry: PlannerEntry, change: Pick<PlannerEntry, 'status' | 'resolved_date'>) {
+export async function changePlannerEntry(entry: PlannerEntry, change: Partial<Pick<PlannerEntry, 'status' | 'resolved_date' | 'start_date' | 'target' | 'deleted_at'>>) {
   if (!plannerCloud) throw new Error('Cloud connection required.');
   const { data, error } = await plannerCloud.from('planner_entries').update(change)
     .eq('id', entry.id).eq('user_id', entry.user_id).eq('revision', entry.revision).select();

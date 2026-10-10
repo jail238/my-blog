@@ -10,7 +10,7 @@ The Free plan currently includes a 500 MB database. Exceeding Free quotas can re
 
 ## Database And Auth
 
-1. Create a Supabase project, then apply `supabase/migrations/202610100001_planner.sql` in its SQL editor.
+1. Create a Supabase project, then apply all files in `supabase/migrations/` in filename order in its SQL editor.
 2. Register a GitHub OAuth App with the planner homepage URL and the project's `https://<project-ref>.supabase.co/auth/v1/callback` URL. Keep Device Flow disabled. Enter the Client ID and Client Secret directly into the Supabase GitHub provider settings; never put the secret in chat, local frontend configuration, GitHub Actions, or source control.
 3. Enable GitHub and disable the Email and Anonymous sign-in providers. Signing into the Supabase management dashboard with GitHub is separate from this site's OAuth App. No SMTP service, custom email template, or paid authentication provider is needed.
 4. Set the site URL to `https://misaki.love` and allow the exact `https://misaki.love/planner/` URL and the local development planner URL (for example `http://127.0.0.1:4323/planner/`) in the redirect allow list. Avoid production wildcards.
@@ -37,6 +37,8 @@ All three Pages build workflows (normal deployment, catalog refresh, and record 
 - An unresolved entry appears every date from `start_date` onward, without making daily copies.
 - Completed and skipped entries remain visible on their closing date and stop appearing afterward. Earlier dates still show their previous pending state.
 - Undo reopens the original entry. A new goal may be added after an old one is closed. Duplicate pending goals are rejected atomically by the database.
+- Edit changes an entry's start date and AP/SSS+ target. A closed entry's start date cannot move past its closing date. The chart identity and completion history stay intact.
+- Delete asks for confirmation, then hides the goal from every date and device. It is a soft deletion; the current page offers Undo until the notice is dismissed or the page is reloaded. Restoring cannot create a duplicate pending goal. Browser clients have no permanent-delete permission.
 - Updates use the server revision as a compare-and-set condition; stale devices cannot silently overwrite another device's change.
 - Writes go directly to the cloud. The page refreshes on focus, when returning online, and every 20 seconds while visible. Network failures do not pretend to save offline.
 - Existing public score records are shown for reference; they never automatically close a manually planned goal.
@@ -51,5 +53,9 @@ Local verification includes 59 tests, strict planner TypeScript checking, a 1,46
 Production deployment and the owner's GitHub OAuth return to `https://misaki.love/planner/` passed on 2026-10-10. The authenticated list reached `Synced` with no console errors. The current narrow in-app browser layout was checked for overflow. Its viewport override did not actually change the rendered width, so this run does not count as a fresh desktop/mobile breakpoint test. A physical PC/phone check remains for the owner.
 
 Keep regression coverage for owner isolation, anonymous denial, simultaneous edits, duplicates, AP versus SSS+ targets, skipped/completed carry-forward, GitHub sign-in, denied authorization, logout, and network failures. Two browser tabs are not a substitute for the final physical PC/phone check. Do not create another real account solely for testing while private signups are blocked; database role tests cover synthetic owner isolation without widening access.
+
+The edit/delete migration passed PostgreSQL checks for owner-only edits, soft deletion, restoration, duplicate targets, protected identity columns, and stale revisions. On 2026-10-10, an isolated temporary UI goal verified date/target editing, delete confirmation and cancellation, delete/undo for pending and completed entries, and stale two-tab saves. Layout checks passed at actual 1280px and 390px widths without horizontal overflow. The temporary goal was removed without changing existing plans.
+
+The latest security advisor reports [disabled leaked-password protection](https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection). The site uses GitHub-only authentication and has no password accounts; no password provider or paid feature was enabled. RLS remains enabled and browser roles still have no permanent-delete permission.
 
 References: [GitHub sign-in](https://supabase.com/docs/guides/auth/social-login/auth-github), [PKCE](https://supabase.com/docs/guides/auth/sessions/pkce-flow), [Row-level security](https://supabase.com/docs/guides/database/postgres/row-level-security).

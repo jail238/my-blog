@@ -33,6 +33,7 @@ test('PostgreSQL enforces private ownership, dates, duplicate goals and stale re
       grant execute on function auth.uid() to authenticated;
     `);
     await db.exec(readFileSync(new URL('../supabase/migrations/202610100001_planner.sql', import.meta.url), 'utf8'));
+    await db.exec(readFileSync(new URL('../supabase/migrations/202610100002_planner_edit_delete.sql', import.meta.url), 'utf8'));
     await db.exec(`set role authenticated; select set_config('request.jwt.claim.sub', '${first}', false);`);
     const insert = (chart = '1051-dx-master', target = 'AP', date = '2026-10-10') => db.query('insert into public.planner_entries (chart_id,target,start_date) values ($1,$2,$3) returning *', [chart, target, date]);
     const { rows: [created] } = await insert();
@@ -50,13 +51,41 @@ test('PostgreSQL enforces private ownership, dates, duplicate goals and stale re
     assert.equal((await db.query("update public.planner_entries set status='skipped',resolved_date='2026-10-11' where id=$1 and revision=1 returning id", [created.id])).rows.length, 0);
     await assert.rejects(db.query('update public.planner_entries set user_id=$1 where id=$2', [second, created.id]), /permission denied/);
     await assert.rejects(db.query('delete from public.planner_entries where id=$1', [created.id]), /permission denied/);
+    await assert.rejects(db.query("update public.planner_entries set start_date='2026-10-12' where id=$1", [created.id]), /check constraint/);
+    const { rows: [edited] } = await db.query("update public.planner_entries set start_date='2026-10-09',target='SSS+' where id=$1 and revision=2 returning *", [created.id]);
+    assert.equal(edited.revision, 3);
+    assert.equal(edited.target, 'SSS+');
+    assert.equal(edited.resolved_date.toISOString().slice(0, 10), '2026-10-11');
+    assert.deepEqual(edited.created_at, created.created_at);
+    assert.equal((await db.query("update public.planner_entries set target='AP' where id=$1 and revision=2 returning id", [created.id])).rows.length, 0);
+    for (const column of ['id', 'chart_id', 'revision', 'created_at', 'updated_at']) {
+      await assert.rejects(db.query(`update public.planner_entries set ${column}=${column} where id=$1`, [created.id]), /permission denied/);
+    }
+    const { rows: [removable] } = await insert('2000-dx-basic');
+    await insert('2000-dx-basic', 'SSS+');
+    await assert.rejects(db.query("update public.planner_entries set target='SSS+' where id=$1", [removable.id]), /duplicate key/);
+    const { rows: [deleted] } = await db.query("update public.planner_entries set deleted_at=now() where id=$1 and revision=1 returning *", [removable.id]);
+    assert.ok(deleted.deleted_at);
+    assert.equal(deleted.revision, 2);
+    assert.equal((await db.query('select id from public.planner_entries where id=$1 and deleted_at is null', [removable.id])).rows.length, 0);
+    assert.equal((await db.query("update public.planner_entries set start_date='2026-10-12' where id=$1 and revision=1 returning id", [removable.id])).rows.length, 0);
+    const { rows: [replacement] } = await insert('2000-dx-basic');
+    await assert.rejects(db.query('update public.planner_entries set deleted_at=null where id=$1 and revision=2', [removable.id]), /duplicate key/);
+    await db.query('update public.planner_entries set deleted_at=now() where id=$1', [replacement.id]);
+    const { rows: [restored] } = await db.query('update public.planner_entries set deleted_at=null where id=$1 and revision=2 returning *', [removable.id]);
+    assert.equal(restored.deleted_at, null);
+    assert.equal(restored.revision, 3);
     await db.exec(`select set_config('request.jwt.claim.sub', '${second}', false);`);
     assert.equal((await db.query('select * from public.planner_entries')).rows.length, 0);
     assert.equal((await db.query("update public.planner_entries set status='pending',resolved_date=null where id=$1 returning id", [created.id])).rows.length, 0);
+    assert.equal((await db.query("update public.planner_entries set target='AP',start_date='2026-10-10' where id=$1 returning id", [created.id])).rows.length, 0);
+    assert.equal((await db.query('update public.planner_entries set deleted_at=now() where id=$1 returning id', [removable.id])).rows.length, 0);
+    assert.equal((await db.query('update public.planner_entries set deleted_at=null where id=$1 returning id', [replacement.id])).rows.length, 0);
     await insert('1051-dx-master', 'AP');
     assert.equal((await db.query('select * from public.planner_entries')).rows.length, 1);
     await db.exec('reset role; set role anon;');
     await assert.rejects(db.query('select * from public.planner_entries'), /permission denied/);
     await assert.rejects(insert(), /permission denied/);
+    await assert.rejects(db.query('update public.planner_entries set deleted_at=now() where id=$1', [removable.id]), /permission denied/);
   } finally { await db.close(); }
 });

@@ -42,18 +42,26 @@ export function statusOnDate(entry, date) {
 
 export function entriesOnDate(entries, date, { target = '', status = '' } = {}) {
   if (!isDateKey(date)) return [];
-  return entries.filter((entry) => entry.start_date <= date && (!entry.resolved_date || date <= entry.resolved_date)
+  return entries.filter((entry) => !entry.deleted_at && entry.start_date <= date && (!entry.resolved_date || date <= entry.resolved_date)
     && (!target || entry.target === target) && (!status || statusOnDate(entry, date) === status))
     .sort((a, b) => Number(statusOnDate(a, date) !== 'pending') - Number(statusOnDate(b, date) !== 'pending')
       || a.start_date.localeCompare(b.start_date) || a.created_at.localeCompare(b.created_at) || a.id.localeCompare(b.id));
 }
 
 export function hasOpenGoal(entries, chartId, target) {
-  return entries.some((entry) => entry.chart_id === chartId && entry.target === target && entry.status === 'pending');
+  return entries.some((entry) => !entry.deleted_at && entry.chart_id === chartId && entry.target === target && entry.status === 'pending');
+}
+
+export function editChange(entry, target, startDate) {
+  if (entry.deleted_at) throw new Error('This goal was deleted.');
+  if (!PLANNER_TARGETS.includes(target)) throw new Error('Choose AP or SSS+.');
+  if (!isDateKey(startDate)) throw new Error('Choose a valid date.');
+  if (entry.resolved_date && startDate > entry.resolved_date) throw new Error(`Date must be on or before ${entry.resolved_date}.`);
+  return { target, start_date: startDate };
 }
 
 export function statusChange(entry, status, date) {
-  if (!PLANNER_STATUSES.includes(status) || !isDateKey(date) || date < entry.start_date) throw new Error('Invalid status change.');
+  if (entry.deleted_at || !PLANNER_STATUSES.includes(status) || !isDateKey(date) || date < entry.start_date) throw new Error('Invalid status change.');
   return { status, resolved_date: status === 'pending' ? null : date };
 }
 
