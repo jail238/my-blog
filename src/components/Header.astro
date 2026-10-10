@@ -1,26 +1,60 @@
 ---
+import { Menu, X } from '@lucide/astro';
 import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const links = [
+	{ path: '/', label: 'Home' },
+	{ path: '/levels/', label: 'Level' },
+	{ path: '/difficulties/', label: 'Difficulty' },
+	{ path: '/versions/', label: 'Version' },
+	{ path: '/plates/', label: 'Plate' },
+	{ path: '/hall-of-fame/', label: 'Hall of Fame' },
+	{ path: '/planner/', label: 'Planner' },
+];
 ---
 
-<header class="site-header">
-	<nav>
+<header class="site-header" data-site-header>
+	<nav aria-label="Primary">
+		<button
+			type="button"
+			class="mobile-menu-toggle navigation-icon-button"
+			data-mobile-navigation-toggle
+			aria-label="Open navigation"
+			aria-controls="mobile-navigation-dialog"
+			aria-haspopup="dialog"
+			aria-expanded="false"
+			title="Open navigation"
+		>
+			<Menu size={22} aria-hidden="true" />
+		</button>
 		<a class="site-brand" href={`${base}/`}>
 			<strong>{SITE_TITLE}</strong>
 		</a>
 		<div class="internal-links">
-			<HeaderLink href={`${base}/`}>Home</HeaderLink>
-			<HeaderLink href={`${base}/levels/`}>Level</HeaderLink>
-			<HeaderLink href={`${base}/difficulties/`}>Difficulty</HeaderLink>
-			<HeaderLink href={`${base}/versions/`}>Version</HeaderLink>
-			<HeaderLink href={`${base}/plates/`}>Plate</HeaderLink>
-			<HeaderLink href={`${base}/hall-of-fame/`}>Hall of Fame</HeaderLink>
-			<HeaderLink href={`${base}/planner/`}>Planner</HeaderLink>
+			{links.map((link) => <HeaderLink href={`${base}${link.path}`}>{link.label}</HeaderLink>)}
 		</div>
 	</nav>
 </header>
+
+<dialog class="mobile-navigation" id="mobile-navigation-dialog" aria-label="Navigation">
+	<div class="mobile-navigation-heading">
+		<strong>{SITE_TITLE}</strong>
+		<button type="button" class="navigation-icon-button" data-mobile-navigation-close aria-label="Close navigation" title="Close navigation">
+			<X size={22} aria-hidden="true" />
+		</button>
+	</div>
+	<nav class="mobile-navigation-links" aria-label="Mobile">
+		{links.map((link) => <HeaderLink href={`${base}${link.path}`}>{link.label}</HeaderLink>)}
+	</nav>
+</dialog>
+
+<script>
+	import { initMobileNavigation } from '../scripts/mobile-navigation.js';
+	initMobileNavigation();
+</script>
+
 <style>
 	.site-header {
 		background: #ffffff;
@@ -32,7 +66,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 		top: 0;
 		z-index: 20;
 	}
-	nav {
+	.site-header > nav {
 		align-items: center;
 		display: flex;
 		justify-content: space-between;
@@ -66,7 +100,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 		scrollbar-width: thin;
 	}
 	.internal-links :global(a) { flex-shrink: 0; white-space: nowrap; }
-	nav a {
+	.site-header :global(a), .mobile-navigation-links :global(a) {
 		color: rgb(var(--muted));
 		border-radius: 6px;
 		font-size: 0.94rem;
@@ -76,23 +110,65 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 		text-decoration: none;
 		transition: color 140ms ease;
 	}
-	nav a:hover,
-	nav a.active {
+	.site-header :global(a:hover),
+	.mobile-navigation-links :global(a:hover) {
 		color: var(--brand-strong);
 		text-decoration: none;
 	}
-	.internal-links :global(a.active)::after {
+	.internal-links :global(a.active)::after, .mobile-navigation-links :global(a.active)::after {
 		content: none;
 	}
-	.internal-links :global(a.active) {
+	.internal-links :global(a.active), .mobile-navigation-links :global(a.active) {
 		background: var(--brand-soft);
 		color: var(--brand-strong);
 	}
+	.navigation-icon-button {
+		align-items: center;
+		background: transparent;
+		border: 1px solid rgb(var(--line));
+		border-radius: 6px;
+		color: rgb(var(--text));
+		display: inline-flex;
+		flex: 0 0 44px;
+		height: 44px;
+		justify-content: center;
+		padding: 0;
+		width: 44px;
+	}
+	.navigation-icon-button:hover { background: var(--brand-soft); }
+	.mobile-menu-toggle { display: none; }
+	.mobile-navigation {
+		background: var(--surface);
+		border: 0;
+		border-radius: 0;
+		box-shadow: 8px 0 32px #0000001f;
+		color: rgb(var(--text));
+		height: 100vh;
+		height: 100dvh;
+		inset: 0 auto 0 0;
+		margin: 0;
+		max-height: none;
+		max-width: none;
+		overflow-y: auto;
+		overscroll-behavior: contain;
+		padding: 20px 18px;
+		position: fixed;
+		width: min(304px, calc(100% - 48px));
+	}
+	.mobile-navigation[open] { animation: navigation-enter 160ms ease-out; }
+	.mobile-navigation::backdrop { background: #20202066; }
+	.mobile-navigation-heading { align-items: center; display: flex; justify-content: space-between; }
+	.mobile-navigation-heading strong { font-family: var(--font-display); font-size: 22px; }
+	.mobile-navigation-links { display: flex; flex-direction: column; gap: 6px; margin-top: 24px; }
+	.mobile-navigation-links :global(a) { font-size: 15px; min-height: 48px; padding: 12px 14px; }
+	:global(html:has(#mobile-navigation-dialog[open])) { overflow: hidden; scrollbar-gutter: stable; }
+	@keyframes navigation-enter { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+	@media (prefers-reduced-motion: reduce) { .mobile-navigation[open] { animation: none; } }
 	@media (max-width: 720px) {
 		.site-header {
 			padding: 0 0.9rem;
 		}
-		nav {
+		.site-header > nav {
 			gap: 12px;
 			min-height: 64px;
 		}
@@ -100,24 +176,22 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 			display: none;
 		}
 		.internal-links {
-			gap: 0.1rem;
-			scrollbar-width: none;
+			flex-wrap: wrap;
+			gap: 4px;
+			overflow: visible;
 		}
-		.internal-links::-webkit-scrollbar { display: none; }
-		nav a {
+		.site-header :global(a) {
 			font-size: 0.76rem;
 			padding: 0.55rem 3px;
 		}
 		.site-brand { flex-shrink: 0; padding-left: 0; }
 		.site-brand strong { font-size: 1.2rem; }
-	}
-	@media (max-width: 430px) {
-		nav { align-items: start; flex-direction: column; justify-content: center; padding-block: 10px; }
-		.internal-links { justify-content: space-between; width: 100%; }
+		.site-header[data-mobile-navigation='ready'] > nav { justify-content: flex-start; }
+		.site-header[data-mobile-navigation='ready'] .mobile-menu-toggle { display: inline-flex; }
+		.site-header[data-mobile-navigation='ready'] .internal-links { display: none; }
 	}
 	@media (max-width: 360px) {
 		.site-header { padding: 0 0.75rem; }
-		nav a { font-size: 11px; padding-inline: 4px; }
 		.site-brand strong { font-size: 17px; }
 	}
 </style>

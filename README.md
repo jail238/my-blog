@@ -8,6 +8,7 @@ Personal maimai record archive built with Astro.
 - Framework: Astro
 - Deploy: GitHub Pages + GitHub Actions
 - Typography: self-hosted Poppins display headings with Pretendard JP Variable for body text and multilingual song names. Official unicode-range subsets keep Japanese and Korean font loading page-specific.
+- Navigation: desktop keeps horizontal links; mobile uses a left-side menu button and vertical modal drawer with current-page highlighting, backdrop/Escape dismissal, native focus handling, and a wrapping-link fallback when JavaScript or modal dialogs are unavailable.
 
 ## Archive
 
@@ -17,7 +18,7 @@ The archive has the following views.
 - `Difficulty`: BASIC, ADVANCED, EXPERT, MASTER, and Re:MASTER chart indexes with AP/AP+ progress and chart filters.
 - `Version`: chart-release index. A song appears under every version that introduced one of its International ST or DX chart sets.
 - `Plate`: version-plate progress for 神 (AP).
-- `Hall of Fame`: AP and AP+ jackets grouped by internal constants from 15.0 down to 1.0, with achieved/total counts including ST, DX, and Re:MASTER. Each jacket links to its song and shows a difficulty-colored chart type, exact achievement percentage, and animated prism border. Reduced-motion preferences keep borders static. Both totals and jackets follow the catalog and record snapshots at every build.
+- `Hall of Fame`: AP and AP+ jackets grouped by internal constants from 15.0 down to 1.0, with achieved/total counts including ST, DX, and Re:MASTER. Each jacket links to its song and shows a chart type in the shared pastel difficulty colors, exact achievement percentage, and animated prism border. Mobile badge labels are optically centered. Reduced-motion preferences keep borders static. Both totals and jackets follow the catalog and record snapshots at every build.
 - Level index cards show AP/AP+ completion progress. Level detail pages can filter by song, artist, chart type, difficulty, internal level, and chart-release version; they can also hide completed AP/AP+ charts and order results by AP+, AP, then achievement rate.
 - Version index rows show AP/AP+ progress including Re:MASTER charts. Version pages can be searched by song or artist and show BASIC through MASTER completion status for each ST/DX chart set, adding the Re:MASTER marker only when that chart exists.
 - Plate progress follows the in-game 神 scope. Individual version plates use BASIC through MASTER and exclude Re:MASTER; the combined 舞神 goal uses every STANDARD chart from maimai through FiNALE and includes Re:MASTER. The original maimai and maimai PLUS releases share the 真神 group, and the plate rows run from the oldest version to the newest with 舞神 between 輝神 and 熊神. Each individual version label links to its chart catalog. Every row shows that goal's actual in-game plate image followed by its completed-chart count, percentage, and progress gauge. The home plate card shows completed plates only.

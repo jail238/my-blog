@@ -48,11 +48,7 @@
 	right: 5px;
 	top: 5px;
 }
-.hall-type-basic { background: #147d43; color: #ffffff; }
-.hall-type-advanced { background: #f4c640; color: #3d330e; }
-.hall-type-expert { background: #c5323f; color: #ffffff; }
-.hall-type-master { background: #7842a9; color: #ffffff; }
-.hall-type-remaster { background: #f3e6ff; color: #704a87; }
+.hall-type-label { display: block; }
 .hall-achievement {
 	background: linear-gradient(transparent, #000000d9);
 	border-radius: 0 0 3px 3px;
@@ -73,8 +69,10 @@
 
 @media (max-width: 720px) {
 	.hall-group { padding: 12px; }
-	.hall-page .hall-group-heading h2 { scroll-margin-top: 136px; }
+	.hall-page .hall-group-heading h2 { scroll-margin-top: 96px; }
 	.hall-jackets { gap: 8px; grid-template-columns: repeat(auto-fill, 72px); }
+	/* Center the visible capitals rather than the font's ascender space. */
+	.hall-type-label { transform: translateY(1px); }
 	.hall-achievement { font-size: 11px; }
 }
 @media (prefers-reduced-motion: reduce) {

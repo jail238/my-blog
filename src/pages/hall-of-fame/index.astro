@@ -37,7 +37,7 @@ const totalCount = groups.reduce((sum, group) => sum + group.totalCount, 0);
 							return (
 								<a class="hall-chart" href={`${base}/songs/${song.id}/`} aria-label={label} title={label} data-chart-id={chart.id}>
 									<SongArtwork song={song} />
-									<span class:list={['hall-type', `hall-type-${difficultyClass}`]}>{typeLabel}</span>
+									<span class:list={['hall-type', `difficulty-${difficultyClass}`]}><span class="hall-type-label">{typeLabel}</span></span>
 									<strong class="hall-achievement">{chart.record?.achievement}</strong>
 								</a>
 							);

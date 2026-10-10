@@ -89,12 +89,32 @@ test('Hall of Fame offers accessible song links, exact scores, difficulty colors
 	assert.match(page, /\{chart\.record\?\.achievement\}/);
 	assert.doesNotMatch(page, /ComboIcon|SSS\+|average|combo-icon/i);
 	const css = readFileSync(new URL('../src/styles/hall-of-fame.css', import.meta.url), 'utf8');
-	for (const difficulty of ['basic', 'advanced', 'expert', 'master', 'remaster']) {
-		assert.ok(css.includes(`.hall-type-${difficulty}`));
-	}
+	assert.match(page, /`difficulty-\$\{difficultyClass\}`/);
 	assert.match(css, /conic-gradient/);
 	assert.match(css, /prefers-reduced-motion: reduce/);
 	assert.match(css, /\.hall-collection \{ animation: none; \}/);
 	const header = readFileSync(new URL('../src/components/Header.astro', import.meta.url), 'utf8');
-	assert.match(header, /\/hall-of-fame\/`\}>Hall of Fame<\/HeaderLink>/);
+	assert.match(header, /path: '\/hall-of-fame\/', label: 'Hall of Fame'/);
+});
+
+test('Hall of Fame uses shared pastel badges with legible text and mobile optical centering', () => {
+	const page = readFileSync(new URL('../src/pages/hall-of-fame/index.astro', import.meta.url), 'utf8');
+	const css = readFileSync(new URL('../src/styles/hall-of-fame.css', import.meta.url), 'utf8');
+	const global = readFileSync(new URL('../src/styles/global.css', import.meta.url), 'utf8');
+	const luminance = (hex) => {
+		const rgb = hex.match(/\w{2}/g).map((channel) => parseInt(channel, 16) / 255)
+			.map((channel) => channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4);
+		return rgb[0] * 0.2126 + rgb[1] * 0.7152 + rgb[2] * 0.0722;
+	};
+	for (const difficulty of ['basic', 'advanced', 'expert', 'master', 'remaster']) {
+		const rule = global.match(new RegExp(`\\.difficulty-${difficulty} \\{ background: (#\\w{6}); color: (#\\w{6}); \\}`));
+		assert.ok(rule, `${difficulty} keeps its shared difficulty palette`);
+		const background = luminance(rule[1].slice(1)), foreground = luminance(rule[2].slice(1));
+		assert.ok(background > 0.75, `${difficulty} uses a light background`);
+		assert.ok((background + 0.05) / (foreground + 0.05) >= 4.5, `${difficulty} text contrast is at least 4.5:1`);
+	}
+	assert.doesNotMatch(css, /\.hall-type-(?:basic|advanced|expert|master|remaster)\s*\{/);
+	assert.match(page, /class="hall-type-label">\{typeLabel\}<\/span>/);
+	assert.match(css, /height: 18px/);
+	assert.match(css, /@media \(max-width: 720px\)[\s\S]*\.hall-type-label \{ transform: translateY\(1px\); \}/);
 });
