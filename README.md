@@ -42,6 +42,12 @@ src/pages/records/
 
 Only the maimai archive is included in the public build. Previous blog posts, writing tools, comments, and uploaded media are not published from this repository state.
 
+## Planner
+
+`/planner/` adds a private calendar-based play queue with title/artist search, exact ST/DX difficulty selection, and independent AP and SSS+ goals. Pending charts carry forward from their scheduled date until completed or skipped. Closed goals can be reopened.
+
+PC and phone share the same Supabase account. Plans stay in a row-level-security protected database, not in GitHub or the public catalog. Cloud configuration is required before saving or signing in; see [Planner Cloud Setup](docs/planner-setup.md).
+
 ## Commands
 
 ```bash

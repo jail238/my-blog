@@ -48,7 +48,12 @@ jobs:
           echo "changed=true" >> "$GITHUB_OUTPUT"
       - name: Build
         if: steps.commit.outputs.changed == 'true'
-        run: npm run build
+        run: |
+          npm run check:planner-config
+          npm run build
+        env:
+          PUBLIC_SUPABASE_URL: ${{ vars.PUBLIC_SUPABASE_URL }}
+          PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ vars.PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
       - name: Upload artifact
         if: steps.commit.outputs.changed == 'true'
         uses: actions/upload-pages-artifact@v5

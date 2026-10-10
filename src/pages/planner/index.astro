@@ -1,0 +1,89 @@
+---
+import { ChevronLeft, ChevronRight, Plus, Search, X, Check, SkipForward, Undo2, RefreshCw, LogIn, LogOut, CalendarDays, LoaderCircle } from '@lucide/astro';
+import CatalogLayout from '../../layouts/CatalogLayout.astro';
+import { SITE_TITLE } from '../../consts';
+import { validatePlannerConfig } from '../../utils/planner-config.js';
+import '../../styles/planner.css';
+validatePlannerConfig(import.meta.env.PUBLIC_SUPABASE_URL, import.meta.env.PUBLIC_SUPABASE_PUBLISHABLE_KEY);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<CatalogLayout title={`Planner | ${SITE_TITLE}`} description="A private, date-based maimai chart planner." pageClass="planner-page">
+  <div id="planner" data-base={base}>
+    <header class="catalog-page-header planner-heading">
+      <div><p class="catalog-kicker">PLAY QUEUE</p><h1>Planner</h1></div>
+      <div class="planner-account">
+        <span id="planner-sync" role="status">Connecting</span>
+        <button class="planner-icon-button" id="planner-refresh" title="Sync now" aria-label="Sync now" disabled><RefreshCw size={17} /></button>
+        <button class="planner-button" id="planner-sign-in"><LogIn size={16} />Sign in</button>
+        <button class="planner-icon-button" id="planner-sign-out" title="Sign out" aria-label="Sign out" hidden><LogOut size={17} /></button>
+      </div>
+    </header>
+    <p id="planner-message" class="planner-message" role="status" hidden></p>
+    <noscript><p>JavaScript is required for the planner.</p></noscript>
+    <div class="planner-layout">
+      <aside class="planner-calendar" aria-label="Calendar">
+        <div class="planner-calendar-heading">
+          <h2 id="planner-month"></h2>
+          <div class="planner-inline">
+            <button class="planner-icon-button" id="planner-prev-month" aria-label="Previous month" title="Previous month"><ChevronLeft size={18} /></button>
+            <button class="planner-icon-button" id="planner-next-month" aria-label="Next month" title="Next month"><ChevronRight size={18} /></button>
+          </div>
+        </div>
+        <div class="planner-weekdays" aria-hidden="true"><span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span></div>
+        <div id="planner-days" class="planner-days" role="group" aria-label="Choose a date"></div>
+        <div class="planner-calendar-footer">
+          <button class="planner-button" id="planner-today"><CalendarDays size={16} />Today</button>
+          <label class="planner-date-label"><span class="planner-sr-only">Selected date</span><input id="planner-date" type="date" min="2000-01-01" max="2099-12-31" /></label>
+        </div>
+      </aside>
+      <section class="planner-agenda" aria-labelledby="planner-date-title">
+        <div class="planner-agenda-heading">
+          <div><p class="catalog-kicker" id="planner-day-label"></p><h2 id="planner-date-title"></h2></div>
+          <button class="planner-button primary" id="planner-open-picker"><Plus size={18} />Add charts</button>
+        </div>
+        <div class="planner-toolbar">
+          <div class="planner-segments" role="group" aria-label="Target filter">
+            <button data-target-filter="" class="active" aria-pressed="true">All</button>
+            <button data-target-filter="AP" aria-pressed="false">AP</button>
+            <button data-target-filter="SSS+" aria-pressed="false">SSS+</button>
+          </div>
+          <label><span class="planner-sr-only">Status filter</span><select id="planner-status-filter"><option value="">All statuses</option><option value="pending">Pending</option><option value="completed">Completed</option><option value="skipped">Skipped</option></select></label>
+          <span id="planner-count" aria-live="polite">0 charts</span>
+        </div>
+        <div id="planner-entries" class="planner-entries"></div>
+        <div class="planner-empty" id="planner-empty"><CalendarDays size={28} /><p id="planner-empty-copy">Sign in to view your plans.</p></div>
+      </section>
+    </div>
+    <dialog id="planner-picker" class="planner-dialog planner-picker" aria-labelledby="planner-picker-title">
+      <div class="planner-dialog-heading"><h2 id="planner-picker-title">Add charts</h2><form method="dialog"><button class="planner-icon-button" aria-label="Close chart search" title="Close"><X size={20} /></button></form></div>
+      <div class="planner-picker-controls">
+        <label class="planner-search"><Search size={17} /><span class="planner-sr-only">Search songs</span><input id="planner-query" type="search" placeholder="Title or artist" autocomplete="off" /></label>
+        <div class="planner-picker-filters">
+          <label><span>Date</span><input id="planner-add-date" type="date" min="2000-01-01" max="2099-12-31" required /></label>
+          <label><span>Chart type</span><select id="planner-type"><option value="">All</option><option value="STANDARD">ST</option><option value="DX">DX</option></select></label>
+          <label><span>Difficulty</span><select id="planner-difficulty"><option value="">All</option><option>BASIC</option><option>ADVANCED</option><option>EXPERT</option><option>MASTER</option><option>Re:MASTER</option></select></label>
+          <fieldset class="planner-goal"><legend>Target</legend><div class="planner-segments" role="group" aria-label="Target for selected charts"><button type="button" data-add-target="AP" class="active" aria-pressed="true">AP</button><button type="button" data-add-target="SSS+" aria-pressed="false">SSS+</button></div></fieldset>
+        </div>
+      </div>
+      <p id="planner-picker-message" class="planner-message" role="status" hidden></p>
+      <p id="planner-search-count" class="planner-search-count" aria-live="polite">Loading catalog</p>
+      <div class="planner-search-results" id="planner-search-results"></div>
+      <button class="planner-button planner-load-more" id="planner-more" hidden>Load more</button>
+      <div class="planner-picker-footer"><span id="planner-selection-count" aria-live="polite">0 selected</span><button class="planner-button" id="planner-clear-selection">Clear</button><button class="planner-button primary" id="planner-add-selected" disabled><Plus size={17} />Add selected</button></div>
+    </dialog>
+    <dialog id="planner-auth" class="planner-dialog planner-auth" aria-labelledby="planner-auth-title">
+      <div class="planner-dialog-heading"><h2 id="planner-auth-title">Sign in</h2><form method="dialog"><button class="planner-icon-button" aria-label="Close sign in" title="Close"><X size={20} /></button></form></div>
+      <div class="planner-auth-form"><button id="planner-github-sign-in" class="planner-button primary" type="button"><LogIn size={18} />Continue with GitHub</button></div>
+      <p id="planner-auth-message" class="planner-message" role="status" hidden></p>
+    </dialog>
+    <template id="planner-icon-check"><Check size={17} /></template>
+    <template id="planner-icon-skip"><SkipForward size={17} /></template>
+    <template id="planner-icon-undo"><Undo2 size={17} /></template>
+    <template id="planner-icon-loading"><LoaderCircle size={17} /></template>
+  </div>
+</CatalogLayout>
+<script>
+  import { initializePlanner } from '../../scripts/planner';
+  initializePlanner();
+</script>
