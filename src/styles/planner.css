@@ -17,10 +17,10 @@
 .planner-inline { gap: 4px; }
 .planner-weekdays, .planner-days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
 .planner-weekdays { color: rgb(var(--muted)); font-size: 11px; margin-bottom: 8px; text-align: center; }
-.planner-day { aspect-ratio: 1; background: transparent; border: 1px solid transparent; border-radius: 6px; color: rgb(var(--text)); display: grid; font-size: 13px; min-width: 0; padding: 0; place-items: center; position: relative; }
+.planner-day { align-items: center; aspect-ratio: 1; background: transparent; border: 1px solid transparent; border-radius: 6px; color: rgb(var(--text)); display: flex; flex-direction: column; font-size: 13px; gap: 1px; justify-content: center; min-width: 0; padding: 3px; }
 .planner-day:hover { background: var(--brand-soft); }
-.planner-day > span { line-height: 1; }
-.planner-day small { bottom: 2px; font-size: 9px; left: 0; line-height: 1; pointer-events: none; position: absolute; right: 0; text-align: center; }
+.planner-day small { font-size: 9px; line-height: 1; min-height: 10px; }
+.planner-day small:empty { display: none; }
 .planner-day.outside { color: #a9a9a9; }
 .planner-day.today { border-color: #969696; }
 .planner-day.active { background: var(--brand-strong); color: #fff; }
