@@ -5,9 +5,9 @@
     "region": "intl",
     "gameVersion": "CiRCLE PLUS",
     "chartDataUrl": "https://maimai.shiftpsh.com/profile/elixir/records",
-    "chartDataPinnedAt": "2026-10-03T01:48:30.734Z",
-    "sourceUpdatedAt": "Sat, 03 Oct 2026 00:53:19 GMT",
-    "generatedAt": "2026-10-03T01:48:32.874Z"
+    "chartDataPinnedAt": "2026-10-10T01:49:53.691Z",
+    "sourceUpdatedAt": "Fri, 09 Oct 2026 23:49:54 GMT",
+    "generatedAt": "2026-10-10T01:49:55.653Z"
   },
   "versions": [
     {
@@ -66561,7 +66561,7 @@
       "difficulty": "ADVANCED",
       "versionId": "circle-plus",
       "level": "7+",
-      "constant": 7.6
+      "constant": 7.9
     },
     {
       "id": "maishift-18942-dx-basic",

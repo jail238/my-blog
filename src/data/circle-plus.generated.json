@@ -3,7 +3,7 @@
     "gameVersion": "CiRCLE PLUS",
     "region": "ASIA",
     "recordsUrl": "https://maimai.shiftpsh.com/profile/elixir/records",
-    "generatedAt": "2026-10-03T01:48:30.734Z"
+    "generatedAt": "2026-10-10T01:49:53.691Z"
   },
   "totalSongs": 1406,
   "totalCharts": 6043,
@@ -58593,7 +58593,7 @@
       "difficulty": "ADVANCED",
       "versionId": "circle-plus",
       "level": "7+",
-      "constant": 7.6
+      "constant": 7.9
     },
     {
       "chartId": "maishift-18942-dx-basic",
