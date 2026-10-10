@@ -30,6 +30,7 @@ const versionProgress = versionsNewestFirst.map((version) => {
 		{versionProgress.map(({ version, apCount, totalCount, apRate, songCount }) => {
 			return (
 				<a
+					data-record-progress="versionId" data-progress-value={version.id}
 					href={`${base}/versions/${version.id}/`}
 					style={`--ap-progress: ${apRate.toFixed(2)}%`}
 					title={`AP / AP+ ${apCount}/${totalCount}`}
@@ -40,7 +41,7 @@ const versionProgress = versionsNewestFirst.map((version) => {
 						<small>{version.name}</small>
 					</span>
 					<span class="version-index-meta">
-						<b>{apCount}/{totalCount}</b>
+						<b data-progress-count>{apCount}/{totalCount}</b>
 						<span aria-hidden="true">·</span>
 						<span class:list={['version-count', { empty: songCount === 0 }]}>{songCount} songs</span>
 					</span>

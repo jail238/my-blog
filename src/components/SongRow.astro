@@ -18,6 +18,7 @@ const chartGroups = (['STANDARD', 'DX'] as const satisfies readonly ChartType[])
 				const chart = typeCharts.find((candidate) => candidate.difficulty === difficulty);
 				const combo = chart?.record?.combo;
 				return {
+					chartId: chart?.id,
 					difficulty,
 					available: chart !== undefined,
 					combo,
@@ -55,6 +56,7 @@ const chartGroups = (['STANDARD', 'DX'] as const satisfies readonly ChartType[])
 					<span class="song-perfect-markers" aria-hidden="true">
 						{group.markers.map((marker) => (
 							<i
+								data-chart-id={marker.chartId}
 								class:list={[
 									'song-perfect-marker',
 									`perfect-${marker.difficulty.toLowerCase()}`,

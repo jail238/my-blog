@@ -1,0 +1,26 @@
+.sync-page { width: 960px; }
+.catalog-page.sync-page h2 { margin: 0 0 10px; font-size: 19px; font-weight: 600; }
+.sync-page p { color: var(--text-muted, #626970); line-height: 1.7; }
+.sync-connection { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; padding: 24px 0; border-bottom: 1px solid #e5e7e9; }
+.sync-connection > div { flex: 1 1 260px; }
+.sync-connection p { margin: 0; font-size: 14px; }
+.sync-setup, .sync-transfer { padding: 30px 0; }
+.sync-transfer { border-top: 1px solid #e5e7e9; }
+.sync-bookmark-actions { display: flex; gap: 10px; flex-wrap: wrap; margin: 20px 0; }
+.sync-button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 42px; padding: 10px 16px; border: 1px solid #34383d; border-radius: 6px; background: #34383d; color: #fff; font-family: inherit; font-size: 13px; line-height: 1.4; font-weight: 500; text-decoration: none; cursor: pointer; }
+.sync-button:hover { background: #484e55; color: #fff; }
+.sync-button.secondary { background: #fff; border-color: #dfe2e5; color: #444b52; box-shadow: 0 2px 6px #262c3408; }
+.sync-button.secondary:hover { background: #f3f4f5; }
+.sync-button:focus-visible { outline: 2px solid #606a74; outline-offset: 3px; }
+.sync-button:disabled { opacity: .55; cursor: wait; }
+.sync-steps { padding-left: 22px; font-size: 14px; line-height: 1.9; color: #555e66; }
+.sync-steps li { margin: 10px 0; padding-left: 4px; }
+.sync-privacy, #sync-date-note { font-size: 12px; max-width: 680px; }
+.sync-summary { display: flex; gap: 48px; margin: 24px 0; }
+.sync-summary dt { font-size: 12px; color: #717880; }
+.sync-summary dd { margin: 4px 0 0; font-size: 26px; font-weight: 600; }
+#sync-progress { width: 100%; max-width: 480px; accent-color: #555e66; height: 7px; }
+#sync-unmatched { font-size: 13px; color: #626970; margin-bottom: 20px; }
+#sync-unmatched ul { max-height: 220px; overflow: auto; padding-left: 22px; }
+.sync-page [hidden] { display: none !important; }
+@media (max-width: 600px) { .sync-connection { align-items: flex-start; } .sync-button { padding: 10px 12px; } .sync-steps { font-size: 13px; } }

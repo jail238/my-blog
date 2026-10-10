@@ -1,0 +1,46 @@
+---
+import { Bookmark, Copy, ExternalLink, LogIn, RefreshCw, Upload, Check } from '@lucide/astro';
+import CatalogLayout from '../../layouts/CatalogLayout.astro';
+import { SITE_TITLE } from '../../consts';
+import '../../styles/net-sync.css';
+---
+
+<CatalogLayout title={`Sync | ${SITE_TITLE}`} description="Import your own scores directly from maimai DX NET." pageClass="sync-page">
+  <header class="catalog-page-header compact">
+    <p class="catalog-kicker">MAIMAI DX NET</p><h1>Sync Records</h1>
+  </header>
+  <section class="sync-connection" aria-labelledby="sync-account-heading">
+    <div><h2 id="sync-account-heading">Archive Connection</h2><p id="sync-account-status" role="status">Checking GitHub sign-in…</p></div>
+    <a class="sync-button secondary" href="/planner/" target="_blank" rel="noopener" id="sync-sign-in"><LogIn size={16} />Sign in with GitHub</a>
+    <button class="sync-button secondary" type="button" id="sync-check"><RefreshCw size={16} />Check connection</button>
+  </section>
+  <section class="sync-setup" id="sync-setup" aria-labelledby="sync-bookmark-heading">
+    <h2 id="sync-bookmark-heading">NET Bookmark</h2>
+    <div class="sync-bookmark-actions">
+      <a id="sync-bookmark" class="sync-button" draggable="true"><Bookmark size={17} />M.S.K. Sync</a>
+      <button class="sync-button secondary" id="sync-copy" type="button"><Copy size={16} />Copy bookmark URL</button>
+      <a class="sync-button secondary" href="https://maimaidx-eng.com/maimai-mobile/home/" target="_blank" rel="noopener noreferrer">Open NET<ExternalLink size={15} /></a>
+    </div>
+    <ol class="sync-steps">
+      <li>Drag <strong>M.S.K. Sync</strong> to your bookmarks bar. On mobile, edit a bookmark and paste the copied URL into its address.</li>
+      <li>Sign in to maimai DX NET International, then open that bookmark.</li>
+      <li>Press <strong>Connect M.S.K.</strong> on NET, then review and save the scores here.</li>
+    </ol>
+    <p class="sync-privacy">Only scores, rating, class and coin count are imported. SEGA passwords, cookies and friend codes are never sent. Pending Planner entries are not changed.</p>
+  </section>
+  <section class="sync-transfer" id="sync-transfer" hidden aria-labelledby="sync-transfer-heading">
+    <h2 id="sync-transfer-heading">NET Import</h2>
+    <p id="sync-transfer-status" role="status">Waiting for the NET tab…</p>
+    <progress id="sync-progress" max="5" value="0" hidden aria-label="Difficulties collected"></progress>
+    <dl class="sync-summary" id="sync-summary" hidden><div><dt>Matched</dt><dd id="sync-matched">0</dd></div><div><dt>Unmatched</dt><dd id="sync-unmatched-count">0</dd></div></dl>
+    <details id="sync-unmatched" hidden><summary>Unmatched charts</summary><ul></ul></details>
+    <p id="sync-date-note" hidden>Existing AP/AP+ dates are kept. New milestones without a NET play date are saved as confirmation dates, not historical achievement dates.</p>
+    <button class="sync-button" id="sync-save" type="button" hidden><Upload size={16} />Save records</button>
+    <a class="sync-button secondary" id="sync-view" href="/hall-of-fame/" hidden><Check size={16} />View Hall of Fame</a>
+  </section>
+</CatalogLayout>
+
+<script>
+  import { initNetSync } from '../../utils/net-sync-client.js';
+  initNetSync();
+</script>
