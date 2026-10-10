@@ -1,5 +1,5 @@
 ---
-import { ChevronLeft, ChevronRight, Plus, Search, X, Check, SkipForward, Undo2, RefreshCw, LogIn, LogOut, CalendarDays, LoaderCircle, Pencil, Trash2 } from '@lucide/astro';
+import { ChevronLeft, ChevronRight, Plus, Search, X, Check, SkipForward, Undo2, RefreshCw, LogIn, LogOut, CalendarDays, LoaderCircle, Pencil, Trash2, Play } from '@lucide/astro';
 import CatalogLayout from '../../layouts/CatalogLayout.astro';
 import { SITE_TITLE } from '../../consts';
 import { validatePlannerConfig } from '../../utils/planner-config.js';
@@ -102,6 +102,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <template id="planner-icon-undo"><Undo2 size={17} /></template>
     <template id="planner-icon-edit"><Pencil size={17} /></template>
     <template id="planner-icon-delete"><Trash2 size={17} /></template>
+    <template id="planner-icon-youtube"><Play size={17} /></template>
     <template id="planner-icon-loading"><LoaderCircle size={17} /></template>
   </div>
 </CatalogLayout>

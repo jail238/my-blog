@@ -18,3 +18,17 @@ test('DX chart search uses the requested Japanese chart label', () => {
 test('unknown chart types are rejected instead of producing a misleading search', () => {
 	assert.throws(() => buildMaimaiYoutubeQuery('曲', 'UNKNOWN', 'MASTER'), /Unsupported maimai chart type/);
 });
+
+test('planner chart searches keep every difficulty and encode multilingual punctuation safely', () => {
+	const title = 'Song & 曲 + 노래 #1?';
+	for (const [type, label] of [['STANDARD', 'スタンダード'], ['DX', 'でらっくす']]) {
+		for (const difficulty of ['BASIC', 'ADVANCED', 'EXPERT', 'MASTER', 'Re:MASTER']) {
+			const url = new URL(buildMaimaiYoutubeUrl(title, type, difficulty));
+			assert.equal(url.origin, 'https://www.youtube.com');
+			assert.equal(url.pathname, '/results');
+			assert.equal(url.searchParams.get('search_query'), `maimai ${title} ${label} ${difficulty}`);
+			assert.equal(url.searchParams.size, 1);
+			assert.equal(url.hash, '');
+		}
+	}
+});

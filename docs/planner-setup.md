@@ -42,6 +42,7 @@ All three Pages build workflows (normal deployment, catalog refresh, and record 
 - Updates use the server revision as a compare-and-set condition; stale devices cannot silently overwrite another device's change.
 - Writes go directly to the cloud. The page refreshes on focus, when returning online, and every 20 seconds while visible. Network failures do not pretend to save offline.
 - Existing public score records are shown for reference; they never automatically close a manually planned goal.
+- Each catalog-backed goal has a YouTube shortcut. It opens a new tab searching the original title with the chart's Japanese ST/DX label and exact difficulty, using the same query builder as song details.
 - Signing out clears loaded plans from memory. Supabase manages the local authentication session; credentials and private plans are never committed.
 
 ## Verification

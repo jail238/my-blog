@@ -1,5 +1,6 @@
 import { plannerCloud, loadPlannerEntries, addPlannerEntries, changePlannerEntry, type PlannerEntry } from '../utils/planner-cloud';
 import { finishPlannerSignIn, plannerRedirectUrl } from '../utils/planner-auth.js';
+import { buildMaimaiYoutubeUrl } from '../utils/maimai-youtube.js';
 import { editChange, entriesOnDate, hasOpenGoal, isDateKey, monthCells, shiftMonth, songMatches, statusChange, statusOnDate, todayInKorea } from '../utils/planner.js';
 
 interface PlannerSong { id: string; title: string; koreanTitle?: string; artist: string; artworkUrl: string }
@@ -181,6 +182,16 @@ export function initializePlanner() {
           action('Undo status', 'undo', () => void changeStatus(entry, 'pending')));
       }
       const editActions = element('div', 'planner-entry-action-group');
+      if (song && chart) {
+        const youtube = element('a', 'planner-icon-button planner-youtube');
+        youtube.href = buildMaimaiYoutubeUrl(song.title, chart.type, chart.difficulty);
+        youtube.target = '_blank';
+        youtube.rel = 'noopener noreferrer';
+        youtube.title = `YouTube: ${song.title} · ${chart.type === 'STANDARD' ? 'ST' : 'DX'} · ${chart.difficulty}`;
+        youtube.setAttribute('aria-label', youtube.title);
+        youtube.append(icon('youtube'));
+        editActions.append(youtube);
+      }
       editActions.append(action('Edit goal', 'edit', () => openEntryDialog(entry, false)),
         action('Delete goal', 'delete', () => openEntryDialog(entry, true)));
       actions.append(statusActions, editActions);
