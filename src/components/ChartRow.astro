@@ -23,7 +23,6 @@ const comboIcon = chart.record?.combo ? comboIcons[chart.record.combo] : undefin
 
 <a
 	class="chart-row"
-	data-chart-id={chart.id}
 	href={`${base}/songs/${song.id}/`}
 	data-search={`${song.title} ${song.artist}`.toLocaleLowerCase('ko')}
 	data-type={chart.type}

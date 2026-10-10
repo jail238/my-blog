@@ -35,7 +35,7 @@ const internalLevels = [...new Set(
 	<header class="catalog-page-header compact">
 		<p class="catalog-kicker">LEVEL</p>
 		<h1>{level}</h1>
-		<p data-record-total="level" data-progress-value={level}>{charts.length} CHARTS · {perfectCount}/{charts.length}</p>
+		<p>{charts.length} CHARTS · {perfectCount}/{charts.length}</p>
 	</header>
 
 	<nav class="level-strip" aria-label="Other levels">
@@ -188,11 +188,6 @@ const internalLevels = [...new Set(
 	}
 
 	form?.addEventListener('input', applyFilters);
-	document.addEventListener('msk:records-updated', () => {
-		const ordered = [...rows].sort((a, b) => Number(b.dataset.apPlus === 'true') - Number(a.dataset.apPlus === 'true') || Number(b.dataset.ap === 'true') - Number(a.dataset.ap === 'true') || Number(b.dataset.achievement) - Number(a.dataset.achievement));
-		for (const row of ordered) list?.append(row);
-		applyFilters();
-	});
 	form?.addEventListener('reset', () => requestAnimationFrame(applyFilters));
 	for (const button of viewButtons) {
 		button.addEventListener('click', () => {

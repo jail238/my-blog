@@ -26,7 +26,7 @@ const progress = PLATE_GROUPS.map((group) => ({
 
 	<section class="plate-progress-list" aria-label="Plate progress">
 		{progress.map(({ group, versions, totalCount, completedCount, complete, rate }) => (
-			<article data-plate-id={group.id} class:list={['plate-progress-item', { 'is-complete': complete }]}>
+			<article class:list={['plate-progress-item', { 'is-complete': complete }]}>
 				<div class="plate-art">
 					<img
 						src={`${base}/assets/maimai/plate/${group.assetId}.png`}

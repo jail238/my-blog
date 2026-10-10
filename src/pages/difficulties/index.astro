@@ -27,7 +27,6 @@ const difficultyProgress = DIFFICULTIES.map((difficulty) => {
 	<section class="difficulty-index-grid" aria-label="Difficulty list">
 		{difficultyProgress.map(({ difficulty, slug, apCount, totalCount, apRate }) => (
 			<a
-				data-record-progress="difficulty" data-progress-value={difficulty} data-progress-percent="true"
 				class:list={['difficulty-index-card', `difficulty-tone-${slug}`]}
 				href={`${base}/difficulties/${slug}/`}
 				style={`--ap-progress: ${apRate.toFixed(2)}%`}
@@ -35,7 +34,7 @@ const difficultyProgress = DIFFICULTIES.map((difficulty) => {
 			>
 				<span>DIFFICULTY</span>
 				<strong>{difficulty}</strong>
-				<small data-progress-count>{apCount}/{totalCount} ({apRate.toFixed(1)}%)</small>
+				<small>{apCount}/{totalCount} ({apRate.toFixed(1)}%)</small>
 			</a>
 		))}
 	</section>

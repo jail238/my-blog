@@ -1,9 +1,9 @@
 ---
 import SongArtwork from '../../components/SongArtwork.astro';
 import ComboIcon from '../../components/ComboIcon.astro';
-import { LEVEL_ORDER, PERFECT_RECORDED_CHARTS, songById, versionsNewestFirst } from '../../data/maimai';
+import { LEVEL_ORDER, MAISHIFT_SOURCE, PERFECT_RECORDED_CHARTS, songById, versionsNewestFirst } from '../../data/maimai';
 import CatalogLayout from '../../layouts/CatalogLayout.astro';
-import { SITE_TITLE } from '../../consts';
+import { RECORD_REFRESH_URL, SITE_TITLE } from '../../consts';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const records = PERFECT_RECORDED_CHARTS.map((chart) => {
@@ -17,7 +17,7 @@ const records = PERFECT_RECORDED_CHARTS.map((chart) => {
 const filterLevels = [...LEVEL_ORDER].reverse();
 ---
 
-<CatalogLayout title={`Records | ${SITE_TITLE}`} description="maimai AP/AP+ achievements" pageClass="records-page">
+<CatalogLayout title={`Records | ${SITE_TITLE}`} description="maimai AP/AP+ achievements imported from Maishift" pageClass="records-page">
 	<nav class="catalog-breadcrumb" aria-label="Breadcrumb">
 		<a href={`${base}/`}>Home</a>
 		<span aria-hidden="true">/</span>
@@ -29,11 +29,13 @@ const filterLevels = [...LEVEL_ORDER].reverse();
 		<h1>Records</h1>
 		<a
 			class="record-refresh-button"
-			href={`${base}/sync/`}
-			title="Import records from maimai DX NET"
+			href={RECORD_REFRESH_URL}
+			target="_blank"
+			rel="noreferrer"
+			title="Refresh Maishift records via GitHub Actions"
 		>Refresh records</a>
 		<p>
-			<strong>{records.length.toLocaleString('en-US')}</strong> charts · AP / AP+
+			<strong>{records.length.toLocaleString('en-US')}</strong> charts · <a href={MAISHIFT_SOURCE.profileUrl}>Maishift</a> snapshot
 		</p>
 	</header>
 
@@ -87,7 +89,6 @@ const filterLevels = [...LEVEL_ORDER].reverse();
 		{records.map(({ song, chart, status }, index) => song && (
 			<a
 				class="record-list-row"
-				data-chart-id={chart.id}
 				href={`${base}/songs/${song.id}/`}
 				hidden={index >= 50}
 				data-search={`${song.title} ${song.artist}`.toLocaleLowerCase('ko')}
@@ -135,7 +136,7 @@ const filterLevels = [...LEVEL_ORDER].reverse();
 	const count = document.querySelector('#record-result-count');
 	const empty = document.querySelector('#record-empty');
 	const more = document.querySelector('#record-more');
-	let rows = [...document.querySelectorAll<HTMLElement>('.record-list-row')];
+	const rows = [...document.querySelectorAll<HTMLElement>('.record-list-row')];
 	let limit = 50;
 
 	function applyFilters(resetLimit = true) {
@@ -163,10 +164,6 @@ const filterLevels = [...LEVEL_ORDER].reverse();
 	}
 
 	form?.addEventListener('input', () => applyFilters());
-	document.addEventListener('msk:records-updated', () => {
-		rows = [...document.querySelectorAll<HTMLElement>('.record-list-row')];
-		applyFilters(false);
-	});
 	form?.addEventListener('reset', () => requestAnimationFrame(() => applyFilters()));
 	more?.addEventListener('click', () => {
 		limit += 50;

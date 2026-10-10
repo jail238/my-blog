@@ -27,14 +27,13 @@ const levelProgress = levels.map((level) => {
 	<section class="level-index-grid" id="level-index-list" aria-label="Level list">
 		{levelProgress.map(({ level, apCount, totalCount, apRate }) => (
 			<a
-				data-record-progress="level" data-progress-value={level} data-progress-percent="true"
 				href={`${base}/levels/${level.replace('+', '-plus')}/`}
 				style={`--ap-progress: ${apRate.toFixed(2)}%`}
 				title={`AP / AP+ ${apCount}/${totalCount} (${apRate.toFixed(1)}%)`}
 			>
 				<span>LEVEL</span>
 				<strong>{level}</strong>
-				<small data-progress-count>{apCount}/{totalCount} ({apRate.toFixed(1)}%)</small>
+				<small>{apCount}/{totalCount} ({apRate.toFixed(1)}%)</small>
 			</a>
 		))}
 	</section>

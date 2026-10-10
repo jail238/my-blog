@@ -42,7 +42,7 @@ const levels = registeredLevels().slice().reverse();
 	<header class:list={['catalog-page-header', 'compact', 'difficulty-detail-heading', `difficulty-tone-${slug}`]}>
 		<p class="catalog-kicker">DIFFICULTY</p>
 		<h1>{difficulty}</h1>
-		<p data-record-total="difficulty" data-progress-value={difficulty}>{charts.length} CHARTS · {perfectCount}/{charts.length}</p>
+		<p>{charts.length} CHARTS · {perfectCount}/{charts.length}</p>
 	</header>
 
 	<nav class="level-strip difficulty-strip" aria-label="Other difficulties">
@@ -239,7 +239,7 @@ const levels = registeredLevels().slice().reverse();
 		return Number.isFinite(achievement) ? achievement : 0;
 	}
 
-	function applySort(key: ChartSortKey, direction: ChartSortDirection, persist = true, resetPage = true) {
+	function applySort(key: ChartSortKey, direction: ChartSortDirection, persist = true) {
 		if (!(list instanceof HTMLElement)) return;
 		activeSortKey = key;
 		activeSortDirection = direction;
@@ -278,7 +278,7 @@ const levels = registeredLevels().slice().reverse();
 			} catch {}
 		}
 
-		applyFilters(resetPage);
+		applyFilters();
 	}
 
 	function applyView(view: ChartView, persist = true) {
@@ -348,7 +348,6 @@ const levels = registeredLevels().slice().reverse();
 	}
 
 	form?.addEventListener('input', () => applyFilters());
-	document.addEventListener('msk:records-updated', () => applySort(activeSortKey, activeSortDirection, false, false));
 	form?.addEventListener('reset', () => requestAnimationFrame(() => applyFilters()));
 	pageSizeSelect?.addEventListener('change', () => {
 		if (!(pageSizeSelect instanceof HTMLSelectElement)) return;

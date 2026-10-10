@@ -17,7 +17,7 @@ import {
 	versionsNewestFirst,
 } from '../data/maimai';
 import CatalogLayout from '../layouts/CatalogLayout.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { RECORD_REFRESH_URL, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import { PLATE_GROUPS, plateProgress } from '../data/plates';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -111,9 +111,9 @@ const recordedCharts = PERFECT_RECORDED_CHARTS
 				<p>maimai Record Archive</p>
 			</div>
 			<div class="profile-metrics" aria-label="Record summary">
-				<span><small>RATING</small><strong data-profile-metric="rating">{PLAYER_PROFILE.rating.toLocaleString('en-US')}</strong></span>
-				<span><small>CLASS</small><strong data-profile-metric="className">B4</strong></span>
-				<span><small>COINS</small><strong data-profile-metric="playCount">{PLAYER_PROFILE.playCount.toLocaleString('en-US')}</strong></span>
+				<span><small>RATING</small><strong>{PLAYER_PROFILE.rating.toLocaleString('en-US')}</strong></span>
+				<span><small>CLASS</small><strong>B4</strong></span>
+				<span><small>COINS</small><strong>{PLAYER_PROFILE.playCount.toLocaleString('en-US')}</strong></span>
 			</div>
 		</div>
 	</section>
@@ -140,7 +140,7 @@ const recordedCharts = PERFECT_RECORDED_CHARTS
 		<a href={`${base}/plates/`}>
 			<Award class="mode-icon" aria-hidden="true" />
 			<strong>Plate</strong>
-			<small data-completed-plates>{completedPlateCount}/{PLATE_GROUPS.length} 神</small>
+			<small>{completedPlateCount}/{PLATE_GROUPS.length} 神</small>
 			<ArrowUpRight class="mode-arrow" aria-hidden="true" />
 		</a>
 	</nav>
@@ -158,13 +158,12 @@ const recordedCharts = PERFECT_RECORDED_CHARTS
 				<div class="level-quick-grid">
 					{levelProgress.map(({ level, apCount, totalCount, apRate }) => (
 						<a
-							data-record-progress="level" data-progress-value={level}
 							href={`${base}/levels/${level.replace('+', '-plus')}/`}
 							style={`--ap-progress: ${apRate.toFixed(2)}%`}
 							title={`AP / AP+ ${apCount}/${totalCount}`}
 						>
 							<strong>{level}</strong>
-							<small data-progress-count>{apCount}/{totalCount}</small>
+							<small>{apCount}/{totalCount}</small>
 						</a>
 					))}
 				</div>
@@ -183,13 +182,12 @@ const recordedCharts = PERFECT_RECORDED_CHARTS
 				<div class="version-quick-list">
 					{versionProgress.map(({ version, apCount, totalCount, apRate, songCount }) => (
 						<a
-							data-record-progress="versionId" data-progress-value={version.id}
 							href={`${base}/versions/${version.id}/`}
 							style={`--ap-progress: ${apRate.toFixed(2)}%`}
 							title={`AP / AP+ ${apCount}/${totalCount}`}
 						>
 							<span>{version.shortName}</span>
-							<small><b data-progress-count>{apCount}/{totalCount}</b> · {songCount} songs</small>
+							<small><b>{apCount}/{totalCount}</b> · {songCount} songs</small>
 						</a>
 					))}
 				</div>
@@ -209,8 +207,10 @@ const recordedCharts = PERFECT_RECORDED_CHARTS
 				<a href={`${base}/records/`}>All <ArrowRight size={16} aria-hidden="true" /></a>
 				<a
 					class="record-refresh-button compact"
-					href={`${base}/sync/`}
-					title="Import records from maimai DX NET"
+					href={RECORD_REFRESH_URL}
+					target="_blank"
+					rel="noreferrer"
+					title="Refresh Maishift records via GitHub Actions"
 					><RefreshCw size={14} aria-hidden="true" />Refresh records</a>
 			</div>
 		</div>
