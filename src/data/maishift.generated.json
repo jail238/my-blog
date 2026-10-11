@@ -4,8 +4,8 @@
     "recordsUrl": "https://maimai.shiftpsh.com/profile/elixir/records",
     "handle": "elixir",
     "region": "ASIA",
-    "profileUpdatedAt": "2026-10-07T09:57:24.777Z",
-    "generatedAt": "2026-10-07T10:40:35.482Z",
+    "profileUpdatedAt": "2026-10-11T13:35:18.230Z",
+    "generatedAt": "2026-10-11T13:44:42.225Z",
     "recordHistory": {
       "visibility": "private",
       "firstSnapshotAt": "2026-03-07T08:00:36.807Z",
@@ -18,9 +18,9 @@
   "profile": {
     "name": "ＸＡＮＡＸ",
     "rating": 14818,
-    "playCount": 1041,
-    "currentPlayCount": 617,
-    "updatedAt": "2026-10-07T09:57:24.777Z"
+    "playCount": 1045,
+    "currentPlayCount": 621,
+    "updatedAt": "2026-10-11T13:35:18.230Z"
   },
   "total": 939,
   "records": [
@@ -1393,6 +1393,17 @@
       "maishiftTrackId": 4344
     },
     {
+      "chartId": "1958-dx-master",
+      "achievement": "99.7625%",
+      "achievementValue": 997625,
+      "rank": "SS+",
+      "sync": "SYNC",
+      "dxScore": 1825,
+      "dxScoreMax": 2061,
+      "rating": 279,
+      "maishiftTrackId": 18758
+    },
+    {
       "chartId": "1559-dx-master",
       "achievement": "99.0687%",
       "achievementValue": 990687,
@@ -1680,6 +1691,17 @@
       "maishiftTrackId": 456
     },
     {
+      "chartId": "835-dx-master",
+      "achievement": "99.6016%",
+      "achievementValue": 996016,
+      "rank": "SS+",
+      "sync": "SYNC",
+      "dxScore": 1489,
+      "dxScoreMax": 1593,
+      "rating": 273,
+      "maishiftTrackId": 5570
+    },
+    {
       "chartId": "1130-dx-master",
       "achievement": "99.5867%",
       "achievementValue": 995867,
@@ -1689,17 +1711,6 @@
       "dxScoreMax": 2322,
       "rating": 273,
       "maishiftTrackId": 1250
-    },
-    {
-      "chartId": "835-dx-master",
-      "achievement": "99.5493%",
-      "achievementValue": 995493,
-      "rank": "SS+",
-      "sync": "SYNC",
-      "dxScore": 1489,
-      "dxScoreMax": 1593,
-      "rating": 273,
-      "maishiftTrackId": 5570
     },
     {
       "chartId": "1922-dx-master",
@@ -3016,17 +3027,6 @@
       "dxScoreMax": 2166,
       "rating": 260,
       "maishiftTrackId": 5030
-    },
-    {
-      "chartId": "1958-dx-master",
-      "achievement": "97.8850%",
-      "achievementValue": 978850,
-      "rank": "S",
-      "sync": "SYNC",
-      "dxScore": 1765,
-      "dxScoreMax": 2061,
-      "rating": 260,
-      "maishiftTrackId": 18758
     },
     {
       "chartId": "815-standard-master",
