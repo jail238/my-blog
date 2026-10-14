@@ -1,16 +1,7 @@
+export { normalizeSearch, songMatches } from './catalog-search.js';
+
 export const PLANNER_TARGETS = ['AP', 'SSS+'];
 export const PLANNER_STATUSES = ['pending', 'completed', 'skipped'];
-
-export function normalizeSearch(value = '') {
-  return value.normalize('NFKC').toLowerCase()
-    .replace(/[\u30a1-\u30f6]/g, (character) => String.fromCharCode(character.charCodeAt(0) - 0x60))
-    .replace(/[^\p{L}\p{N}\s]/gu, '').replace(/\s+/g, ' ').trim();
-}
-
-export function songMatches(song, query) {
-  const haystack = normalizeSearch([song.title, song.koreanTitle, song.artist, ...(song.aliases ?? [])].filter(Boolean).join(' ')).replaceAll(' ', '');
-  return normalizeSearch(query).split(' ').every((term) => haystack.includes(term));
-}
 
 export function isDateKey(value) {
   if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;

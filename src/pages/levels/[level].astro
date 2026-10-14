@@ -130,6 +130,8 @@ const internalLevels = [...new Set(
 </CatalogLayout>
 
 <script>
+	import { searchMatches } from '../../utils/catalog-search.js';
+
 	const form = document.querySelector('#level-chart-filters');
 	const queryInput = document.querySelector('#level-chart-query');
 	const typeSelect = document.querySelector('#level-chart-type');
@@ -170,9 +172,9 @@ const internalLevels = [...new Set(
 		if (!(versionSelect instanceof HTMLSelectElement)) return;
 		if (!(includePerfectInput instanceof HTMLInputElement)) return;
 
-		const query = queryInput.value.trim().toLocaleLowerCase('ko');
+		const query = queryInput.value;
 		const matches = rows.filter((row) =>
-			(!query || row.dataset.search?.includes(query)) &&
+			searchMatches(row.dataset.search, query) &&
 			(!typeSelect.value || row.dataset.type === typeSelect.value) &&
 			(!difficultySelect.value || row.dataset.difficulty === difficultySelect.value) &&
 			(!constantSelect.value || row.dataset.constant === constantSelect.value) &&

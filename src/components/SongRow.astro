@@ -1,6 +1,7 @@
 ---
 import type { Chart, ChartType, Difficulty, Song } from '../data/maimai';
 import SongArtwork from './SongArtwork.astro';
+import { songSearchIndex } from '../utils/catalog-search.js';
 
 interface Props {
 	song: Song;
@@ -38,7 +39,7 @@ const chartGroups = (['STANDARD', 'DX'] as const satisfies readonly ChartType[])
 <a
 	class="song-row"
 	href={`${base}/songs/${song.id}/`}
-	data-search={`${song.title} ${song.artist}`.toLocaleLowerCase('ko')}
+	data-search={songSearchIndex(song)}
 >
 	<SongArtwork song={song} />
 	<span>

@@ -1,6 +1,7 @@
 ---
 import type { Chart, Song } from '../data/maimai';
 import SongArtwork from './SongArtwork.astro';
+import { songSearchIndex } from '../utils/catalog-search.js';
 
 interface Props {
 	chart: Chart;
@@ -24,7 +25,7 @@ const comboIcon = chart.record?.combo ? comboIcons[chart.record.combo] : undefin
 <a
 	class="chart-row"
 	href={`${base}/songs/${song.id}/`}
-	data-search={`${song.title} ${song.artist}`.toLocaleLowerCase('ko')}
+	data-search={songSearchIndex(song)}
 	data-type={chart.type}
 	data-difficulty={chart.difficulty}
 	data-level={chart.level}

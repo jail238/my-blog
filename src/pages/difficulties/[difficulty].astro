@@ -185,6 +185,8 @@ const levels = registeredLevels().slice().reverse();
 </CatalogLayout>
 
 <script>
+	import { searchMatches } from '../../utils/catalog-search.js';
+
 	const form = document.querySelector('#difficulty-chart-filters');
 	const queryInput = document.querySelector('#difficulty-chart-query');
 	const typeSelect = document.querySelector('#difficulty-chart-type');
@@ -325,10 +327,10 @@ const levels = registeredLevels().slice().reverse();
 		if (!(versionSelect instanceof HTMLSelectElement)) return;
 		if (!(includePerfectInput instanceof HTMLInputElement)) return;
 
-		const query = queryInput.value.trim().toLocaleLowerCase('ko');
+		const query = queryInput.value;
 		if (resetPage) currentPage = 1;
 		filteredRows = orderedRows.filter((row) =>
-			(!query || row.dataset.search?.includes(query)) &&
+			searchMatches(row.dataset.search, query) &&
 			(!typeSelect.value || row.dataset.type === typeSelect.value) &&
 			(!levelSelect.value || row.dataset.level === levelSelect.value) &&
 			(!versionSelect.value || row.dataset.version === versionSelect.value) &&

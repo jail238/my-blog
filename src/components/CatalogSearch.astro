@@ -36,6 +36,8 @@ const emptyId = `${id}-empty`;
 <div class="catalog-empty compact" id={emptyId} hidden><strong>{emptyMessage}</strong></div>
 
 <script>
+	import { searchMatches } from '../utils/catalog-search.js';
+
 	for (const form of document.querySelectorAll<HTMLFormElement>('[data-list-filter]')) {
 		const input = form.querySelector('input[type="search"]');
 		const target = document.getElementById(form.dataset.target ?? '');
@@ -46,8 +48,8 @@ const emptyId = `${id}-empty`;
 		const rows = [...target.querySelectorAll<HTMLElement>('[data-search]')];
 
 		function applyFilter() {
-			const query = input.value.trim().toLocaleLowerCase('ko');
-			const matches = rows.filter((row) => !query || row.dataset.search?.includes(query));
+			const query = input.value;
+			const matches = rows.filter((row) => searchMatches(row.dataset.search, query));
 			const matchSet = new Set(matches);
 
 			for (const row of rows) row.hidden = !matchSet.has(row);

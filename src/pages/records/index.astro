@@ -4,6 +4,7 @@ import ComboIcon from '../../components/ComboIcon.astro';
 import { LEVEL_ORDER, MAISHIFT_SOURCE, PERFECT_RECORDED_CHARTS, songById, versionsNewestFirst } from '../../data/maimai';
 import CatalogLayout from '../../layouts/CatalogLayout.astro';
 import { RECORD_REFRESH_URL, SITE_TITLE } from '../../consts';
+import { songSearchIndex } from '../../utils/catalog-search.js';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const records = PERFECT_RECORDED_CHARTS.map((chart) => {
@@ -91,7 +92,7 @@ const filterLevels = [...LEVEL_ORDER].reverse();
 				class="record-list-row"
 				href={`${base}/songs/${song.id}/`}
 				hidden={index >= 50}
-				data-search={`${song.title} ${song.artist}`.toLocaleLowerCase('ko')}
+				data-search={songSearchIndex(song)}
 				data-type={chart.type}
 				data-difficulty={chart.difficulty}
 				data-level={chart.level}
@@ -127,6 +128,8 @@ const filterLevels = [...LEVEL_ORDER].reverse();
 </CatalogLayout>
 
 <script>
+	import { searchMatches } from '../../utils/catalog-search.js';
+
 	const form = document.querySelector('#record-filters');
 	const queryInput = document.querySelector('#record-query');
 	const typeSelect = document.querySelector('#record-type');
@@ -147,9 +150,9 @@ const filterLevels = [...LEVEL_ORDER].reverse();
 		if (!(versionSelect instanceof HTMLSelectElement)) return;
 
 		if (resetLimit) limit = 50;
-		const query = queryInput.value.trim().toLocaleLowerCase('ko');
+		const query = queryInput.value;
 		const matches = rows.filter((row) =>
-			(!query || row.dataset.search?.includes(query)) &&
+			searchMatches(row.dataset.search, query) &&
 			(!typeSelect.value || row.dataset.type === typeSelect.value) &&
 			(!difficultySelect.value || row.dataset.difficulty === difficultySelect.value) &&
 			(!levelSelect.value || row.dataset.level === levelSelect.value) &&
