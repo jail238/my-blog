@@ -1,5 +1,6 @@
 import catalogData from './maimai.generated.json';
 import maishiftData from './maishift.generated.json';
+import { genreGroups } from '../utils/catalog-genres.js';
 
 export type ChartType = 'STANDARD' | 'DX';
 export type Difficulty = 'BASIC' | 'ADVANCED' | 'EXPERT' | 'MASTER' | 'Re:MASTER';
@@ -138,6 +139,7 @@ export const MAISHIFT_SOURCE = generatedMaishift.source;
 export const PLAYER_PROFILE = generatedMaishift.profile;
 export const VERSIONS = generatedCatalog.versions;
 export const SONGS = generatedCatalog.songs;
+export const GENRES = genreGroups(SONGS);
 export const CHARTS: Chart[] = generatedCatalog.charts.map((chart) => ({
 	...chart,
 	record: recordsByChartId.get(chart.id),

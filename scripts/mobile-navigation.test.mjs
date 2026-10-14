@@ -13,7 +13,7 @@ class Node extends EventTarget {
 class Dialog extends Node {
 	open = false;
 	showCount = 0;
-	links = Array.from({ length: 7 }, () => new Node());
+	links = Array.from({ length: 8 }, () => new Node());
 	showModal() { this.open = true; this.showCount += 1; }
 	close() { this.open = false; this.dispatchEvent(new Event('close')); }
 	querySelectorAll() { return this.links; }
@@ -104,7 +104,7 @@ test('missing elements and unsupported dialog browsers keep fallback navigation'
 
 test('header keeps one shared route list, accessible controls and mobile-only drawer styles', () => {
 	const header = readFileSync(new URL('../src/components/Header.astro', import.meta.url), 'utf8');
-	for (const path of ['/', '/levels/', '/difficulties/', '/versions/', '/plates/', '/hall-of-fame/', '/planner/']) {
+	for (const path of ['/', '/levels/', '/difficulties/', '/versions/', '/genres/', '/plates/', '/hall-of-fame/', '/planner/']) {
 		assert.equal(header.split(`path: '${path}'`).length - 1, 1);
 	}
 	assert.equal(header.match(/links\.map\(/g).length, 2);

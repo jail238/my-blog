@@ -1,0 +1,44 @@
+---
+import SongRow from '../../components/SongRow.astro';
+import CatalogSearch from '../../components/CatalogSearch.astro';
+import { chartsForSong, GENRES } from '../../data/maimai';
+import CatalogLayout from '../../layouts/CatalogLayout.astro';
+import { SITE_TITLE } from '../../consts';
+
+export function getStaticPaths() {
+	return GENRES.map((genre) => ({
+		params: { genre: genre.id },
+		props: { genre },
+	}));
+}
+
+const { genre } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const songs = genre.songs;
+---
+
+<CatalogLayout title={`${genre.name} | ${SITE_TITLE}`} description={`${genre.name} maimai song list`} pageClass="genre-detail-page">
+	<nav class="catalog-breadcrumb" aria-label="Breadcrumb">
+		<a href={`${base}/genres/`}>Genre</a>
+		<span aria-hidden="true">/</span>
+		<strong>{genre.name}</strong>
+	</nav>
+
+	<header class="catalog-page-header version-heading">
+		<p class="catalog-kicker">GENRE</p>
+		<h1>{genre.name}</h1>
+		<p>{songs.length.toLocaleString('en-US')} SONGS</p>
+	</header>
+
+	<CatalogSearch
+		id="genre-songs"
+		targetId="genre-song-list"
+		placeholder="Song title or artist"
+		initialCount={songs.length}
+		sortLabel="Title order"
+		emptyMessage="No matching songs."
+	/>
+	<section class="song-list" id="genre-song-list" aria-label={`${genre.name} songs`}>
+		{songs.map((song) => <SongRow song={song} charts={chartsForSong(song.id)} />)}
+	</section>
+</CatalogLayout>

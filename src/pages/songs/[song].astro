@@ -6,6 +6,7 @@ import type { ChartType } from '../../data/maimai';
 import { SONGS, chartsForSong, versionGroupsForSong } from '../../data/maimai';
 import CatalogLayout from '../../layouts/CatalogLayout.astro';
 import { SITE_TITLE } from '../../consts';
+import { genreInfo } from '../../utils/catalog-genres.js';
 
 export function getStaticPaths() {
 	return SONGS.map((song) => ({
@@ -17,6 +18,7 @@ export function getStaticPaths() {
 const { song } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const charts = chartsForSong(song.id);
+const genre = genreInfo(song.genre);
 const versionGroups = versionGroupsForSong(song.id);
 const chartGroups = (['STANDARD', 'DX'] satisfies ChartType[])
 	.map((type) => ({ type, charts: charts.filter((chart) => chart.type === type) }))
@@ -33,7 +35,7 @@ const chartGroups = (['STANDARD', 'DX'] satisfies ChartType[])
 	<header class="song-detail-header">
 		<SongArtwork song={song} />
 		<div>
-			<p class="catalog-kicker">{song.genre}</p>
+			<p class="catalog-kicker"><a href={`${base}/genres/${genre.id}/`}>{genre.name}</a></p>
 			<div class="song-title-row song-title-row-original">
 				<h1>{song.title}</h1>
 				<SongTitleCopyButton text={song.title} label="Copy original title" />

@@ -1,0 +1,53 @@
+---
+import { ChevronRight } from '@lucide/astro';
+import { GENRES, SONGS } from '../../data/maimai';
+import CatalogLayout from '../../layouts/CatalogLayout.astro';
+import { SITE_TITLE } from '../../consts';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<CatalogLayout title={`Genre | ${SITE_TITLE}`} description="maimai songs organized by genre" pageClass="genre-index-page">
+	<header class="catalog-page-header">
+		<p class="catalog-kicker">GENRE INDEX</p>
+		<h1>Genre</h1>
+		<p>{GENRES.length} GENRES · {SONGS.length.toLocaleString('en-US')} SONGS</p>
+	</header>
+
+	<section class="genre-index-list" aria-label="Genre list">
+		{GENRES.map((genre) => (
+			<a class="genre-index-row" href={`${base}/genres/${genre.id}/`}>
+				<strong>{genre.name}</strong>
+				<small>{genre.songs.length.toLocaleString('en-US')} {genre.songs.length === 1 ? 'song' : 'songs'}</small>
+				<ChevronRight size={18} aria-hidden="true" />
+			</a>
+		))}
+	</section>
+</CatalogLayout>
+
+<style>
+	.genre-index-list { display: grid; gap: 12px; }
+	.genre-index-row {
+		align-items: center;
+		background: var(--surface);
+		border: 1px solid #e8e8e8;
+		border-radius: var(--radius);
+		box-shadow: var(--shadow-soft);
+		display: grid;
+		gap: 16px;
+		grid-template-columns: minmax(0, 1fr) auto 18px;
+		min-height: 76px;
+		padding: 20px 24px;
+		text-decoration: none;
+		transition: box-shadow 180ms, border-color 180ms;
+	}
+	.genre-index-row:hover { border-color: #bfbfbf; box-shadow: var(--shadow-raised); }
+	.genre-index-row strong { font-size: 16px; font-weight: 600; overflow-wrap: anywhere; }
+	.genre-index-row small { color: rgb(var(--muted)); font-size: 13px; white-space: nowrap; }
+	.genre-index-row svg { color: rgb(var(--soft)); }
+	@media (max-width: 760px) {
+		.genre-index-row { gap: 10px; min-height: 72px; padding: 16px; }
+		.genre-index-row strong { font-size: 14px; }
+		.genre-index-row small { font-size: 11px; }
+	}
+</style>
