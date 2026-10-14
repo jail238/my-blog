@@ -90,6 +90,12 @@ test('genre grid uses square jackets, centered two-line titles and compact chart
   assert.match(title, /-webkit-line-clamp: 2/);
   assert.match(title, /text-align: center/);
   assert.match(title, /overflow-wrap: anywhere/);
+  assert.match(title, /max-height: 2\.8em/);
+  assert.doesNotMatch(title, /(?:^|;\s*)height:/);
+  const tile = gridRule(".song-list[data-view='grid'] .song-row");
+  assert.match(tile, /gap: 6px/);
+  assert.match(tile, /grid-template-rows: auto auto auto/);
+  assert.match(tile, /align-self: start/);
   assert.match(gridRule(".song-list[data-view='grid'] .song-row-types"), /flex-direction: column/);
   assert.match(gridRule(".song-list[data-view='grid'] .song-perfect-markers"), /grid-auto-columns: 9px/);
   assert.match(css, /\.song-list\[data-view='grid'\] \{ gap: 20px 12px; grid-template-columns: repeat\(3, minmax\(0, 1fr\)\)/);
