@@ -48,26 +48,29 @@ const comboIcons: Record<string, { file: string; label: string }> = {
 	</header>
 
 	<div class="song-chart-board-scroll" tabindex="0" role="region" aria-label={`${typeLabel} chart comparison`}>
-		<table class="song-chart-board" style={`--chart-count: ${sortedCharts.length};`}>
-			<thead>
-				<tr>
+		<table class="song-chart-board" role="table" style={`--chart-count: ${sortedCharts.length};`}>
+			<thead role="rowgroup">
+				<tr role="row">
 					{sortedCharts.map((chart) => {
 						const difficultyClass = chart.difficulty === 'Re:MASTER' ? 'remaster' : chart.difficulty.toLowerCase();
-						return <th class:list={['song-chart-difficulty', `difficulty-${difficultyClass}`]} scope="col">{chart.difficulty}</th>;
+						return <th id={`song-chart-${type.toLowerCase()}-${difficultyClass}`} class:list={['song-chart-difficulty', `difficulty-${difficultyClass}`]} role="columnheader" scope="col">{chart.difficulty}</th>;
 					})}
 				</tr>
 			</thead>
-			<tbody>
-				<tr class="song-chart-board-levels">
-					{sortedCharts.map((chart) => (
-						<td>
-							<strong>{chart.level}</strong>
-							<span>{chart.constant?.toFixed(1) ?? '-'}</span>
+			<tbody role="rowgroup">
+				<tr class="song-chart-board-levels" role="row">
+					{sortedCharts.map((chart, index) => (
+						<td role="cell" headers={`song-chart-${type.toLowerCase()}-${chart.difficulty === 'Re:MASTER' ? 'remaster' : chart.difficulty.toLowerCase()}`} style={`--chart-row: ${index + 1};`}>
+							<b class:list={['song-chart-mobile-difficulty', `difficulty-${chart.difficulty === 'Re:MASTER' ? 'remaster' : chart.difficulty.toLowerCase()}`]} aria-hidden="true">{chart.difficulty}</b>
+							<div class="song-chart-level-value">
+								<strong>{chart.level}</strong>
+								<span>{chart.constant?.toFixed(1) ?? '-'}</span>
+							</div>
 						</td>
 					))}
 				</tr>
-				<tr class="song-chart-board-records">
-					{sortedCharts.map((chart) => {
+				<tr class="song-chart-board-records" role="row">
+					{sortedCharts.map((chart, index) => {
 						const comboIcon = chart.record?.combo ? comboIcons[chart.record.combo] : undefined;
 						const dxStars = chart.record
 							? getDxScoreStarCount(chart.record.dxScore, chart.record.dxScoreMax)
@@ -80,7 +83,7 @@ const comboIcons: Record<string, { file: string; label: string }> = {
 							? formatKstDate(chart.record.apPlusAchievedAt)
 							: undefined;
 						return (
-							<td>
+							<td role="cell" headers={`song-chart-${type.toLowerCase()}-${chart.difficulty === 'Re:MASTER' ? 'remaster' : chart.difficulty.toLowerCase()}`} style={`--chart-row: ${index + 1};`}>
 								{chart.record ? (
 									<div
 										class="song-chart-score"
@@ -129,11 +132,11 @@ const comboIcons: Record<string, { file: string; label: string }> = {
 						);
 					})}
 				</tr>
-				<tr class="song-chart-board-actions">
-					{sortedCharts.map((chart) => {
+				<tr class="song-chart-board-actions" role="row">
+					{sortedCharts.map((chart, index) => {
 						const query = buildMaimaiYoutubeQuery(songTitle, type, chart.difficulty);
 						return (
-							<td>
+							<td role="cell" headers={`song-chart-${type.toLowerCase()}-${chart.difficulty === 'Re:MASTER' ? 'remaster' : chart.difficulty.toLowerCase()}`} style={`--chart-row: ${index + 1};`}>
 								<a
 									class="song-chart-youtube"
 									href={buildMaimaiYoutubeUrl(songTitle, type, chart.difficulty)}
@@ -142,7 +145,7 @@ const comboIcons: Record<string, { file: string; label: string }> = {
 									aria-label={`Search YouTube for ${query}`}
 									title={query}
 								>
-									<Play size={15} aria-hidden="true" />YouTube <ArrowUpRight size={13} aria-hidden="true" />
+									<Play size={15} aria-hidden="true" /><span class="song-chart-youtube-label">YouTube</span><ArrowUpRight class="song-chart-youtube-external" size={13} aria-hidden="true" />
 								</a>
 							</td>
 						);
