@@ -581,7 +581,6 @@ a.record-refresh-button.compact { height: 38px; padding-inline: 16px; }
 .song-chart-board th, .song-chart-board td { border-right: 1px solid rgb(var(--line)); text-align: center; width: calc(100% / var(--chart-count)); }
 .song-chart-board th:last-child, .song-chart-board td:last-child { border-right: 0; }
 .song-chart-difficulty { border-top: 3px solid currentColor; font-size: 13px; font-weight: 600; padding: 14px 8px; }
-.song-chart-mobile-difficulty { display: none; }
 .song-chart-board-levels td { border-bottom: 1px solid rgb(var(--line)); padding: 20px 8px; }
 .song-chart-board-levels strong { display: block; font-size: 28px; line-height: 1.2; }
 .song-chart-board-levels span { color: rgb(var(--muted)); display: block; font-size: 12px; margin-top: 6px; }
@@ -733,27 +732,25 @@ a.record-refresh-button.compact { height: 38px; padding-inline: 16px; }
 	.song-chart-group-heading { padding: 14px; }
 	.song-chart-group-heading h3 { font-size: 14px; }
 	.song-chart-board-scroll { overflow: visible; }
-	.song-chart-board { column-gap: 8px; display: grid; grid-template-columns: 84px minmax(0, 1fr) 44px; min-width: 0; padding-inline: 10px; position: relative; }
-	.song-chart-board thead { clip-path: inset(50%); height: 1px; overflow: hidden; position: absolute; width: 1px; }
-	.song-chart-board tbody, .song-chart-board tbody tr { display: contents; }
-	.song-chart-board tbody td { align-content: center; border: 0; border-bottom: 1px solid rgb(var(--line)); grid-row: var(--chart-row); min-width: 0; padding: 12px 0; width: auto; }
-	.song-chart-board tbody td:last-child { border-bottom: 0; }
-	.song-chart-board-levels td { grid-column: 1; text-align: left; }
-	.song-chart-mobile-difficulty { align-items: center; border-radius: 3px; display: inline-flex; font-size: 10px; height: 22px; line-height: 1; padding-inline: 6px; }
-	.song-chart-level-value { align-items: baseline; display: flex; gap: 6px; margin-top: 6px; }
-	.song-chart-board-levels strong { font-size: 20px; }
-	.song-chart-board-levels span { font-size: 11px; margin-top: 0; }
-	.song-chart-board-records td { grid-column: 2; height: auto; min-height: 76px; }
-	.song-chart-score { align-items: flex-end; gap: 4px; }
-	.song-chart-score-primary { gap: 4px; justify-content: flex-end; }
-	.song-chart-score-primary strong { font-size: 13px; }
-	.song-chart-score span, .song-chart-score small { font-size: 10px; }
-	.song-chart-score .combo-icon { height: 24px; width: 24px; }
-	.song-chart-score .song-chart-perfect-date { text-align: right; white-space: normal; }
-	.song-chart-score-empty { display: block; text-align: right; }
-	.song-chart-board-actions td { grid-column: 3; }
-	.song-chart-youtube { border: 1px solid rgb(var(--line)); border-radius: 4px; height: 44px; justify-content: center; width: 44px; }
-	.song-chart-youtube-label, .song-chart-youtube-external { display: none; }
+	.song-chart-board { min-width: 0; width: 100%; }
+	.song-chart-difficulty { font-size: 9px; padding: 10px 2px; }
+	.song-chart-board-levels td { padding: 12px 2px; }
+	.song-chart-board-levels strong { font-size: 22px; }
+	.song-chart-board-levels span { font-size: 10px; margin-top: 4px; }
+	.song-chart-board-records td { height: 140px; padding: 12px 2px; }
+	.song-chart-score { gap: 4px; min-width: 0; }
+	.song-chart-score-primary { flex-direction: column; gap: 4px; max-width: 100%; }
+	.song-chart-score-primary strong { font-size: 11px; max-width: 100%; }
+	.song-chart-score span, .song-chart-score small { font-size: 9px; overflow-wrap: anywhere; white-space: normal; }
+	.song-chart-score .combo-icon { height: 22px; width: 22px; }
+	.song-chart-score .song-chart-dx-score { flex-direction: column; gap: 2px; }
+	.song-chart-dx-star { height: 18px; width: 18px; }
+	.song-chart-score .song-chart-perfect-date { text-align: center; }
+	.song-chart-perfect-date time { display: block; }
+	.song-chart-board-actions td { padding: 0 2px; }
+	.song-chart-youtube { font-size: 10px; gap: 3px; height: 44px; justify-content: center; width: 100%; }
+	.song-chart-youtube > svg { height: 12px; width: 12px; }
+	.song-chart-youtube-external { display: none; }
 }
 
 @media (max-width: 390px) {

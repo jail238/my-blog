@@ -59,18 +59,16 @@ const comboIcons: Record<string, { file: string; label: string }> = {
 			</thead>
 			<tbody role="rowgroup">
 				<tr class="song-chart-board-levels" role="row">
-					{sortedCharts.map((chart, index) => (
-						<td role="cell" headers={`song-chart-${type.toLowerCase()}-${chart.difficulty === 'Re:MASTER' ? 'remaster' : chart.difficulty.toLowerCase()}`} style={`--chart-row: ${index + 1};`}>
-							<b class:list={['song-chart-mobile-difficulty', `difficulty-${chart.difficulty === 'Re:MASTER' ? 'remaster' : chart.difficulty.toLowerCase()}`]} aria-hidden="true">{chart.difficulty}</b>
-							<div class="song-chart-level-value">
-								<strong>{chart.level}</strong>
-								<span>{chart.constant?.toFixed(1) ?? '-'}</span>
-							</div>
+					{sortedCharts.map((chart) => (
+						<td role="cell" headers={`song-chart-${type.toLowerCase()}-${chart.difficulty === 'Re:MASTER' ? 'remaster' : chart.difficulty.toLowerCase()}`}>
+							<strong>{chart.level}</strong>
+							<span>{chart.constant?.toFixed(1) ?? '-'}</span>
 						</td>
 					))}
 				</tr>
 				<tr class="song-chart-board-records" role="row">
-					{sortedCharts.map((chart, index) => {
+					{sortedCharts.map((chart) => {
+						const [achievementWhole, achievementFraction] = chart.record?.achievement.split('.') ?? [];
 						const comboIcon = chart.record?.combo ? comboIcons[chart.record.combo] : undefined;
 						const dxStars = chart.record
 							? getDxScoreStarCount(chart.record.dxScore, chart.record.dxScoreMax)
@@ -83,14 +81,14 @@ const comboIcons: Record<string, { file: string; label: string }> = {
 							? formatKstDate(chart.record.apPlusAchievedAt)
 							: undefined;
 						return (
-							<td role="cell" headers={`song-chart-${type.toLowerCase()}-${chart.difficulty === 'Re:MASTER' ? 'remaster' : chart.difficulty.toLowerCase()}`} style={`--chart-row: ${index + 1};`}>
+							<td role="cell" headers={`song-chart-${type.toLowerCase()}-${chart.difficulty === 'Re:MASTER' ? 'remaster' : chart.difficulty.toLowerCase()}`}>
 								{chart.record ? (
 									<div
 										class="song-chart-score"
 										title={`DX ${chart.record.dxScore}/${chart.record.dxScoreMax}`}
 									>
 										<div class="song-chart-score-primary">
-											<strong>{chart.record.achievement}</strong>
+											<strong>{achievementWhole}{achievementFraction !== undefined && <>.<wbr />{achievementFraction}</>}</strong>
 											{comboIcon && (
 												<img
 													class="combo-icon"
@@ -133,10 +131,10 @@ const comboIcons: Record<string, { file: string; label: string }> = {
 					})}
 				</tr>
 				<tr class="song-chart-board-actions" role="row">
-					{sortedCharts.map((chart, index) => {
+					{sortedCharts.map((chart) => {
 						const query = buildMaimaiYoutubeQuery(songTitle, type, chart.difficulty);
 						return (
-							<td role="cell" headers={`song-chart-${type.toLowerCase()}-${chart.difficulty === 'Re:MASTER' ? 'remaster' : chart.difficulty.toLowerCase()}`} style={`--chart-row: ${index + 1};`}>
+							<td role="cell" headers={`song-chart-${type.toLowerCase()}-${chart.difficulty === 'Re:MASTER' ? 'remaster' : chart.difficulty.toLowerCase()}`}>
 								<a
 									class="song-chart-youtube"
 									href={buildMaimaiYoutubeUrl(songTitle, type, chart.difficulty)}
