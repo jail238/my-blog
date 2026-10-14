@@ -702,20 +702,19 @@ a.record-refresh-button.compact { height: 38px; padding-inline: 16px; }
 	.song-perfect-markers { gap: 3px; grid-auto-columns: 10px; }
 	.song-perfect-marker { height: 10px; width: 10px; }
 	.song-row-types .type-badge { font-size: 9px; padding-inline: 5px; }
-	.record-list-row { gap: 4px 10px; grid-template-areas: 'art song song' 'art tags tags' 'detail detail score'; grid-template-columns: 44px minmax(0, 1fr) auto; min-height: 122px; padding: 12px; }
+	.record-list-row { gap: 8px 10px; grid-template-areas: 'art song song' 'tags tags score'; grid-template-columns: 44px minmax(0, 1fr) auto; min-height: 0; padding: 12px; }
 	.record-list-row > .song-artwork { align-self: start; height: 44px; width: 44px; }
 	.record-list-song strong { font-size: 13px; }
 	.record-list-song { align-self: start; gap: 2px; }
 	.record-list-song small { font-size: 11px; }
-	.record-list-tags { gap: 4px; }
-	.record-list-tags .type-badge, .record-list-tags .difficulty-badge { font-size: 9px; height: 20px; padding-inline: 6px; }
+	.record-list-tags { gap: 3px; }
+	.record-list-tags .type-badge, .record-list-tags .difficulty-badge { font-size: 9px; height: 20px; padding-inline: 5px; }
 	.record-list-tags b { font-size: 10px; }
 	.record-list-score { align-self: end; gap: 6px; }
 	.record-list-score-copy strong { font-size: 13px; }
 	.record-list-score-copy small { font-size: 10px; white-space: nowrap; }
 	.record-list-score .combo-icon { height: 26px; width: 26px; }
-	.record-list-detail { align-self: end; display: grid; gap: 2px; justify-items: start; min-width: 0; }
-	.record-list-detail strong, .record-list-detail small { font-size: 10px; }
+	.record-list-detail { display: none; }
 	.records-page-header { gap: 0 12px; }
 	.records-page-header .record-refresh-button { font-size: 12px; padding-inline: 12px; }
 	.plate-progress-list { gap: 48px; margin-top: 28px; }
