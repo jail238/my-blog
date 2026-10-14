@@ -42,8 +42,8 @@ const chartGroups = (['STANDARD', 'DX'] as const satisfies readonly ChartType[])
 	data-search={songSearchIndex(song)}
 >
 	<SongArtwork song={song} />
-	<span>
-		<strong>{song.title}</strong>
+	<span class="song-row-copy">
+		<strong title={song.title}>{song.title}</strong>
 		<small>{song.artist}</small>
 	</span>
 	{chartGroups.length > 0 && (

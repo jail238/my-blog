@@ -1,4 +1,6 @@
 ---
+import { LayoutGrid, List } from '@lucide/astro';
+
 interface Props {
 	id: string;
 	targetId: string;
@@ -6,9 +8,10 @@ interface Props {
 	initialCount: number;
 	sortLabel: string;
 	emptyMessage: string;
+	viewStorageKey?: string;
 }
 
-const { id, targetId, placeholder, initialCount, sortLabel, emptyMessage } = Astro.props;
+const { id, targetId, placeholder, initialCount, sortLabel, emptyMessage, viewStorageKey } = Astro.props;
 const countId = `${id}-count`;
 const emptyId = `${id}-empty`;
 ---
@@ -20,6 +23,7 @@ const emptyId = `${id}-empty`;
 	data-target={targetId}
 	data-count={countId}
 	data-empty={emptyId}
+	data-view-storage-key={viewStorageKey}
 >
 	<label class="record-search">
 		<span>Search</span>
@@ -30,7 +34,26 @@ const emptyId = `${id}-empty`;
 
 <div class="record-result-bar" aria-live="polite">
 	<strong id={countId}>{initialCount.toLocaleString('en-US')} songs</strong>
-	<span>{sortLabel}</span>
+	<div class="catalog-result-actions">
+		<span>{sortLabel}</span>
+		{viewStorageKey && (
+			<div class="level-chart-view-toggle" role="group" aria-label="View mode">
+				{[{ view: 'list', label: 'List view', Icon: List }, { view: 'grid', label: 'Grid view', Icon: LayoutGrid }].map(({ view, label, Icon }) => (
+					<button
+						type="button"
+						class:list={['level-chart-view-button', { active: view === 'list' }]}
+						data-catalog-view={view}
+						aria-label={label}
+						aria-controls={targetId}
+						aria-pressed={view === 'list' ? 'true' : 'false'}
+						title={label}
+					>
+						<Icon size={18} aria-hidden="true" />
+					</button>
+				))}
+			</div>
+		)}
+	</div>
 </div>
 
 <div class="catalog-empty compact" id={emptyId} hidden><strong>{emptyMessage}</strong></div>
@@ -46,6 +69,33 @@ const emptyId = `${id}-empty`;
 
 		if (!(input instanceof HTMLInputElement) || !target) continue;
 		const rows = [...target.querySelectorAll<HTMLElement>('[data-search]')];
+		const viewStorageKey = form.dataset.viewStorageKey;
+		const viewButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-catalog-view]')]
+			.filter((button) => button.getAttribute('aria-controls') === target.id);
+
+		function applyView(view: 'list' | 'grid', persist = true) {
+			target.dataset.view = view;
+			for (const button of viewButtons) {
+				const active = button.dataset.catalogView === view;
+				button.classList.toggle('active', active);
+				button.setAttribute('aria-pressed', String(active));
+			}
+			if (persist && viewStorageKey) {
+				try { localStorage.setItem(viewStorageKey, view); } catch {}
+			}
+		}
+
+		if (viewStorageKey) {
+			for (const button of viewButtons) {
+				button.addEventListener('click', () => {
+					const view = button.dataset.catalogView;
+					if (view === 'list' || view === 'grid') applyView(view);
+				});
+			}
+			let initialView: 'list' | 'grid' = 'list';
+			try { if (localStorage.getItem(viewStorageKey) === 'grid') initialView = 'grid'; } catch {}
+			applyView(initialView, false);
+		}
 
 		function applyFilter() {
 			const query = input.value;

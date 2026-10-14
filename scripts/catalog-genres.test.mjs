@@ -63,3 +63,35 @@ test('genre routes share catalog search and full ST/DX chart markers with naviga
   assert.match(read('src/components/Header.astro'), /path: '\/genres\/', label: 'Genre'/);
   assert.match(read('src/pages/songs/[song].astro'), /href=\{`\$\{base\}\/genres\/\$\{genre\.id\}\/`\}/);
 });
+
+test('genre view switch is optional, accessible and persists independently of chart views', () => {
+  const detail = readFileSync(new URL('src/pages/genres/[genre].astro', root), 'utf8');
+  const search = readFileSync(new URL('src/components/CatalogSearch.astro', root), 'utf8');
+  const versions = readFileSync(new URL('src/pages/versions/[version].astro', root), 'utf8');
+  assert.match(detail, /viewStorageKey="misaki-genre-song-view"/);
+  assert.match(detail, /id="genre-song-list" data-view="list"/);
+  assert.match(search, /viewStorageKey\?: string/);
+  assert.match(search, /viewStorageKey &&/);
+  assert.match(search, /aria-controls=\{targetId\}/);
+  assert.match(search, /aria-pressed=\{view === 'list'/);
+  assert.match(search, /button\.getAttribute\('aria-controls'\) === target\.id/);
+  assert.match(search, /localStorage\.setItem\(viewStorageKey, view\)/);
+  assert.match(search, /localStorage\.getItem\(viewStorageKey\) === 'grid'/);
+  assert.match(search, /if \(view === 'list' \|\| view === 'grid'\) applyView\(view\)/);
+  assert.doesNotMatch(versions, /viewStorageKey|data-view/);
+  assert.ok(search.indexOf('data-catalog-view={view}') > search.indexOf('</form>'));
+});
+
+test('genre grid uses square jackets, centered two-line titles and compact chart state markers', () => {
+  const css = readFileSync(new URL('src/styles/global.css', root), 'utf8');
+  const gridRule = (selector) => css.split(`${selector} {`)[1]?.split('}')[0] ?? '';
+  assert.match(gridRule(".song-list[data-view='grid'] .song-artwork"), /aspect-ratio: 1/);
+  const title = gridRule(".song-list[data-view='grid'] .song-row-copy strong");
+  assert.match(title, /-webkit-line-clamp: 2/);
+  assert.match(title, /text-align: center/);
+  assert.match(title, /overflow-wrap: anywhere/);
+  assert.match(gridRule(".song-list[data-view='grid'] .song-row-types"), /flex-direction: column/);
+  assert.match(gridRule(".song-list[data-view='grid'] .song-perfect-markers"), /grid-auto-columns: 9px/);
+  assert.match(css, /\.song-list\[data-view='grid'\] \{ gap: 20px 12px; grid-template-columns: repeat\(3, minmax\(0, 1fr\)\)/);
+  assert.match(css, /\[hidden\] \{ display: none !important; \}/);
+});

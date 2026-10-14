@@ -328,6 +328,7 @@ a.record-refresh-button.compact { height: 38px; padding-inline: 16px; }
 .record-result-bar { align-items: center; display: flex; gap: 16px; justify-content: space-between; margin: 0 0 16px; }
 .record-result-bar > strong { font-size: 13px; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .record-result-bar span { color: rgb(var(--muted)); font-size: 12px; }
+.catalog-result-actions { align-items: center; display: flex; gap: 12px; }
 .level-chart-result-actions { align-items: center; display: flex; gap: 12px; }
 .difficulty-chart-page-size-control { display: inline-flex; flex: 0 0 116px; position: relative; }
 .difficulty-chart-page-size {
@@ -488,6 +489,19 @@ a.record-refresh-button.compact { height: 38px; padding-inline: 16px; }
 .chart-list[data-view='grid'] .chart-row[data-perfect='true'] .chart-record { display: block; grid-area: auto; pointer-events: none; position: absolute; right: 8px; top: 8px; z-index: 1; }
 .chart-list[data-view='grid'] .chart-record-copy { display: none; }
 .chart-list[data-view='grid'] .combo-icon { filter: drop-shadow(0 1px 3px #29292966); height: 36px; width: 36px; }
+
+.song-list[data-view='grid'] { gap: 24px; grid-template-columns: repeat(auto-fill, minmax(144px, 1fr)); }
+.song-list[data-view='grid'] .song-row { background: transparent; border: 0; box-shadow: none; gap: 10px; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto 44px; min-height: 0; padding: 0; }
+.song-list[data-view='grid'] .song-artwork { aspect-ratio: 1; height: auto; width: 100%; }
+.song-list[data-view='grid'] .song-row:hover .song-artwork { box-shadow: var(--shadow-raised); }
+.song-list[data-view='grid'] .song-row-copy { display: block; min-width: 0; }
+.song-list[data-view='grid'] .song-row-copy strong { -webkit-box-orient: vertical; -webkit-line-clamp: 2; display: -webkit-box; font-size: 13px; height: 2.8em; line-height: 1.4; overflow: hidden; overflow-wrap: anywhere; text-align: center; white-space: normal; }
+.song-list[data-view='grid'] .song-row-copy small, .song-list[data-view='grid'] .song-row-arrow { display: none; }
+.song-list[data-view='grid'] .song-row-types { align-items: center; align-self: start; flex-direction: column; gap: 4px; justify-content: center; min-width: 0; }
+.song-list[data-view='grid'] .song-row-chart-group { gap: 4px; }
+.song-list[data-view='grid'] .song-perfect-markers { gap: 2px; grid-auto-columns: 9px; }
+.song-list[data-view='grid'] .song-perfect-marker { height: 9px; width: 9px; }
+.song-list[data-view='grid'] .type-badge { font-size: 9px; height: 20px; padding-inline: 5px; }
 
 /* Progress uses the brand palette; difficulty colours still identify charts. */
 .level-index-grid, .difficulty-index-grid { display: grid; gap: 20px; grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -685,6 +699,8 @@ a.record-refresh-button.compact { height: 38px; padding-inline: 16px; }
 	.chart-list[data-view='grid'] { gap: 20px 12px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
 	.chart-list[data-view='grid'] .chart-song strong { font-size: 12px; }
 	.chart-list[data-view='grid'] .combo-icon { height: 28px; width: 28px; }
+	.song-list[data-view='grid'] { gap: 20px 12px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+	.song-list[data-view='grid'] .song-row-copy strong { font-size: 12px; }
 	.level-index-grid, .difficulty-index-grid { gap: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 	.level-index-grid a, .difficulty-index-card { height: 144px; padding: 20px; }
 	.difficulty-index-card strong { font-size: 18px; }

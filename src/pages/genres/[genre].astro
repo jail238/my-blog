@@ -37,8 +37,9 @@ const songs = genre.songs;
 		initialCount={songs.length}
 		sortLabel="Title order"
 		emptyMessage="No matching songs."
+		viewStorageKey="misaki-genre-song-view"
 	/>
-	<section class="song-list" id="genre-song-list" aria-label={`${genre.name} songs`}>
+	<section class="song-list" id="genre-song-list" data-view="list" aria-label={`${genre.name} songs`}>
 		{songs.map((song) => <SongRow song={song} charts={chartsForSong(song.id)} />)}
 	</section>
 </CatalogLayout>
