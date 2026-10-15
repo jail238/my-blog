@@ -104,7 +104,7 @@ test('missing elements and unsupported dialog browsers keep fallback navigation'
 
 test('header keeps one shared route list, accessible controls and mobile-only drawer styles', () => {
 	const header = readFileSync(new URL('../src/components/Header.astro', import.meta.url), 'utf8');
-	for (const path of ['/', '/levels/', '/difficulties/', '/versions/', '/genres/', '/plates/', '/hall-of-fame/', '/recommendations/', '/planner/']) {
+	for (const path of ['/', '/levels/', '/difficulties/', '/versions/', '/genres/', '/plates/', '/hall-of-fame/', '/planner/']) {
 		assert.equal(header.split(`path: '${path}'`).length - 1, 1);
 	}
 	assert.equal(header.match(/links\.map\(/g).length, 2);

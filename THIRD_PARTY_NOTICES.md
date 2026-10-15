@@ -1,19 +1,5 @@
 # Third-party notices
 
-## Community chart observations
-
-The separate recommendation page contains short, original summaries of selected
-pattern observations, with an individual source link for every reviewed chart.
-It does not reproduce complete articles, difficulty tables, videos, or datasets.
-These are community observations, not official ratings or permission to
-redistribute the source works. See `src/data/chart-study.js` and
-`docs/recommendations.md` for the exact source scope and review policy.
-
-- Tonevo GreeN chart notes: https://tonevoadventcalendar.hatenablog.com/entry/2023/12/24/203835
-- BEATECH SSS+ discussion: https://beatech.hatenablog.com/entry/2024/07/15/220559
-- maimai Wiki Umiyuri: https://gamerch.com/maimai/533675
-- maimai Wiki HECATONCHEIR: https://gamerch.com/maimai/534205
-
 ## Self-hosted typefaces
 
 The site uses Poppins for display headings, Pretendard JP Variable for

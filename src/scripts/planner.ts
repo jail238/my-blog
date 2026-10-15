@@ -1,7 +1,6 @@
 import { plannerCloud, loadPlannerEntries, addPlannerEntries, changePlannerEntry, type PlannerEntry } from '../utils/planner-cloud';
 import { finishPlannerSignIn, plannerRedirectUrl } from '../utils/planner-auth.js';
 import { buildMaimaiYoutubeUrl } from '../utils/maimai-youtube.js';
-import { plannerChartRequest } from '../utils/recommendations.js';
 import { editChange, entriesOnDate, hasOpenGoal, isDateKey, monthCells, shiftMonth, songMatches, statusChange, statusOnDate, todayInKorea } from '../utils/planner.js';
 
 interface PlannerSong { id: string; title: string; koreanTitle?: string; artist: string; artworkUrl: string }
@@ -263,9 +262,6 @@ export function initializePlanner() {
     if (!catalogReady) return;
     const matching = songs.map((song) => ({ song, options: (chartsBySong.get(song.id) ?? []).filter((chart) => (!type.value || chart.type === type.value) && (!difficulty.value || chart.difficulty === difficulty.value)) }))
       .filter(({ song, options }) => options.length && songMatches(song, query.value));
-    const requestedSongId = plannerChartRequest(window.location.href, charts)?.chart.songId;
-    const requestedIndex = matching.findIndex(({ song }) => song.id === requestedSongId);
-    if (requestedIndex > 0) matching.unshift(...matching.splice(requestedIndex, 1));
     get('search-count').textContent = `${matching.length} song${matching.length === 1 ? '' : 's'}`;
     const results = matching.slice(0, resultLimit).map(({ song, options }) => {
       const section = element('section', 'planner-search-song');
@@ -357,7 +353,7 @@ export function initializePlanner() {
     get('sync').textContent = nextId ? 'Syncing' : 'Signed out';
     message('');
     render();
-    if (nextId) { auth.close(); await refresh(); applyChartRequest(); }
+    if (nextId) { auth.close(); await refresh(); }
   }
 
   async function changeStatus(entry: PlannerEntry, status: PlannerEntry['status']) {
@@ -434,12 +430,6 @@ export function initializePlanner() {
     message('');
     renderSearch();
     query.focus();
-  });
-  picker.addEventListener('close', () => {
-    const url = new URL(window.location.href);
-    url.searchParams.delete('chart');
-    url.searchParams.delete('target');
-    window.history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`);
   });
   get('sign-in').addEventListener('click', openAuth);
   get('refresh').addEventListener('click', () => void refresh());
@@ -530,29 +520,7 @@ export function initializePlanner() {
       }
       catalogReady = true;
       render();
-      applyChartRequest();
     } catch (error) { message(errorMessage(error), true); get('search-count').textContent = 'Catalog unavailable'; }
-  }
-
-  function applyChartRequest() {
-    if (!catalogReady) return;
-    const request = plannerChartRequest(window.location.href, charts);
-    if (!request) return;
-    const song = songsById.get(request.chart.songId);
-    if (!song) return;
-    addTarget = 'SSS+';
-    for (const button of root!.querySelectorAll<HTMLButtonElement>('[data-add-target]')) {
-      const active = button.dataset.addTarget === addTarget;
-      button.classList.toggle('active', active);
-      button.setAttribute('aria-pressed', String(active));
-    }
-    query.value = song.title;
-    type.value = request.chart.type;
-    difficulty.value = request.chart.difficulty;
-    if (!hasOpenGoal(entries, request.chart.id, addTarget)) selected.add(request.chart.id);
-    addDate.value = date;
-    if (!picker.open) picker.showModal();
-    renderSearch();
   }
 
   dateInput.value = date;
