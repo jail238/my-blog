@@ -1,0 +1,73 @@
+---
+import { ChevronLeft, ChevronRight, RotateCcw, Search } from '@lucide/astro';
+import CatalogLayout from '../../layouts/CatalogLayout.astro';
+import RecommendationCard from '../../components/RecommendationCard.astro';
+import { SITE_TITLE } from '../../consts';
+import { DIFFICULTIES } from '../../data/maimai';
+import { recommendationItems, recommendationSummary, patternResults } from '../../data/recommendations';
+import { STUDY_REVIEWED_AT, STUDY_SKILLS, STUDY_SOURCES } from '../../data/chart-study.js';
+import { filterRecommendations, recommendationPage } from '../../utils/recommendations.js';
+import '../../styles/recommendations.css';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const initial = recommendationPage(filterRecommendations(recommendationItems));
+const payload = JSON.stringify({ items: recommendationItems, skills: STUDY_SKILLS }).replace(/</g, '\\u003c');
+---
+<CatalogLayout title={`Recommendations | ${SITE_TITLE}`} description="SSS+ chart targets based on retained records and source-backed pattern notes." pageClass="recommendations-page">
+  <div id="recommendations" data-base={base}>
+    <header class="catalog-page-header recommendation-heading">
+      <div><p class="catalog-kicker">NEXT TARGETS</p><h1>Recommendations</h1></div>
+      <div class="recommendation-goal"><strong>SSS+</strong><span>100.5000%</span></div>
+    </header>
+    <div class="recommendation-summary">
+      <span><strong>{recommendationSummary.reached.toLocaleString('en-US')}</strong> SSS+ records</span>
+      <span><strong>{recommendationSummary.push.toLocaleString('en-US')}</strong> below target</span>
+      <small>Records · {recommendationSummary.updatedAt}</small>
+    </div>
+    <div class="recommendation-modes" role="group" aria-label="Recommendation mode">
+      <button data-mode="push" class="active" aria-pressed="true">Near target</button>
+      <button data-mode="explore" aria-pressed="false">Similar level</button>
+      <button data-mode="study" aria-pressed="false">Patterns</button>
+    </div>
+    <form id="recommendation-filters" class="recommendation-filters" role="search">
+      <label class="recommendation-search"><Search size={17} /><span class="recommendation-sr-only">Song title or artist</span><input id="recommendation-query" type="search" placeholder="Title or artist" autocomplete="off" /></label>
+      <label><span>Difficulty</span><select id="recommendation-difficulty"><option value="">All</option>{DIFFICULTIES.map((difficulty) => <option>{difficulty}</option>)}</select></label>
+      <label><span>Chart</span><select id="recommendation-type"><option value="">All</option><option value="STANDARD">ST</option><option value="DX">DX</option></select></label>
+      <label><span>Pattern</span><select id="recommendation-skill"><option value="">All</option>{Object.entries(STUDY_SKILLS).map(([id, name]) => <option value={id}>{name}</option>)}</select></label>
+      <button type="reset" class="recommendation-icon" title="Reset filters" aria-label="Reset filters"><RotateCcw size={18} /></button>
+    </form>
+    <details class="recommendation-pattern-results">
+      <summary>Pattern results <small>{recommendationSummary.reviewed} source-backed charts</small></summary>
+      <div class="recommendation-pattern-table">
+        {patternResults.map((pattern) => <div><span>{pattern.name}</span><strong>{pattern.reached}/{pattern.recorded} <small>recorded SSS+</small></strong><small>{pattern.total} in reviewed subset</small></div>)}
+      </div>
+    </details>
+    <div class="recommendation-results-toolbar">
+      <strong id="recommendation-count" aria-live="polite">{initial.start}-{initial.end}/{initial.total.toLocaleString('en-US')} charts</strong>
+      <div>
+        <label><span class="recommendation-sr-only">Charts per page</span><select id="recommendation-page-size"><option value="30">30 per page</option><option value="50">50 per page</option><option value="100">100 per page</option></select></label>
+        <label><span class="recommendation-sr-only">Sort</span><select id="recommendation-sort"><option value="recommended">Recommended</option><option value="constant">Constant: high to low</option></select></label>
+      </div>
+    </div>
+    <section id="recommendation-list" class="recommendation-list" aria-label="Recommended charts">
+      {initial.items.map((item) => <RecommendationCard item={item} />)}
+    </section>
+    <p id="recommendation-empty" class="recommendation-empty" hidden={initial.total > 0}>No matching targets.</p>
+    <nav class="recommendation-pagination" aria-label="Recommendation pages">
+      <button id="recommendation-previous" class="recommendation-icon" type="button" title="Previous page" aria-label="Previous page" disabled><ChevronLeft size={19} /></button>
+      <span id="recommendation-page" aria-live="polite">{initial.page} / {initial.pages}</span>
+      <button id="recommendation-next" class="recommendation-icon" type="button" title="Next page" aria-label="Next page" disabled={initial.pages <= 1}><ChevronRight size={19} /></button>
+    </nav>
+    <details class="recommendation-sources">
+      <summary>Sources &amp; scope</summary>
+      <p>Pattern notes cover {recommendationSummary.reviewed} selected charts, reviewed {STUDY_REVIEWED_AT}. They are community observations, not official skill ratings. No record means unknown, not necessarily unplayed. Similar-level candidates use your retained SSS+ records, not a predicted success rate.</p>
+      <ul>{Object.values(STUDY_SOURCES).map((source) => <li><a href={source.url} target="_blank" rel="noopener noreferrer">{source.name}</a>{source.published && <small>{source.published}</small>}<p>{source.scope}</p></li>)}</ul>
+    </details>
+    <noscript><p>Filters and pagination require JavaScript. The first targets are shown above.</p></noscript>
+    <template id="recommendation-template"><RecommendationCard /></template>
+    <script type="application/json" id="recommendation-data" set:html={payload}></script>
+  </div>
+</CatalogLayout>
+<script>
+  import { initializeRecommendations } from '../../scripts/recommendations';
+  initializeRecommendations();
+</script>

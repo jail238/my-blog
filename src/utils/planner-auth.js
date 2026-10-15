@@ -2,8 +2,14 @@ const callbackKeys = ['code', 'error', 'error_code', 'error_description'];
 
 export function plannerRedirectUrl(href) {
   const url = new URL(href);
+  const chart = url.searchParams.get('chart');
+  const target = url.searchParams.get('target');
   url.search = '';
   url.hash = '';
+  if (target === 'SSS+' && /^\d+-(?:standard|dx)-(?:basic|advanced|expert|master|remaster)$/.test(chart ?? '')) {
+    url.searchParams.set('chart', chart);
+    url.searchParams.set('target', target);
+  }
   return url.href;
 }
 

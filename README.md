@@ -19,6 +19,7 @@ The archive has the following views.
 - `Version`: chart-release index. A song appears under every version that introduced one of its International ST or DX chart sets.
 - `Plate`: version-plate progress for 神 (AP).
 - `Hall of Fame`: AP and AP+ jackets grouped by internal constants from 15.0 down to 1.0, with achieved/total counts including ST, DX, and Re:MASTER. Each jacket links to its song and shows a chart type in the shared pastel difficulty colors, exact achievement percentage, and animated prism border. Mobile badge labels are optically centered. Reduced-motion preferences keep borders static. Both totals and jackets follow the catalog and record snapshots at every build.
+- `Recommend`: a separate SSS+ target page using retained scores, comparable SSS+ constants, and a small attributed set of chart-pattern notes. It does not diagnose weaknesses or predict success. Search and filters support exact ST/DX difficulties; each candidate links to its chart, YouTube, and an unsaved SSS+ Planner selection. See [Recommendation Rules](docs/recommendations.md).
 - Level index cards show AP/AP+ completion progress. Level detail pages can filter by song, artist, chart type, difficulty, internal level, and chart-release version; they can also hide completed AP/AP+ charts and order results by AP+, AP, then achievement rate.
 - Version index rows show AP/AP+ progress including Re:MASTER charts. Version pages can be searched by song or artist and show BASIC through MASTER completion status for each ST/DX chart set, adding the Re:MASTER marker only when that chart exists.
 - Plate progress follows the in-game 神 scope. Individual version plates use BASIC through MASTER and exclude Re:MASTER; the combined 舞神 goal uses every STANDARD chart from maimai through FiNALE and includes Re:MASTER. The original maimai and maimai PLUS releases share the 真神 group, and the plate rows run from the oldest version to the newest with 舞神 between 輝神 and 熊神. Each individual version label links to its chart catalog. Every row shows that goal's actual in-game plate image followed by its completed-chart count, percentage, and progress gauge. The home plate card shows completed plates only.
@@ -39,6 +40,7 @@ src/pages/difficulties/
 src/pages/versions/
 src/pages/plates/
 src/pages/hall-of-fame/
+src/pages/recommendations/
 src/pages/songs/
 src/pages/records/
 ```
@@ -81,5 +83,6 @@ npm run preview
 - Plate conditions follow [SEGA's official rules](https://maimai.sega.jp/news/2020-01-15/). The individual in-game plate images come from the [Lxns Network maimai asset mirror](https://maimai.lxns.net/docs/api/maimai), and version prefixes, the combined 真 group, and the maimai–FiNALE STANDARD scope for 舞神 follow the [documented collection list](https://gamerch.com/maimai/533650).
 - The FC, FC+, AP, and AP+ marks use the in-game image assets mirrored by the MIT-licensed [Lxns Network frontend](https://github.com/Lxns-Network/maimai-prober-frontend). Numbered DX-star icons come from the official International DX NET asset endpoint. See `THIRD_PARTY_NOTICES.md`.
 - Song jackets are loaded from the metadata provider; the homepage cover is supplied by the site owner and served as responsive WebP images.
+- Recommendation pattern notes are manually summarized from attributed community articles for exact chart identities. Current constants and records still come from the archive catalog; unreviewed charts receive no inferred pattern labels. No external skill API, private Planner data, or paid inference service is used.
 - The project is not affiliated with SEGA.
 - Do not commit tokens or other private data.
