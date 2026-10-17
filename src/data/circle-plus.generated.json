@@ -3,10 +3,10 @@
     "gameVersion": "CiRCLE PLUS",
     "region": "ASIA",
     "recordsUrl": "https://maimai.shiftpsh.com/profile/elixir/records",
-    "generatedAt": "2026-10-10T01:49:53.691Z"
+    "generatedAt": "2026-10-17T00:37:32.540Z"
   },
-  "totalSongs": 1406,
-  "totalCharts": 6043,
+  "totalSongs": 1410,
+  "totalCharts": 6060,
   "songs": [
     {
       "songId": "8"
@@ -4222,6 +4222,18 @@
     },
     {
       "songId": "1999"
+    },
+    {
+      "songId": "2000"
+    },
+    {
+      "songId": "2001"
+    },
+    {
+      "songId": "2002"
+    },
+    {
+      "songId": "2019"
     },
     {
       "songId": "maishift-18942",
@@ -58585,6 +58597,159 @@
       "versionId": "circle-plus",
       "level": "13",
       "constant": 13.2
+    },
+    {
+      "chartId": "2000-dx-advanced",
+      "songId": "2000",
+      "type": "DX",
+      "difficulty": "ADVANCED",
+      "versionId": "circle-plus",
+      "level": "6",
+      "constant": 6.5
+    },
+    {
+      "chartId": "2000-dx-basic",
+      "songId": "2000",
+      "type": "DX",
+      "difficulty": "BASIC",
+      "versionId": "circle-plus",
+      "level": "2",
+      "constant": 2
+    },
+    {
+      "chartId": "2000-dx-expert",
+      "songId": "2000",
+      "type": "DX",
+      "difficulty": "EXPERT",
+      "versionId": "circle-plus",
+      "level": "10",
+      "constant": 10.5
+    },
+    {
+      "chartId": "2000-dx-master",
+      "songId": "2000",
+      "type": "DX",
+      "difficulty": "MASTER",
+      "versionId": "circle-plus",
+      "level": "13",
+      "constant": 13.1
+    },
+    {
+      "chartId": "2001-dx-advanced",
+      "songId": "2001",
+      "type": "DX",
+      "difficulty": "ADVANCED",
+      "versionId": "circle-plus",
+      "level": "7",
+      "constant": 7.5
+    },
+    {
+      "chartId": "2001-dx-basic",
+      "songId": "2001",
+      "type": "DX",
+      "difficulty": "BASIC",
+      "versionId": "circle-plus",
+      "level": "3",
+      "constant": 3
+    },
+    {
+      "chartId": "2001-dx-expert",
+      "songId": "2001",
+      "type": "DX",
+      "difficulty": "EXPERT",
+      "versionId": "circle-plus",
+      "level": "10+",
+      "constant": 10.8
+    },
+    {
+      "chartId": "2001-dx-master",
+      "songId": "2001",
+      "type": "DX",
+      "difficulty": "MASTER",
+      "versionId": "circle-plus",
+      "level": "11+",
+      "constant": 11.7
+    },
+    {
+      "chartId": "2001-dx-remaster",
+      "songId": "2001",
+      "type": "DX",
+      "difficulty": "Re:MASTER",
+      "versionId": "circle-plus",
+      "level": "13",
+      "constant": 13.3
+    },
+    {
+      "chartId": "2002-dx-advanced",
+      "songId": "2002",
+      "type": "DX",
+      "difficulty": "ADVANCED",
+      "versionId": "circle-plus",
+      "level": "6",
+      "constant": 6.8
+    },
+    {
+      "chartId": "2002-dx-basic",
+      "songId": "2002",
+      "type": "DX",
+      "difficulty": "BASIC",
+      "versionId": "circle-plus",
+      "level": "3",
+      "constant": 3
+    },
+    {
+      "chartId": "2002-dx-expert",
+      "songId": "2002",
+      "type": "DX",
+      "difficulty": "EXPERT",
+      "versionId": "circle-plus",
+      "level": "11",
+      "constant": 11
+    },
+    {
+      "chartId": "2002-dx-master",
+      "songId": "2002",
+      "type": "DX",
+      "difficulty": "MASTER",
+      "versionId": "circle-plus",
+      "level": "13+",
+      "constant": 13.6
+    },
+    {
+      "chartId": "2019-dx-advanced",
+      "songId": "2019",
+      "type": "DX",
+      "difficulty": "ADVANCED",
+      "versionId": "circle-plus",
+      "level": "6",
+      "constant": 6.5
+    },
+    {
+      "chartId": "2019-dx-basic",
+      "songId": "2019",
+      "type": "DX",
+      "difficulty": "BASIC",
+      "versionId": "circle-plus",
+      "level": "3",
+      "constant": 3
+    },
+    {
+      "chartId": "2019-dx-expert",
+      "songId": "2019",
+      "type": "DX",
+      "difficulty": "EXPERT",
+      "versionId": "circle-plus",
+      "level": "11",
+      "constant": 11.4
+    },
+    {
+      "chartId": "2019-dx-master",
+      "songId": "2019",
+      "type": "DX",
+      "difficulty": "MASTER",
+      "versionId": "circle-plus",
+      "level": "13+",
+      "constant": 13.8
     },
     {
       "chartId": "maishift-18942-dx-advanced",

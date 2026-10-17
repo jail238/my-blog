@@ -5,9 +5,9 @@
     "region": "intl",
     "gameVersion": "CiRCLE PLUS",
     "chartDataUrl": "https://maimai.shiftpsh.com/profile/elixir/records",
-    "chartDataPinnedAt": "2026-10-10T01:49:53.691Z",
-    "sourceUpdatedAt": "Fri, 09 Oct 2026 23:49:54 GMT",
-    "generatedAt": "2026-10-10T01:49:55.653Z"
+    "chartDataPinnedAt": "2026-10-17T00:37:32.540Z",
+    "sourceUpdatedAt": "Fri, 16 Oct 2026 23:13:16 GMT",
+    "generatedAt": "2026-10-17T00:37:35.310Z"
   },
   "versions": [
     {
@@ -12192,6 +12192,38 @@
       "artist": "HIMEHINA",
       "genre": "POPS＆アニメ",
       "artworkUrl": "https://meta.salt.realtvop.top/covers/001999.png"
+    },
+    {
+      "id": "2000",
+      "sourceId": 2000,
+      "title": "Intergalactic Bound",
+      "artist": "Yunosuke / CircusP",
+      "genre": "niconico＆ボーカロイド",
+      "artworkUrl": "https://meta.salt.realtvop.top/covers/002000.png"
+    },
+    {
+      "id": "2001",
+      "sourceId": 2001,
+      "title": "LEMON MELON COOKIE",
+      "artist": "TAK",
+      "genre": "niconico＆ボーカロイド",
+      "artworkUrl": "https://meta.salt.realtvop.top/covers/002001.png"
+    },
+    {
+      "id": "2002",
+      "sourceId": 2002,
+      "title": "3rd Avenue",
+      "artist": "Sound Souler",
+      "genre": "ゲーム＆バラエティ",
+      "artworkUrl": "https://meta.salt.realtvop.top/covers/002002.png"
+    },
+    {
+      "id": "2019",
+      "sourceId": 2019,
+      "title": "Cryogenic",
+      "artist": "Camellia ft. Petra Gurin「In Falsus」",
+      "genre": "ゲーム＆バラエティ",
+      "artworkUrl": "https://meta.salt.realtvop.top/covers/002019.png"
     },
     {
       "id": "maishift-18942",
@@ -66553,6 +66585,159 @@
       "versionId": "circle-plus",
       "level": "13",
       "constant": 13.2
+    },
+    {
+      "id": "2000-dx-advanced",
+      "songId": "2000",
+      "type": "DX",
+      "difficulty": "ADVANCED",
+      "versionId": "circle-plus",
+      "level": "6",
+      "constant": 6.5
+    },
+    {
+      "id": "2000-dx-basic",
+      "songId": "2000",
+      "type": "DX",
+      "difficulty": "BASIC",
+      "versionId": "circle-plus",
+      "level": "2",
+      "constant": 2
+    },
+    {
+      "id": "2000-dx-expert",
+      "songId": "2000",
+      "type": "DX",
+      "difficulty": "EXPERT",
+      "versionId": "circle-plus",
+      "level": "10",
+      "constant": 10.5
+    },
+    {
+      "id": "2000-dx-master",
+      "songId": "2000",
+      "type": "DX",
+      "difficulty": "MASTER",
+      "versionId": "circle-plus",
+      "level": "13",
+      "constant": 13.1
+    },
+    {
+      "id": "2001-dx-advanced",
+      "songId": "2001",
+      "type": "DX",
+      "difficulty": "ADVANCED",
+      "versionId": "circle-plus",
+      "level": "7",
+      "constant": 7.5
+    },
+    {
+      "id": "2001-dx-basic",
+      "songId": "2001",
+      "type": "DX",
+      "difficulty": "BASIC",
+      "versionId": "circle-plus",
+      "level": "3",
+      "constant": 3
+    },
+    {
+      "id": "2001-dx-expert",
+      "songId": "2001",
+      "type": "DX",
+      "difficulty": "EXPERT",
+      "versionId": "circle-plus",
+      "level": "10+",
+      "constant": 10.8
+    },
+    {
+      "id": "2001-dx-master",
+      "songId": "2001",
+      "type": "DX",
+      "difficulty": "MASTER",
+      "versionId": "circle-plus",
+      "level": "11+",
+      "constant": 11.7
+    },
+    {
+      "id": "2001-dx-remaster",
+      "songId": "2001",
+      "type": "DX",
+      "difficulty": "Re:MASTER",
+      "versionId": "circle-plus",
+      "level": "13",
+      "constant": 13.3
+    },
+    {
+      "id": "2002-dx-advanced",
+      "songId": "2002",
+      "type": "DX",
+      "difficulty": "ADVANCED",
+      "versionId": "circle-plus",
+      "level": "6",
+      "constant": 6.8
+    },
+    {
+      "id": "2002-dx-basic",
+      "songId": "2002",
+      "type": "DX",
+      "difficulty": "BASIC",
+      "versionId": "circle-plus",
+      "level": "3",
+      "constant": 3
+    },
+    {
+      "id": "2002-dx-expert",
+      "songId": "2002",
+      "type": "DX",
+      "difficulty": "EXPERT",
+      "versionId": "circle-plus",
+      "level": "11",
+      "constant": 11
+    },
+    {
+      "id": "2002-dx-master",
+      "songId": "2002",
+      "type": "DX",
+      "difficulty": "MASTER",
+      "versionId": "circle-plus",
+      "level": "13+",
+      "constant": 13.6
+    },
+    {
+      "id": "2019-dx-advanced",
+      "songId": "2019",
+      "type": "DX",
+      "difficulty": "ADVANCED",
+      "versionId": "circle-plus",
+      "level": "6",
+      "constant": 6.5
+    },
+    {
+      "id": "2019-dx-basic",
+      "songId": "2019",
+      "type": "DX",
+      "difficulty": "BASIC",
+      "versionId": "circle-plus",
+      "level": "3",
+      "constant": 3
+    },
+    {
+      "id": "2019-dx-expert",
+      "songId": "2019",
+      "type": "DX",
+      "difficulty": "EXPERT",
+      "versionId": "circle-plus",
+      "level": "11",
+      "constant": 11.4
+    },
+    {
+      "id": "2019-dx-master",
+      "songId": "2019",
+      "type": "DX",
+      "difficulty": "MASTER",
+      "versionId": "circle-plus",
+      "level": "13+",
+      "constant": 13.8
     },
     {
       "id": "maishift-18942-dx-advanced",
