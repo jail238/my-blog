@@ -102,6 +102,20 @@ test('manager searches multilingual titles and separates exact charts and saved-
   assert.equal(perfectVideoChartMatches({ ...chart, combo: 'FC+' }), false);
 });
 
+test('manager rows reserve the full jacket width and keep list buttons compact on mobile', () => {
+  const css = readFileSync(new URL('../src/styles/perfect-videos.css', import.meta.url), 'utf8');
+  const rowRules = [...css.matchAll(/\.video-manager-row \{([^}]+)\}/g)].map((match) => match[1]);
+  assert.match(rowRules[0], /grid-template-columns: 52px minmax\(0, 1fr\) auto/);
+  for (const rule of rowRules) {
+    assert.ok(Number(rule.match(/gap: (\d+)px/)[1]) >= 16);
+    assert.doesNotMatch(rule, /grid-template-columns: 44px/);
+  }
+  assert.match(css, /\.video-manager-row \.song-artwork \{ height: 52px; width: 52px; \}/);
+  const buttonRules = [...css.matchAll(/\.video-manager-actions \.perfect-video-button \{([^}]+)\}/g)].map((match) => match[1]);
+  assert.match(buttonRules[0], /min-height: 32px/);
+  for (const rule of buttonRules) assert.match(rule, /padding: 4px/);
+});
+
 test('registered charts follow unregistered charts without changing each groups original order', () => {
   const charts = ['2001-dx-basic', '2001-standard-basic', '2001-dx-master', '2001-dx-expert'].map((id) => ({ id, combo: 'AP+' }));
   const video = { url: 'https://youtu.be/abcdefghijk', deleted_at: null };
