@@ -36,7 +36,7 @@ test('mobile chart comparison keeps all difficulty columns in one fitted table',
 
 test('song chart comparisons show rank without a rating contribution on every viewport', async () => {
   const board = await read('../src/components/SongChartBoard.astro');
-  assert.match(board, /<span>\{chart\.record\.rank\}<\/span>/);
+  assert.match(board, /<span class="song-chart-status">\{chart\.record\.rank\}/);
   assert.doesNotMatch(board, /RATING|chart\.record\.rating/);
   for (const retained of ['achievementWhole', 'combo-icon', 'chart.record.sync', 'song-chart-dx-score', 'song-chart-dx-star', 'AP achieved', 'AP+ achieved', 'song-chart-youtube']) {
     assert.ok(board.includes(retained), `Preserve ${retained}`);
@@ -45,4 +45,12 @@ test('song chart comparisons show rank without a rating contribution on every vi
   const row = await read('../src/components/ChartRow.astro');
   assert.match(home, /<small>RATING<\/small>/);
   assert.match(row, /RATING \{chart\.record\.rating\}/);
+});
+
+test('rank and optional sync share one non-wrapping status line on desktop and mobile', async () => {
+  const board = await read('../src/components/SongChartBoard.astro');
+  const css = await read('../src/styles/global.css');
+  assert.ok(board.includes('<span class="song-chart-status">{chart.record.rank}{chart.record.sync && <> · {chart.record.sync}</>}</span>'));
+  assert.doesNotMatch(board, /<span>\{chart\.record\.sync\}<\/span>/);
+  assert.match(css, /\.song-chart-score \.song-chart-status \{ white-space: nowrap; \}/);
 });

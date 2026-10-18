@@ -603,6 +603,7 @@ a.record-refresh-button.compact { height: 38px; padding-inline: 16px; }
 .song-chart-score-primary { align-items: center; display: flex; gap: 6px; justify-content: center; }
 .song-chart-score-primary strong { font-size: 15px; }
 .song-chart-score span, .song-chart-score small { color: rgb(var(--muted)); font-size: 11px; white-space: nowrap; }
+.song-chart-score .song-chart-status { white-space: nowrap; }
 .song-chart-score .combo-icon { height: 28px; width: 28px; }
 .song-chart-score .song-chart-dx-score { align-items: center; display: flex; gap: 4px; }
 .song-chart-dx-star { height: 22px; width: 22px; }

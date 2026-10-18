@@ -101,8 +101,7 @@ const comboIcons: Record<string, { file: string; label: string }> = {
 												/>
 											)}
 										</div>
-										<span>{chart.record.rank}</span>
-										{chart.record.sync && <span>{chart.record.sync}</span>}
+										<span class="song-chart-status">{chart.record.rank}{chart.record.sync && <> · {chart.record.sync}</>}</span>
 										<small
 											class="song-chart-dx-score"
 											aria-label={`DX ${chart.record.dxScore}/${chart.record.dxScoreMax}, ${dxStars} stars`}
