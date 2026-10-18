@@ -74,6 +74,9 @@ test('video editing stays in the home-linked manager while song tables only show
   assert.match(manager, /songSearchIndex\(song\)/);
   assert.match(manager, /role="switch" aria-label="Show registered" checked/);
   assert.doesNotMatch(manager, /id="perfect-video-filter"/);
+  const toggleStyle = read('../src/styles/perfect-videos.css').match(/\.video-manager-toggle-control \{([^}]+)\}/)?.[1];
+  assert.ok(toggleStyle);
+  assert.doesNotMatch(toggleStyle, /background|border|box-shadow|padding/);
   for (const page of ['records/index.astro', 'hall-of-fame/index.astro', 'levels/[level].astro', 'difficulties/[difficulty].astro']) {
     assert.doesNotMatch(read(`../src/pages/${page}`), /PerfectVideoControls|data-perfect-video/);
   }

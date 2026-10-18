@@ -35,7 +35,7 @@
 .video-manager-filters .video-manager-search { display: block; position: relative; }
 .video-manager-search > svg { left: 12px; position: absolute; top: 14px; }
 .video-manager-search input { padding-left: 38px; }
-.video-manager-toggle-control { align-items: center; background: var(--surface); border: 1px solid rgb(var(--line)); border-radius: 6px; box-sizing: border-box; cursor: pointer; display: flex; gap: 7px; height: 44px; padding: 0 8px; }
+.video-manager-toggle-control { align-items: center; cursor: pointer; display: flex; gap: 7px; height: 44px; }
 .video-manager-filters .video-manager-toggle input { appearance: none; background: rgb(var(--line)); border: 0; border-radius: 20px; cursor: pointer; flex: 0 0 34px; height: 20px; margin: 0; padding: 0; position: relative; width: 34px; }
 .video-manager-toggle input::before { background: #fff; border-radius: 50%; content: ''; height: 14px; left: 3px; position: absolute; top: 3px; width: 14px; }
 .video-manager-filters .video-manager-toggle input:checked { background: var(--brand-strong); }
