@@ -4,7 +4,7 @@ import archiveCover from '../assets/archive-rooftop.webp';
 import archiveCity from '../assets/archive-city.webp';
 import SongArtwork from '../components/SongArtwork.astro';
 import ComboIcon from '../components/ComboIcon.astro';
-import { ArrowUpRight, ChartNoAxesColumnIncreasing, Layers3, Disc3, Award, RefreshCw, ArrowRight } from '@lucide/astro';
+import { ArrowUpRight, ChartNoAxesColumnIncreasing, Layers3, Disc3, Award, RefreshCw, ArrowRight, Clapperboard } from '@lucide/astro';
 import {
 	CHARTS,
 	DIFFICULTIES,
@@ -205,6 +205,7 @@ const recordedCharts = PERFECT_RECORDED_CHARTS
 			<div class="record-gallery-heading-meta">
 				<span>{PERFECT_RECORDED_CHARTS.length.toLocaleString('en-US')} CHARTS</span>
 				<a href={`${base}/records/`}>All <ArrowRight size={16} aria-hidden="true" /></a>
+				<a class="record-refresh-button compact" href={`${base}/videos/`}><Clapperboard size={14} aria-hidden="true" />AP Videos</a>
 				<a
 					class="record-refresh-button compact"
 					href={RECORD_REFRESH_URL}

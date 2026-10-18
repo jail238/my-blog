@@ -53,9 +53,9 @@ PC and phone share the same Supabase account. Plans stay in a row-level-security
 
 ## My AP Videos
 
-On a song page, choose `Manage videos` and sign in with the archive owner's existing GitHub account. Use the pencil under the exact ST/DX difficulty to paste a YouTube or Shorts URL and save it. The resulting `My AP Video` button is public; only the owner can add, edit, or remove links. Planner sign-in is shared, and changes sync across PC and phone without a site rebuild.
+Choose `AP Videos` in the homepage Records section to open `/videos/`. Sign in with the archive owner's existing GitHub account, search in English, Korean, or Japanese, choose the exact ST/DX difficulty, and save a YouTube or Shorts URL. The same manager edits and removes links, filters linked/unlinked charts, and shows 20 results at a time. Planner sign-in is shared, and changes sync across PC and phone without a site rebuild.
 
-These controls appear only on song chart tables with AP/AP+ records. They do not add video buttons to lists, Hall of Fame, or Planner. The existing chart-specific YouTube search stays separate. No video files are uploaded. See [AP Video Setup](docs/perfect-videos.md) for storage and verification details.
+Song chart tables have no login, editor, refresh, or empty video controls. Only an AP/AP+ chart with a saved URL gets the public `My AP Video` link. Lists, Hall of Fame, and Planner stay unchanged. The existing chart-specific YouTube search stays separate. No video files are uploaded. See [AP Video Setup](docs/perfect-videos.md) for storage and verification details.
 
 ## Commands
 

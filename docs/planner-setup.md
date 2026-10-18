@@ -18,7 +18,7 @@ The Free plan currently includes a 500 MB database. Exceeding Free quotas can re
 
 The client uses PKCE with an explicit one-time code exchange on `/planner/`. It removes callback parameters before exchanging the code and displays an error instead of claiming success when authorization is denied or expired. It does not request repository permissions or separately store GitHub provider tokens.
 
-Song-page AP video editing shares this login and callback. After a successful video sign-in, a validated short-lived return path brings the owner back to the original song; regular Planner sign-in is unchanged. Video links use a separate public-read, owner-write table and do not expose private plans. See [AP Video Setup](perfect-videos.md).
+The separate `/videos/` manager shares this login and callback. After a successful video sign-in, a validated short-lived return path brings the owner back to the manager; regular Planner sign-in is unchanged. Video links use a separate public-read, owner-write table and do not expose private plans. Song detail pages only read saved links and have no editing controls. See [AP Video Setup](perfect-videos.md).
 
 ## Public Build Configuration
 

@@ -2,7 +2,8 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
 import { PGlite } from '@electric-sql/pglite';
-import { consumePerfectVideoReturn, isPerfectRecord, normalizePerfectVideoUrl, PERFECT_VIDEO_RETURN_KEY, savePerfectVideoReturn, visiblePerfectVideo } from '../src/utils/perfect-videos.js';
+import { consumePerfectVideoReturn, isPerfectRecord, normalizePerfectVideoUrl, perfectVideoChartMatches, PERFECT_VIDEO_RETURN_KEY, savePerfectVideoReturn, visiblePerfectVideo } from '../src/utils/perfect-videos.js';
+import { songSearchIndex } from '../src/utils/catalog-search.js';
 
 test('personal video URLs accept YouTube shares, Shorts and live links without tracking parameters', () => {
   for (const url of [
@@ -35,20 +36,20 @@ test('only AP or AP+ with an active valid link gets a personal video button', ()
   assert.equal(visiblePerfectVideo({ combo: 'AP' }, { url: 'javascript:alert(1)' }), null);
 });
 
-test('GitHub callback returns only to a recent same-site song path and consumes the return once', () => {
+test('GitHub callback returns only to the recent same-site video manager and consumes the return once', () => {
   const values = new Map();
   const storage = { setItem: (k, v) => values.set(k, v), getItem: (k) => values.get(k) ?? null, removeItem: (k) => values.delete(k) };
-  savePerfectVideoReturn(storage, '/songs/2001/', 1000);
-  assert.equal(consumePerfectVideoReturn(storage, '', 1500), '/songs/2001/');
+  savePerfectVideoReturn(storage, '/videos/', 1000);
+  assert.equal(consumePerfectVideoReturn(storage, '', 1500), '/videos/');
   assert.equal(consumePerfectVideoReturn(storage, '', 1500), null);
-  for (const path of ['//evil.example/', 'https://evil.example/', '/planner/', '/songs/2001/?next=evil', '/songs/../planner/', '/songs/%2e%2e/']) {
+  for (const path of ['//evil.example/', 'https://evil.example/', '/planner/', '/songs/2001/', '/videos/?next=evil', '/videos/../planner/', '/videos/%2e%2e/']) {
     savePerfectVideoReturn(storage, path, 1000);
     assert.equal(consumePerfectVideoReturn(storage, '', 1500), null);
   }
-  savePerfectVideoReturn(storage, '/archive/songs/maishift-1/', 1000);
-  assert.equal(consumePerfectVideoReturn(storage, '/archive', 1500), '/archive/songs/maishift-1/');
+  savePerfectVideoReturn(storage, '/archive/videos/', 1000);
+  assert.equal(consumePerfectVideoReturn(storage, '/archive', 1500), '/archive/videos/');
   for (const now of [999, 601001]) {
-    savePerfectVideoReturn(storage, '/songs/1/', 1000);
+    savePerfectVideoReturn(storage, '/videos/', 1000);
     assert.equal(consumePerfectVideoReturn(storage, '', now), null);
   }
   values.set(PERFECT_VIDEO_RETURN_KEY, 'bad JSON');
@@ -56,21 +57,42 @@ test('GitHub callback returns only to a recent same-site song path and consumes 
   assert.equal(consumePerfectVideoReturn({ getItem: () => { throw new Error('Blocked'); } }), null);
 });
 
-test('video controls stay on song comparison pages and retain existing YouTube searches', () => {
+test('video editing stays in the home-linked manager while song tables only show registered links', () => {
   const read = (path) => readFileSync(new URL(path, import.meta.url), 'utf8');
   const board = read('../src/components/SongChartBoard.astro');
   assert.match(board, /isPerfectRecord\(chart.record\)/);
   assert.match(board, /data-perfect-video-chart=\{chart.id\}/);
   assert.match(board, /noopener noreferrer/);
   assert.match(board, /buildMaimaiYoutubeUrl\(songTitle, type, chart.difficulty\)/);
-  assert.match(read('../src/pages/songs/[song].astro'), /<PerfectVideoControls/);
-  for (const page of ['index.astro', 'records/index.astro', 'hall-of-fame/index.astro', 'levels/[level].astro', 'difficulties/[difficulty].astro']) {
+  assert.doesNotMatch(board, /data-edit-perfect-video|Pencil/);
+  assert.doesNotMatch(read('../src/pages/songs/[song].astro'), /PerfectVideoControls/);
+  assert.match(read('../src/pages/songs/[song].astro'), /initializePerfectVideoLinks/);
+  assert.match(read('../src/pages/index.astro'), /href=\{`\$\{base\}\/videos\/`\}/);
+  const manager = read('../src/pages/videos/index.astro');
+  assert.match(manager, /<PerfectVideoControls/);
+  assert.match(manager, /PERFECT_RECORDED_CHARTS/);
+  assert.match(manager, /songSearchIndex\(song\)/);
+  for (const page of ['records/index.astro', 'hall-of-fame/index.astro', 'levels/[level].astro', 'difficulties/[difficulty].astro']) {
     assert.doesNotMatch(read(`../src/pages/${page}`), /PerfectVideoControls|data-perfect-video/);
   }
   const client = read('../src/scripts/perfect-videos.ts');
   assert.match(client, /can_manage_perfect_videos/);
   assert.doesNotMatch(client, /innerHTML|service_role|sb_secret_/);
   assert.match(read('../src/utils/perfect-videos-cloud.ts'), /eq\('revision', previous.revision\)/);
+  const publicReader = read('../src/scripts/perfect-video-links.ts');
+  assert.doesNotMatch(publicReader, /signIn|can_manage|savePerfectVideo|removePerfectVideo/);
+});
+
+test('manager searches multilingual titles and separates exact charts and saved-link state', () => {
+  const chart = { search: songSearchIndex({ title: '春を告げる', koreanTitle: '봄을 고하다', artist: 'yama' }), combo: 'AP+', type: 'DX', difficulty: 'BASIC' };
+  for (const query of ['春を告げる', '봄을고하다', '봄을 고하다', 'YAMA']) assert.ok(perfectVideoChartMatches(chart, { query }));
+  assert.ok(perfectVideoChartMatches(chart, { type: 'DX', difficulty: 'BASIC', linked: 'missing' }));
+  for (const filter of [{ type: 'STANDARD' }, { difficulty: 'MASTER' }, { query: 'not a match' }, { linked: 'linked' }]) assert.equal(perfectVideoChartMatches(chart, filter), false);
+  const video = { url: 'https://youtu.be/abcdefghijk', deleted_at: null };
+  assert.ok(perfectVideoChartMatches(chart, { linked: 'linked' }, video));
+  assert.equal(perfectVideoChartMatches(chart, { linked: 'missing' }, video), false);
+  assert.ok(perfectVideoChartMatches(chart, { linked: 'missing' }, { ...video, deleted_at: '2026-10-18' }));
+  assert.equal(perfectVideoChartMatches({ ...chart, combo: 'FC+' }), false);
 });
 
 test('PostgreSQL restricts public video reads and owner writes, soft deletion and stale revisions', async () => {

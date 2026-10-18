@@ -26,8 +26,41 @@
 .perfect-video-dialog input { background: var(--surface); border: 1px solid rgb(var(--line)); border-radius: 6px; box-sizing: border-box; color: rgb(var(--text)); font: inherit; font-size: 16px; min-height: 44px; padding: 8px 10px; width: 100%; }
 #perfect-video-message, #perfect-video-confirmation { font-size: 12px; margin: 14px 0 0; }
 #perfect-video-message[data-error="true"], #perfect-video-status[data-error="true"] { color: #8c3030; }
-.perfect-video-dialog [hidden], .perfect-video-account [hidden], .song-chart-video-control [hidden], .song-chart-video-control[hidden] { display: none !important; }
+.perfect-video-dialog [hidden], .perfect-video-account [hidden], .song-chart-video-control [hidden], .song-chart-video-control[hidden], .video-manager-page [hidden] { display: none !important; }
+.video-manager-heading { align-items: center; display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; }
+.video-manager-heading h1 { font-size: 32px; }
+.video-manager-filters { align-items: end; display: grid; gap: 14px; grid-template-columns: minmax(180px, 1fr) 110px 150px 120px; }
+.video-manager-filters label { display: flex; flex-direction: column; font-size: 12px; gap: 7px; min-width: 0; }
+.video-manager-filters input, .video-manager-filters select { background: var(--surface); border: 1px solid rgb(var(--line)); border-radius: 6px; box-sizing: border-box; color: rgb(var(--text)); font: inherit; font-size: 14px; height: 44px; padding: 0 12px; width: 100%; }
+.video-manager-filters .video-manager-search { display: block; position: relative; }
+.video-manager-search > svg { left: 12px; position: absolute; top: 14px; }
+.video-manager-search input { padding-left: 38px; }
+.video-manager-count { color: rgb(var(--muted)); font-size: 12px; margin: 24px 0 12px; }
+.video-manager-results { border-top: 1px solid rgb(var(--line)); }
+.video-manager-row { align-items: center; border-bottom: 1px solid rgb(var(--line)); display: grid; gap: 14px; grid-template-columns: 52px minmax(0, 1fr) auto; padding: 16px 0; }
+.video-manager-row .song-artwork { height: 52px; width: 52px; }
+.video-manager-copy { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.video-manager-copy > a { color: rgb(var(--text)); font-size: 14px; font-weight: 600; overflow: hidden; text-decoration: none; text-overflow: ellipsis; white-space: nowrap; }
+.video-manager-copy > a:hover { text-decoration: underline; }
+.video-manager-copy > small { color: rgb(var(--muted)); font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.video-manager-tags { align-items: center; display: flex; flex-wrap: wrap; gap: 5px; }
+.video-manager-tags small { color: rgb(var(--muted)); font-size: 11px; }
+.video-manager-actions { align-items: end; display: flex; flex-direction: column; gap: 7px; }
+.video-manager-actions .perfect-video-button { min-width: 96px; }
+.video-manager-watch { align-items: center; color: rgb(var(--muted)); display: inline-flex; font-size: 12px; gap: 5px; min-height: 32px; }
+.video-manager-more { display: flex; margin: 22px auto 0; }
+.video-manager-empty { color: rgb(var(--muted)); padding: 40px 0; text-align: center; }
+.video-manager-sr-only { clip-path: inset(50%); height: 1px; overflow: hidden; position: absolute; white-space: nowrap; width: 1px; }
 @media (max-width: 760px) {
+  .video-manager-heading { align-items: start; gap: 16px; }
+  .video-manager-heading h1 { font-size: 28px; }
+  .video-manager-filters { gap: 12px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .video-manager-search { grid-column: 1 / -1; }
+  .video-manager-row { gap: 10px; grid-template-columns: 44px minmax(0, 1fr) auto; padding: 14px 0; }
+  .video-manager-row .song-artwork { height: 44px; width: 44px; }
+  .video-manager-copy > a { font-size: 13px; }
+  .video-manager-actions .perfect-video-button { min-width: 82px; padding: 6px 8px; }
+  .video-manager-tags .type-badge, .video-manager-tags .difficulty-badge { font-size: 9px; padding: 4px; }
   .perfect-video-account { gap: 5px; }
   .perfect-video-account > span { flex-basis: 100%; text-align: right; }
   .perfect-video-button, .perfect-video-icon { font-size: 11px; min-height: 44px; }

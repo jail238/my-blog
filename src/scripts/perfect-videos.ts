@@ -1,17 +1,22 @@
 import { plannerCloud } from '../utils/planner-cloud';
 import { loadPerfectVideos, removePerfectVideo, savePerfectVideo, type PerfectVideo } from '../utils/perfect-videos-cloud';
-import { savePerfectVideoReturn, visiblePerfectVideo } from '../utils/perfect-videos.js';
+import { perfectVideoChartMatches, savePerfectVideoReturn, visiblePerfectVideo } from '../utils/perfect-videos.js';
 
 export function initializePerfectVideos() {
   const root = document.querySelector<HTMLElement>('#perfect-videos');
-  if (!root || !plannerCloud) return;
+  if (!root) return;
+  if (!plannerCloud) { document.getElementById('perfect-video-status')!.textContent = 'Cloud not connected'; return; }
   const cloud = plannerCloud;
   const base = root.dataset.base ?? '';
   const get = <T extends HTMLElement>(id: string) => document.getElementById(`perfect-video-${id}`) as T;
   const dialog = get<HTMLDialogElement>('editor');
   const input = get<HTMLInputElement>('url');
-  const controls = [...document.querySelectorAll<HTMLElement>('[data-perfect-video-chart]')];
-  const byId = new Map(controls.map((node) => [node.dataset.perfectVideoChart!, node]));
+  const query = get<HTMLInputElement>('query');
+  const type = get<HTMLSelectElement>('type');
+  const difficulty = get<HTMLSelectElement>('difficulty');
+  const filter = get<HTMLSelectElement>('filter');
+  const controls = [...document.querySelectorAll<HTMLElement>('[data-video-manager-chart]')];
+  const byId = new Map(controls.map((node) => [node.dataset.videoManagerChart!, node]));
   let videos = new Map<string, PerfectVideo>();
   let userId: string | null = null;
   let canEdit = false;
@@ -19,6 +24,8 @@ export function initializePerfectVideos() {
   let busy = false;
   let signingIn = false;
   let loading = false;
+  let ready = false;
+  let resultLimit = 20;
   let generation = 0;
   let readSerial = 0;
   let editingId = '';
@@ -46,6 +53,7 @@ export function initializePerfectVideos() {
   }
 
   function render() {
+    let total = 0;
     for (const [id, node] of byId) {
       const link = node.querySelector<HTMLAnchorElement>('[data-perfect-video-link]')!;
       const edit = node.querySelector<HTMLButtonElement>('[data-edit-perfect-video]')!;
@@ -53,13 +61,20 @@ export function initializePerfectVideos() {
       link.hidden = !url;
       if (url) link.href = url;
       else link.removeAttribute('href');
-      edit.hidden = !canEdit;
-      edit.disabled = busy || loading;
-      const label = `${url ? 'Edit' : 'Add'} my AP video: ${node.dataset.chartLabel}`;
-      edit.title = label;
-      edit.setAttribute('aria-label', label);
-      node.hidden = !url && !canEdit;
+      edit.disabled = !canEdit || !ready || busy || loading;
+      edit.title = `${url ? 'Edit' : 'Add'} video`;
+      node.querySelector('[data-video-add-icon]')!.toggleAttribute('hidden', !!url);
+      node.querySelector('[data-video-edit-icon]')!.toggleAttribute('hidden', !url);
+      node.querySelector('[data-video-action-label]')!.textContent = url ? 'Edit video' : 'Add video';
+      const matches = perfectVideoChartMatches(node.dataset, {
+        query: query.value, type: type.value, difficulty: difficulty.value, linked: filter.value,
+      }, videos.get(id));
+      if (matches) total++;
+      node.hidden = !matches || total > resultLimit;
     }
+    get('count').textContent = `${Math.min(resultLimit, total)}/${total} charts`;
+    get('empty').hidden = total > 0;
+    get('more').hidden = total <= resultLimit;
     get<HTMLButtonElement>('sign-in').hidden = !!userId;
     get<HTMLButtonElement>('sign-in').disabled = signingIn;
     get('sign-out').hidden = !userId;
@@ -82,9 +97,10 @@ export function initializePerfectVideos() {
       const rows = await loadPerfectVideos([...byId.keys()]);
       if (serial !== readSerial) return;
       videos = new Map(rows.map((row) => [row.chart_id, row]));
-      status(permissionError || (canEdit ? 'Video editor' : ''), !!permissionError);
+      ready = true;
+      status(permissionError || (canEdit ? 'Synced' : userId ? 'Only the archive owner can edit video links.' : 'Sign in to manage video links.'), !!permissionError);
     } catch (error) {
-      if (serial === readSerial) status(issue(error), true);
+      if (serial === readSerial) { ready = false; status(issue(error), true); }
     } finally {
       if (serial === readSerial) { loading = false; render(); }
     }
@@ -96,6 +112,7 @@ export function initializePerfectVideos() {
     const current = ++generation;
     readSerial++;
     loading = false;
+    ready = false;
     canEdit = false;
     permissionError = '';
     videos.clear();
@@ -112,7 +129,7 @@ export function initializePerfectVideos() {
 
   for (const [id, node] of byId) {
     node.querySelector('[data-edit-perfect-video]')!.addEventListener('click', () => {
-      if (!canEdit || busy || loading) return;
+      if (!canEdit || !ready || busy || loading) return;
       editingId = id;
       editingPrevious = videos.get(id);
       conflicted = false;
@@ -164,6 +181,10 @@ export function initializePerfectVideos() {
   get('form').addEventListener('submit', (event) => { event.preventDefault(); void write(); });
   get('confirm-remove').addEventListener('click', () => void write(true));
   get('refresh').addEventListener('click', () => void refresh());
+  for (const control of [query, type, difficulty, filter]) {
+    control.addEventListener('input', () => { resultLimit = 20; render(); });
+  }
+  get('more').addEventListener('click', () => { resultLimit += 20; render(); });
   get('sign-in').addEventListener('click', async () => {
     if (signingIn) return;
     signingIn = true;

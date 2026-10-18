@@ -648,7 +648,8 @@ a.record-refresh-button.compact { height: 38px; padding-inline: 16px; }
 	.level-quick-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 	.level-quick-grid a { height: 76px; padding-inline: 12px; }
 	.record-gallery { padding-block: 32px 40px; }
-	.record-gallery-heading-meta { gap: 12px; }
+	.record-gallery .catalog-section-heading { align-items: start; flex-direction: column; gap: 14px; }
+	.record-gallery-heading-meta { flex-wrap: wrap; gap: 12px; }
 	.record-gallery-heading-meta > span { display: none; }
 	.record-gallery-grid { gap: 12px; grid-template-columns: 1fr; }
 	.record-gallery-grid > a { min-height: 84px; }

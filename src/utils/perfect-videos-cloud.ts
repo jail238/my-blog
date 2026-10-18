@@ -11,11 +11,14 @@ export interface PerfectVideo {
 
 export async function loadPerfectVideos(chartIds: string[]): Promise<PerfectVideo[]> {
   if (!plannerCloud) throw new Error('Cloud connection required.');
-  if (!chartIds.length) return [];
-  const { data, error } = await plannerCloud.from('chart_perfect_videos')
-    .select('chart_id,url,revision,deleted_at,updated_at').in('chart_id', chartIds);
-  if (error) throw error;
-  return data;
+  const rows: PerfectVideo[] = [];
+  for (let offset = 0; offset < chartIds.length; offset += 75) {
+    const { data, error } = await plannerCloud.from('chart_perfect_videos')
+      .select('chart_id,url,revision,deleted_at,updated_at').in('chart_id', chartIds.slice(offset, offset + 75));
+    if (error) throw error;
+    rows.push(...data);
+  }
+  return rows;
 }
 
 export async function savePerfectVideo(chartId: string, value: string, previous?: PerfectVideo) {

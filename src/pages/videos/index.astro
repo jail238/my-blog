@@ -1,0 +1,51 @@
+---
+import { Clapperboard, Pencil, Plus, Search } from '@lucide/astro';
+import PerfectVideoControls from '../../components/PerfectVideoControls.astro';
+import SongArtwork from '../../components/SongArtwork.astro';
+import { DIFFICULTIES, PERFECT_RECORDED_CHARTS, songById } from '../../data/maimai';
+import CatalogLayout from '../../layouts/CatalogLayout.astro';
+import { SITE_TITLE } from '../../consts';
+import { songSearchIndex } from '../../utils/catalog-search.js';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const entries = PERFECT_RECORDED_CHARTS.map((chart) => ({ chart, song: songById.get(chart.songId) })).filter(({ song }) => song);
+---
+
+<CatalogLayout title={`AP Videos | ${SITE_TITLE}`} description="Manage personal maimai AP video links." pageClass="video-manager-page">
+  <header class="catalog-page-header video-manager-heading">
+    <h1>AP Videos</h1>
+    <PerfectVideoControls />
+  </header>
+  <section aria-label="Find a chart">
+    <div class="video-manager-filters">
+      <label class="video-manager-search"><Search size={17} aria-hidden="true" /><span class="video-manager-sr-only">Search charts</span><input id="perfect-video-query" type="search" placeholder="Title or artist" autocomplete="off" /></label>
+      <label><span>Chart type</span><select id="perfect-video-type"><option value="">All</option><option value="STANDARD">ST</option><option value="DX">DX</option></select></label>
+      <label><span>Difficulty</span><select id="perfect-video-difficulty"><option value="">All</option>{DIFFICULTIES.map((difficulty) => <option>{difficulty}</option>)}</select></label>
+      <label><span>Video</span><select id="perfect-video-filter"><option value="">All</option><option value="linked">Linked</option><option value="missing">No video</option></select></label>
+    </div>
+    <p id="perfect-video-count" class="video-manager-count" aria-live="polite"></p>
+    <div class="video-manager-results">
+      {entries.map(({ chart, song }) => song && (
+        <article class="video-manager-row" data-video-manager-chart={chart.id} data-combo={chart.record?.combo} data-search={songSearchIndex(song)} data-type={chart.type} data-difficulty={chart.difficulty} data-chart-label={`${song.title} · ${chart.type === 'STANDARD' ? 'ST' : 'DX'} · ${chart.difficulty}`}>
+          <SongArtwork song={song} compact />
+          <div class="video-manager-copy">
+            <a href={`${base}/songs/${song.id}/`}>{song.title}</a>
+            {song.koreanTitle && <small>{song.koreanTitle}</small>}
+            <div class="video-manager-tags">
+              <span class={`type-badge type-${chart.type.toLowerCase()}`}>{chart.type === 'STANDARD' ? 'ST' : 'DX'}</span>
+              <span class={`difficulty-badge difficulty-${chart.difficulty === 'Re:MASTER' ? 'remaster' : chart.difficulty.toLowerCase()}`}>{chart.difficulty}</span>
+              <small>Lv {chart.level}{chart.constant !== undefined ? ` (${chart.constant.toFixed(1)})` : ''}</small>
+            </div>
+            <small>{chart.record?.combo} · {chart.record?.achievement}</small>
+          </div>
+          <div class="video-manager-actions">
+            <button class="perfect-video-button" data-edit-perfect-video type="button" disabled title="Select chart" aria-label={`Select chart: ${song.title} · ${chart.type === 'STANDARD' ? 'ST' : 'DX'} · ${chart.difficulty}`}><Plus size={15} data-video-add-icon aria-hidden="true" /><Pencil size={15} data-video-edit-icon aria-hidden="true" hidden /><span data-video-action-label>Add video</span></button>
+            <a class="video-manager-watch" data-perfect-video-link target="_blank" rel="noopener noreferrer" aria-label={`Watch my AP video: ${song.title} · ${chart.type === 'STANDARD' ? 'ST' : 'DX'} · ${chart.difficulty}`} hidden><Clapperboard size={14} aria-hidden="true" />Watch</a>
+          </div>
+        </article>
+      ))}
+    </div>
+    <p id="perfect-video-empty" class="video-manager-empty" hidden>No charts found.</p>
+    <button id="perfect-video-more" class="perfect-video-button video-manager-more" type="button" hidden>Load more</button>
+    <noscript><p>JavaScript is required to manage video links.</p></noscript>
+  </section>
+</CatalogLayout>
