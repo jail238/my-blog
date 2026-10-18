@@ -51,6 +51,12 @@ Only the maimai archive is included in the public build. Previous blog posts, wr
 
 PC and phone share the same Supabase account. Plans stay in a row-level-security protected database, not in GitHub or the public catalog. Cloud configuration is required before saving or signing in; see [Planner Cloud Setup](docs/planner-setup.md).
 
+## My AP Videos
+
+On a song page, choose `Manage videos` and sign in with the archive owner's existing GitHub account. Use the pencil under the exact ST/DX difficulty to paste a YouTube or Shorts URL and save it. The resulting `My AP Video` button is public; only the owner can add, edit, or remove links. Planner sign-in is shared, and changes sync across PC and phone without a site rebuild.
+
+These controls appear only on song chart tables with AP/AP+ records. They do not add video buttons to lists, Hall of Fame, or Planner. The existing chart-specific YouTube search stays separate. No video files are uploaded. See [AP Video Setup](docs/perfect-videos.md) for storage and verification details.
+
 ## Commands
 
 ```bash

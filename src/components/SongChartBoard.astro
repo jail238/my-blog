@@ -1,10 +1,11 @@
 ---
-import { Play, ArrowUpRight } from '@lucide/astro';
+import { Play, ArrowUpRight, Clapperboard, Pencil } from '@lucide/astro';
 import type { Chart, ChartType } from '../data/maimai';
 import { versionById } from '../data/maimai';
 import { getDxScoreStarCount } from '../utils/maimai-dx-score.js';
 import { formatKstDate } from '../utils/maimai-record-date.js';
 import { buildMaimaiYoutubeQuery, buildMaimaiYoutubeUrl } from '../utils/maimai-youtube.js';
+import { isPerfectRecord } from '../utils/perfect-videos.js';
 
 interface Props {
 	type: ChartType;
@@ -144,6 +145,14 @@ const comboIcons: Record<string, { file: string; label: string }> = {
 								>
 									<Play size={15} aria-hidden="true" /><span class="song-chart-youtube-label">YouTube</span><ArrowUpRight class="song-chart-youtube-external" size={13} aria-hidden="true" />
 								</a>
+								{isPerfectRecord(chart.record) && (
+									<div class="song-chart-video-control" data-perfect-video-chart={chart.id} data-combo={chart.record?.combo} data-chart-label={`${songTitle} · ${typeLabel} · ${chart.difficulty}`} hidden>
+										<a class="song-chart-ap-video" data-perfect-video-link target="_blank" rel="noopener noreferrer" aria-label={`Watch my AP video: ${songTitle} · ${typeLabel} · ${chart.difficulty}`} title="My AP video" hidden>
+											<Clapperboard size={14} aria-hidden="true" /><span class="song-chart-ap-video-label"><span>My AP</span> <span>Video</span></span>
+										</a>
+										<button class="perfect-video-icon" data-edit-perfect-video type="button" title="Edit my AP video" aria-label={`Edit my AP video: ${songTitle} · ${typeLabel} · ${chart.difficulty}`} hidden><Pencil size={14} aria-hidden="true" /></button>
+									</div>
+								)}
 							</td>
 						);
 					})}

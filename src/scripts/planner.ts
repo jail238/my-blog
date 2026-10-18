@@ -1,5 +1,6 @@
 import { plannerCloud, loadPlannerEntries, addPlannerEntries, changePlannerEntry, type PlannerEntry } from '../utils/planner-cloud';
 import { finishPlannerSignIn, plannerRedirectUrl } from '../utils/planner-auth.js';
+import { consumePerfectVideoReturn } from '../utils/perfect-videos.js';
 import { buildMaimaiYoutubeUrl } from '../utils/maimai-youtube.js';
 import { editChange, entriesOnDate, hasOpenGoal, isDateKey, monthCells, shiftMonth, songMatches, statusChange, statusOnDate, todayInKorea } from '../utils/planner.js';
 
@@ -531,10 +532,15 @@ export function initializePlanner() {
     plannerCloud.auth.onAuthStateChange((_event, session) => { queueMicrotask(() => void setUser(session?.user.id ?? '')); });
     void (async () => {
       try {
+        const isCallback = new URL(window.location.href).searchParams.has('code');
         await finishPlannerSignIn(plannerCloud.auth, window.location.href, (url: string) => window.history.replaceState(null, '', url));
         const { data, error } = await plannerCloud.auth.getSession();
         if (error) throw error;
-        if (data.session) await setUser(data.session.user.id);
+        if (data.session) {
+          const returnPath = isCallback ? consumePerfectVideoReturn(window.sessionStorage, base) : null;
+          if (returnPath) { window.location.replace(returnPath); return; }
+          await setUser(data.session.user.id);
+        }
         else if (!userId) get('sync').textContent = 'Signed out';
       } catch (error) {
         get('sync').textContent = 'Sign-in unavailable';

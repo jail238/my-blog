@@ -1,12 +1,14 @@
 ---
 import SongArtwork from '../../components/SongArtwork.astro';
 import SongChartBoard from '../../components/SongChartBoard.astro';
+import PerfectVideoControls from '../../components/PerfectVideoControls.astro';
 import SongTitleCopyButton from '../../components/SongTitleCopyButton.astro';
 import type { ChartType } from '../../data/maimai';
 import { SONGS, chartsForSong, versionGroupsForSong } from '../../data/maimai';
 import CatalogLayout from '../../layouts/CatalogLayout.astro';
 import { SITE_TITLE } from '../../consts';
 import { genreInfo } from '../../utils/catalog-genres.js';
+import { isPerfectRecord } from '../../utils/perfect-videos.js';
 
 export function getStaticPaths() {
 	return SONGS.map((song) => ({
@@ -65,6 +67,7 @@ const chartGroups = (['STANDARD', 'DX'] satisfies ChartType[])
 					<p class="catalog-kicker">CHARTS</p>
 					<h2 id="chart-heading">Charts</h2>
 				</div>
+				{charts.some((chart) => isPerfectRecord(chart.record)) && <PerfectVideoControls />}
 			</div>
 			{
 				chartGroups.length > 0 ? (
