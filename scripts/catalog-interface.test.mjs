@@ -55,6 +55,17 @@ test('home record metrics sit on the cover without a snapshot label or date', ()
   assert.match(css, /\.profile-metrics small\s*\{[^}]*color:\s*#ffffff/);
 });
 
+test('home record actions align right and put refresh before AP video management', () => {
+  const home = readFileSync(new URL('src/pages/index.astro', root), 'utf8');
+  const actions = home.match(/class="record-gallery-heading-meta">([\s\S]*?)<\/div>/)?.[1] ?? '';
+  const positions = ['>All ', 'Refresh records</a>', 'AP Videos</a>'].map((label) => actions.indexOf(label));
+  assert.ok(positions.every((position) => position >= 0));
+  assert.ok(positions[0] < positions[1] && positions[1] < positions[2]);
+  const css = readFileSync(new URL('src/styles/global.css', root), 'utf8');
+  assert.match(css, /\.record-gallery-heading-meta\s*\{[^}]*justify-content:\s*flex-end/);
+  assert.match(css, /\.record-gallery-heading-meta\s*\{[^}]*flex-wrap:\s*wrap;[^}]*width:\s*100%/);
+});
+
 test('home cover uses the full image ratio rather than a cropped fixed-height banner', () => {
   const css = readFileSync(new URL('src/styles/global.css', root), 'utf8');
   for (const [, rule] of css.matchAll(/\.archive-cover\s*\{([^}]+)\}/g)) {
