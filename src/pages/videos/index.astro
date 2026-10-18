@@ -28,14 +28,18 @@ const entries = PERFECT_RECORDED_CHARTS.map((chart) => ({ chart, song: songById.
         <article class="video-manager-row" data-video-manager-chart={chart.id} data-combo={chart.record?.combo} data-search={songSearchIndex(song)} data-type={chart.type} data-difficulty={chart.difficulty} data-chart-label={`${song.title} · ${chart.type === 'STANDARD' ? 'ST' : 'DX'} · ${chart.difficulty}`}>
           <SongArtwork song={song} compact />
           <div class="video-manager-copy">
-            <a href={`${base}/songs/${song.id}/`}>{song.title}</a>
-            {song.koreanTitle && <small>{song.koreanTitle}</small>}
-            <div class="video-manager-tags">
-              <span class={`type-badge type-${chart.type.toLowerCase()}`}>{chart.type === 'STANDARD' ? 'ST' : 'DX'}</span>
-              <span class={`difficulty-badge difficulty-${chart.difficulty === 'Re:MASTER' ? 'remaster' : chart.difficulty.toLowerCase()}`}>{chart.difficulty}</span>
-              <small>Lv {chart.level}{chart.constant !== undefined ? ` (${chart.constant.toFixed(1)})` : ''}</small>
+            <div class="video-manager-titles">
+              <a href={`${base}/songs/${song.id}/`}>{song.title}</a>
+              {song.koreanTitle && <small>{song.koreanTitle}</small>}
             </div>
-            <small>{chart.record?.combo} · {chart.record?.achievement}</small>
+            <div class="video-manager-details">
+              <div class="video-manager-tags">
+                <span class={`type-badge type-${chart.type.toLowerCase()}`}>{chart.type === 'STANDARD' ? 'ST' : 'DX'}</span>
+                <span class={`difficulty-badge difficulty-${chart.difficulty === 'Re:MASTER' ? 'remaster' : chart.difficulty.toLowerCase()}`}>{chart.difficulty}</span>
+                <small>Lv {chart.level}{chart.constant !== undefined ? ` (${chart.constant.toFixed(1)})` : ''}</small>
+              </div>
+              <small>{chart.record?.combo} · {chart.record?.achievement}</small>
+            </div>
           </div>
           <div class="video-manager-actions">
             <button class="perfect-video-button" data-edit-perfect-video type="button" disabled title="Select chart" aria-label={`Select chart: ${song.title} · ${chart.type === 'STANDARD' ? 'ST' : 'DX'} · ${chart.difficulty}`}><Plus size={15} data-video-add-icon aria-hidden="true" /><Pencil size={15} data-video-edit-icon aria-hidden="true" hidden /><span data-video-action-label>Add video</span></button>

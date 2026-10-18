@@ -46,10 +46,12 @@
 .video-manager-results { border-top: 1px solid rgb(var(--line)); }
 .video-manager-row { align-items: center; border-bottom: 1px solid rgb(var(--line)); display: grid; gap: 20px; grid-template-columns: 52px minmax(0, 1fr) auto; padding: 16px 0; }
 .video-manager-row .song-artwork { height: 52px; width: 52px; }
-.video-manager-copy { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
-.video-manager-copy > a { color: rgb(var(--text)); font-size: 14px; font-weight: 600; overflow: hidden; text-decoration: none; text-overflow: ellipsis; white-space: nowrap; }
-.video-manager-copy > a:hover { text-decoration: underline; }
-.video-manager-copy > small { color: rgb(var(--muted)); font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.video-manager-copy { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.video-manager-titles { display: flex; flex-direction: column; gap: 2px; line-height: 1.35; min-width: 0; }
+.video-manager-details { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.video-manager-titles > a { color: rgb(var(--text)); font-size: 14px; font-weight: 600; overflow: hidden; text-decoration: none; text-overflow: ellipsis; white-space: nowrap; }
+.video-manager-titles > a:hover { text-decoration: underline; }
+.video-manager-titles > small, .video-manager-details > small { color: rgb(var(--muted)); font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .video-manager-tags { align-items: center; display: flex; flex-wrap: wrap; gap: 5px; }
 .video-manager-tags small { color: rgb(var(--muted)); font-size: 11px; }
 .video-manager-actions { align-items: end; display: flex; flex-direction: column; gap: 7px; }
@@ -64,7 +66,7 @@
   .video-manager-filters { gap: 12px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .video-manager-search { grid-column: 1 / -1; }
   .video-manager-row { gap: 16px; padding: 14px 0; }
-  .video-manager-copy > a { font-size: 13px; }
+  .video-manager-titles > a { font-size: 13px; }
   .video-manager-actions .perfect-video-button { min-width: 82px; padding: 4px 8px; }
   .video-manager-tags .type-badge, .video-manager-tags .difficulty-badge { font-size: 9px; padding: 4px; }
   .perfect-video-account { gap: 5px; }

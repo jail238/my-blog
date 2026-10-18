@@ -116,6 +116,21 @@ test('manager rows reserve the full jacket width and keep list buttons compact o
   for (const rule of buttonRules) assert.match(rule, /padding: 4px/);
 });
 
+test('original and translated titles stay together above a separate chart details group', () => {
+  const template = readFileSync(new URL('../src/pages/videos/index.astro', import.meta.url), 'utf8');
+  const css = readFileSync(new URL('../src/styles/perfect-videos.css', import.meta.url), 'utf8');
+  const titles = template.match(/<div class="video-manager-titles">([\s\S]*?)<\/div>/)?.[1];
+  assert.ok(titles);
+  assert.match(titles, /song.title/);
+  assert.match(titles, /song.koreanTitle/);
+  assert.doesNotMatch(titles, /video-manager-tags|chart.record/);
+  assert.match(template, /<div class="video-manager-details">\s*<div class="video-manager-tags">/);
+  assert.match(css, /\.video-manager-titles \{[^}]*gap: 2px;[^}]*line-height: 1\.35/);
+  assert.match(css, /\.video-manager-copy \{[^}]*gap: 10px/);
+  assert.match(css, /\.video-manager-details \{[^}]*gap: 5px/);
+  assert.doesNotMatch(css, /\.video-manager-copy > (?:a|small)/);
+});
+
 test('registered charts follow unregistered charts without changing each groups original order', () => {
   const charts = ['2001-dx-basic', '2001-standard-basic', '2001-dx-master', '2001-dx-expert'].map((id) => ({ id, combo: 'AP+' }));
   const video = { url: 'https://youtu.be/abcdefghijk', deleted_at: null };
