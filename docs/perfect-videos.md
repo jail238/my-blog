@@ -5,11 +5,13 @@ Last updated: 2026-10-18
 ## Owner Workflow
 
 1. Choose `AP Videos` in the homepage Records section to open `/videos/`. Sign in with the existing Planner GitHub account if needed.
-2. Search by original title, Korean translation, or artist; English, Korean, and Japanese share the catalog matcher. Filter by ST/DX, difficulty, or linked/unlinked state. Choose `Add video` on the exact AP/AP+ chart.
+2. Search by original title, Korean translation, or artist; English, Korean, and Japanese share the catalog matcher. Filter by ST/DX and difficulty. Choose `Add video` on the exact AP/AP+ chart.
 3. Paste a YouTube video or Shorts URL and select `Save`.
 4. The song detail page now shows a public `My AP Video` button for that chart. Use `Edit video` in the manager to replace the URL, or the trash icon and confirmation to hide it.
 
 Only one current link is stored per chart. A later AP-to-AP+ promotion keeps the chart's link. Add the replacement recording manually when appropriate. The site does not verify the recording's content or claim it matches a particular play date. Removed links can be replaced with `Add video` on the same chart. Search results show 20 at a time with `Load more`.
+
+Unregistered charts precede registered charts before filtering and pagination, preserving the original order within each group. A successful save immediately sends that chart behind all unregistered ones; removing a link returns it to its original unregistered position. `Show registered` is ON by default and replaces the previous video-state dropdown. OFF hides saved charts from both the list and searches without deleting links. The setting survives refresh in the current browser, not across devices; blocked local storage never prevents using the toggle. Score records, video URLs, and their cloud sync are unaffected.
 
 ## Scope And Storage
 
@@ -29,6 +31,8 @@ The manager uses the existing GitHub OAuth app and exact `/planner/` callback al
 
 ## Verification
 
-2026-10-18: all 97 tests, strict TypeScript checks, and the 1,483-page static build passed. PostgreSQL role tests cover public reads, owner-only writes, invalid URLs/IDs, protected columns, duplicate/stale writes, soft deletion/restoration, and denial of permanent deletion. Manager tests cover multilingual search, chart identity filters, and linked/unlinked state.
+2026-10-18: all 100 tests, strict TypeScript checks, and the 1,483-page static build passed. PostgreSQL role tests cover public reads, owner-only writes, invalid URLs/IDs, protected columns, duplicate/stale writes, soft deletion/restoration, and denial of permanent deletion. Manager tests cover multilingual search, exact chart filters, stable unregistered-first ordering before pagination, save/remove reordering, and visibility preference persistence including blocked storage.
 
 The remote migration and transactional checks passed, including verification that the retired NET importer remains disabled. Browser checks passed for home-to-manager navigation, English/Korean/Japanese search, exact difficulty selection, saved-link filtering, add/remove, and GitHub return to the manager. A saved QA link appeared only on the matching song chart and disappeared after removal; the song page had zero editing controls and retained all five YouTube searches. Temporary QA links were removed from public view without touching scores or Planner entries. Actual rendered 320px, 390px, 430px, and 1280px manager layouts have no horizontal overflow; the home button also fits at 320px. A physical phone sync check remains separate from these browser tests.
+
+The visibility update was checked against existing saved links without changing any cloud data. All registered rows followed all unregistered rows, no registered chart occupied the first unregistered page, OFF hid registered search results, and the choice survived refresh. The switch fit its control at actual 320px, 390px, 430px, and 1280px widths without page or control overflow.

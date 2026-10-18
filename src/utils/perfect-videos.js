@@ -28,6 +28,20 @@ export function visiblePerfectVideo(record, video) {
 }
 
 export const PERFECT_VIDEO_RETURN_KEY = 'msk-perfect-video-return';
+export const PERFECT_VIDEO_VISIBILITY_KEY = 'msk-perfect-videos-show-registered';
+
+export function readPerfectVideoVisibility(storage) {
+  try { return storage.getItem(PERFECT_VIDEO_VISIBILITY_KEY) !== 'off'; } catch { return true; }
+}
+
+export function writePerfectVideoVisibility(storage, visible) {
+  try { storage.setItem(PERFECT_VIDEO_VISIBILITY_KEY, visible ? 'on' : 'off'); } catch {}
+}
+
+export function sortPerfectVideoCharts(charts, videos) {
+  const linked = (chart) => Number(!!visiblePerfectVideo({ combo: chart.combo }, videos.get(chart.id)));
+  return [...charts].sort((a, b) => linked(a) - linked(b));
+}
 
 export function perfectVideoChartMatches(chart, { query = '', type = '', difficulty = '', linked = '' } = {}, video) {
   const hasVideo = !!visiblePerfectVideo({ combo: chart.combo }, video);

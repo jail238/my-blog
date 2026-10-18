@@ -20,7 +20,7 @@ const entries = PERFECT_RECORDED_CHARTS.map((chart) => ({ chart, song: songById.
       <label class="video-manager-search"><Search size={17} aria-hidden="true" /><span class="video-manager-sr-only">Search charts</span><input id="perfect-video-query" type="search" placeholder="Title or artist" autocomplete="off" /></label>
       <label><span>Chart type</span><select id="perfect-video-type"><option value="">All</option><option value="STANDARD">ST</option><option value="DX">DX</option></select></label>
       <label><span>Difficulty</span><select id="perfect-video-difficulty"><option value="">All</option>{DIFFICULTIES.map((difficulty) => <option>{difficulty}</option>)}</select></label>
-      <label><span>Video</span><select id="perfect-video-filter"><option value="">All</option><option value="linked">Linked</option><option value="missing">No video</option></select></label>
+      <label class="video-manager-toggle"><span>Show registered</span><span class="video-manager-toggle-control"><input id="perfect-video-show-registered" type="checkbox" role="switch" aria-label="Show registered" checked /><span id="perfect-video-visibility-label" aria-hidden="true">ON</span></span></label>
     </div>
     <p id="perfect-video-count" class="video-manager-count" aria-live="polite"></p>
     <div class="video-manager-results">

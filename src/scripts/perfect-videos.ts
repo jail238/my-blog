@@ -1,6 +1,6 @@
 import { plannerCloud } from '../utils/planner-cloud';
 import { loadPerfectVideos, removePerfectVideo, savePerfectVideo, type PerfectVideo } from '../utils/perfect-videos-cloud';
-import { perfectVideoChartMatches, savePerfectVideoReturn, visiblePerfectVideo } from '../utils/perfect-videos.js';
+import { perfectVideoChartMatches, readPerfectVideoVisibility, savePerfectVideoReturn, sortPerfectVideoCharts, visiblePerfectVideo, writePerfectVideoVisibility } from '../utils/perfect-videos.js';
 
 export function initializePerfectVideos() {
   const root = document.querySelector<HTMLElement>('#perfect-videos');
@@ -14,7 +14,9 @@ export function initializePerfectVideos() {
   const query = get<HTMLInputElement>('query');
   const type = get<HTMLSelectElement>('type');
   const difficulty = get<HTMLSelectElement>('difficulty');
-  const filter = get<HTMLSelectElement>('filter');
+  const showRegistered = get<HTMLInputElement>('show-registered');
+  const results = document.querySelector<HTMLElement>('.video-manager-results')!;
+  try { showRegistered.checked = readPerfectVideoVisibility(window.localStorage); } catch {}
   const controls = [...document.querySelectorAll<HTMLElement>('[data-video-manager-chart]')];
   const byId = new Map(controls.map((node) => [node.dataset.videoManagerChart!, node]));
   let videos = new Map<string, PerfectVideo>();
@@ -54,7 +56,10 @@ export function initializePerfectVideos() {
 
   function render() {
     let total = 0;
-    for (const [id, node] of byId) {
+    const ordered = sortPerfectVideoCharts([...byId].map(([id, node]) => ({ id, combo: node.dataset.combo })), videos);
+    for (const [index, { id }] of ordered.entries()) {
+      const node = byId.get(id)!;
+      if (results.children[index] !== node) results.insertBefore(node, results.children[index] ?? null);
       const link = node.querySelector<HTMLAnchorElement>('[data-perfect-video-link]')!;
       const edit = node.querySelector<HTMLButtonElement>('[data-edit-perfect-video]')!;
       const url = visiblePerfectVideo({ combo: node.dataset.combo }, videos.get(id));
@@ -67,12 +72,13 @@ export function initializePerfectVideos() {
       node.querySelector('[data-video-edit-icon]')!.toggleAttribute('hidden', !url);
       node.querySelector('[data-video-action-label]')!.textContent = url ? 'Edit video' : 'Add video';
       const matches = perfectVideoChartMatches(node.dataset, {
-        query: query.value, type: type.value, difficulty: difficulty.value, linked: filter.value,
+        query: query.value, type: type.value, difficulty: difficulty.value, linked: showRegistered.checked ? '' : 'missing',
       }, videos.get(id));
       if (matches) total++;
       node.hidden = !matches || total > resultLimit;
     }
     get('count').textContent = `${Math.min(resultLimit, total)}/${total} charts`;
+    get('visibility-label').textContent = showRegistered.checked ? 'ON' : 'OFF';
     get('empty').hidden = total > 0;
     get('more').hidden = total <= resultLimit;
     get<HTMLButtonElement>('sign-in').hidden = !!userId;
@@ -181,9 +187,14 @@ export function initializePerfectVideos() {
   get('form').addEventListener('submit', (event) => { event.preventDefault(); void write(); });
   get('confirm-remove').addEventListener('click', () => void write(true));
   get('refresh').addEventListener('click', () => void refresh());
-  for (const control of [query, type, difficulty, filter]) {
+  for (const control of [query, type, difficulty]) {
     control.addEventListener('input', () => { resultLimit = 20; render(); });
   }
+  showRegistered.addEventListener('change', () => {
+    try { writePerfectVideoVisibility(window.localStorage, showRegistered.checked); } catch {}
+    resultLimit = 20;
+    render();
+  });
   get('more').addEventListener('click', () => { resultLimit += 20; render(); });
   get('sign-in').addEventListener('click', async () => {
     if (signingIn) return;

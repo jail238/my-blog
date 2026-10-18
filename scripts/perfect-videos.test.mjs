@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
 import { PGlite } from '@electric-sql/pglite';
-import { consumePerfectVideoReturn, isPerfectRecord, normalizePerfectVideoUrl, perfectVideoChartMatches, PERFECT_VIDEO_RETURN_KEY, savePerfectVideoReturn, visiblePerfectVideo } from '../src/utils/perfect-videos.js';
+import { consumePerfectVideoReturn, isPerfectRecord, normalizePerfectVideoUrl, perfectVideoChartMatches, PERFECT_VIDEO_RETURN_KEY, PERFECT_VIDEO_VISIBILITY_KEY, readPerfectVideoVisibility, savePerfectVideoReturn, sortPerfectVideoCharts, visiblePerfectVideo, writePerfectVideoVisibility } from '../src/utils/perfect-videos.js';
 import { songSearchIndex } from '../src/utils/catalog-search.js';
 
 test('personal video URLs accept YouTube shares, Shorts and live links without tracking parameters', () => {
@@ -72,11 +72,15 @@ test('video editing stays in the home-linked manager while song tables only show
   assert.match(manager, /<PerfectVideoControls/);
   assert.match(manager, /PERFECT_RECORDED_CHARTS/);
   assert.match(manager, /songSearchIndex\(song\)/);
+  assert.match(manager, /role="switch" aria-label="Show registered" checked/);
+  assert.doesNotMatch(manager, /id="perfect-video-filter"/);
   for (const page of ['records/index.astro', 'hall-of-fame/index.astro', 'levels/[level].astro', 'difficulties/[difficulty].astro']) {
     assert.doesNotMatch(read(`../src/pages/${page}`), /PerfectVideoControls|data-perfect-video/);
   }
   const client = read('../src/scripts/perfect-videos.ts');
   assert.match(client, /can_manage_perfect_videos/);
+  assert.match(client, /sortPerfectVideoCharts/);
+  assert.match(client, /showRegistered.checked \? '' : 'missing'/);
   assert.doesNotMatch(client, /innerHTML|service_role|sb_secret_/);
   assert.match(read('../src/utils/perfect-videos-cloud.ts'), /eq\('revision', previous.revision\)/);
   const publicReader = read('../src/scripts/perfect-video-links.ts');
@@ -93,6 +97,44 @@ test('manager searches multilingual titles and separates exact charts and saved-
   assert.equal(perfectVideoChartMatches(chart, { linked: 'missing' }, video), false);
   assert.ok(perfectVideoChartMatches(chart, { linked: 'missing' }, { ...video, deleted_at: '2026-10-18' }));
   assert.equal(perfectVideoChartMatches({ ...chart, combo: 'FC+' }), false);
+});
+
+test('registered charts follow unregistered charts without changing each groups original order', () => {
+  const charts = ['2001-dx-basic', '2001-standard-basic', '2001-dx-master', '2001-dx-expert'].map((id) => ({ id, combo: 'AP+' }));
+  const video = { url: 'https://youtu.be/abcdefghijk', deleted_at: null };
+  const videos = new Map([[charts[0].id, video], [charts[2].id, video]]);
+  const ordered = sortPerfectVideoCharts(charts, videos);
+  assert.deepEqual(ordered.map((chart) => chart.id), [charts[1].id, charts[3].id, charts[0].id, charts[2].id]);
+  assert.equal(charts[0].id, '2001-dx-basic');
+  assert.deepEqual(ordered.filter((chart) => perfectVideoChartMatches({ ...chart, search: '' }, { linked: 'missing' }, videos.get(chart.id))).map((chart) => chart.id), [charts[1].id, charts[3].id]);
+});
+
+test('saving pushes a chart beyond the unregistered page and deleting restores its original place', () => {
+  const charts = Array.from({ length: 21 }, (_, index) => ({ id: `${index}-dx-basic`, combo: 'AP' }));
+  const videos = new Map();
+  assert.equal(sortPerfectVideoCharts(charts, videos)[0].id, charts[0].id);
+  videos.set(charts[0].id, { url: 'https://youtu.be/abcdefghijk', deleted_at: null });
+  const registered = sortPerfectVideoCharts(charts, videos);
+  assert.equal(registered.at(-1).id, charts[0].id);
+  assert.ok(registered.slice(0, 20).every((chart) => chart.id !== charts[0].id));
+  for (const video of [{ url: 'https://youtu.be/abcdefghijk', deleted_at: '2026-10-18' }, { url: 'invalid', deleted_at: null }]) {
+    videos.set(charts[0].id, video);
+    assert.equal(sortPerfectVideoCharts(charts, videos)[0].id, charts[0].id);
+  }
+});
+
+test('show registered defaults on and remembers both choices without requiring browser storage', () => {
+  const values = new Map();
+  const storage = { getItem: (key) => values.get(key), setItem: (key, value) => values.set(key, value) };
+  assert.equal(readPerfectVideoVisibility(storage), true);
+  writePerfectVideoVisibility(storage, false);
+  assert.equal(values.get(PERFECT_VIDEO_VISIBILITY_KEY), 'off');
+  assert.equal(readPerfectVideoVisibility(storage), false);
+  writePerfectVideoVisibility(storage, true);
+  assert.equal(readPerfectVideoVisibility(storage), true);
+  const blocked = { getItem: () => { throw Error('Blocked'); }, setItem: () => { throw Error('Blocked'); } };
+  assert.equal(readPerfectVideoVisibility(blocked), true);
+  assert.doesNotThrow(() => writePerfectVideoVisibility(blocked, false));
 });
 
 test('PostgreSQL restricts public video reads and owner writes, soft deletion and stale revisions', async () => {
