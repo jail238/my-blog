@@ -33,3 +33,16 @@ test('mobile chart comparison keeps all difficulty columns in one fitted table',
   assert.doesNotMatch(mobile, /\.song-chart-board thead[^}]*clip-path/);
   assert.doesNotMatch(mobile, /min-width: max\(100%, calc\(var\(--chart-count\)/);
 });
+
+test('song chart comparisons show rank without a rating contribution on every viewport', async () => {
+  const board = await read('../src/components/SongChartBoard.astro');
+  assert.match(board, /<span>\{chart\.record\.rank\}<\/span>/);
+  assert.doesNotMatch(board, /RATING|chart\.record\.rating/);
+  for (const retained of ['achievementWhole', 'combo-icon', 'chart.record.sync', 'song-chart-dx-score', 'song-chart-dx-star', 'AP achieved', 'AP+ achieved', 'song-chart-youtube']) {
+    assert.ok(board.includes(retained), `Preserve ${retained}`);
+  }
+  const home = await read('../src/pages/index.astro');
+  const row = await read('../src/components/ChartRow.astro');
+  assert.match(home, /<small>RATING<\/small>/);
+  assert.match(row, /RATING \{chart\.record\.rating\}/);
+});
