@@ -765,7 +765,7 @@ a.record-refresh-button.compact { height: 38px; padding-inline: 16px; }
 	.song-chart-dx-star { height: 18px; width: 18px; }
 	.song-chart-score .song-chart-perfect-date { text-align: center; }
 	.song-chart-perfect-date time { display: block; }
-	.song-chart-board-actions td { padding: 0 2px; }
+	.song-chart-board-actions td { padding: 0 2px 12px; }
 	.song-chart-youtube { font-size: 10px; gap: 3px; height: 44px; justify-content: center; width: 100%; }
 	.song-chart-youtube > svg { height: 12px; width: 12px; }
 	.song-chart-youtube-external { display: none; }

@@ -47,6 +47,15 @@ test('song chart comparisons show rank without a rating contribution on every vi
   assert.match(row, /RATING \{chart\.record\.rating\}/);
 });
 
+test('mobile chart video links have bottom space inside the comparison table', async () => {
+  const css = await read('../src/styles/global.css');
+  const mobile = css.split('@media (max-width: 760px) {')[1].split('@media (max-width: 390px) {')[0];
+  assert.match(mobile, /\.song-chart-board-actions td \{ padding: 0 2px 12px; \}/);
+  assert.doesNotMatch(mobile, /\.song-chart-board-actions td \{ padding: 0 2px; \}/);
+  const videoCss = await read('../src/styles/perfect-videos.css');
+  assert.match(videoCss, /\.song-chart-ap-video \{[^}]*min-height: 44px/);
+});
+
 test('rank and optional sync share one non-wrapping status line on desktop and mobile', async () => {
   const board = await read('../src/components/SongChartBoard.astro');
   const css = await read('../src/styles/global.css');
