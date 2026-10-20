@@ -4,7 +4,7 @@ import test from 'node:test';
 
 const read = (path) => readFileSync(new URL(path, import.meta.url), 'utf8');
 
-test('the approved holographic theme is home-only and does not change shared styles', () => {
+test('the approved holographic outlines and branding stay home-only', () => {
   const home = read('../src/pages/index.astro');
   assert.match(home, /import '\.\.\/styles\/home-holographic\.css'/);
   assert.doesNotMatch(home, /design-preview|playbook-preview/);
@@ -27,8 +27,8 @@ test('the home theme uses a licensed self-hosted display font and responsive col
 
 test('the revised study uses multi-hue outlines and keeps real gradient progress fills', () => {
   const css = read('../src/styles/home-holographic.css');
-  for (const name of ['spectrum', 'spectrum-progress']) {
-    const gradient = css.match(new RegExp(`--${name}: (linear-gradient\\([^;]+);`))?.[1];
+  for (const [name, source] of [['spectrum', css], ['spectrum-progress', read('../src/styles/global.css')]]) {
+    const gradient = source.match(new RegExp(`--${name}: (linear-gradient\\([^;]+);`))?.[1];
     assert.ok(gradient, `${name} is a real gradient`);
     assert.ok(new Set(gradient.match(/#[\da-f]{6}/g)).size >= 4, `${name} combines at least four colors`);
   }
@@ -39,8 +39,11 @@ test('the revised study uses multi-hue outlines and keeps real gradient progress
   }
   assert.match(outline, /background: linear-gradient\(#fff, #fff\) padding-box, conic-gradient\(from var\(--holo-angle\),[^;]+\) border-box;/);
   assert.match(outline, /border: 2px solid transparent;/);
-  assert.match(css, /\.level-quick-grid a \{[^}]*var\(--spectrum-progress\)/);
-  assert.match(css, /\.version-quick-list a \{[^}]*var\(--spectrum-progress\)/);
+  assert.doesNotMatch(css, /--spectrum-progress:/);
+  for (const selector of ['.level-quick-grid a {', '.version-quick-list a {']) {
+    const block = css.slice(css.indexOf(selector)).split('}')[0];
+    assert.doesNotMatch(block, /background:/, 'Home must inherit shared progress fills');
+  }
 });
 
 test('the canvas and large reading surfaces stay neutral rather than rainbow-filled', () => {

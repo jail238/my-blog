@@ -53,3 +53,18 @@ test('cover selection still works when session storage is unavailable or stale',
 test('a future single-cover setup still renders its image', () => {
   assert.deepEqual(render({ ids: ['rooftop'], previous: 'rooftop' }).mounted, ['rooftop']);
 });
+
+test('three-cover previews can select every image without repeating the immediately previous one', () => {
+  const ids = ['rooftop', 'city', 'residential-lane'];
+  for (const [random, expected] of [[0, 'rooftop'], [0.5, 'city'], [0.999, 'residential-lane']]) {
+    assert.deepEqual(render({ ids, random }).mounted, [expected]);
+  }
+  for (const previous of ids) {
+    for (const random of [0, 0.5, 0.999]) {
+      const result = render({ ids, previous, random });
+      assert.notEqual(result.id, previous);
+      assert.equal(result.mounted.length, 1);
+      assert.ok(ids.includes(result.id));
+    }
+  }
+});

@@ -78,12 +78,12 @@ test('home cover uses the full image ratio rather than a cropped fixed-height ba
   assert.match(css, /\.cover-layout\s*\{[^}]*inset:\s*0;[^}]*position:\s*absolute/);
 });
 
-test('archive accents and progress use neutral grays with readable active controls', () => {
+test('archive controls use neutral grays with readable active controls', () => {
   const css = readFileSync(new URL('src/styles/global.css', root), 'utf8');
   const palette = css.match(/:root\s*\{([^}]+)\}/)?.[1] ?? '';
   const tokens = [
     'canvas', 'brand', 'brand-hover', 'brand-strong', 'brand-soft',
-    'control-hover', 'progress-start', 'progress-end', 'progress-solid',
+    'control-hover',
   ];
   const channel = (token) => {
     const hex = palette.match(new RegExp(`--${token}:\\s*(#[0-9a-f]{6})`, 'i'))?.[1];

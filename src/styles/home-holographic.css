@@ -27,7 +27,6 @@
   --brand-soft: #eef0f3;
   --control-hover: #f0f2f5;
   --spectrum: linear-gradient(115deg, #65d3e3 0%, #b6b9fa 20%, #efb9e9 38%, #f8ddb5 52%, #a9dfd4 68%, #8bbceb 84%, #d8b2ef 100%);
-  --spectrum-progress: linear-gradient(110deg, #a4e9db 0%, #b7e7f0 30%, #d6cdfa 63%, #f1d2e8 100%);
   --shadow-soft: 0 1px 2px #25304706, 0 6px 16px #25304708;
   --shadow-raised: 0 2px 4px #25304708, 0 10px 24px #25304710;
   --holo-depth: 0 1px 0 #d8dde6, 0 6px 16px #2632490b, -2px 0 8px #7fcfe41a, 2px 0 8px #d7a4e61a;
@@ -86,7 +85,6 @@ html, body { background: var(--canvas); }
 .home-index-scroll { max-height: 356px; padding: 2px 12px 10px 2px; scrollbar-color: #bfc5ce transparent; }
 .level-quick-grid { gap: 12px; }
 .level-quick-grid a {
-  background: var(--spectrum-progress) bottom / 100% var(--ap-progress, 0%) no-repeat padding-box, #fff;
   border: 1px solid #e2e5ea;
   box-shadow: var(--shadow-soft);
   height: 76px;
@@ -98,7 +96,6 @@ html, body { background: var(--canvas); }
 .level-quick-grid small { font-size: 10px; }
 .version-quick-list { gap: 9px; }
 .version-quick-list a {
-  background: var(--spectrum-progress) left / var(--ap-progress, 0%) 100% no-repeat padding-box, #fff;
   border: 1px solid #e2e5ea;
   box-shadow: 0 2px 6px #25304706;
   font-size: 12px;

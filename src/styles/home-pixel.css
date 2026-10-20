@@ -1,0 +1,26 @@
+.archive-cover { aspect-ratio: auto; }
+.archive-cover-image { image-rendering: pixelated; }
+
+.archive-cover::after,
+.archive-cover[data-cover="city"]::after {
+  background: none;
+  content: '';
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.archive-cover .cover-copy h1,
+.archive-cover .cover-copy p,
+.archive-cover .profile-metrics,
+.archive-cover .profile-metrics small {
+  color: #263947;
+  text-shadow: 0 1px 0 #ffffffdd, 0 0 5px #ffffff99;
+}
+
+@media (max-width: 360px) {
+  .archive-cover .cover-copy h1 { font-size: 30px; }
+  .cover-copy p { font-size: 11px; }
+  .profile-metrics strong { font-size: 22px; }
+  .cover-layout { gap: 8px; }
+}

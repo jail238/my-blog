@@ -1,0 +1,33 @@
+html, body { background: #edf3f8; }
+body { isolation: isolate; }
+
+body::before {
+  background-image: url('../assets/retro-city-tinted-pixel-preview.webp');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  content: '';
+  image-rendering: pixelated;
+  inset: 0;
+  opacity: 0.50;
+  pointer-events: none;
+  position: fixed;
+  z-index: -1;
+}
+
+.maimai-home .record-gallery { background: transparent; border-top-color: #ffffff99; }
+.site-header.site-header { background: #fffffff5; }
+.site-footer.site-footer { background: #ffffffe6; border-top-color: #ffffff99; }
+.maimai-home .catalog-kicker,
+.maimai-home .catalog-section-heading > a,
+.record-gallery-heading-meta > span,
+.record-gallery-heading-meta a { color: #424c5a; }
+.maimai-home .catalog-section-heading {
+  background: #ffffffe0;
+  border-bottom: 1px solid #ffffffb3;
+  padding: 10px 12px;
+}
+
+@media (max-width: 760px) {
+  body::before { background-position: 18% center; }
+}
