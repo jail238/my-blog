@@ -19,6 +19,7 @@ import {
 import CatalogLayout from '../layouts/CatalogLayout.astro';
 import { RECORD_REFRESH_URL, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import { PLATE_GROUPS, plateProgress } from '../data/plates';
+import '../styles/home-holographic.css';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const levelOrder = registeredLevels().slice().reverse();
