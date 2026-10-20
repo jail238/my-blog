@@ -142,6 +142,12 @@ html, body { background: var(--canvas); }
 
 .archive-modes a,
 .archive-modes a:hover,
+.maimai-home .level-quick-grid a,
+.maimai-home .level-quick-grid a:hover,
+.maimai-home .version-quick-list a,
+.maimai-home .version-quick-list a:hover,
+.maimai-home .record-gallery-grid > a,
+.maimai-home .record-gallery-grid > a:hover,
 .maimai-home .catalog-section-heading.catalog-section-heading,
 .site-header .internal-links a:first-child,
 .site-header .internal-links a:first-child:hover,
@@ -151,10 +157,24 @@ html, body { background: var(--canvas); }
 .navigation-icon-button.navigation-icon-button:hover,
 .record-gallery a.record-refresh-button,
 .record-gallery a.record-refresh-button:hover {
-  background: linear-gradient(#fff, #fff) padding-box, conic-gradient(from var(--holo-angle), #65d3e3 0%, #b6b9fa 16%, #efb9e9 32%, #f8ddb5 48%, #a9dfd4 64%, #8bbceb 80%, #d8b2ef 92%, #65d3e3 100%) border-box;
+  --holo-outline: conic-gradient(from var(--holo-angle), #65d3e3 0%, #b6b9fa 16%, #efb9e9 32%, #f8ddb5 48%, #a9dfd4 64%, #8bbceb 80%, #d8b2ef 92%, #65d3e3 100%);
+  background: linear-gradient(#fff, #fff) padding-box, var(--holo-outline) border-box;
   border: 2px solid transparent;
   color: #343a43;
   animation: var(--holo-motion);
+}
+
+/* Keep AP progress above the white interior, separate from the animated rim. */
+.maimai-home .level-quick-grid a,
+.maimai-home .level-quick-grid a:hover {
+  background: var(--spectrum-progress) bottom / 100% var(--ap-progress, 0%) no-repeat padding-box,
+    linear-gradient(#fff, #fff) padding-box, var(--holo-outline) border-box;
+}
+
+.maimai-home .version-quick-list a,
+.maimai-home .version-quick-list a:hover {
+  background: var(--spectrum-progress) left / var(--ap-progress, 0%) 100% no-repeat padding-box,
+    linear-gradient(#fff, #fff) padding-box, var(--holo-outline) border-box;
 }
 
 @keyframes holo-border-orbit {

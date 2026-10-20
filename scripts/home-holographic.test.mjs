@@ -37,7 +37,8 @@ test('the revised study uses multi-hue outlines and keeps real gradient progress
   for (const selector of ['.archive-modes a:hover', '.site-header .internal-links a:first-child:hover', '.mobile-navigation .mobile-navigation-links a:first-child:hover', '.navigation-icon-button.navigation-icon-button:hover', '.record-gallery a.record-refresh-button:hover']) {
     assert.ok(outline.includes(selector), `${selector} keeps the outline in hover states`);
   }
-  assert.match(outline, /background: linear-gradient\(#fff, #fff\) padding-box, conic-gradient\(from var\(--holo-angle\),[^;]+\) border-box;/);
+  assert.match(outline, /--holo-outline: conic-gradient\(from var\(--holo-angle\),[^;]+\);/);
+  assert.match(outline, /background: linear-gradient\(#fff, #fff\) padding-box, var\(--holo-outline\) border-box;/);
   assert.match(outline, /border: 2px solid transparent;/);
   assert.doesNotMatch(css, /--spectrum-progress:/);
   for (const selector of ['.level-quick-grid a {', '.version-quick-list a {']) {
@@ -89,4 +90,27 @@ test('home section title bars share the animated outline without framing whole s
   assert.match(outline, /animation: var\(--holo-motion\);/);
   assert.match(css, /\.maimai-home \.catalog-section-heading\.catalog-section-heading \{ border-radius: 6px; \}/);
   assert.doesNotMatch(outline, /\.overview-block|\.archive-overview/);
+});
+
+test('every home level, version and record card gets the same outline in normal and hover states', () => {
+  const css = read('../src/styles/home-holographic.css');
+  const outline = css.slice(css.indexOf('.archive-modes a,')).split('}')[0];
+  for (const selector of ['.maimai-home .level-quick-grid a', '.maimai-home .version-quick-list a', '.maimai-home .record-gallery-grid > a']) {
+    assert.ok(outline.includes(`${selector},`));
+    assert.ok(outline.includes(`${selector}:hover,`));
+  }
+  assert.match(outline, /border: 2px solid transparent;/);
+  assert.match(outline, /animation: var\(--holo-motion\);/);
+});
+
+test('home card outline layers preserve AP fill direction and zero-percent defaults on hover', () => {
+  const css = read('../src/styles/home-holographic.css');
+  const level = css.split('.maimai-home .level-quick-grid a:hover {')[1].split('}')[0];
+  const version = css.split('.maimai-home .version-quick-list a:hover {')[1].split('}')[0];
+  assert.match(level, /var\(--spectrum-progress\) bottom \/ 100% var\(--ap-progress, 0%\) no-repeat padding-box/);
+  assert.match(version, /var\(--spectrum-progress\) left \/ var\(--ap-progress, 0%\) 100% no-repeat padding-box/);
+  for (const block of [level, version]) {
+    assert.match(block, /linear-gradient\(#fff, #fff\) padding-box, var\(--holo-outline\) border-box/);
+    assert.doesNotMatch(block, /--ap-progress:|--spectrum-progress:|height:|transform:/);
+  }
 });
