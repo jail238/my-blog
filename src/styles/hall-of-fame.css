@@ -6,18 +6,24 @@
 
 .hall-collection {
 	animation: hall-prism 12s linear infinite;
-	border-block: 1px solid rgb(var(--line));
+	border-top: 1px solid transparent;
+	border-image: var(--spectrum-progress) 1;
 }
-.hall-group { padding: 16px; }
-.hall-group:nth-child(odd) { background: #ffffff; }
-.hall-group:nth-child(even) { background: #f3f3f3; }
+.hall-group {
+	background: linear-gradient(115deg, #eaf6fff2, #f5edfff2 52%, #ffeef6f2);
+	border-bottom: 1px solid transparent;
+	border-image: var(--spectrum-progress) 1;
+	padding: 16px;
+}
+.hall-group:nth-child(even) { background: linear-gradient(115deg, #fff0f7f2, #f4effff2 52%, #eaf9fff2); }
 .hall-group-heading { cursor: pointer; display: block; list-style: none; margin: -8px; padding: 8px; }
 .hall-group-heading::-webkit-details-marker { display: none; }
 .hall-group-heading:focus-visible { border-radius: 4px; outline: 2px solid #7a6b9c; outline-offset: 2px; }
 .hall-page .hall-group-heading h2 { align-items: baseline; display: flex; font-size: 21px; font-variant-numeric: tabular-nums; gap: 12px; line-height: 1.4; margin: 0; scroll-margin-top: 112px; }
 .hall-level, .hall-count { color: rgb(var(--muted)); font-size: 13px; font-weight: 400; white-space: nowrap; }
 .hall-count { font-variant-numeric: tabular-nums; }
-.hall-toggle-icon { align-self: center; color: rgb(var(--muted)); flex-shrink: 0; height: 20px; margin-left: auto; transition: transform 150ms; width: 20px; }
+.hall-toggle-icon { align-self: center; color: #8375a4; flex-shrink: 0; height: 20px; margin-left: auto; transition: transform 150ms; width: 20px; }
+.hall-group-heading:hover .hall-toggle-icon { color: #65578b; }
 .hall-group:not([open]) .hall-toggle-icon { transform: rotate(-90deg); }
 .hall-jackets { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, 84px); margin-top: 12px; }
 .hall-chart {

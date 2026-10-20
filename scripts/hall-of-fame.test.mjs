@@ -140,3 +140,20 @@ test('fold arrows expose focus, hide duplicate native markers and respect reduce
 	assert.match(css, /\.hall-group:not\(\[open\]\) \.hall-toggle-icon \{ transform: rotate\(-90deg\); \}/);
 	assert.match(css, /@media \(prefers-reduced-motion: reduce\)[\s\S]*\.hall-chart, \.hall-toggle-icon \{ transition: none; \}/);
 });
+
+test('Hall of Fame bands use pale multi-hue surfaces and thin shared rainbow dividers', () => {
+	const css = readFileSync(new URL('../src/styles/hall-of-fame.css', import.meta.url), 'utf8');
+	const bands = [...css.matchAll(/background: (linear-gradient\(115deg,[^;]+);/g)].map((match) => match[1]);
+	assert.equal(bands.length, 2);
+	for (const gradient of bands) {
+		const colors = gradient.match(/#[\da-f]{8}/g);
+		assert.equal(colors.length, 3);
+		for (const color of colors) {
+			const channels = [1, 3, 5].map((offset) => Number.parseInt(color.slice(offset, offset + 2), 16));
+			assert.ok(Math.min(...channels) >= 230, `${color} stays light`);
+			assert.ok(Math.max(...channels) - Math.min(...channels) <= 32, `${color} stays low saturation`);
+		}
+	}
+	assert.match(css, /border-bottom: 1px solid transparent;\s*border-image: var\(--spectrum-progress\) 1;/);
+	assert.doesNotMatch(css, /\.hall-group:nth-child\(odd\) \{ background: #ffffff|background: #f3f3f3|\.hall-group \{[^}]*filter:/);
+});
