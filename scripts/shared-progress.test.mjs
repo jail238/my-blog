@@ -29,12 +29,12 @@ test('all AP progress surfaces share one soft multi-hue gradient', () => {
 
 test('shared color does not change fill direction, proportion or empty tracks', () => {
   for (const selector of ['.level-quick-grid a', '.level-index-grid a, .difficulty-index-card']) {
-    assert.match(rule(selector), /bottom \/ 100% var\(--ap-progress, 0%\) no-repeat padding-box, #ffffff/);
+    assert.match(rule(selector), /bottom \/ 100% var\(--ap-progress, 0%\) no-repeat padding-box, var\(--surface\)/);
   }
   for (const selector of ['.version-quick-list a', '.version-index-list > a']) {
-    assert.match(rule(selector), /left \/ var\(--ap-progress, 0%\) 100% no-repeat padding-box, #ffffff/);
+    assert.match(rule(selector), /left \/ var\(--ap-progress, 0%\) 100% no-repeat padding-box, var\(--surface\)/);
   }
-  assert.match(rule('.plate-progress-track'), /background: #e6e6e6/);
+  assert.match(rule('.plate-progress-track'), /background: var\(--progress-track\)/);
   assert.match(rule('.plate-progress-track > span'), /height: 100%/);
   const plates = read('../src/pages/plates/index.astro');
   assert.match(plates, /aria-valuenow=\{rate\.toFixed\(1\)\}/);

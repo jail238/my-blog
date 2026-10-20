@@ -19,13 +19,9 @@
   --text: 42, 45, 51;
   --muted: 101, 107, 117;
   --soft: 119, 125, 135;
-  --line: 222, 225, 231;
-  --canvas: #fafbfc;
   --brand: #454b54;
   --brand-strong: #30363e;
   --brand-hover: #20262e;
-  --brand-soft: #eef0f3;
-  --control-hover: #f0f2f5;
   --spectrum: linear-gradient(115deg, #65d3e3 0%, #b6b9fa 20%, #efb9e9 38%, #f8ddb5 52%, #a9dfd4 68%, #8bbceb 84%, #d8b2ef 100%);
   --shadow-soft: 0 1px 2px #25304706, 0 6px 16px #25304708;
   --shadow-raised: 0 2px 4px #25304708, 0 10px 24px #25304710;
@@ -38,14 +34,14 @@ html, body { background: var(--canvas); }
 .catalog-page.maimai-home { background: transparent; }
 .home-section-inner { width: 1180px; }
 
-.site-header.site-header { background: #fff; border-bottom: 1px solid #e2e5ea; box-shadow: 0 3px 12px #2530470a; }
+.site-header.site-header { background: var(--surface-wash); border-bottom: 1px solid #e2e5ea; box-shadow: 0 3px 12px #2530470a; }
 .site-header .site-brand strong { color: #343a43; font-family: var(--font-brand); font-size: 30px; font-weight: 800; }
 .site-header .internal-links a { color: #565d68; font-size: 13px; font-weight: 600; }
 .site-header .internal-links a:first-child {
   box-shadow: var(--holo-depth);
 }
-.site-header .internal-links a:hover { background: #f0f2f5; color: #30363e; }
-.mobile-navigation.mobile-navigation { background: #fff; border-right: 1px solid #e2e5ea; }
+.site-header .internal-links a:hover { background: var(--control-hover); color: #30363e; }
+.mobile-navigation.mobile-navigation { background: var(--surface); border-right: 1px solid #e2e5ea; }
 .mobile-navigation-heading strong { color: #343a43; font-family: var(--font-brand); font-weight: 800; }
 .navigation-icon-button { box-shadow: var(--holo-depth); }
 
@@ -74,7 +70,7 @@ html, body { background: var(--canvas); }
 .archive-modes a:active { box-shadow: inset 0 1px 3px #25304712, 0 1px 2px #25304708; transform: translateY(1px); }
 .archive-modes strong { font-size: 21px; font-weight: 600; }
 .archive-modes small { color: #656d79; font-size: 10px; font-weight: 600; }
-.archive-modes .mode-icon { background: #fafbfc; border: 1px solid #e9ecf0; border-radius: 6px; box-shadow: inset 0 1px 0 #fff, 0 2px 4px #25304706; color: #565d68; stroke-width: 1.7; }
+.archive-modes .mode-icon { background: var(--canvas); border: 1px solid #e9ecf0; border-radius: 6px; box-shadow: inset 0 1px 0 #fff, 0 2px 4px #25304706; color: #565d68; stroke-width: 1.7; }
 .archive-modes .mode-arrow { color: #565d68; }
 
 .archive-overview { gap: 56px; padding-block: 20px 44px; }
@@ -82,7 +78,7 @@ html, body { background: var(--canvas); }
 .maimai-home .catalog-section-heading { margin-bottom: 20px; }
 .maimai-home .catalog-section-heading h2 { background: none; display: inline; font-size: 27px; font-weight: 600; padding-bottom: 2px; }
 .maimai-home .catalog-section-heading > a { color: #565d68; font-size: 12px; font-weight: 600; }
-.home-index-scroll { max-height: 356px; padding: 2px 12px 10px 2px; scrollbar-color: #bfc5ce transparent; }
+.home-index-scroll { max-height: 356px; padding: 2px 12px 10px 2px; scrollbar-color: #b9c8e2 transparent; }
 .level-quick-grid { gap: 12px; }
 .level-quick-grid a {
   border: 1px solid #e2e5ea;
@@ -106,7 +102,7 @@ html, body { background: var(--canvas); }
 .version-quick-list small { font-size: 10px; }
 .version-quick-list b { color: #454c57; }
 
-.record-gallery { background: #f2f4f7; border-top: 1px solid #e2e5ea; padding-block: 36px 52px; }
+.record-gallery { background: var(--canvas); border-top: 1px solid #e2e5ea; padding-block: 36px 52px; }
 .record-gallery-heading-meta { gap: 14px; }
 .record-gallery-heading-meta > span { color: #737b87; font-size: 11px; }
 .record-gallery-heading-meta a { color: #565d68; }
@@ -120,7 +116,7 @@ html, body { background: var(--canvas); }
 .record-gallery a.record-refresh-button:active { box-shadow: inset 0 1px 3px #25304712; transform: translateY(1px); }
 .record-gallery-grid { gap: 16px 22px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .record-gallery-grid > a {
-  background: #fff;
+  background: var(--surface);
   border: 1px solid #e2e5ea;
   box-shadow: var(--shadow-soft);
   gap: 14px;
@@ -136,7 +132,7 @@ html, body { background: var(--canvas); }
 .record-score-copy small { color: #737b87; }
 .record-score { gap: 8px; }
 
-.site-footer.site-footer { background: #e9ecf0; border-top: 1px solid #dce0e6; color: #656d79; }
+.site-footer.site-footer { background: var(--surface-wash); border-top: 1px solid #dce0e6; color: #656d79; }
 .site-footer .footer-brand { color: #343a43; font-family: var(--font-brand); font-size: 30px; font-weight: 800; }
 
 .archive-modes a,
@@ -157,7 +153,7 @@ html, body { background: var(--canvas); }
 .record-gallery a.record-refresh-button,
 .record-gallery a.record-refresh-button:hover {
   --holo-outline: conic-gradient(from var(--holo-angle), #65d3e3 0%, #b6b9fa 16%, #efb9e9 32%, #f8ddb5 48%, #a9dfd4 64%, #8bbceb 80%, #d8b2ef 92%, #65d3e3 100%);
-  background: linear-gradient(#fff, #fff) padding-box, var(--holo-outline) border-box;
+  background: linear-gradient(var(--surface), var(--surface)) padding-box, var(--holo-outline) border-box;
   border: 1px solid transparent;
   color: #343a43;
   animation: var(--holo-motion);
@@ -169,13 +165,13 @@ html, body { background: var(--canvas); }
 .maimai-home .level-quick-grid a,
 .maimai-home .level-quick-grid a:hover {
   background: var(--spectrum-progress) bottom / 100% var(--ap-progress, 0%) no-repeat padding-box,
-    linear-gradient(#fff, #fff) padding-box, var(--holo-outline) border-box;
+    linear-gradient(var(--surface), var(--surface)) padding-box, var(--holo-outline) border-box;
 }
 
 .maimai-home .version-quick-list a,
 .maimai-home .version-quick-list a:hover {
   background: var(--spectrum-progress) left / var(--ap-progress, 0%) 100% no-repeat padding-box,
-    linear-gradient(#fff, #fff) padding-box, var(--holo-outline) border-box;
+    linear-gradient(var(--surface), var(--surface)) padding-box, var(--holo-outline) border-box;
 }
 
 @keyframes holo-border-orbit {

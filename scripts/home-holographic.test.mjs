@@ -38,7 +38,7 @@ test('the revised study uses multi-hue outlines and keeps real gradient progress
     assert.ok(outline.includes(selector), `${selector} keeps the outline in hover states`);
   }
   assert.match(outline, /--holo-outline: conic-gradient\(from var\(--holo-angle\),[^;]+\);/);
-  assert.match(outline, /background: linear-gradient\(#fff, #fff\) padding-box, var\(--holo-outline\) border-box;/);
+  assert.match(outline, /background: linear-gradient\(var\(--surface\), var\(--surface\)\) padding-box, var\(--holo-outline\) border-box;/);
   assert.match(outline, /border: 1px solid transparent;/);
   assert.doesNotMatch(css, /--spectrum-progress:/);
   for (const selector of ['.level-quick-grid a {', '.version-quick-list a {']) {
@@ -47,13 +47,13 @@ test('the revised study uses multi-hue outlines and keeps real gradient progress
   }
 });
 
-test('the canvas and large reading surfaces stay neutral rather than rainbow-filled', () => {
+test('home reading surfaces inherit the shared pale palette instead of reverting to gray', () => {
   const css = read('../src/styles/home-holographic.css');
-  assert.match(css, /--canvas: #fafbfc;/);
+  assert.doesNotMatch(css, /--(?:canvas|brand-soft|control-hover):/);
   assert.match(css, /html, body \{ background: var\(--canvas\);/);
   for (const selector of ['.site-header.site-header', '.mobile-navigation.mobile-navigation', '.record-gallery', '.record-gallery-grid > a', '.site-footer.site-footer']) {
     const block = css.slice(css.indexOf(`${selector} {`)).split('}')[0];
-    assert.match(block, /background: #[\da-f]{3,6};/);
+    assert.match(block, /background: var\(--(?:surface|surface-wash|canvas)\);/);
     assert.doesNotMatch(block, /gradient\(/);
   }
   assert.doesNotMatch(css, /spectrum-paper/);
@@ -112,7 +112,7 @@ test('home card outline layers preserve AP fill direction and zero-percent defau
   assert.match(level, /var\(--spectrum-progress\) bottom \/ 100% var\(--ap-progress, 0%\) no-repeat padding-box/);
   assert.match(version, /var\(--spectrum-progress\) left \/ var\(--ap-progress, 0%\) 100% no-repeat padding-box/);
   for (const block of [level, version]) {
-    assert.match(block, /linear-gradient\(#fff, #fff\) padding-box, var\(--holo-outline\) border-box/);
+    assert.match(block, /linear-gradient\(var\(--surface\), var\(--surface\)\) padding-box, var\(--holo-outline\) border-box/);
     assert.doesNotMatch(block, /--ap-progress:|--spectrum-progress:|height:|transform:/);
   }
 });

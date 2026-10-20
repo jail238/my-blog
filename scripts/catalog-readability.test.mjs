@@ -12,9 +12,11 @@ const rule = (selector) => {
 
 test('song version links have an opaque interior and a visible thin pastel outline', () => {
   for (const selector of ['.song-version-links a', '.plate-progress-item']) {
-    assert.match(rule(selector), /background: linear-gradient\(#fff, #fff\) padding-box, var\(--spectrum-outline\) border-box/);
     assert.match(rule(selector), /border: 1px solid transparent/);
+    assert.match(rule(selector), /var\(--spectrum-outline\) border-box/);
   }
+  assert.match(rule('.song-version-links a'), /background: linear-gradient\(var\(--surface\), var\(--surface\)\) padding-box/);
+  assert.match(rule('.plate-progress-item'), /background: var\(--surface-wash\) padding-box/);
   const link = rule('.song-version-links a');
   assert.match(link, /color: #424c5a/);
   assert.match(link, /font-weight: 600/);
@@ -31,7 +33,7 @@ test('song version links have an opaque interior and a visible thin pastel outli
 
 test('song identity and complete plate items protect text from the city backdrop', () => {
   const header = rule('.song-detail-header');
-  assert.match(header, /background: linear-gradient\(110deg, #ffffff, #f8f9ff 55%, #fff7fc\)/);
+  assert.match(header, /background: var\(--surface-wash\)/);
   assert.match(header, /border-block: 1px solid #d5dced/);
   assert.doesNotMatch(header, /opacity:|filter:|box-shadow:|border-radius:/);
   assert.match(rule('.plate-progress-item'), /overflow: hidden/);

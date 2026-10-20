@@ -17,7 +17,7 @@ test('the pale pixel background stays behind content without dimming white cards
   assert.match(css, /body \{ isolation: isolate; \}/);
   assert.match(css, /body::before \{[^}]*retro-city-tinted-pixel-preview\.webp[^}]*image-rendering: pixelated;[^}]*opacity: 0\.38;[^}]*pointer-events: none;[^}]*position: fixed;[^}]*z-index: -1;/);
   assert.match(css, /\.maimai-home \.record-gallery \{ background: transparent;/);
-  assert.match(css, /\.maimai-home \.catalog-section-heading \{\s*background: #ffffffe0;/);
+  assert.match(css, /\.maimai-home \.catalog-section-heading \{\s*background: var\(--surface\);/);
   assert.match(css, /max-width: 760px/);
   assert.match(css, /background-position: 18% center;/);
   assert.doesNotMatch(css, /\.archive-modes|\.record-gallery-grid|\.level-quick-grid|animation:/);

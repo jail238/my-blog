@@ -78,13 +78,10 @@ test('home cover uses the full image ratio rather than a cropped fixed-height ba
   assert.match(css, /\.cover-layout\s*\{[^}]*inset:\s*0;[^}]*position:\s*absolute/);
 });
 
-test('archive controls use neutral grays with readable active controls', () => {
+test('archive surfaces use pale tints while dark primary controls keep readable contrast', () => {
   const css = readFileSync(new URL('src/styles/global.css', root), 'utf8');
   const palette = css.match(/:root\s*\{([^}]+)\}/)?.[1] ?? '';
-  const tokens = [
-    'canvas', 'brand', 'brand-hover', 'brand-strong', 'brand-soft',
-    'control-hover',
-  ];
+  const tokens = ['brand', 'brand-hover', 'brand-strong'];
   const channel = (token) => {
     const hex = palette.match(new RegExp(`--${token}:\\s*(#[0-9a-f]{6})`, 'i'))?.[1];
     assert.ok(hex, `Missing color token: ${token}`);
@@ -94,6 +91,14 @@ test('archive controls use neutral grays with readable active controls', () => {
     return rgb[0] / 255;
   };
   for (const token of tokens) channel(token);
+  for (const token of ['surface', 'canvas', 'brand-soft', 'control-hover']) {
+    const hex = palette.match(new RegExp(`--${token}:\\s*(#[0-9a-f]{6})`, 'i'))?.[1];
+    assert.ok(hex, `Missing color token: ${token}`);
+    const rgb = [1, 3, 5].map((offset) => Number.parseInt(hex.slice(offset, offset + 2), 16));
+    assert.ok(Math.min(...rgb) >= 230, `${token} must stay light`);
+    assert.ok(Math.max(...rgb) - Math.min(...rgb) > 0, `${token} must not be flat gray`);
+    assert.ok(Math.max(...rgb) - Math.min(...rgb) <= 24, `${token} must stay restrained`);
+  }
   for (const token of ['brand-strong', 'brand-hover']) {
     const value = channel(token);
     const luminance = value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;

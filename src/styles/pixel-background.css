@@ -17,14 +17,14 @@ body::before {
 }
 
 .maimai-home .record-gallery { background: transparent; border-top-color: #ffffff99; }
-.site-header.site-header { background: #fffffff5; }
-.site-footer.site-footer { background: #ffffffe6; border-top-color: #ffffff99; }
+body .site-header.site-header { background: var(--surface-wash); }
+body .site-footer.site-footer { background: var(--surface-wash); border-top-color: #d6daea; }
 .maimai-home .catalog-kicker,
 .maimai-home .catalog-section-heading > a,
 .record-gallery-heading-meta > span,
 .record-gallery-heading-meta a { color: #424c5a; }
 .maimai-home .catalog-section-heading {
-  background: #ffffffe0;
+  background: var(--surface);
   border-bottom: 1px solid #ffffffb3;
   padding: 10px 12px;
 }
