@@ -34,10 +34,18 @@ test('all three pastel pixel covers have full panoramic canvases with optimized 
   assert.match(css, /\.archive-cover \{ aspect-ratio: auto; background: #faf7fc; \}/);
   assert.match(css, /pointer-events: none/);
   assert.match(css, /\.archive-cover-image \{[^}]*image-rendering: pixelated;/);
-  assert.match(css, /background: linear-gradient\(0deg, #faf8fff5 0%, #faf8fff5 68%, #faf8ff00 100%\)/);
-  assert.match(css, /height: 200px;\s*inset: auto 0 0;\s*max-height: 100%/);
+  assert.match(css, /\.archive-cover\[data-cover="city"\]::after \{\s*background: none;\s*content: none;/);
   assert.doesNotMatch(css, /object-fit|\.record-gallery/);
   assert.doesNotMatch(css.match(/\.archive-cover \{([^}]+)\}/)?.[1] ?? '', /height:/);
+});
+
+test('readability backing follows the two text groups without a full-width white band', () => {
+  const css = read('../src/styles/home-pixel.css');
+  assert.match(css, /\.archive-cover \.cover-copy \{ justify-self: start; \}/);
+  assert.match(css, /\.archive-cover \.profile-metrics \{\s*isolation: isolate;\s*position: relative;/);
+  assert.match(css, /\.archive-cover \.cover-copy::before,\s*\.archive-cover \.profile-metrics::before \{\s*background: #f4f2ffe6;[\s\S]*?filter: blur\(22px\);[\s\S]*?pointer-events: none;[\s\S]*?z-index: -1;/);
+  assert.match(css, /@media \(max-width: 760px\) \{[\s\S]*?\.profile-metrics::before \{ filter: blur\(14px\); inset: -4px -10px; \}/);
+  assert.doesNotMatch(css, /linear-gradient\(0deg|height: 200px|backdrop-filter/);
 });
 
 test('only cover artwork is softened while text, jackets and difficulty colors stay unchanged', () => {

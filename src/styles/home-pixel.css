@@ -7,13 +7,28 @@
 
 .archive-cover::after,
 .archive-cover[data-cover="city"]::after {
-  background: linear-gradient(0deg, #faf8fff5 0%, #faf8fff5 68%, #faf8ff00 100%);
+  background: none;
+  content: none;
+}
+
+.archive-cover .cover-copy,
+.archive-cover .profile-metrics {
+  isolation: isolate;
+  position: relative;
+}
+
+.archive-cover .cover-copy { justify-self: start; }
+
+/* Feather the text backing instead of placing a strip across the artwork. */
+.archive-cover .cover-copy::before,
+.archive-cover .profile-metrics::before {
+  background: #f4f2ffe6;
   content: '';
-  height: 200px;
-  inset: auto 0 0;
-  max-height: 100%;
+  filter: blur(22px);
+  inset: -12px -22px;
   pointer-events: none;
   position: absolute;
+  z-index: -1;
 }
 
 .archive-cover .cover-copy h1,
@@ -35,8 +50,8 @@
 .maimai-home [data-home-reveal]:focus-within { opacity: 1; pointer-events: auto; transition: none; translate: none; }
 
 @media (max-width: 760px) {
-  .archive-cover::after,
-  .archive-cover[data-cover="city"]::after { height: 110px; max-height: 75%; }
+  .archive-cover .cover-copy::before,
+  .archive-cover .profile-metrics::before { filter: blur(14px); inset: -4px -10px; }
   .archive-cover .profile-metrics small { font-size: 10px; }
 }
 
