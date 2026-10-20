@@ -52,6 +52,7 @@
 	--brand-soft: #ededed;
 	--control-hover: #f7f7f7;
 	--spectrum-progress: linear-gradient(110deg, #a4e9db 0%, #b7e7f0 30%, #d6cdfa 63%, #f1d2e8 100%);
+	--spectrum-outline: linear-gradient(110deg, #86cbd8, #b6b9ed 22%, #e6bbdf 44%, #ead5b0 65%, #a3d4c8 83%, #9ebde2);
 	--radius: 8px;
 	--shadow-soft: 0 2px 4px rgba(32, 32, 32, 0.035), 0 8px 20px rgba(32, 32, 32, 0.065);
 	--shadow-raised: 0 4px 8px rgba(32, 32, 32, 0.04), 0 14px 32px rgba(32, 32, 32, 0.1);
@@ -538,10 +539,10 @@ a.record-refresh-button.compact { height: 38px; padding-inline: 16px; }
 .version-heading h1 { font-size: 36px; }
 
 .plate-progress-list { display: grid; gap: 56px; margin-top: 40px; }
-.plate-progress-item { border-bottom: 1px solid rgb(var(--line)); padding-bottom: 32px; }
-.plate-art { background: #f3f3f3; display: flex; justify-content: center; padding: 24px; }
+.plate-progress-item { background: linear-gradient(#fff, #fff) padding-box, var(--spectrum-outline) border-box; border: 1px solid transparent; border-radius: var(--radius); box-shadow: var(--shadow-soft); overflow: hidden; }
+.plate-art { background: linear-gradient(110deg, #f0f8ff, #f8f3ff 55%, #fff3f8); border-bottom: 1px solid #dce1ed; display: flex; justify-content: center; padding: 24px; }
 .plate-art img { box-shadow: 0 6px 16px rgba(32, 32, 32, 0.18); height: auto; max-width: 720px; width: 100%; }
-.plate-progress-copy { display: grid; gap: 20px; padding-top: 24px; }
+.plate-progress-copy { display: grid; gap: 20px; padding: 24px; }
 .plate-progress-heading { align-items: center; display: flex; justify-content: space-between; }
 .plate-version-copy { display: grid; gap: 4px; }
 .plate-version-links { align-items: center; display: flex; flex-wrap: wrap; gap: 8px; }
@@ -561,7 +562,7 @@ a.record-refresh-button.compact { height: 38px; padding-inline: 16px; }
 .catalog-empty { align-items: center; background: var(--canvas); color: rgb(var(--muted)); display: flex; font-size: 14px; justify-content: center; min-height: 180px; padding: 24px; }
 .catalog-empty.compact { min-height: 120px; }
 
-.song-detail-header { align-items: center; display: grid; gap: 32px; grid-template-columns: 128px minmax(0, 1fr); margin: 40px 0 56px; }
+.song-detail-header { align-items: center; background: linear-gradient(110deg, #ffffff, #f8f9ff 55%, #fff7fc); border-block: 1px solid #d5dced; display: grid; gap: 32px; grid-template-columns: 128px minmax(0, 1fr); margin: 40px 0 56px; padding: 24px; }
 .song-detail-header > .song-artwork { height: 128px; width: 128px; }
 .song-detail-header h1 { font-size: 36px; margin: 0; min-width: 0; overflow-wrap: anywhere; }
 .song-detail-header > div > p:not(.catalog-kicker) { color: rgb(var(--muted)); margin: 12px 0; }
@@ -579,7 +580,8 @@ a.record-refresh-button.compact { height: 38px; padding-inline: 16px; }
 .song-title-copy-status { height: 1px; overflow: hidden; position: absolute; width: 1px; clip-path: inset(50%); }
 .song-version-links { gap: 8px; margin-top: 16px; }
 .song-version-links a, .song-chart-version { color: rgb(var(--muted)); font-size: 12px; text-decoration: none; }
-.song-version-links a { align-items: center; border: 1px solid rgb(var(--line)); border-radius: 4px; display: inline-flex; gap: 8px; padding: 6px 10px; }
+.song-version-links a { align-items: center; background: linear-gradient(#fff, #fff) padding-box, var(--spectrum-outline) border-box; border: 1px solid transparent; border-radius: 4px; box-shadow: var(--shadow-control); color: #424c5a; display: inline-flex; font-weight: 600; gap: 8px; min-height: 36px; padding: 6px 12px; }
+.song-version-links a:hover { background: linear-gradient(#f3f7fc, #f3f7fc) padding-box, var(--spectrum-outline) border-box; }
 .song-version-links a:hover, .song-chart-version:hover { color: var(--brand-strong); }
 .song-chart-section { min-width: 0; }
 .song-chart-section > .catalog-section-heading { margin-bottom: 28px; }
@@ -733,12 +735,13 @@ a.record-refresh-button.compact { height: 38px; padding-inline: 16px; }
 	.records-page-header { gap: 0 12px; }
 	.records-page-header .record-refresh-button { font-size: 12px; padding-inline: 12px; }
 	.plate-progress-list { gap: 48px; margin-top: 28px; }
-	.plate-art { padding: 16px 0; }
-	.plate-progress-copy { gap: 16px; padding-top: 20px; }
+	.plate-art { padding: 16px 12px; }
+	.plate-progress-copy { gap: 16px; padding: 20px 16px; }
 	.plate-version-links a, .plate-version-range { font-size: 15px; }
 	.plate-progress-summary { gap: 12px; }
 	.plate-progress-summary b { font-size: 18px; }
-	.song-detail-header { align-items: start; gap: 14px; grid-template-columns: 72px minmax(0, 1fr); margin: 20px 0 28px; }
+	.song-detail-header { align-items: start; gap: 14px; grid-template-columns: 72px minmax(0, 1fr); margin: 20px 0 28px; padding: 16px 12px; }
+	.song-version-links a { min-height: 44px; }
 	.song-detail-header > .song-artwork { height: 72px; width: 72px; }
 	.song-detail-header h1 { font-size: 22px; }
 	.song-title-ko { font-size: 13px; }
