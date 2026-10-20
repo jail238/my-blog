@@ -34,14 +34,17 @@ test('all three pastel pixel covers have full panoramic canvases with optimized 
   assert.match(css, /\.archive-cover \{ aspect-ratio: auto; background: #faf7fc; \}/);
   assert.match(css, /pointer-events: none/);
   assert.match(css, /\.archive-cover-image \{[^}]*image-rendering: pixelated;/);
-  assert.match(css, /background: none/);
-  assert.doesNotMatch(css, /object-fit|height:|\.record-gallery/);
+  assert.match(css, /background: linear-gradient\(0deg, #faf8fff5 0%, #faf8fff5 68%, #faf8ff00 100%\)/);
+  assert.match(css, /height: 200px;\s*inset: auto 0 0;\s*max-height: 100%/);
+  assert.doesNotMatch(css, /object-fit|\.record-gallery/);
+  assert.doesNotMatch(css.match(/\.archive-cover \{([^}]+)\}/)?.[1] ?? '', /height:/);
 });
 
 test('only cover artwork is softened while text, jackets and difficulty colors stay unchanged', () => {
   const css = read('../src/styles/home-pixel.css');
   assert.match(css, /\.archive-cover-image \{\s*filter: saturate\(0\.80\) brightness\(1\.05\);[^}]*opacity: 0\.94;/);
   assert.match(css, /color: #263947;/);
+  assert.match(css, /text-shadow: none;/);
   assert.doesNotMatch(css, /\.archive-cover \{[^}]*filter:|\.cover-layout \{[^}]*opacity:|song-artwork|difficulty-/);
 });
 

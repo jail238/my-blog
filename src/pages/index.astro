@@ -156,7 +156,7 @@ const recordedCharts = PERFECT_RECORDED_CHARTS
 		</div>
 	</section>
 
-	<nav class="archive-modes home-section-inner" aria-label="Archive categories">
+	<nav class="archive-modes home-section-inner" aria-label="Archive categories" data-home-reveal="categories">
 		<a href={`${base}/levels/`}>
 			<ChartNoAxesColumnIncreasing class="mode-icon" aria-hidden="true" />
 			<strong>Level</strong>
@@ -184,7 +184,7 @@ const recordedCharts = PERFECT_RECORDED_CHARTS
 	</nav>
 
 	<div class="archive-overview home-section-inner">
-		<section class="overview-block" aria-labelledby="level-overview-title">
+		<section class="overview-block" aria-labelledby="level-overview-title" data-home-reveal="level">
 			<div class="catalog-section-heading">
 				<div>
 					<p class="catalog-kicker">LEVEL INDEX</p>
@@ -208,7 +208,7 @@ const recordedCharts = PERFECT_RECORDED_CHARTS
 			</div>
 		</section>
 
-		<section class="overview-block" aria-labelledby="version-overview-title">
+		<section class="overview-block" aria-labelledby="version-overview-title" data-home-reveal="version">
 			<div class="catalog-section-heading">
 				<div>
 					<p class="catalog-kicker">VERSION INDEX</p>
@@ -233,7 +233,7 @@ const recordedCharts = PERFECT_RECORDED_CHARTS
 		</section>
 	</div>
 
-	<section class="record-gallery" aria-labelledby="record-gallery-title">
+	<section class="record-gallery" aria-labelledby="record-gallery-title" data-home-reveal="records">
 		<div class="home-section-inner">
 		<div class="catalog-section-heading">
 			<div>
@@ -274,3 +274,8 @@ const recordedCharts = PERFECT_RECORDED_CHARTS
 		</div>
 	</section>
 </CatalogLayout>
+
+<script>
+	import { initHomeReveal } from '../scripts/home-reveal.js';
+	initHomeReveal();
+</script>
