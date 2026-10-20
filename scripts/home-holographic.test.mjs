@@ -39,7 +39,7 @@ test('the revised study uses multi-hue outlines and keeps real gradient progress
   }
   assert.match(outline, /--holo-outline: conic-gradient\(from var\(--holo-angle\),[^;]+\);/);
   assert.match(outline, /background: linear-gradient\(#fff, #fff\) padding-box, var\(--holo-outline\) border-box;/);
-  assert.match(outline, /border: 2px solid transparent;/);
+  assert.match(outline, /border: 1px solid transparent;/);
   assert.doesNotMatch(css, /--spectrum-progress:/);
   for (const selector of ['.level-quick-grid a {', '.version-quick-list a {']) {
     const block = css.slice(css.indexOf(selector)).split('}')[0];
@@ -82,13 +82,15 @@ test('only the iridescent border orbits slowly and reduced motion stops it', () 
   assert.match(reduced, /:root \{ --holo-motion: none; \}/);
 });
 
-test('home section title bars share the animated outline without framing whole sections', () => {
+test('home section title bars keep thicker outlines than the cards without framing whole sections', () => {
   const css = read('../src/styles/home-holographic.css');
   const outline = css.slice(css.indexOf('.archive-modes a,')).split('}')[0];
   assert.ok(outline.includes('.maimai-home .catalog-section-heading.catalog-section-heading,'));
-  assert.match(outline, /border: 2px solid transparent;/);
+  assert.match(outline, /border: 1px solid transparent;/);
   assert.match(outline, /animation: var\(--holo-motion\);/);
-  assert.match(css, /\.maimai-home \.catalog-section-heading\.catalog-section-heading \{ border-radius: 6px; \}/);
+  const headingRule = '.maimai-home .catalog-section-heading.catalog-section-heading { border-radius: 6px; border-width: 2px; }';
+  assert.ok(css.includes(headingRule));
+  assert.ok(css.indexOf(headingRule) > css.indexOf('.archive-modes a,'));
   assert.doesNotMatch(outline, /\.overview-block|\.archive-overview/);
 });
 
@@ -99,7 +101,7 @@ test('every home level, version and record card gets the same outline in normal 
     assert.ok(outline.includes(`${selector},`));
     assert.ok(outline.includes(`${selector}:hover,`));
   }
-  assert.match(outline, /border: 2px solid transparent;/);
+  assert.match(outline, /border: 1px solid transparent;/);
   assert.match(outline, /animation: var\(--holo-motion\);/);
 });
 
