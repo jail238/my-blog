@@ -118,3 +118,25 @@ test('Hall of Fame uses shared pastel badges with legible text and mobile optica
 	assert.match(css, /height: 18px/);
 	assert.match(css, /@media \(max-width: 720px\)[\s\S]*\.hall-type-label \{ transform: translateY\(1px\); \}/);
 });
+
+test('each constant group can fold independently with native keyboard-accessible details', () => {
+	const page = readFileSync(new URL('../src/pages/hall-of-fame/index.astro', import.meta.url), 'utf8');
+	assert.match(page, /<details class="hall-group" open aria-labelledby=\{`constant-\$\{Math\.round\(constant \* 10\)\}`\} data-constant=\{constant\.toFixed\(1\)\}>/);
+	assert.match(page, /<summary class="hall-group-heading">\s*<h2 id=/);
+	assert.match(page, /import \{ ChevronDown \} from '@lucide\/astro'/);
+	assert.match(page, /<ChevronDown class="hall-toggle-icon" aria-hidden="true" \/>/);
+	const summary = page.split('<summary class="hall-group-heading">')[1].split('</summary>')[0];
+	for (const text of ['constant.toFixed(1)', 'Lv {level}', '{perfectCharts.length}/{totalCount}']) assert.ok(summary.includes(text));
+	assert.ok(page.indexOf('class="hall-jackets"') > page.indexOf('</summary>'));
+	assert.doesNotMatch(page.match(/<details[^>]+>/)?.[0] ?? '', /\bname=/);
+	assert.doesNotMatch(page, /<script|localStorage|\shidden=/);
+});
+
+test('fold arrows expose focus, hide duplicate native markers and respect reduced motion', () => {
+	const css = readFileSync(new URL('../src/styles/hall-of-fame.css', import.meta.url), 'utf8');
+	assert.match(css, /\.hall-group-heading \{[^}]*cursor: pointer;[^}]*list-style: none;[^}]*padding: 8px;/);
+	assert.match(css, /\.hall-group-heading::-webkit-details-marker \{ display: none; \}/);
+	assert.match(css, /\.hall-group-heading:focus-visible \{[^}]*outline: 2px solid/);
+	assert.match(css, /\.hall-group:not\(\[open\]\) \.hall-toggle-icon \{ transform: rotate\(-90deg\); \}/);
+	assert.match(css, /@media \(prefers-reduced-motion: reduce\)[\s\S]*\.hall-chart, \.hall-toggle-icon \{ transition: none; \}/);
+});

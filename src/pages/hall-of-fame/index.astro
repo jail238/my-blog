@@ -1,5 +1,6 @@
 ---
 import SongArtwork from '../../components/SongArtwork.astro';
+import { ChevronDown } from '@lucide/astro';
 import { CHARTS, songById } from '../../data/maimai';
 import CatalogLayout from '../../layouts/CatalogLayout.astro';
 import { SITE_TITLE } from '../../consts';
@@ -21,12 +22,15 @@ const totalCount = groups.reduce((sum, group) => sum + group.totalCount, 0);
 
 	<div class="hall-collection">
 		{groups.map(({ constant, level, totalCount, perfectCharts }) => (
-			<section class="hall-group" aria-labelledby={`constant-${Math.round(constant * 10)}`} data-constant={constant.toFixed(1)}>
-				<header class="hall-group-heading">
-					<h2 id={`constant-${Math.round(constant * 10)}`}>{constant.toFixed(1)}</h2>
-					<span class="hall-level">Lv {level}</span>
-					<span class="hall-count" aria-label={`${perfectCharts.length} of ${totalCount} charts achieved AP or AP+`}>{perfectCharts.length}/{totalCount}</span>
-				</header>
+			<details class="hall-group" open aria-labelledby={`constant-${Math.round(constant * 10)}`} data-constant={constant.toFixed(1)}>
+				<summary class="hall-group-heading">
+					<h2 id={`constant-${Math.round(constant * 10)}`}>
+						<span>{constant.toFixed(1)}</span>
+						<span class="hall-level">Lv {level}</span>
+						<span class="hall-count" aria-label={`${perfectCharts.length} of ${totalCount} charts achieved AP or AP+`}>{perfectCharts.length}/{totalCount}</span>
+						<ChevronDown class="hall-toggle-icon" aria-hidden="true" />
+					</h2>
+				</summary>
 				{perfectCharts.length > 0 && (
 					<div class="hall-jackets">
 						{perfectCharts.map((chart) => {
@@ -44,7 +48,7 @@ const totalCount = groups.reduce((sum, group) => sum + group.totalCount, 0);
 						})}
 					</div>
 				)}
-			</section>
+			</details>
 		))}
 	</div>
 </CatalogLayout>
