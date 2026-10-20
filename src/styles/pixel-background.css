@@ -1,15 +1,16 @@
-html, body { background: #edf3f8; }
+html, html body { background: #f7f5fc; }
 body { isolation: isolate; }
 
 body::before {
-  background-image: url('../assets/retro-city-tinted-pixel-preview.webp');
+  background-image: linear-gradient(125deg, #cbe4ff33, #e2d5f536 55%, #f6d2e538), url('../assets/retro-city-tinted-pixel-preview.webp');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   content: '';
+  filter: saturate(0.90);
   image-rendering: pixelated;
   inset: 0;
-  opacity: 0.50;
+  opacity: 0.38;
   pointer-events: none;
   position: fixed;
   z-index: -1;

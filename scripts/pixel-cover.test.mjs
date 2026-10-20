@@ -31,11 +31,18 @@ test('all three pastel pixel covers have full panoramic canvases with optimized 
     assert.ok(bytes.length < 450_000);
   }
   const css = read('../src/styles/home-pixel.css');
-  assert.match(css, /\.archive-cover \{ aspect-ratio: auto; \}/);
+  assert.match(css, /\.archive-cover \{ aspect-ratio: auto; background: #faf7fc; \}/);
   assert.match(css, /pointer-events: none/);
-  assert.match(css, /\.archive-cover-image \{ image-rendering: pixelated; \}/);
+  assert.match(css, /\.archive-cover-image \{[^}]*image-rendering: pixelated;/);
   assert.match(css, /background: none/);
-  assert.doesNotMatch(css, /object-fit|height:|filter:|\.record-gallery/);
+  assert.doesNotMatch(css, /object-fit|height:|\.record-gallery/);
+});
+
+test('only cover artwork is softened while text, jackets and difficulty colors stay unchanged', () => {
+  const css = read('../src/styles/home-pixel.css');
+  assert.match(css, /\.archive-cover-image \{\s*filter: saturate\(0\.80\) brightness\(1\.05\);[^}]*opacity: 0\.94;/);
+  assert.match(css, /color: #263947;/);
+  assert.doesNotMatch(css, /\.archive-cover \{[^}]*filter:|\.cover-layout \{[^}]*opacity:|song-artwork|difficulty-/);
 });
 
 test('pastel covers stay light and restrained rather than returning to dark saturated artwork', async () => {

@@ -15,12 +15,19 @@ test('every real catalog page receives the pixel backdrop from the shared head',
 
 test('the pale pixel background stays behind content without dimming white cards', () => {
   assert.match(css, /body \{ isolation: isolate; \}/);
-  assert.match(css, /body::before \{[^}]*retro-city-tinted-pixel-preview\.webp[^}]*image-rendering: pixelated;[^}]*opacity: 0\.50;[^}]*pointer-events: none;[^}]*position: fixed;[^}]*z-index: -1;/);
+  assert.match(css, /body::before \{[^}]*retro-city-tinted-pixel-preview\.webp[^}]*image-rendering: pixelated;[^}]*opacity: 0\.38;[^}]*pointer-events: none;[^}]*position: fixed;[^}]*z-index: -1;/);
   assert.match(css, /\.maimai-home \.record-gallery \{ background: transparent;/);
   assert.match(css, /\.maimai-home \.catalog-section-heading \{\s*background: #ffffffe0;/);
   assert.match(css, /max-width: 760px/);
   assert.match(css, /background-position: 18% center;/);
-  assert.doesNotMatch(css, /\.archive-modes|\.record-gallery-grid|\.level-quick-grid|animation:|filter:/);
+  assert.doesNotMatch(css, /\.archive-modes|\.record-gallery-grid|\.level-quick-grid|animation:/);
+  assert.doesNotMatch(css, /body \{[^}]*filter:/);
+});
+
+test('the canvas and backdrop use the home sky, lavender and pink hues with a lighter scene', () => {
+  assert.match(css, /html, html body \{ background: #f7f5fc;/);
+  assert.match(css, /linear-gradient\(125deg, #cbe4ff33, #e2d5f536 55%, #f6d2e538\)/);
+  assert.match(css, /body::before \{[^}]*filter: saturate\(0\.90\)/);
 });
 
 test('the shared backdrop is an optimized light raster with restrained color', async () => {
@@ -38,6 +45,6 @@ test('the shared backdrop is an optimized light raster with restrained color', a
   const pixels = info.width * info.height;
   assert.ok(luma / pixels > 0.65);
   assert.ok(chroma / pixels < 0.25);
-  const canvasLuma = (0.2126 * 237 + 0.7152 * 243 + 0.0722 * 248) / 255;
-  assert.ok((luma / pixels + canvasLuma) / 2 > 0.80, 'The 50% backdrop stays pale over its canvas');
+  const canvasLuma = (0.2126 * 247 + 0.7152 * 245 + 0.0722 * 252) / 255;
+  assert.ok(luma / pixels * 0.38 + canvasLuma * 0.62 > 0.84, 'The lighter backdrop stays pale over its canvas');
 });

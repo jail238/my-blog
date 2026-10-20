@@ -1,5 +1,9 @@
-.archive-cover { aspect-ratio: auto; }
-.archive-cover-image { image-rendering: pixelated; }
+.archive-cover { aspect-ratio: auto; background: #faf7fc; }
+.archive-cover-image {
+  filter: saturate(0.80) brightness(1.05);
+  image-rendering: pixelated;
+  opacity: 0.94;
+}
 
 .archive-cover::after,
 .archive-cover[data-cover="city"]::after {
