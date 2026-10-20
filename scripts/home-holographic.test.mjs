@@ -80,3 +80,13 @@ test('only the iridescent border orbits slowly and reduced motion stops it', () 
   const reduced = css.slice(css.indexOf('@media (prefers-reduced-motion: reduce)'));
   assert.match(reduced, /:root \{ --holo-motion: none; \}/);
 });
+
+test('home section title bars share the animated outline without framing whole sections', () => {
+  const css = read('../src/styles/home-holographic.css');
+  const outline = css.slice(css.indexOf('.archive-modes a,')).split('}')[0];
+  assert.ok(outline.includes('.maimai-home .catalog-section-heading.catalog-section-heading,'));
+  assert.match(outline, /border: 2px solid transparent;/);
+  assert.match(outline, /animation: var\(--holo-motion\);/);
+  assert.match(css, /\.maimai-home \.catalog-section-heading\.catalog-section-heading \{ border-radius: 6px; \}/);
+  assert.doesNotMatch(outline, /\.overview-block|\.archive-overview/);
+});

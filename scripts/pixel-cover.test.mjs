@@ -31,12 +31,21 @@ test('all three pastel pixel covers have full panoramic canvases with optimized 
     assert.ok(bytes.length < 450_000);
   }
   const css = read('../src/styles/home-pixel.css');
-  assert.match(css, /\.archive-cover \{ aspect-ratio: auto; background: #faf7fc; \}/);
+  assert.match(css, /\.archive-cover \{ --cover-fade: 120px; aspect-ratio: auto; background: transparent; box-shadow: none; \}/);
   assert.match(css, /pointer-events: none/);
   assert.match(css, /\.archive-cover-image \{[^}]*image-rendering: pixelated;/);
   assert.match(css, /\.archive-cover\[data-cover="city"\]::after \{\s*background: none;\s*content: none;/);
   assert.doesNotMatch(css, /object-fit|\.record-gallery/);
   assert.doesNotMatch(css.match(/\.archive-cover \{([^}]+)\}/)?.[1] ?? '', /height:/);
+});
+
+test('the cover fades into the actual page backdrop without a solid strip or cropped artwork', () => {
+  const css = read('../src/styles/home-pixel.css');
+  for (const property of ['-webkit-mask-image', 'mask-image']) {
+    assert.ok(css.includes(`${property}: linear-gradient(to bottom, #000 calc(100% - var(--cover-fade)), #0000 100%);`));
+  }
+  assert.match(css, /@media \(max-width: 760px\) \{\s*\.archive-cover \{ --cover-fade: 44px; \}/);
+  assert.doesNotMatch(css, /object-fit|mix-blend-mode|background: #faf7fc/);
 });
 
 test('readability backing follows the two text groups without a full-width white band', () => {

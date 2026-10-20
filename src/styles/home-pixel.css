@@ -1,8 +1,10 @@
-.archive-cover { aspect-ratio: auto; background: #faf7fc; }
+.archive-cover { --cover-fade: 120px; aspect-ratio: auto; background: transparent; box-shadow: none; }
 .archive-cover-image {
   filter: saturate(0.80) brightness(1.05);
   image-rendering: pixelated;
   opacity: 0.94;
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - var(--cover-fade)), #0000 100%);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - var(--cover-fade)), #0000 100%);
 }
 
 .archive-cover::after,
@@ -50,6 +52,7 @@
 .maimai-home [data-home-reveal]:focus-within { opacity: 1; pointer-events: auto; transition: none; translate: none; }
 
 @media (max-width: 760px) {
+  .archive-cover { --cover-fade: 44px; }
   .archive-cover .cover-copy::before,
   .archive-cover .profile-metrics::before { filter: blur(14px); inset: -4px -10px; }
   .archive-cover .profile-metrics small { font-size: 10px; }
