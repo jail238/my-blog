@@ -1,0 +1,103 @@
+@property --catalog-rim-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+:root { --catalog-rim-motion: catalog-rim-orbit 12s linear infinite; }
+
+/* Keep the interior and AP fill separate from the one-pixel animated edge. */
+main.catalog-page:not(.maimai-home) :where(
+  .record-list-row, .song-chart-group, .level-index-grid > a,
+  .difficulty-index-card, .version-index-list > a, .plate-progress-item,
+  .song-version-link, .record-filters,
+  .record-filters input:not([type='checkbox']):not([type='radio']),
+  .record-filters select, .record-filters button, .record-more-button,
+  .difficulty-chart-page-size, .difficulty-chart-sort-toggle,
+  .difficulty-chart-direction-toggle, .level-chart-view-toggle,
+  .difficulty-chart-pagination button, .level-strip a.active,
+  .record-refresh-button, .perfect-video-button, .perfect-video-icon,
+  .song-chart-ap-video, .perfect-video-dialog, .perfect-video-dialog input,
+  .video-manager-filters input:not([type='checkbox']):not([type='radio']),
+  .video-manager-filters select,
+  .planner-button:not(.planner-delete-button), .planner-icon-button,
+  .planner-segments, .planner-page select, .planner-date-label input,
+  .planner-edit-fields input, .planner-auth-form input,
+  .planner-entry, .planner-delete-notice, .planner-dialog, .planner-search
+),
+.catalog-page:not(.maimai-home) .chart-list:not([data-view='grid']) > .chart-row,
+.catalog-page:not(.maimai-home) .song-list:not([data-view='grid']) > .song-row,
+body .site-header .navigation-icon-button {
+  --catalog-rim: conic-gradient(from var(--catalog-rim-angle), #86cbd8, #b6b9ed 22%, #e6bbdf 44%, #ead5b0 65%, #a3d4c8 83%, #9ebde2 94%, #86cbd8);
+  --catalog-rim-fill: linear-gradient(var(--surface), var(--surface));
+  --catalog-rim-progress: linear-gradient(transparent, transparent);
+  animation: var(--catalog-rim-motion);
+  background: var(--catalog-rim-progress) padding-box,
+    var(--catalog-rim-fill) padding-box, var(--catalog-rim) border-box;
+  border: 1px solid transparent;
+}
+
+/* Large collections should not repaint hundreds of off-screen gradients. */
+.catalog-page:not(.maimai-home) .chart-list:not([data-view='grid']) > .chart-row:not(:hover):not(:focus-within),
+.catalog-page:not(.maimai-home) .song-list:not([data-view='grid']) > .song-row:not(:hover):not(:focus-within),
+.catalog-page:not(.maimai-home) .record-list-row:not(:hover):not(:focus-within) {
+  animation-play-state: paused;
+}
+
+.catalog-page:not(.maimai-home) .record-filters {
+  --catalog-rim-fill: var(--surface-wash);
+  border-radius: 6px;
+}
+.catalog-page:not(.maimai-home) .plate-progress-item {
+  --catalog-rim-fill: var(--surface-wash);
+}
+
+.catalog-page:not(.maimai-home) :is(.level-index-grid > a, .difficulty-index-card) {
+  --catalog-rim-progress: var(--spectrum-progress) bottom / 100% var(--ap-progress, 0%) no-repeat;
+}
+.catalog-page:not(.maimai-home) .version-index-list > a {
+  --catalog-rim-progress: var(--spectrum-progress) left / var(--ap-progress, 0%) 100% no-repeat;
+}
+.catalog-page:not(.maimai-home) .difficulty-index-card {
+  border-top: 3px solid var(--difficulty-accent);
+}
+
+.catalog-page:not(.maimai-home) :is(
+  .record-filters button, .record-more-button, .difficulty-chart-pagination button,
+  .song-version-link, .perfect-video-button, .perfect-video-icon,
+  .song-chart-ap-video, .planner-button:not(.planner-delete-button), .planner-icon-button
+):hover:not(:disabled),
+body .site-header .navigation-icon-button:hover {
+  --catalog-rim-fill: linear-gradient(var(--control-hover), var(--control-hover));
+}
+
+/* Preserve selected, primary, closed and destructive state meanings. */
+.catalog-page:not(.maimai-home) :is(
+  .record-refresh-button, .level-strip a.active,
+  .perfect-video-button.primary, .planner-button.primary
+) {
+  --catalog-rim-fill: linear-gradient(var(--brand-strong), var(--brand-strong));
+}
+.catalog-page:not(.maimai-home) :is(
+  .record-refresh-button, .perfect-video-button.primary, .planner-button.primary
+):hover {
+  --catalog-rim-fill: linear-gradient(var(--brand-hover), var(--brand-hover));
+}
+.catalog-page:not(.maimai-home) :is(
+  .planner-entry[data-status='completed'], .planner-entry[data-status='skipped'],
+  .planner-delete-notice
+) {
+  --catalog-rim-fill: linear-gradient(var(--canvas), var(--canvas));
+}
+.catalog-page:not(.maimai-home) .planner-segments { border-radius: 6px; overflow: hidden; }
+.catalog-page:not(.maimai-home) .planner-segments button { border: 0; }
+.catalog-page:not(.maimai-home) .planner-segments button + button {
+  border-left: 1px solid rgb(var(--line));
+  margin-left: 0;
+}
+
+@keyframes catalog-rim-orbit { to { --catalog-rim-angle: 360deg; } }
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --catalog-rim-motion: none; }
+}
