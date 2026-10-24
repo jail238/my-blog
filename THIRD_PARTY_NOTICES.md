@@ -54,6 +54,25 @@ and `src/assets/fonts/ZenKakuGothicNew-LICENSE.txt`. The Zen Kaku Gothic New
 files were losslessly converted from the Google Fonts TTF distribution to
 WOFF2; no glyphs or names were changed.
 
+## Maimai song jackets
+
+Files under `public/assets/maimai/jackets/` are song identification artwork,
+cached from the catalog's public image URLs and losslessly converted to WebP
+without resizing, cropping, recoloring, or overlays. The per-song source URL,
+dimensions, byte length, and SHA-256 are recorded in
+`src/data/jackets.generated.json`.
+
+Sources:
+
+- SaltMeta covers: https://github.com/realtvop/SaltMeta
+- OV3RCLOCK jacket mirror: https://maimai-songs.zetaraku.dev/songs/OV3RCLOCK
+- Official jacket filename reference: https://maimai.sega.jp/data/maimai_songs.json
+
+The artwork belongs to SEGA and/or the respective song and artwork rights
+holders. Software or metadata licenses do not grant an artwork license.
+These files are not covered by this repository's code license. This project
+is not affiliated with or endorsed by SEGA or the source providers.
+
 ## Carol extension
 
 Korean display titles for Japanese song names are synchronized from the Carol

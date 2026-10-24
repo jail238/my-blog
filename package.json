@@ -8,6 +8,8 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "prebuild": "npm run check:jackets",
+    "check:jackets": "node scripts/check-song-jackets.mjs",
     "check:planner-config": "node scripts/check-planner-config.mjs",
     "test": "node --test scripts/*.test.mjs",
     "preview": "astro preview",
@@ -16,9 +18,10 @@
     "pin:circle-plus:candidate": "node scripts/sync-maishift-records.mjs --write-circle-plus-snapshot --catalog-candidate",
     "sync:catalog:candidate": "node scripts/sync-maimai-catalog.mjs --allow-catalog-changes",
     "sync:catalog": "node scripts/sync-maimai-catalog.mjs",
+    "sync:jackets": "node scripts/sync-song-jackets.mjs",
     "sync:records": "node scripts/sync-maishift-records.mjs",
-    "sync:data": "npm run sync:catalog && npm run sync:records",
-    "refresh:catalog": "npm run sync:catalog:candidate && npm run pin:circle-plus:candidate && npm run sync:catalog"
+    "sync:data": "npm run sync:catalog && npm run sync:records && npm run sync:jackets",
+    "refresh:catalog": "npm run sync:catalog:candidate && npm run pin:circle-plus:candidate && npm run sync:catalog && npm run sync:jackets"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",

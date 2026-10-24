@@ -64,6 +64,7 @@ npm install
 npm run pin:circle-plus
 npm run refresh:catalog
 npm run sync:catalog
+npm run sync:jackets
 npm run sync:records
 npm run sync:data
 npm test
@@ -86,6 +87,8 @@ npm run preview
 - `npm run sync:records` refreshes achievements, ranks, combo/sync states, DX scores, and rating contribution. When Maishift history is public, it incrementally checks new snapshots and backfills the first snapshot containing the current AP state; an AP+ record uses the first AP+ snapshot rather than its earlier AP snapshot. Available history begins on 2026-03-07, so the site labels these as confirmation dates rather than claiming exact play times.
 - Plate conditions follow [SEGA's official rules](https://maimai.sega.jp/news/2020-01-15/). The individual in-game plate images come from the [Lxns Network maimai asset mirror](https://maimai.lxns.net/docs/api/maimai), and version prefixes, the combined 真 group, and the maimai–FiNALE STANDARD scope for 舞神 follow the [documented collection list](https://gamerch.com/maimai/533650).
 - The FC, FC+, AP, and AP+ marks use the in-game image assets mirrored by the MIT-licensed [Lxns Network frontend](https://github.com/Lxns-Network/maimai-prober-frontend). Numbered DX-star icons come from the official International DX NET asset endpoint. See `THIRD_PARTY_NOTICES.md`.
-- Song jackets are loaded from the metadata provider; the homepage cover is supplied by the site owner and served as responsive WebP images.
+- Song jackets are losslessly cached at their original dimensions in `public/assets/maimai/jackets/` and served by this GitHub Pages site, not loaded from third-party hosts in visitors' browsers. `src/data/jackets.generated.json` records the upstream URL, dimensions, size, and SHA-256 for each song. The original upstream URLs remain in the catalog for provenance.
+- `npm run sync:jackets` downloads only new, source-URL-changed, or corrupted jackets, with four workers and paced requests. Existing verified files require no network request. Failed downloads preserve existing files and stop the refresh before publication; successful downloads are retained for retry. Weekly catalog refreshes run this command and commit the manifest and jacket files together. Ordinary site builds and record refreshes use the checked-in files without downloading them again. Every build first verifies the local files, checksums, dimensions, and complete catalog coverage offline.
+- The homepage cover is supplied by the site owner and served as responsive WebP images.
 - The project is not affiliated with SEGA.
 - Do not commit tokens or other private data.
