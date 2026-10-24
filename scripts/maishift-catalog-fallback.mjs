@@ -1,3 +1,5 @@
+import { catalogArtworkUrl } from './catalog-artwork.mjs';
+
 function normalize(value) {
 	return value.normalize('NFC').trim();
 }
@@ -66,7 +68,7 @@ export function addMaishiftCatalogFallbacks(catalog, recordsData) {
 				title: normalizeTitle(sourceSong.title),
 				artist: sourceSong.artist,
 				genre: sourceSong.genre,
-				artworkUrl: sourceSong.jacketUrl,
+				artworkUrl: catalogArtworkUrl(normalizedTitle, sourceSong.artist, sourceSong.jacketUrl),
 				metadataSource: 'maishift',
 			};
 			catalog.songs.push(song);

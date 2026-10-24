@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { catalogArtworkUrl } from './catalog-artwork.mjs';
 
 const SOURCE_URL = 'https://meta.salt.realtvop.top/meta.next.json';
 const COVER_BASE_URL = 'https://meta.salt.realtvop.top/covers';
@@ -190,7 +191,7 @@ for (const music of metadata.musics) {
 		...(koreanTitle ? { koreanTitle } : {}),
 		artist: music.artist,
 		genre: music.category,
-		artworkUrl: coverUrl(music.id),
+		artworkUrl: catalogArtworkUrl(music.title, music.artist, coverUrl(music.id)),
 	});
 
 	for (const chart of internationalCharts) {
@@ -236,7 +237,12 @@ if (!ALLOW_CATALOG_CHANGES) {
 		if (!pinnedSong.fallbackMetadata) {
 			throw new Error(`Pinned song has no catalog or fallback metadata: ${pinnedSong.songId}`);
 		}
-		songs.push({ id: pinnedSong.songId, ...pinnedSong.fallbackMetadata });
+		const metadata = pinnedSong.fallbackMetadata;
+		songs.push({
+			id: pinnedSong.songId,
+			...metadata,
+			artworkUrl: catalogArtworkUrl(metadata.title, metadata.artist, metadata.artworkUrl),
+		});
 		generatedSongIds.add(pinnedSong.songId);
 	}
 
