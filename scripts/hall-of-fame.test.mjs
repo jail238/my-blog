@@ -119,9 +119,10 @@ test('Hall of Fame uses shared pastel badges with legible text and mobile optica
 	assert.match(css, /@media \(max-width: 720px\)[\s\S]*\.hall-type-label \{ transform: translateY\(1px\); \}/);
 });
 
-test('each constant group can fold independently with native keyboard-accessible details', () => {
+test('each constant group starts collapsed and can unfold independently with native keyboard-accessible details', () => {
 	const page = readFileSync(new URL('../src/pages/hall-of-fame/index.astro', import.meta.url), 'utf8');
-	assert.match(page, /<details class="hall-group" open aria-labelledby=\{`constant-\$\{Math\.round\(constant \* 10\)\}`\} data-constant=\{constant\.toFixed\(1\)\}>/);
+	assert.match(page, /<details class="hall-group" aria-labelledby=\{`constant-\$\{Math\.round\(constant \* 10\)\}`\} data-constant=\{constant\.toFixed\(1\)\}>/);
+	for (const [details] of page.matchAll(/<details\b[^>]*>/g)) assert.doesNotMatch(details, /\sopen(?:\s|=|>)/);
 	assert.match(page, /<summary class="hall-group-heading">\s*<h2 id=/);
 	assert.match(page, /import \{ ChevronDown \} from '@lucide\/astro'/);
 	assert.match(page, /<ChevronDown class="hall-toggle-icon" aria-hidden="true" \/>/);

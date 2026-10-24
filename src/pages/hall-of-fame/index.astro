@@ -22,7 +22,7 @@ const totalCount = groups.reduce((sum, group) => sum + group.totalCount, 0);
 
 	<div class="hall-collection">
 		{groups.map(({ constant, level, totalCount, perfectCharts }) => (
-			<details class="hall-group" open aria-labelledby={`constant-${Math.round(constant * 10)}`} data-constant={constant.toFixed(1)}>
+			<details class="hall-group" aria-labelledby={`constant-${Math.round(constant * 10)}`} data-constant={constant.toFixed(1)}>
 				<summary class="hall-group-heading">
 					<h2 id={`constant-${Math.round(constant * 10)}`}>
 						<span>{constant.toFixed(1)}</span>
