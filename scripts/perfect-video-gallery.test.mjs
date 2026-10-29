@@ -136,3 +136,11 @@ test('gallery uses shared pastel outlines and uncropped responsive square jacket
   assert.doesNotMatch(css, /filter:|font-size:.*vw|background:.*(?:#3d3d3d|#ffffff)/i);
   assert.match(read('../src/styles/catalog-outlines.css'), /\.video-collection-card:not\(:hover\):not\(:focus-within\)/);
 });
+
+test('desktop uses compact auto-filled cards while mobile keeps its existing two/one-column layout', () => {
+  const css = read('../src/styles/perfect-video-gallery.css');
+  assert.match(css, /\.video-collection-grid \{[^}]*gap: 16px;[^}]*grid-template-columns: repeat\(auto-fill, minmax\(160px, 1fr\)\)/);
+  assert.match(css, /@media \(max-width: 760px\)[\s\S]*?\.video-collection-grid \{ gap: 12px; grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/);
+  assert.match(css, /@media \(max-width: 359px\)[\s\S]*?grid-template-columns: minmax\(0, 1fr\)/);
+  assert.doesNotMatch(css, /@media \(max-width: 1000px\)/);
+});

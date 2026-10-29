@@ -20,6 +20,9 @@ The counter is registered AP-video charts / all AP and AP+ charts in the
 record snapshot, not currently displayed cards / saved videos. Searching,
 filtering, sorting, and Load more never change this global coverage ratio.
 Missing, invalid, removed, and unknown-chart links do not count as registered.
+Desktop cards auto-fill compact columns from a 160px minimum instead of
+stretching three jackets across the whole content width (six columns around
+a 1280px viewport). Mobile keeps two columns up to 760px and one below 359px.
 
 The collection is read-only and uses existing public cloud reads in batches.
 No sign-in, database migration, video-file upload, or YouTube API key is
@@ -65,6 +68,13 @@ Unregistered charts precede registered charts before filtering and pagination, p
 The manager uses the existing GitHub OAuth app and exact `/planner/` callback allowlist. A short-lived, exact `/videos/` path in session storage returns the owner to the manager after successful PKCE authentication. No additional provider permissions or secrets are requested. The path is consumed once, expires in ten minutes, and cannot redirect to external or arbitrary pages.
 
 ## Verification
+
+2026-10-29 compact desktop follow-up: all 13 gallery tests and the 1,486-page
+local build passed. At 1280px the grid has six columns with 181px square
+jackets rather than the previous 378px artwork; at 1024px it has five columns
+with 174px artwork. Both have no horizontal or copy overflow. The existing
+390px two-column and 320px one-column layouts and `27/221` coverage are
+unchanged. No scripts, links, records, database, or authentication changed.
 
 2026-10-29 coverage follow-up: 173 tests, strict gallery TypeScript, and the
 1,486-page local build passed. Existing public data shows `27/221 AP videos`:

@@ -3,16 +3,16 @@
 .video-collection-toolbar { align-items: center; color: rgb(var(--muted)); display: flex; font-size: 12px; justify-content: space-between; margin: 20px 0 12px; min-height: 38px; }
 .video-collection-status { color: rgb(var(--muted)); font-size: 13px; margin: 24px 0; }
 .video-collection-status[data-error='true'] { color: #8c3030; }
-.video-collection-grid { display: grid; gap: 20px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.video-collection-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
 .video-collection-card { background: var(--surface); border: 1px solid rgb(var(--line)); border-radius: 8px; display: flex; flex-direction: column; min-width: 0; overflow: hidden; }
 .video-collection-artwork { aspect-ratio: 1; background: var(--canvas); display: block; flex: none; isolation: isolate; overflow: hidden; position: relative; }
 .video-collection-cover { height: 100%; inset: 0; position: absolute; width: 100%; }
 .video-collection-cover .song-artwork { background: var(--canvas); border-radius: 0; box-shadow: none; height: 100%; width: 100%; }
 .video-collection-cover .song-artwork img { object-fit: contain; }
 .video-collection-play { align-items: center; background: #fbfaffed; border: 1px solid #fff; border-radius: 50%; bottom: 10px; color: #3f465b; display: flex; height: 40px; justify-content: center; position: absolute; right: 10px; width: 40px; z-index: 2; }
-.video-collection-copy { display: flex; flex: 1; flex-direction: column; gap: 12px; min-width: 0; padding: 14px; }
+.video-collection-copy { display: flex; flex: 1; flex-direction: column; gap: 10px; min-width: 0; padding: 10px; }
 .video-collection-titles { display: flex; flex-direction: column; gap: 2px; line-height: 1.35; min-width: 0; }
-.video-collection-titles > a { -webkit-box-orient: vertical; -webkit-line-clamp: 2; color: rgb(var(--text)); display: -webkit-box; font-size: 15px; font-weight: 600; overflow: hidden; text-decoration: none; }
+.video-collection-titles > a { -webkit-box-orient: vertical; -webkit-line-clamp: 2; color: rgb(var(--text)); display: -webkit-box; font-size: 13px; font-weight: 600; overflow: hidden; text-decoration: none; }
 .video-collection-titles > a:hover { text-decoration: underline; }
 .video-collection-titles small { color: rgb(var(--muted)); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .video-collection-tags { align-items: center; display: flex; flex-wrap: wrap; gap: 5px; }
@@ -22,14 +22,11 @@
 .video-collection-saved { font-size: 11px; line-height: 1.4; }
 .video-collection-footer a { align-items: center; display: flex; flex: 0 0 32px; height: 32px; justify-content: center; }
 .video-collection-artwork:focus-visible, .video-collection-titles a:focus-visible, .video-collection-footer a:focus-visible { outline: 2px solid #8884ba; outline-offset: -3px; }
-@media (max-width: 1000px) {
-  .video-collection-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
 @media (max-width: 760px) {
   .video-collection-filters { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .video-collection-filters input { font-size: 16px; }
   .video-collection-filters select { font-size: 12px; padding: 0 6px; }
-  .video-collection-grid { gap: 12px; }
+  .video-collection-grid { gap: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .video-collection-copy { gap: 10px; padding: 10px; }
   .video-collection-titles > a { font-size: 13px; }
   .video-collection-titles small, .video-collection-tags small, .video-collection-footer { font-size: 11px; }
