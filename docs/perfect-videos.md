@@ -10,10 +10,12 @@ the current record snapshot. Removed links, missing links, invalid URLs, and
 non-AP charts never become gallery entries, including for a signed-in owner.
 
 Cards show the original self-hosted song jacket in an uncropped square,
-close-set original/translated titles, ST/DX, difficulty, level/constant,
+original titles only, ST/DX, difficulty, level/constant,
 achievement, and a `Saved YYYY.MM.DD` date. The jacket opens YouTube
 in a separate tab; the title and arrow open the matching song's records.
-Search supports existing English/Japanese/Korean catalog matching. Filters
+Translated subtitles are omitted only in this collection; Korean title data
+and the manager/song detail displays are unchanged. Search still supports
+existing English/Japanese/Korean catalog matching. Filters
 separate chart types and difficulties; sorting uses latest saved-link update,
 song title, or descending chart constant. Pagination starts at 20 videos.
 The counter is registered AP-video charts / all AP and AP+ charts in the
@@ -71,6 +73,13 @@ Unregistered charts precede registered charts before filtering and pagination, p
 The manager uses the existing GitHub OAuth app and exact `/planner/` callback allowlist. A short-lived, exact `/videos/` path in session storage returns the owner to the manager after successful PKCE authentication. No additional provider permissions or secrets are requested. The path is consumed once, expires in ten minutes, and cannot redirect to external or arbitrary pages.
 
 ## Verification
+
+2026-10-29 original-title follow-up: all 15 gallery tests and the 1,486-page
+local build passed. The collection renders zero translated subtitle nodes,
+but Korean search still returns the four matching saved chart videos for
+the existing translated query. Original titles, metadata, dates, and
+`27/221` coverage remain intact. Manager/song detail translations and all
+stored data are unchanged; only collection subtitle markup/styles are removed.
 
 2026-10-29 inline metadata follow-up: all 14 gallery tests and the 1,486-page
 local build passed. All 27 loaded videos have one 20px metadata row at 1280px;

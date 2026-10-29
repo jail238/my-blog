@@ -40,7 +40,6 @@ const entries = PERFECT_RECORDED_CHARTS.map((chart) => ({ chart, song: songById.
           <div class="video-collection-copy">
             <div class="video-collection-titles">
               <a href={`${base}/songs/${song.id}/`} title={song.title}>{song.title}</a>
-              {song.koreanTitle && <small>{song.koreanTitle}</small>}
             </div>
             <div class="video-collection-tags">
               <span class={`type-badge type-${chart.type.toLowerCase()}`}>{chart.type === 'STANDARD' ? 'ST' : 'DX'}</span>

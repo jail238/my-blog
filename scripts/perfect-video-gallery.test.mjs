@@ -153,3 +153,11 @@ test('chart type, full difficulty name and level stay together on one metadata l
   assert.doesNotMatch(css.slice(css.indexOf('@media')), /video-collection-tags small[^}]*font-size/);
   assert.match(read('../src/pages/videos/gallery.astro'), /<small>Lv \{chart.level\}.*chart.constant.toFixed\(1\)/);
 });
+
+test('collection shows original titles only while retaining the translated-title search index', () => {
+  const page = read('../src/pages/videos/gallery.astro');
+  assert.match(page, /title=\{song.title\}>\{song.title\}<\/a>/);
+  assert.doesNotMatch(page, /song\.koreanTitle/);
+  assert.match(page, /data-search=\{songSearchIndex\(song\)\}/);
+  assert.match(read('../src/pages/videos/index.astro'), /song\.koreanTitle/);
+});
