@@ -23,6 +23,9 @@ Missing, invalid, removed, and unknown-chart links do not count as registered.
 Desktop cards auto-fill compact columns from a 160px minimum instead of
 stretching three jackets across the whole content width (six columns around
 a 1280px viewport). Mobile keeps two columns up to 760px and one below 359px.
+Chart type, full difficulty name, and level/constant share one non-wrapping
+metadata line. Compact badges use the same size on desktop and mobile, and
+the level stays visible rather than wrapping or being truncated.
 
 The collection is read-only and uses existing public cloud reads in batches.
 No sign-in, database migration, video-file upload, or YouTube API key is
@@ -68,6 +71,13 @@ Unregistered charts precede registered charts before filtering and pagination, p
 The manager uses the existing GitHub OAuth app and exact `/planner/` callback allowlist. A short-lived, exact `/videos/` path in session storage returns the owner to the manager after successful PKCE authentication. No additional provider permissions or secrets are requested. The path is consumed once, expires in ten minutes, and cannot redirect to external or arbitrary pages.
 
 ## Verification
+
+2026-10-29 inline metadata follow-up: all 14 gallery tests and the 1,486-page
+local build passed. All 27 loaded videos have one 20px metadata row at 1280px;
+at the narrowest two-column viewport (360px), every type/difficulty/level row
+fits with no overflow or center misalignment, including the full Re:MASTER
+label and level/constant. Artwork size, save dates, and `27/221` are preserved.
+No scripts, stored links, records, database, or authentication changed.
 
 2026-10-29 compact desktop follow-up: all 13 gallery tests and the 1,486-page
 local build passed. At 1280px the grid has six columns with 181px square

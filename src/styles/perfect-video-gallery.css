@@ -15,8 +15,9 @@
 .video-collection-titles > a { -webkit-box-orient: vertical; -webkit-line-clamp: 2; color: rgb(var(--text)); display: -webkit-box; font-size: 13px; font-weight: 600; overflow: hidden; text-decoration: none; }
 .video-collection-titles > a:hover { text-decoration: underline; }
 .video-collection-titles small { color: rgb(var(--muted)); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.video-collection-tags { align-items: center; display: flex; flex-wrap: wrap; gap: 5px; }
-.video-collection-tags small { color: rgb(var(--muted)); font-size: 11px; }
+.video-collection-tags { align-items: center; display: flex; flex-wrap: nowrap; gap: 2px; white-space: nowrap; }
+.video-collection-tags .type-badge, .video-collection-tags .difficulty-badge { flex: none; font-size: 9px; height: 20px; padding: 3px; }
+.video-collection-tags small { color: rgb(var(--muted)); flex: none; font-size: 10px; white-space: nowrap; }
 .video-collection-footer { align-items: center; color: rgb(var(--muted)); display: flex; font-size: 12px; gap: 6px; justify-content: space-between; margin-top: auto; }
 .video-collection-details { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 .video-collection-saved { font-size: 11px; line-height: 1.4; }
@@ -29,8 +30,7 @@
   .video-collection-grid { gap: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .video-collection-copy { gap: 10px; padding: 10px; }
   .video-collection-titles > a { font-size: 13px; }
-  .video-collection-titles small, .video-collection-tags small, .video-collection-footer { font-size: 11px; }
-  .video-collection-tags .type-badge, .video-collection-tags .difficulty-badge { font-size: 9px; padding: 3px 4px; }
+  .video-collection-titles small, .video-collection-footer { font-size: 11px; }
   .video-collection-play { height: 32px; width: 32px; }
   .video-collection-footer a { flex-basis: 28px; height: 32px; }
 }

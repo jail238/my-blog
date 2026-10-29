@@ -144,3 +144,12 @@ test('desktop uses compact auto-filled cards while mobile keeps its existing two
   assert.match(css, /@media \(max-width: 359px\)[\s\S]*?grid-template-columns: minmax\(0, 1fr\)/);
   assert.doesNotMatch(css, /@media \(max-width: 1000px\)/);
 });
+
+test('chart type, full difficulty name and level stay together on one metadata line', () => {
+  const css = read('../src/styles/perfect-video-gallery.css');
+  assert.match(css, /\.video-collection-tags \{[^}]*flex-wrap: nowrap;[^}]*gap: 2px;[^}]*white-space: nowrap;/);
+  assert.match(css, /\.video-collection-tags \.type-badge, \.video-collection-tags \.difficulty-badge \{ flex: none; font-size: 9px; height: 20px; padding: 3px;/);
+  assert.match(css, /\.video-collection-tags small \{[^}]*flex: none; font-size: 10px; white-space: nowrap;/);
+  assert.doesNotMatch(css.slice(css.indexOf('@media')), /video-collection-tags small[^}]*font-size/);
+  assert.match(read('../src/pages/videos/gallery.astro'), /<small>Lv \{chart.level\}.*chart.constant.toFixed\(1\)/);
+});
