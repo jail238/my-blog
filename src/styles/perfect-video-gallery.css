@@ -4,7 +4,7 @@
 .video-collection-status { color: rgb(var(--muted)); font-size: 13px; margin: 24px 0; }
 .video-collection-status[data-error='true'] { color: #8c3030; }
 .video-collection-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
-.video-collection-card { background: var(--surface); border: 1px solid rgb(var(--line)); border-radius: 8px; display: flex; flex-direction: column; min-width: 0; overflow: hidden; }
+.video-collection-card { background: var(--surface); border: 1px solid rgb(var(--line)); border-radius: 8px; container-type: inline-size; display: flex; flex-direction: column; min-width: 0; overflow: hidden; }
 .video-collection-artwork { aspect-ratio: 1; background: var(--canvas); display: block; flex: none; isolation: isolate; overflow: hidden; position: relative; }
 .video-collection-cover { height: 100%; inset: 0; position: absolute; width: 100%; }
 .video-collection-cover .song-artwork { background: var(--canvas); border-radius: 0; box-shadow: none; height: 100%; width: 100%; }
@@ -14,9 +14,9 @@
 .video-collection-titles { display: flex; flex-direction: column; gap: 2px; line-height: 1.35; min-width: 0; }
 .video-collection-titles > a { -webkit-box-orient: vertical; -webkit-line-clamp: 2; color: rgb(var(--text)); display: -webkit-box; font-size: 13px; font-weight: 600; overflow: hidden; text-decoration: none; }
 .video-collection-titles > a:hover { text-decoration: underline; }
-.video-collection-tags { align-items: center; display: flex; flex-wrap: nowrap; gap: 2px; white-space: nowrap; }
-.video-collection-tags .type-badge, .video-collection-tags .difficulty-badge { flex: none; font-size: 9px; height: 20px; padding: 3px; }
-.video-collection-tags small { color: rgb(var(--muted)); flex: none; font-size: 10px; white-space: nowrap; }
+.video-collection-tags { align-items: center; display: flex; flex-wrap: nowrap; gap: 6px; white-space: nowrap; }
+.video-collection-tags .type-badge, .video-collection-tags .difficulty-badge { flex: none; font-size: 10px; height: 22px; padding: 3px 5px; }
+.video-collection-tags small { color: rgb(var(--muted)); flex: none; font-size: 11px; margin-inline-start: 2px; white-space: nowrap; }
 .video-collection-footer { align-items: center; color: rgb(var(--muted)); display: flex; font-size: 12px; gap: 6px; justify-content: space-between; margin-top: auto; }
 .video-collection-details { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 .video-collection-saved { font-size: 11px; line-height: 1.4; }
@@ -35,4 +35,13 @@
 }
 @media (max-width: 359px) {
   .video-collection-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@container (max-width: 180px) {
+  .video-collection-tags .type-badge, .video-collection-tags .difficulty-badge { font-size: 9px; height: 20px; padding-inline: 4px; }
+  .video-collection-tags small { font-size: 10px; margin-inline-start: 0; }
+}
+@container (max-width: 160px) {
+  .video-collection-copy { padding-inline: 8px; }
+  .video-collection-tags { gap: 4px; }
+  .video-collection-tags .type-badge, .video-collection-tags .difficulty-badge { padding-inline: 3px; }
 }

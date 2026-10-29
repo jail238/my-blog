@@ -147,11 +147,19 @@ test('desktop uses compact auto-filled cards while mobile keeps its existing two
 
 test('chart type, full difficulty name and level stay together on one metadata line', () => {
   const css = read('../src/styles/perfect-video-gallery.css');
-  assert.match(css, /\.video-collection-tags \{[^}]*flex-wrap: nowrap;[^}]*gap: 2px;[^}]*white-space: nowrap;/);
-  assert.match(css, /\.video-collection-tags \.type-badge, \.video-collection-tags \.difficulty-badge \{ flex: none; font-size: 9px; height: 20px; padding: 3px;/);
-  assert.match(css, /\.video-collection-tags small \{[^}]*flex: none; font-size: 10px; white-space: nowrap;/);
-  assert.doesNotMatch(css.slice(css.indexOf('@media')), /video-collection-tags small[^}]*font-size/);
+  assert.match(css, /\.video-collection-tags \{[^}]*flex-wrap: nowrap;[^}]*gap: 6px;[^}]*white-space: nowrap;/);
+  assert.match(css, /\.video-collection-tags \.type-badge, \.video-collection-tags \.difficulty-badge \{ flex: none; font-size: 10px; height: 22px; padding: 3px 5px;/);
+  assert.match(css, /\.video-collection-tags small \{[^}]*flex: none; font-size: 11px; margin-inline-start: 2px; white-space: nowrap;/);
+  assert.doesNotMatch(css.slice(css.indexOf('@media'), css.indexOf('@container')), /video-collection-tags small[^}]*font-size/);
   assert.match(read('../src/pages/videos/gallery.astro'), /<small>Lv \{chart.level\}.*chart.constant.toFixed\(1\)/);
+});
+
+test('metadata spacing adapts to narrow cards instead of compressing the entire gallery', () => {
+  const css = read('../src/styles/perfect-video-gallery.css');
+  assert.match(css, /\.video-collection-card \{[^}]*container-type: inline-size;/);
+  assert.match(css, /@container \(max-width: 180px\)[\s\S]*font-size: 9px; height: 20px; padding-inline: 4px;/);
+  assert.match(css, /@container \(max-width: 160px\)[\s\S]*padding-inline: 8px;[\s\S]*\.video-collection-tags \{ gap: 4px;/);
+  assert.doesNotMatch(css, /\.video-collection-tags \{[^}]*gap: 2px;/);
 });
 
 test('collection shows original titles only while retaining the translated-title search index', () => {

@@ -1,6 +1,6 @@
 # My AP Videos
 
-Last updated: 2026-10-29
+Last updated: 2026-10-30
 
 ## Public Collection
 
@@ -26,8 +26,12 @@ Desktop cards auto-fill compact columns from a 160px minimum instead of
 stretching three jackets across the whole content width (six columns around
 a 1280px viewport). Mobile keeps two columns up to 760px and one below 359px.
 Chart type, full difficulty name, and level/constant share one non-wrapping
-metadata line. Compact badges use the same size on desktop and mobile, and
-the level stays visible rather than wrapping or being truncated.
+metadata line with relaxed spacing: 6px between badges and 8px before the
+level. Regular cards use 10px badge text, 11px level text, and 22px badges.
+Card-width container queries compact only cards at or below 180px; the
+narrowest cards at or below 160px retain a 4px gap and gain slightly more
+inner width. No card uses the previous globally cramped 2px metadata gap.
+The full level stays visible rather than wrapping or being truncated.
 
 The collection is read-only and uses existing public cloud reads in batches.
 No sign-in, database migration, video-file upload, or YouTube API key is
@@ -73,6 +77,13 @@ Unregistered charts precede registered charts before filtering and pagination, p
 The manager uses the existing GitHub OAuth app and exact `/planner/` callback allowlist. A short-lived, exact `/videos/` path in session storage returns the owner to the manager after successful PKCE authentication. No additional provider permissions or secrets are requested. The path is consumed once, expires in ten minutes, and cannot redirect to external or arbitrary pages.
 
 ## Verification
+
+2026-10-30 metadata spacing follow-up: all 16 gallery tests and the 1,486-page
+local build passed. At 1280px, all 27 loaded videos fit on one metadata line
+with actual 6px badge gaps and 8px level gaps, including Re:MASTER. At 1024px
+and 390px the gap stays 6px; at the 360px two-column boundary it is 4px.
+No metadata row overflows in those viewports. Original titles, jacket sizes,
+save dates, and coverage are unchanged; no scripts or stored data changed.
 
 2026-10-29 original-title follow-up: all 15 gallery tests and the 1,486-page
 local build passed. The collection renders zero translated subtitle nodes,
