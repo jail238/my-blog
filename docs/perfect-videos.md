@@ -9,8 +9,9 @@ shows only saved, active, valid YouTube links belonging to AP/AP+ charts in
 the current record snapshot. Removed links, missing links, invalid URLs, and
 non-AP charts never become gallery entries, including for a signed-in owner.
 
-Cards show the actual video thumbnail, close-set original/translated titles,
-ST/DX, difficulty, level/constant, and achievement. A thumbnail opens YouTube
+Cards show the original self-hosted song jacket in an uncropped square,
+close-set original/translated titles, ST/DX, difficulty, level/constant,
+achievement, and a `Saved YYYY.MM.DD` date. The jacket opens YouTube
 in a separate tab; the title and arrow open the matching song's records.
 Search supports existing English/Japanese/Korean catalog matching. Filters
 separate chart types and difficulties; sorting uses latest saved-link update,
@@ -18,8 +19,13 @@ song title, or descending chart constant. Pagination starts at 20 videos.
 
 The collection is read-only and uses existing public cloud reads in batches.
 No sign-in, database migration, video-file upload, or YouTube API key is
-needed. Only displayed cards receive lazy thumbnail URLs. Failed or missing
-thumbnails retain the self-hosted jacket; no video player loads automatically.
+needed. Jackets use the existing same-origin lazy-loaded artwork; no YouTube
+thumbnails or video players load automatically. `Saved` uses the existing
+`updated_at` timestamp in Asia/Seoul, matching the latest-saved sort. It is the
+last site save, not the YouTube publication date or a guaranteed first
+registration date; editing or restoring a link updates it. The date tooltip
+states this distinction. Invalid or absent timestamps hide the date rather
+than inventing a historical date. No schema change or backfill is performed.
 Load errors stay distinct from an empty collection or empty search and keep
 the last loaded list when available. Refresh is manual or triggered by focus,
 online return, or page visibility, with no recurring gallery polling.
@@ -55,6 +61,13 @@ Unregistered charts precede registered charts before filtering and pagination, p
 The manager uses the existing GitHub OAuth app and exact `/planner/` callback allowlist. A short-lived, exact `/videos/` path in session storage returns the owner to the manager after successful PKCE authentication. No additional provider permissions or secrets are requested. The path is consumed once, expires in ten minutes, and cannot redirect to external or arbitrary pages.
 
 ## Verification
+
+2026-10-29 jacket/date follow-up: 172 tests, strict gallery TypeScript, and the
+1,486-page local build passed. Existing public links were read without writes:
+all 27 cards have the existing last-save date, and displayed square jackets
+load from the same origin with no YouTube thumbnail nodes. Pagination, Korean
+search, and 320/390px layouts pass with no horizontal or copy overflow. Tests
+cover the KST midnight boundary, offset timestamps, and missing/invalid dates.
 
 2026-10-29: 170 tests and the 1,486-page local static build passed. Existing
 cloud links were read without writing data: the collection showed 27 videos,

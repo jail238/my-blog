@@ -1,6 +1,6 @@
 import { loadPerfectVideos, type PerfectVideo } from '../utils/perfect-videos-cloud';
 import { visiblePerfectVideo } from '../utils/perfect-videos.js';
-import { perfectVideoCollection, perfectVideoThumbnailUrl } from '../utils/perfect-video-gallery.js';
+import { perfectVideoCollection, perfectVideoSavedDate } from '../utils/perfect-video-gallery.js';
 
 export function initializePerfectVideoGallery() {
   const root = document.querySelector<HTMLElement>('#video-collection');
@@ -22,12 +22,6 @@ export function initializePerfectVideoGallery() {
   let loading = false;
   let limit = 20;
 
-  for (const node of nodes) {
-    const image = node.querySelector<HTMLImageElement>('[data-video-thumbnail]')!;
-    image.addEventListener('error', () => { image.hidden = true; });
-    image.addEventListener('load', () => { image.hidden = image.naturalWidth < 160; });
-  }
-
   function render() {
     const selected: typeof charts = perfectVideoCollection(charts, videos, {
       query: query.value, type: type.value, difficulty: difficulty.value, sort: sort.value,
@@ -37,14 +31,15 @@ export function initializePerfectVideoGallery() {
       const node = byId.get(chart.id)!;
       if (grid.children[index] !== node) grid.insertBefore(node, grid.children[index] ?? null);
       if (index >= limit) return;
-      const url = visiblePerfectVideo({ combo: chart.combo }, videos.get(chart.id))!;
+      const video = videos.get(chart.id);
+      const url = visiblePerfectVideo({ combo: chart.combo }, video)!;
       node.querySelector<HTMLAnchorElement>('[data-watch-video]')!.href = url;
-      const image = node.querySelector<HTMLImageElement>('[data-video-thumbnail]')!;
-      const thumbnail = perfectVideoThumbnailUrl(url);
-      if (image.getAttribute('src') !== thumbnail) {
-        image.hidden = false;
-        image.src = thumbnail;
-      }
+      const saved = perfectVideoSavedDate(video);
+      const time = node.querySelector<HTMLTimeElement>('[data-video-saved-date]')!;
+      time.parentElement!.hidden = !saved;
+      time.textContent = saved?.label ?? '';
+      if (saved) time.dateTime = saved.dateTime;
+      else time.removeAttribute('datetime');
       node.hidden = false;
     });
     get('count').textContent = ready ? `${Math.min(limit, selected.length)}/${selected.length} videos` : '';

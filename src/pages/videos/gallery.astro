@@ -33,9 +33,8 @@ const entries = PERFECT_RECORDED_CHARTS.map((chart) => ({ chart, song: songById.
     <div class="video-collection-grid" aria-busy="true">
       {entries.map(({ chart, song }) => song && (
         <article class="video-collection-card" data-video-collection-chart={chart.id} data-combo={chart.record?.combo} data-search={songSearchIndex(song)} data-type={chart.type} data-difficulty={chart.difficulty} data-title={song.title} data-constant={chart.constant} hidden>
-          <a class="video-collection-thumbnail" data-watch-video target="_blank" rel="noopener noreferrer" aria-label={`Watch my AP video: ${song.title} · ${chart.type === 'STANDARD' ? 'ST' : 'DX'} · ${chart.difficulty}`}>
+          <a class="video-collection-artwork" data-watch-video target="_blank" rel="noopener noreferrer" aria-label={`Watch my AP video: ${song.title} · ${chart.type === 'STANDARD' ? 'ST' : 'DX'} · ${chart.difficulty}`}>
             <span class="video-collection-cover"><SongArtwork song={song} /></span>
-            <img data-video-thumbnail class="video-collection-still" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180" hidden />
             <span class="video-collection-play" aria-hidden="true"><Play size={20} /></span>
           </a>
           <div class="video-collection-copy">
@@ -49,7 +48,10 @@ const entries = PERFECT_RECORDED_CHARTS.map((chart) => ({ chart, song: songById.
               <small>Lv {chart.level}{chart.constant !== undefined ? ` (${chart.constant.toFixed(1)})` : ''}</small>
             </div>
             <div class="video-collection-footer">
-              <span>{chart.record?.combo} · {chart.record?.achievement}</span>
+              <div class="video-collection-details">
+                <span>{chart.record?.combo} · {chart.record?.achievement}</span>
+                <span class="video-collection-saved" title="Last saved on this site (KST); changes when the link is edited." hidden>Saved <time data-video-saved-date></time></span>
+              </div>
               <a href={`${base}/songs/${song.id}/`} aria-label={`View chart records: ${song.title}`} title="View chart records"><ArrowUpRight size={16} aria-hidden="true" /></a>
             </div>
           </div>

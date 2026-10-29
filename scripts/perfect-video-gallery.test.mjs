@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
-import { perfectVideoCollection, perfectVideoThumbnailUrl } from '../src/utils/perfect-video-gallery.js';
+import { perfectVideoCollection, perfectVideoSavedDate } from '../src/utils/perfect-video-gallery.js';
 import { songSearchIndex } from '../src/utils/catalog-search.js';
 
 const read = (path) => readFileSync(new URL(path, import.meta.url), 'utf8');
@@ -48,10 +48,25 @@ test('title and level sorts are deterministic and separate ST/DX/difficulties sh
   assert.equal(perfectVideoCollection(charts, videos).length, 3);
 });
 
-test('thumbnail URLs use validated YouTube IDs on one fixed image host', () => {
-  assert.equal(perfectVideoThumbnailUrl(link.url), 'https://i.ytimg.com/vi/abcdefghijk/mqdefault.jpg');
-  assert.equal(perfectVideoThumbnailUrl('https://youtube.com/shorts/abcdefghijk?si=tracking'), 'https://i.ytimg.com/vi/abcdefghijk/mqdefault.jpg');
-  for (const url of ['javascript:alert(1)', 'https://youtube.com.evil.example/watch?v=abcdefghijk', 'https://youtu.be/short', 'https://youtube.com/@channel']) assert.throws(() => perfectVideoThumbnailUrl(url));
+test('saved dates use the existing last-save timestamp and the KST calendar day', () => {
+  assert.deepEqual(perfectVideoSavedDate(link), { dateTime: '2026-10-21T00:00:00.000Z', label: '2026.10.21' });
+  assert.equal(perfectVideoSavedDate({ ...link, updated_at: '2026-10-29T14:59:59Z' }).label, '2026.10.29');
+  assert.equal(perfectVideoSavedDate({ ...link, updated_at: '2026-10-29T15:00:00Z' }).label, '2026.10.30');
+  assert.equal(perfectVideoSavedDate({ ...link, updated_at: '2026-10-30T00:00:00+09:00' }).label, '2026.10.30');
+});
+
+test('missing or malformed saved dates never display an invalid or invented date', () => {
+  for (const video of [undefined, null, {}, { updated_at: '' }, { updated_at: 'not a date' }, { updated_at: null }]) assert.equal(perfectVideoSavedDate(video), null);
+  const client = read('../src/scripts/perfect-video-gallery.ts');
+  assert.match(client, /time.parentElement!\.hidden = !saved/);
+  assert.match(client, /else time.removeAttribute\('datetime'\)/);
+});
+
+test('gallery labels the last site save date without claiming an original registration or upload date', () => {
+  const page = read('../src/pages/videos/gallery.astro');
+  assert.match(page, /Last saved on this site \(KST\); changes when the link is edited/);
+  assert.match(page, /Saved <time data-video-saved-date>/);
+  assert.doesNotMatch(page, /Uploaded|First registered|created_at/);
 });
 
 test('home opens the collection while the manager keeps its original URL and OAuth return path', () => {
@@ -72,8 +87,9 @@ test('public gallery never edits cloud records or requests authentication or an 
   assert.match(page, /target="_blank" rel="noopener noreferrer"/);
   assert.match(client, /loadPerfectVideos\(\[\.\.\.byId.keys\(\)\]\)/);
   assert.match(client, /visiblePerfectVideo/);
-  assert.match(client, /if \(index >= limit\) return;[\s\S]*image.src = thumbnail/);
-  assert.match(client, /image.addEventListener\('error', \(\) => \{ image.hidden = true;/);
+  assert.match(client, /if \(index >= limit\) return;[\s\S]*perfectVideoSavedDate\(video\)/);
+  assert.match(page, /<SongArtwork song=\{song\} \/>/);
+  assert.doesNotMatch(page + client, /i\.ytimg\.com|data-video-thumbnail|perfectVideoThumbnailUrl/);
 });
 
 test('gallery handles loading, errors, empty searches, pagination and event-driven refreshes', () => {
@@ -90,10 +106,11 @@ test('gallery handles loading, errors, empty searches, pagination and event-driv
   assert.doesNotMatch(client, /setInterval|localStorage/);
 });
 
-test('gallery uses shared pastel outlines, original jackets and responsive fixed-ratio thumbnails', () => {
+test('gallery uses shared pastel outlines and uncropped responsive square jackets', () => {
   const css = read('../src/styles/perfect-video-gallery.css');
   assert.match(css, /\.video-collection-page \[hidden\] \{ display: none !important;/);
-  assert.match(css, /aspect-ratio: 16 \/ 9/);
+  assert.match(css, /\.video-collection-artwork \{ aspect-ratio: 1;/);
+  assert.match(css, /\.video-collection-cover \.song-artwork img \{ object-fit: contain;/);
   assert.match(css, /border-radius: 8px/);
   assert.match(css, /gap: 2px; line-height: 1\.35/);
   assert.match(css, /@media \(max-width: 359px\)/);

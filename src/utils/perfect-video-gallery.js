@@ -1,8 +1,15 @@
-import { normalizePerfectVideoUrl, perfectVideoChartMatches } from './perfect-videos.js';
+import { perfectVideoChartMatches } from './perfect-videos.js';
 
-export function perfectVideoThumbnailUrl(value) {
-  const url = new URL(normalizePerfectVideoUrl(value));
-  return `https://i.ytimg.com/vi/${url.searchParams.get('v')}/mqdefault.jpg`;
+const savedDateFormatter = new Intl.DateTimeFormat('en', {
+  timeZone: 'Asia/Seoul', year: 'numeric', month: '2-digit', day: '2-digit',
+});
+
+export function perfectVideoSavedDate(video) {
+  const timestamp = Date.parse(video?.updated_at ?? '');
+  if (!Number.isFinite(timestamp)) return null;
+  const date = new Date(timestamp);
+  const parts = Object.fromEntries(savedDateFormatter.formatToParts(date).map(({ type, value }) => [type, value]));
+  return { dateTime: date.toISOString(), label: `${parts.year}.${parts.month}.${parts.day}` };
 }
 
 export function perfectVideoCollection(charts, videos, filters = {}) {
