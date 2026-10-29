@@ -42,9 +42,11 @@ export function initializePerfectVideoGallery() {
       else time.removeAttribute('datetime');
       node.hidden = false;
     });
-    get('count').textContent = ready ? `${Math.min(limit, selected.length)}/${selected.length} videos` : '';
+    const registered = perfectVideoCollection(charts, videos).length;
+    get('count').textContent = ready ? `${registered}/${charts.length} AP videos` : '';
+    get('count').setAttribute('aria-label', ready ? `${registered} registered AP videos out of ${charts.length} AP/AP+ charts` : 'AP video coverage');
     get('empty').hidden = !ready || selected.length > 0;
-    get('empty').textContent = perfectVideoCollection(charts, videos).length ? 'No videos found.' : 'No saved videos.';
+    get('empty').textContent = registered ? 'No videos found.' : 'No saved videos.';
     get('more').hidden = !ready || selected.length <= limit;
   }
 

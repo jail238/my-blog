@@ -26,7 +26,7 @@ const entries = PERFECT_RECORDED_CHARTS.map((chart) => ({ chart, song: songById.
       <label><span>Sort by</span><select id="video-collection-sort" aria-label="Sort by"><option value="recent">Latest saved</option><option value="title">Song title</option><option value="level">Level</option></select></label>
     </div>
     <div class="video-collection-toolbar">
-      <output id="video-collection-count" aria-live="polite"></output>
+      <output id="video-collection-count" aria-live="polite" title="Registered AP videos / all AP and AP+ charts"></output>
       <button id="video-collection-reset" class="perfect-video-icon" type="button" title="Reset filters" aria-label="Reset video filters"><RotateCcw size={15} aria-hidden="true" /></button>
     </div>
     <p id="video-collection-status" class="video-collection-status" role="status">Loading videos...</p>

@@ -27,6 +27,25 @@ test('collection filters translated titles, artists and exact chart type/difficu
   for (const filter of [{ type: 'DX' }, { difficulty: 'MASTER' }, { query: 'not found' }]) assert.equal(perfectVideoCollection(charts, videos, filter).length, 0);
 });
 
+test('coverage uses all registered chart videos over all AP/AP+ charts, independent of search and pagination', () => {
+  const charts = Array.from({ length: 221 }, (_, index) => chart(String(index), index < 2 ? 'Find me' : `Song ${index}`, { combo: index % 2 ? 'AP' : 'AP+' }));
+  const videos = new Map(charts.slice(0, 27).map((row) => [row.id, link]));
+  videos.set('unknown-chart', link);
+  assert.equal(perfectVideoCollection(charts, videos).length, 27);
+  assert.equal(charts.length, 221);
+  assert.equal(perfectVideoCollection(charts, videos, { query: 'Find me' }).length, 2);
+  assert.equal(perfectVideoCollection(charts, videos, { query: 'missing' }).length, 0);
+  const client = read('../src/scripts/perfect-video-gallery.ts');
+  assert.match(client, /const registered = perfectVideoCollection\(charts, videos\)\.length/);
+  assert.match(client, /ready \? `\$\{registered\}\/\$\{charts.length\} AP videos` : ''/);
+  assert.doesNotMatch(client, /get\('count'\)\.textContent = .*selected\.length/);
+  assert.match(read('../src/pages/videos/gallery.astro'), /Registered AP videos \/ all AP and AP\+ charts/);
+  videos.set('0', { ...link, deleted_at: '2026-10-29' });
+  videos.set('1', { ...link, url: 'https://invalid.example/' });
+  assert.equal(perfectVideoCollection(charts, videos).length, 25);
+  assert.equal(perfectVideoCollection(charts, new Map()).length, 0);
+});
+
 test('recent means latest saved link rather than achievement percentage or original catalog order', () => {
   const charts = [chart('one', 'First'), chart('two', 'Second'), chart('three', 'Third')];
   const videos = new Map([
