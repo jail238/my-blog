@@ -1,6 +1,7 @@
 ---
 import { Clapperboard, Pencil, Plus, Search } from '@lucide/astro';
 import PerfectVideoControls from '../../components/PerfectVideoControls.astro';
+import APVideoNavigation from '../../components/APVideoNavigation.astro';
 import SongArtwork from '../../components/SongArtwork.astro';
 import { DIFFICULTIES, PERFECT_RECORDED_CHARTS, songById } from '../../data/maimai';
 import CatalogLayout from '../../layouts/CatalogLayout.astro';
@@ -15,6 +16,7 @@ const entries = PERFECT_RECORDED_CHARTS.map((chart) => ({ chart, song: songById.
     <h1>AP Videos</h1>
     <PerfectVideoControls />
   </header>
+  <APVideoNavigation current="manage" />
   <section aria-label="Find a chart">
     <div class="video-manager-filters">
       <label class="video-manager-search"><Search size={17} aria-hidden="true" /><span class="video-manager-sr-only">Search charts</span><input id="perfect-video-query" type="search" placeholder="Title or artist" autocomplete="off" /></label>

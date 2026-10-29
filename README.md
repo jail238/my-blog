@@ -53,9 +53,11 @@ PC and phone share the same Supabase account. Plans stay in a row-level-security
 
 ## My AP Videos
 
-Choose `AP Videos` in the homepage Records section to open `/videos/`. Sign in with the archive owner's existing GitHub account, search in English, Korean, or Japanese, choose the exact ST/DX difficulty, and save a YouTube or Shorts URL. The same manager edits and removes links and shows 20 results at a time. Unregistered charts always come first; saving immediately moves a chart behind them. `Show registered` toggles saved charts on/off and remembers the choice in the current browser. Planner sign-in is shared, and changes sync across PC and phone without a site rebuild.
+Choose `AP Videos` in the homepage Records section to open the public collection at `/videos/gallery/`. Only active saved links for AP/AP+ charts appear, with video thumbnails, original/Korean titles, exact ST/DX difficulty, level/constant, and achievement. Search and filter the collection, sort by the latest saved link, title, or level, and load 20 more at a time. Thumbnails open the matching YouTube video; title/arrow links open the song's records. Viewing requires no sign-in, video API key, or new database permissions. Only visible cards receive lazy YouTube thumbnail URLs; the self-hosted song jacket remains as a fallback.
 
-Song chart tables have no login, editor, refresh, or empty video controls. Only an AP/AP+ chart with a saved URL gets the public `My AP Video` link. Lists, Hall of Fame, and Planner stay unchanged. The existing chart-specific YouTube search stays separate. No video files are uploaded. See [AP Video Setup](docs/perfect-videos.md) for storage and verification details.
+Choose the `Manage` tab to use the existing `/videos/` manager. Sign in with the archive owner's existing GitHub account, search in English, Korean, or Japanese, choose the exact ST/DX difficulty, and save a YouTube or Shorts URL. The same manager edits and removes links and shows 20 results at a time. Unregistered charts always come first; saving immediately moves a chart behind them. `Show registered` toggles saved charts on/off and remembers the choice in the current browser. Planner sign-in is shared, and changes sync across PC and phone without a site rebuild. Both views have Collection/Manage navigation; the manager's OAuth return path is unchanged.
+
+Song chart tables have no login, editor, refresh, or empty video controls. Only an AP/AP+ chart with a saved URL gets the public `My AP Video` link. Other lists, Hall of Fame, and Planner stay unchanged. The existing chart-specific YouTube search stays separate. No video files are uploaded. See [AP Video Setup](docs/perfect-videos.md) for storage and verification details.
 
 ## Commands
 

@@ -1,0 +1,17 @@
+---
+import { LayoutGrid, Pencil } from '@lucide/astro';
+interface Props { current: 'collection' | 'manage' }
+const { current } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<nav class="video-page-nav" aria-label="AP videos">
+  <a class="perfect-video-button" href={`${base}/videos/gallery/`} aria-current={current === 'collection' ? 'page' : undefined}><LayoutGrid size={15} aria-hidden="true" />Collection</a>
+  <a class="perfect-video-button" href={`${base}/videos/`} aria-current={current === 'manage' ? 'page' : undefined}><Pencil size={15} aria-hidden="true" />Manage</a>
+</nav>
+
+<style>
+  .video-page-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+  .video-page-nav a { min-height: 40px; text-decoration: none; }
+  .video-page-nav a[aria-current='page'] { --catalog-rim-fill: var(--surface-wash); font-weight: 600; }
+</style>

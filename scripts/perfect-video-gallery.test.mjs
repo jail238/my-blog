@@ -1,0 +1,102 @@
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import test from 'node:test';
+import { perfectVideoCollection, perfectVideoThumbnailUrl } from '../src/utils/perfect-video-gallery.js';
+import { songSearchIndex } from '../src/utils/catalog-search.js';
+
+const read = (path) => readFileSync(new URL(path, import.meta.url), 'utf8');
+const link = { url: 'https://youtu.be/abcdefghijk', deleted_at: null, updated_at: '2026-10-21T00:00:00Z' };
+const chart = (id, title, extra = {}) => ({ id, title, combo: 'AP+', type: 'DX', difficulty: 'MASTER', constant: 12.7, search: songSearchIndex({ title, artist: 'Artist' }), ...extra });
+
+test('collection includes only active valid videos for AP/AP+ charts, even for an authenticated owner', () => {
+  const charts = ['one', 'deleted', 'invalid', 'missing', 'fc'].map((id) => chart(id, id, { combo: id === 'fc' ? 'FC+' : 'AP' }));
+  const videos = new Map([
+    ['one', link], ['deleted', { ...link, deleted_at: '2026-10-22' }],
+    ['invalid', { ...link, url: 'https://evil.example/watch?v=abcdefghijk' }], ['fc', link],
+  ]);
+  assert.deepEqual(perfectVideoCollection(charts, videos).map((row) => row.id), ['one']);
+  assert.deepEqual(perfectVideoCollection(charts, videos, { linked: 'missing' }).map((row) => row.id), ['one']);
+});
+
+test('collection filters translated titles, artists and exact chart type/difficulty', () => {
+  const song = { title: '春を告げる', koreanTitle: '봄을 고하다', artist: 'yama' };
+  const charts = [chart('one', song.title, { search: songSearchIndex(song), type: 'STANDARD', difficulty: 'BASIC' })];
+  const videos = new Map([['one', link]]);
+  for (const query of ['春を告げる', '봄을고하다', '봄을 고하다', 'YAMA']) assert.equal(perfectVideoCollection(charts, videos, { query }).length, 1);
+  assert.equal(perfectVideoCollection(charts, videos, { type: 'STANDARD', difficulty: 'BASIC' }).length, 1);
+  for (const filter of [{ type: 'DX' }, { difficulty: 'MASTER' }, { query: 'not found' }]) assert.equal(perfectVideoCollection(charts, videos, filter).length, 0);
+});
+
+test('recent means latest saved link rather than achievement percentage or original catalog order', () => {
+  const charts = [chart('one', 'First'), chart('two', 'Second'), chart('three', 'Third')];
+  const videos = new Map([
+    ['one', link], ['two', { ...link, updated_at: '2026-10-28T00:00:00Z' }],
+    ['three', { ...link, updated_at: 'not a date' }],
+  ]);
+  assert.deepEqual(perfectVideoCollection(charts, videos).map((row) => row.id), ['two', 'one', 'three']);
+  assert.deepEqual(charts.map((row) => row.id), ['one', 'two', 'three']);
+});
+
+test('title and level sorts are deterministic and separate ST/DX/difficulties sharing one video', () => {
+  const charts = [chart('one', 'Beta', { constant: 13.9 }), chart('two', 'Alpha', { constant: 3 }), chart('three', 'Beta', { constant: 13.9, type: 'STANDARD' })];
+  const videos = new Map(charts.map((row) => [row.id, link]));
+  assert.deepEqual(perfectVideoCollection(charts, videos, { sort: 'title' }).map((row) => row.id), ['two', 'one', 'three']);
+  assert.deepEqual(perfectVideoCollection(charts, videos, { sort: 'level' }).map((row) => row.id), ['one', 'three', 'two']);
+  videos.set('two', { ...link, deleted_at: '2026-10-28' });
+  assert.equal(perfectVideoCollection(charts, videos).length, 2);
+  videos.set('two', link);
+  assert.equal(perfectVideoCollection(charts, videos).length, 3);
+});
+
+test('thumbnail URLs use validated YouTube IDs on one fixed image host', () => {
+  assert.equal(perfectVideoThumbnailUrl(link.url), 'https://i.ytimg.com/vi/abcdefghijk/mqdefault.jpg');
+  assert.equal(perfectVideoThumbnailUrl('https://youtube.com/shorts/abcdefghijk?si=tracking'), 'https://i.ytimg.com/vi/abcdefghijk/mqdefault.jpg');
+  for (const url of ['javascript:alert(1)', 'https://youtube.com.evil.example/watch?v=abcdefghijk', 'https://youtu.be/short', 'https://youtube.com/@channel']) assert.throws(() => perfectVideoThumbnailUrl(url));
+});
+
+test('home opens the collection while the manager keeps its original URL and OAuth return path', () => {
+  assert.match(read('../src/pages/index.astro'), /href=\{`\$\{base\}\/videos\/gallery\/`\}/);
+  const nav = read('../src/components/APVideoNavigation.astro');
+  assert.match(nav, /\/videos\/gallery\//);
+  assert.match(nav, /href=\{`\$\{base\}\/videos\/`\}/);
+  assert.match(nav, /aria-current=/);
+  assert.match(read('../src/pages/videos/index.astro'), /APVideoNavigation current="manage"/);
+  assert.match(read('../src/pages/videos/gallery.astro'), /APVideoNavigation current="collection"/);
+});
+
+test('public gallery never edits cloud records or requests authentication or an API key', () => {
+  const page = read('../src/pages/videos/gallery.astro');
+  const client = read('../src/scripts/perfect-video-gallery.ts');
+  assert.doesNotMatch(page + client, /PerfectVideoControls|signIn|can_manage_perfect_videos|savePerfectVideo|removePerfectVideo|service_role|sb_secret_|innerHTML|iframe/);
+  assert.match(page, /data-video-collection-chart=\{chart.id\}[\s\S]*?hidden>/);
+  assert.match(page, /target="_blank" rel="noopener noreferrer"/);
+  assert.match(client, /loadPerfectVideos\(\[\.\.\.byId.keys\(\)\]\)/);
+  assert.match(client, /visiblePerfectVideo/);
+  assert.match(client, /if \(index >= limit\) return;[\s\S]*image.src = thumbnail/);
+  assert.match(client, /image.addEventListener\('error', \(\) => \{ image.hidden = true;/);
+});
+
+test('gallery handles loading, errors, empty searches, pagination and event-driven refreshes', () => {
+  const client = read('../src/scripts/perfect-video-gallery.ts');
+  assert.match(client, /let limit = 20/);
+  assert.match(client, /limit \+= 20/);
+  assert.match(client, /No videos found\./);
+  assert.match(client, /No saved videos\./);
+  assert.match(client, /Could not refresh videos\. Showing the last loaded list\./);
+  assert.match(client, /Could not load videos\. Try refresh\./);
+  assert.match(client, /grid.setAttribute\('aria-busy', 'false'\)/);
+  assert.match(client, /if \(loading\) return/);
+  assert.match(client, /window.addEventListener\('focus'/);
+  assert.doesNotMatch(client, /setInterval|localStorage/);
+});
+
+test('gallery uses shared pastel outlines, original jackets and responsive fixed-ratio thumbnails', () => {
+  const css = read('../src/styles/perfect-video-gallery.css');
+  assert.match(css, /\.video-collection-page \[hidden\] \{ display: none !important;/);
+  assert.match(css, /aspect-ratio: 16 \/ 9/);
+  assert.match(css, /border-radius: 8px/);
+  assert.match(css, /gap: 2px; line-height: 1\.35/);
+  assert.match(css, /@media \(max-width: 359px\)/);
+  assert.doesNotMatch(css, /filter:|font-size:.*vw|background:.*(?:#3d3d3d|#ffffff)/i);
+  assert.match(read('../src/styles/catalog-outlines.css'), /\.video-collection-card:not\(:hover\):not\(:focus-within\)/);
+});

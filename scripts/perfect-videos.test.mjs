@@ -67,7 +67,7 @@ test('video editing stays in the home-linked manager while song tables only show
   assert.doesNotMatch(board, /data-edit-perfect-video|Pencil/);
   assert.doesNotMatch(read('../src/pages/songs/[song].astro'), /PerfectVideoControls/);
   assert.match(read('../src/pages/songs/[song].astro'), /initializePerfectVideoLinks/);
-  assert.match(read('../src/pages/index.astro'), /href=\{`\$\{base\}\/videos\/`\}/);
+  assert.match(read('../src/pages/index.astro'), /href=\{`\$\{base\}\/videos\/gallery\/`\}/);
   const manager = read('../src/pages/videos/index.astro');
   assert.match(manager, /<PerfectVideoControls/);
   assert.match(manager, /PERFECT_RECORDED_CHARTS/);

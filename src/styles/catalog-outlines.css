@@ -19,7 +19,7 @@ main.catalog-page:not(.maimai-home) :where(
   .record-refresh-button, .perfect-video-button, .perfect-video-icon,
   .song-chart-ap-video, .perfect-video-dialog, .perfect-video-dialog input,
   .video-manager-filters input:not([type='checkbox']):not([type='radio']),
-  .video-manager-filters select,
+  .video-manager-filters select, .video-collection-card,
   .planner-button:not(.planner-delete-button), .planner-icon-button,
   .planner-segments, .planner-page select, .planner-date-label input,
   .planner-edit-fields input, .planner-auth-form input,
@@ -40,7 +40,8 @@ body .site-header .navigation-icon-button {
 /* Large collections should not repaint hundreds of off-screen gradients. */
 .catalog-page:not(.maimai-home) .chart-list:not([data-view='grid']) > .chart-row:not(:hover):not(:focus-within),
 .catalog-page:not(.maimai-home) .song-list:not([data-view='grid']) > .song-row:not(:hover):not(:focus-within),
-.catalog-page:not(.maimai-home) .record-list-row:not(:hover):not(:focus-within) {
+.catalog-page:not(.maimai-home) .record-list-row:not(:hover):not(:focus-within),
+.catalog-page:not(.maimai-home) .video-collection-card:not(:hover):not(:focus-within) {
   animation-play-state: paused;
 }
 

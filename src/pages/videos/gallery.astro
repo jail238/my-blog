@@ -1,0 +1,68 @@
+---
+import { ArrowUpRight, Play, RefreshCw, RotateCcw, Search } from '@lucide/astro';
+import APVideoNavigation from '../../components/APVideoNavigation.astro';
+import SongArtwork from '../../components/SongArtwork.astro';
+import { DIFFICULTIES, PERFECT_RECORDED_CHARTS, songById } from '../../data/maimai';
+import CatalogLayout from '../../layouts/CatalogLayout.astro';
+import { SITE_TITLE } from '../../consts';
+import { songSearchIndex } from '../../utils/catalog-search.js';
+import '../../styles/perfect-videos.css';
+import '../../styles/perfect-video-gallery.css';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const entries = PERFECT_RECORDED_CHARTS.map((chart) => ({ chart, song: songById.get(chart.songId) })).filter(({ song }) => song);
+---
+
+<CatalogLayout title={`AP Video Collection | ${SITE_TITLE}`} description="Personal maimai AP and AP+ video collection." pageClass="video-collection-page">
+  <header class="catalog-page-header video-manager-heading">
+    <h1>AP Videos</h1>
+    <button id="video-collection-refresh" class="perfect-video-icon" type="button" title="Refresh videos" aria-label="Refresh videos"><RefreshCw size={16} aria-hidden="true" /></button>
+  </header>
+  <APVideoNavigation current="collection" />
+  <section id="video-collection" aria-label="AP video collection">
+    <div class="video-manager-filters video-collection-filters">
+      <label class="video-manager-search"><Search size={17} aria-hidden="true" /><span class="video-manager-sr-only">Search videos</span><input id="video-collection-query" type="search" placeholder="Title or artist" autocomplete="off" /></label>
+      <label><span>Chart type</span><select id="video-collection-type" aria-label="Chart type"><option value="">All</option><option value="STANDARD">ST</option><option value="DX">DX</option></select></label>
+      <label><span>Difficulty</span><select id="video-collection-difficulty" aria-label="Difficulty"><option value="">All</option>{DIFFICULTIES.map((difficulty) => <option>{difficulty}</option>)}</select></label>
+      <label><span>Sort by</span><select id="video-collection-sort" aria-label="Sort by"><option value="recent">Latest saved</option><option value="title">Song title</option><option value="level">Level</option></select></label>
+    </div>
+    <div class="video-collection-toolbar">
+      <output id="video-collection-count" aria-live="polite"></output>
+      <button id="video-collection-reset" class="perfect-video-icon" type="button" title="Reset filters" aria-label="Reset video filters"><RotateCcw size={15} aria-hidden="true" /></button>
+    </div>
+    <p id="video-collection-status" class="video-collection-status" role="status">Loading videos...</p>
+    <div class="video-collection-grid" aria-busy="true">
+      {entries.map(({ chart, song }) => song && (
+        <article class="video-collection-card" data-video-collection-chart={chart.id} data-combo={chart.record?.combo} data-search={songSearchIndex(song)} data-type={chart.type} data-difficulty={chart.difficulty} data-title={song.title} data-constant={chart.constant} hidden>
+          <a class="video-collection-thumbnail" data-watch-video target="_blank" rel="noopener noreferrer" aria-label={`Watch my AP video: ${song.title} · ${chart.type === 'STANDARD' ? 'ST' : 'DX'} · ${chart.difficulty}`}>
+            <span class="video-collection-cover"><SongArtwork song={song} /></span>
+            <img data-video-thumbnail class="video-collection-still" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180" hidden />
+            <span class="video-collection-play" aria-hidden="true"><Play size={20} /></span>
+          </a>
+          <div class="video-collection-copy">
+            <div class="video-collection-titles">
+              <a href={`${base}/songs/${song.id}/`} title={song.title}>{song.title}</a>
+              {song.koreanTitle && <small>{song.koreanTitle}</small>}
+            </div>
+            <div class="video-collection-tags">
+              <span class={`type-badge type-${chart.type.toLowerCase()}`}>{chart.type === 'STANDARD' ? 'ST' : 'DX'}</span>
+              <span class={`difficulty-badge difficulty-${chart.difficulty === 'Re:MASTER' ? 'remaster' : chart.difficulty.toLowerCase()}`}>{chart.difficulty}</span>
+              <small>Lv {chart.level}{chart.constant !== undefined ? ` (${chart.constant.toFixed(1)})` : ''}</small>
+            </div>
+            <div class="video-collection-footer">
+              <span>{chart.record?.combo} · {chart.record?.achievement}</span>
+              <a href={`${base}/songs/${song.id}/`} aria-label={`View chart records: ${song.title}`} title="View chart records"><ArrowUpRight size={16} aria-hidden="true" /></a>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+    <p id="video-collection-empty" class="video-manager-empty" hidden>No saved videos.</p>
+    <button id="video-collection-more" class="perfect-video-button video-manager-more" type="button" hidden>Load more</button>
+    <noscript><p>JavaScript is required to load video links.</p></noscript>
+  </section>
+</CatalogLayout>
+
+<script>
+  import { initializePerfectVideoGallery } from '../../scripts/perfect-video-gallery';
+  initializePerfectVideoGallery();
+</script>
