@@ -1,6 +1,6 @@
 const TYPE_SEARCH_LABELS = Object.freeze({
 	STANDARD: 'スタンダード',
-	DX: 'DX',
+	DX: 'でらっくす',
 });
 
 export function buildMaimaiYoutubeQuery(title, type, difficulty) {

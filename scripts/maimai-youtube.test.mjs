@@ -9,9 +9,9 @@ test('STANDARD chart search uses the requested Japanese chart label', () => {
 	assert.equal(new URL(buildMaimaiYoutubeUrl('天ノ弱', 'STANDARD', 'Re:MASTER')).searchParams.get('search_query'), query);
 });
 
-test('DX chart search uses the shared DX abbreviation', () => {
+test('DX chart search keeps the Japanese search label independent of display names', () => {
 	const query = buildMaimaiYoutubeQuery('春を告げる', 'DX', 'MASTER');
-	assert.equal(query, 'maimai 春を告げる DX MASTER');
+	assert.equal(query, 'maimai 春を告げる でらっくす MASTER');
 	assert.equal(new URL(buildMaimaiYoutubeUrl('春を告げる', 'DX', 'MASTER')).searchParams.get('search_query'), query);
 });
 
@@ -21,7 +21,7 @@ test('unknown chart types are rejected instead of producing a misleading search'
 
 test('planner chart searches keep every difficulty and encode multilingual punctuation safely', () => {
 	const title = 'Song & 曲 + 노래 #1?';
-	for (const [type, label] of [['STANDARD', 'スタンダード'], ['DX', 'DX']]) {
+	for (const [type, label] of [['STANDARD', 'スタンダード'], ['DX', 'でらっくす']]) {
 		for (const difficulty of ['BASIC', 'ADVANCED', 'EXPERT', 'MASTER', 'Re:MASTER']) {
 			const url = new URL(buildMaimaiYoutubeUrl(title, type, difficulty));
 			assert.equal(url.origin, 'https://www.youtube.com');
