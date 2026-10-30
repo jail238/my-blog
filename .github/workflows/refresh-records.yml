@@ -31,29 +31,49 @@ jobs:
         run: npm ci
       - name: Import Maishift records
         run: npm run sync:records
-      - name: Commit refreshed records
-        id: commit
+      - name: Detect refreshed data changes
+        id: data
         shell: bash
         run: |
-          if git diff --quiet -- src/data/maishift.generated.json; then
-            echo "No Maishift record changes."
+          if git diff --quiet -- \
+            src/data/circle-plus.generated.json \
+            src/data/maimai.generated.json \
+            src/data/maishift.generated.json \
+            src/data/jackets.generated.json \
+            public/assets/maimai/jackets; then
+            echo "No Maishift record or catalog changes."
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/data/maishift.generated.json
-          git commit -m "Refresh Maishift records"
-          git push origin HEAD:main
           echo "changed=true" >> "$GITHUB_OUTPUT"
+      - name: Test
+        if: steps.data.outputs.changed == 'true'
+        run: npm test
       - name: Build
-        if: steps.commit.outputs.changed == 'true'
+        if: steps.data.outputs.changed == 'true'
         run: |
           npm run check:planner-config
           npm run build
         env:
           PUBLIC_SUPABASE_URL: ${{ vars.PUBLIC_SUPABASE_URL }}
           PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ vars.PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+      - name: Commit refreshed records
+        id: commit
+        if: steps.data.outputs.changed == 'true'
+        shell: bash
+        run: |
+          git diff --check
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            src/data/circle-plus.generated.json \
+            src/data/maimai.generated.json \
+            src/data/maishift.generated.json \
+            src/data/jackets.generated.json \
+            public/assets/maimai/jackets
+          git commit -m "Refresh Maishift records"
+          git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
       - name: Upload artifact
         if: steps.commit.outputs.changed == 'true'
         uses: actions/upload-pages-artifact@v5

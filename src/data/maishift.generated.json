@@ -4,8 +4,8 @@
     "recordsUrl": "https://maimai.shiftpsh.com/profile/elixir/records",
     "handle": "elixir",
     "region": "ASIA",
-    "profileUpdatedAt": "2026-10-17T09:01:17.806Z",
-    "generatedAt": "2026-10-17T09:03:11.900Z",
+    "profileUpdatedAt": "2026-10-30T03:43:45.266Z",
+    "generatedAt": "2026-10-30T09:32:55.629Z",
     "recordHistory": {
       "visibility": "private",
       "firstSnapshotAt": "2026-03-07T08:00:36.807Z",
@@ -17,12 +17,12 @@
   },
   "profile": {
     "name": "ＸＡＮＡＸ",
-    "rating": 14842,
-    "playCount": 1083,
-    "currentPlayCount": 659,
-    "updatedAt": "2026-10-17T09:01:17.806Z"
+    "rating": 14874,
+    "playCount": 1134,
+    "currentPlayCount": 710,
+    "updatedAt": "2026-10-30T03:43:45.266Z"
   },
-  "total": 964,
+  "total": 994,
   "records": [
     {
       "chartId": "837-standard-master",
@@ -108,6 +108,20 @@
       "maishiftTrackId": 5162
     },
     {
+      "chartId": "835-standard-master",
+      "achievement": "101.0000%",
+      "achievementValue": 1010000,
+      "rank": "SSS+",
+      "combo": "AP+",
+      "sync": "FS+",
+      "dxScore": 1271,
+      "dxScoreMax": 1335,
+      "rating": 302,
+      "maishiftTrackId": 3506,
+      "perfectAchievedAt": "2026-10-30T03:43:45.266Z",
+      "apPlusAchievedAt": "2026-10-30T03:43:45.266Z"
+    },
+    {
       "chartId": "302-dx-master",
       "achievement": "100.7215%",
       "achievementValue": 1007215,
@@ -118,18 +132,6 @@
       "dxScoreMax": 2073,
       "rating": 301,
       "maishiftTrackId": 1730
-    },
-    {
-      "chartId": "835-standard-master",
-      "achievement": "100.6969%",
-      "achievementValue": 1006969,
-      "rank": "SSS+",
-      "combo": "FC",
-      "sync": "FS+",
-      "dxScore": 1257,
-      "dxScoreMax": 1335,
-      "rating": 301,
-      "maishiftTrackId": 3506
     },
     {
       "chartId": "1504-dx-master",
@@ -160,7 +162,7 @@
       "achievementValue": 1005743,
       "rank": "SSS+",
       "sync": "SYNC",
-      "dxScore": 2070,
+      "dxScore": 2071,
       "dxScoreMax": 2277,
       "rating": 301,
       "maishiftTrackId": 955
@@ -172,7 +174,7 @@
       "rank": "SSS+",
       "combo": "FC",
       "sync": "FS+",
-      "dxScore": 2076,
+      "dxScore": 2095,
       "dxScoreMax": 2256,
       "rating": 301,
       "maishiftTrackId": 18629
@@ -224,6 +226,30 @@
       "dxScoreMax": 2616,
       "rating": 299,
       "maishiftTrackId": 4801
+    },
+    {
+      "chartId": "2001-dx-remaster",
+      "achievement": "100.5920%",
+      "achievementValue": 1005920,
+      "rank": "SSS+",
+      "combo": "FC",
+      "sync": "FS+",
+      "dxScore": 2009,
+      "dxScoreMax": 2145,
+      "rating": 299,
+      "maishiftTrackId": 18958
+    },
+    {
+      "chartId": "1485-dx-remaster",
+      "achievement": "100.5879%",
+      "achievementValue": 1005879,
+      "rank": "SSS+",
+      "combo": "FC",
+      "sync": "SYNC",
+      "dxScore": 2081,
+      "dxScoreMax": 2259,
+      "rating": 299,
+      "maishiftTrackId": 387
     },
     {
       "chartId": "365-standard-expert",
@@ -296,6 +322,18 @@
       "maishiftTrackId": 18921
     },
     {
+      "chartId": "1996-dx-master",
+      "achievement": "100.5846%",
+      "achievementValue": 1005846,
+      "rank": "SSS+",
+      "combo": "FC+",
+      "sync": "FS+",
+      "dxScore": 1811,
+      "dxScoreMax": 2007,
+      "rating": 297,
+      "maishiftTrackId": 18682
+    },
+    {
       "chartId": "1850-dx-master",
       "achievement": "100.5845%",
       "achievementValue": 1005845,
@@ -361,10 +399,21 @@
       "rank": "SSS",
       "combo": "FC+",
       "sync": "FS+",
-      "dxScore": 1063,
+      "dxScore": 1067,
       "dxScoreMax": 1143,
       "rating": 297,
       "maishiftTrackId": 2945
+    },
+    {
+      "chartId": "1989-dx-master",
+      "achievement": "100.4254%",
+      "achievementValue": 1004254,
+      "rank": "SSS",
+      "sync": "SYNC",
+      "dxScore": 2162,
+      "dxScoreMax": 2379,
+      "rating": 295,
+      "maishiftTrackId": 18782
     },
     {
       "chartId": "62-standard-remaster",
@@ -502,7 +551,7 @@
       "rank": "SSS+",
       "combo": "FC+",
       "sync": "SYNC",
-      "dxScore": 1903,
+      "dxScore": 1924,
       "dxScoreMax": 2109,
       "rating": 292,
       "maishiftTrackId": 5809
@@ -512,7 +561,8 @@
       "achievement": "100.6442%",
       "achievementValue": 1006442,
       "rank": "SSS+",
-      "dxScore": 1787,
+      "sync": "SYNC",
+      "dxScore": 1840,
       "dxScoreMax": 1992,
       "rating": 292,
       "maishiftTrackId": 2267
@@ -555,12 +605,12 @@
     },
     {
       "chartId": "1568-dx-master",
-      "achievement": "100.1959%",
-      "achievementValue": 1001959,
+      "achievement": "100.3113%",
+      "achievementValue": 1003113,
       "rank": "SSS",
       "combo": "FC",
       "sync": "SYNC",
-      "dxScore": 2197,
+      "dxScore": 2207,
       "dxScoreMax": 2466,
       "rating": 292,
       "maishiftTrackId": 14
@@ -571,7 +621,7 @@
       "achievementValue": 1000311,
       "rank": "SSS",
       "sync": "SYNC",
-      "dxScore": 2566,
+      "dxScore": 2598,
       "dxScoreMax": 2880,
       "rating": 291,
       "maishiftTrackId": 4982
@@ -630,7 +680,7 @@
       "rank": "SSS+",
       "combo": "FC",
       "sync": "SYNC",
-      "dxScore": 1955,
+      "dxScore": 1965,
       "dxScoreMax": 2115,
       "rating": 290,
       "maishiftTrackId": 5805
@@ -724,7 +774,7 @@
       "achievementValue": 997068,
       "rank": "SS+",
       "sync": "SYNC",
-      "dxScore": 1917,
+      "dxScore": 1941,
       "dxScoreMax": 2226,
       "rating": 290,
       "maishiftTrackId": 4373
@@ -749,7 +799,7 @@
       "achievementValue": 1000827,
       "rank": "SSS",
       "sync": "SYNC",
-      "dxScore": 2007,
+      "dxScore": 2020,
       "dxScoreMax": 2247,
       "rating": 289,
       "maishiftTrackId": 543
@@ -788,6 +838,18 @@
       "dxScoreMax": 2202,
       "rating": 288,
       "maishiftTrackId": 18793
+    },
+    {
+      "chartId": "1946-dx-expert",
+      "achievement": "100.7105%",
+      "achievementValue": 1007105,
+      "rank": "SSS+",
+      "combo": "FC",
+      "sync": "SYNC",
+      "dxScore": 1842,
+      "dxScoreMax": 1968,
+      "rating": 288,
+      "maishiftTrackId": 5725
     },
     {
       "chartId": "1572-dx-master",
@@ -837,17 +899,6 @@
       "maishiftTrackId": 2307
     },
     {
-      "chartId": "1946-dx-expert",
-      "achievement": "100.5679%",
-      "achievementValue": 1005679,
-      "rank": "SSS+",
-      "combo": "FC",
-      "dxScore": 1822,
-      "dxScoreMax": 1968,
-      "rating": 288,
-      "maishiftTrackId": 5725
-    },
-    {
       "chartId": "1624-dx-expert",
       "achievement": "100.5635%",
       "achievementValue": 1005635,
@@ -859,16 +910,28 @@
       "maishiftTrackId": 4668
     },
     {
-      "chartId": "1485-dx-remaster",
-      "achievement": "100.4581%",
-      "achievementValue": 1004581,
+      "chartId": "764-standard-master",
+      "achievement": "100.4686%",
+      "achievementValue": 1004686,
+      "rank": "SSS",
+      "combo": "FC",
+      "sync": "FS+",
+      "dxScore": 2093,
+      "dxScoreMax": 2316,
+      "rating": 288,
+      "maishiftTrackId": 769
+    },
+    {
+      "chartId": "566-standard-expert",
+      "achievement": "100.4412%",
+      "achievementValue": 1004412,
       "rank": "SSS",
       "combo": "FC",
       "sync": "SYNC",
-      "dxScore": 2051,
-      "dxScoreMax": 2259,
+      "dxScore": 1967,
+      "dxScoreMax": 2142,
       "rating": 288,
-      "maishiftTrackId": 387
+      "maishiftTrackId": 3928
     },
     {
       "chartId": "1437-dx-master",
@@ -882,37 +945,15 @@
       "maishiftTrackId": 1499
     },
     {
-      "chartId": "2001-dx-remaster",
-      "achievement": "100.3975%",
-      "achievementValue": 1003975,
+      "chartId": "1552-dx-master",
+      "achievement": "100.3494%",
+      "achievementValue": 1003494,
       "rank": "SSS",
       "sync": "SYNC",
-      "dxScore": 2009,
-      "dxScoreMax": 2145,
+      "dxScore": 2640,
+      "dxScoreMax": 2841,
       "rating": 288,
-      "maishiftTrackId": 18958
-    },
-    {
-      "chartId": "764-standard-master",
-      "achievement": "100.3920%",
-      "achievementValue": 1003920,
-      "rank": "SSS",
-      "sync": "SYNC",
-      "dxScore": 2079,
-      "dxScoreMax": 2316,
-      "rating": 288,
-      "maishiftTrackId": 769
-    },
-    {
-      "chartId": "566-standard-expert",
-      "achievement": "100.1972%",
-      "achievementValue": 1001972,
-      "rank": "SSS",
-      "sync": "SYNC",
-      "dxScore": 1920,
-      "dxScoreMax": 2142,
-      "rating": 287,
-      "maishiftTrackId": 3928
+      "maishiftTrackId": 4424
     },
     {
       "chartId": "1995-dx-master",
@@ -921,7 +962,7 @@
       "rank": "SS+",
       "combo": "FC",
       "sync": "SYNC",
-      "dxScore": 1920,
+      "dxScore": 1934,
       "dxScoreMax": 2196,
       "rating": 287,
       "maishiftTrackId": 18678
@@ -963,16 +1004,18 @@
       "apPlusAchievedAt": "2026-10-01T06:49:00.000Z"
     },
     {
-      "chartId": "1996-dx-master",
-      "achievement": "100.3352%",
-      "achievementValue": 1003352,
-      "rank": "SSS",
-      "combo": "FC",
+      "chartId": "1655-dx-master",
+      "achievement": "101.0000%",
+      "achievementValue": 1010000,
+      "rank": "SSS+",
+      "combo": "AP+",
       "sync": "SYNC",
-      "dxScore": 1802,
-      "dxScoreMax": 2007,
+      "dxScore": 1708,
+      "dxScoreMax": 1797,
       "rating": 286,
-      "maishiftTrackId": 18682
+      "maishiftTrackId": 501,
+      "perfectAchievedAt": "2026-10-30T03:43:45.266Z",
+      "apPlusAchievedAt": "2026-10-30T03:43:45.266Z"
     },
     {
       "chartId": "1686-dx-expert",
@@ -984,17 +1027,6 @@
       "dxScoreMax": 2217,
       "rating": 286,
       "maishiftTrackId": 4382
-    },
-    {
-      "chartId": "1989-dx-master",
-      "achievement": "99.9894%",
-      "achievementValue": 999894,
-      "rank": "SS+",
-      "sync": "SYNC",
-      "dxScore": 2153,
-      "dxScoreMax": 2379,
-      "rating": 286,
-      "maishiftTrackId": 18782
     },
     {
       "chartId": "719-standard-expert",
@@ -1018,18 +1050,6 @@
       "dxScoreMax": 1488,
       "rating": 285,
       "maishiftTrackId": 276
-    },
-    {
-      "chartId": "1655-dx-master",
-      "achievement": "100.7901%",
-      "achievementValue": 1007901,
-      "rank": "SSS+",
-      "combo": "FC",
-      "sync": "SYNC",
-      "dxScore": 1664,
-      "dxScoreMax": 1797,
-      "rating": 285,
-      "maishiftTrackId": 501
     },
     {
       "chartId": "1735-dx-master",
@@ -1179,7 +1199,7 @@
       "rank": "SSS",
       "combo": "FC",
       "sync": "SYNC",
-      "dxScore": 2520,
+      "dxScore": 2561,
       "dxScoreMax": 2820,
       "rating": 284,
       "maishiftTrackId": 4898
@@ -1215,7 +1235,7 @@
       "rank": "SSS+",
       "combo": "FC",
       "sync": "SYNC",
-      "dxScore": 1744,
+      "dxScore": 1773,
       "dxScoreMax": 1935,
       "rating": 283,
       "maishiftTrackId": 5388
@@ -1247,13 +1267,36 @@
       "apAchievedAt": "2026-10-01T07:53:00.000Z"
     },
     {
+      "chartId": "461-standard-master",
+      "achievement": "99.2615%",
+      "achievementValue": 992615,
+      "rank": "SS",
+      "sync": "SYNC",
+      "dxScore": 2490,
+      "dxScoreMax": 2814,
+      "rating": 282,
+      "maishiftTrackId": 4544
+    },
+    {
+      "chartId": "1852-dx-master",
+      "achievement": "100.8823%",
+      "achievementValue": 1008823,
+      "rank": "SSS+",
+      "combo": "FC+",
+      "sync": "SYNC",
+      "dxScore": 1377,
+      "dxScoreMax": 1470,
+      "rating": 281,
+      "maishiftTrackId": 5481
+    },
+    {
       "chartId": "1576-dx-expert",
       "achievement": "100.7693%",
       "achievementValue": 1007693,
       "rank": "SSS+",
       "combo": "FC",
       "sync": "SYNC",
-      "dxScore": 2103,
+      "dxScore": 2141,
       "dxScoreMax": 2277,
       "rating": 281,
       "maishiftTrackId": 2198
@@ -1269,18 +1312,6 @@
       "dxScoreMax": 1773,
       "rating": 281,
       "maishiftTrackId": 2126
-    },
-    {
-      "chartId": "1852-dx-master",
-      "achievement": "100.7050%",
-      "achievementValue": 1007050,
-      "rank": "SSS+",
-      "combo": "FC",
-      "sync": "SYNC",
-      "dxScore": 1351,
-      "dxScoreMax": 1470,
-      "rating": 281,
-      "maishiftTrackId": 5481
     },
     {
       "chartId": "1855-dx-expert",
@@ -1341,6 +1372,17 @@
       "maishiftTrackId": 3936
     },
     {
+      "chartId": "1994-dx-master",
+      "achievement": "99.6223%",
+      "achievementValue": 996223,
+      "rank": "SS+",
+      "sync": "SYNC",
+      "dxScore": 1823,
+      "dxScoreMax": 2112,
+      "rating": 281,
+      "maishiftTrackId": 18686
+    },
+    {
       "chartId": "837-standard-expert",
       "achievement": "100.9047%",
       "achievementValue": 1009047,
@@ -1366,6 +1408,39 @@
       "maishiftTrackId": 5630
     },
     {
+      "chartId": "1521-dx-master",
+      "achievement": "99.9941%",
+      "achievementValue": 999941,
+      "rank": "SS+",
+      "sync": "SYNC",
+      "dxScore": 2125,
+      "dxScoreMax": 2418,
+      "rating": 280,
+      "maishiftTrackId": 851
+    },
+    {
+      "chartId": "2002-dx-master",
+      "achievement": "99.2936%",
+      "achievementValue": 992936,
+      "rank": "SS",
+      "sync": "SYNC",
+      "dxScore": 2032,
+      "dxScoreMax": 2301,
+      "rating": 280,
+      "maishiftTrackId": 18966
+    },
+    {
+      "chartId": "345-standard-master",
+      "achievement": "99.2925%",
+      "achievementValue": 992925,
+      "rank": "SS",
+      "sync": "SYNC",
+      "dxScore": 1810,
+      "dxScoreMax": 2199,
+      "rating": 280,
+      "maishiftTrackId": 2793
+    },
+    {
       "chartId": "1492-dx-master",
       "achievement": "100.8193%",
       "achievementValue": 1008193,
@@ -1376,6 +1451,18 @@
       "dxScoreMax": 1155,
       "rating": 279,
       "maishiftTrackId": 399
+    },
+    {
+      "chartId": "1936-dx-expert",
+      "achievement": "100.8037%",
+      "achievementValue": 1008037,
+      "rank": "SSS+",
+      "combo": "FC",
+      "sync": "SYNC",
+      "dxScore": 2394,
+      "dxScoreMax": 2610,
+      "rating": 279,
+      "maishiftTrackId": 5869
     },
     {
       "chartId": "1938-dx-expert",
@@ -1413,18 +1500,6 @@
       "maishiftTrackId": 5773
     },
     {
-      "chartId": "1936-dx-expert",
-      "achievement": "100.5349%",
-      "achievementValue": 1005349,
-      "rank": "SSS+",
-      "combo": "FC",
-      "sync": "SYNC",
-      "dxScore": 2373,
-      "dxScoreMax": 2610,
-      "rating": 279,
-      "maishiftTrackId": 5869
-    },
-    {
       "chartId": "1789-dx-expert",
       "achievement": "100.5151%",
       "achievementValue": 1005151,
@@ -1459,6 +1534,28 @@
       "dxScoreMax": 2166,
       "rating": 279,
       "maishiftTrackId": 4344
+    },
+    {
+      "chartId": "1355-dx-master",
+      "achievement": "99.9102%",
+      "achievementValue": 999102,
+      "rank": "SS+",
+      "sync": "SYNC",
+      "dxScore": 2089,
+      "dxScoreMax": 2316,
+      "rating": 278,
+      "maishiftTrackId": 744
+    },
+    {
+      "chartId": "1523-dx-expert",
+      "achievement": "99.8814%",
+      "achievementValue": 998814,
+      "rank": "SS+",
+      "sync": "SYNC",
+      "dxScore": 1932,
+      "dxScoreMax": 2139,
+      "rating": 278,
+      "maishiftTrackId": 4365
     },
     {
       "chartId": "1559-dx-master",
@@ -1532,17 +1629,6 @@
       "maishiftTrackId": 3214
     },
     {
-      "chartId": "1994-dx-master",
-      "achievement": "99.3587%",
-      "achievementValue": 993587,
-      "rank": "SS",
-      "sync": "SYNC",
-      "dxScore": 1823,
-      "dxScoreMax": 2112,
-      "rating": 276,
-      "maishiftTrackId": 18686
-    },
-    {
       "chartId": "1745-dx-expert",
       "achievement": "99.2663%",
       "achievementValue": 992663,
@@ -1588,12 +1674,12 @@
     },
     {
       "chartId": "1592-dx-master",
-      "achievement": "100.9153%",
-      "achievementValue": 1009153,
+      "achievement": "100.9750%",
+      "achievementValue": 1009750,
       "rank": "SSS+",
       "combo": "AP",
       "sync": "FS+",
-      "dxScore": 896,
+      "dxScore": 904,
       "dxScoreMax": 939,
       "rating": 275,
       "maishiftTrackId": 827,
@@ -1647,6 +1733,28 @@
       "maishiftTrackId": 3897
     },
     {
+      "chartId": "288-dx-master",
+      "achievement": "98.1801%",
+      "achievementValue": 981801,
+      "rank": "S+",
+      "sync": "SYNC",
+      "dxScore": 1782,
+      "dxScoreMax": 2112,
+      "rating": 275,
+      "maishiftTrackId": 1192
+    },
+    {
+      "chartId": "1819-standard-master",
+      "achievement": "97.0415%",
+      "achievementValue": 970415,
+      "rank": "S",
+      "sync": "SYNC",
+      "dxScore": 1434,
+      "dxScoreMax": 1728,
+      "rating": 275,
+      "maishiftTrackId": 5574
+    },
+    {
       "chartId": "1491-dx-expert",
       "achievement": "100.7529%",
       "achievementValue": 1007529,
@@ -1678,6 +1786,17 @@
       "dxScoreMax": 1791,
       "rating": 274,
       "maishiftTrackId": 5893
+    },
+    {
+      "chartId": "535-dx-master",
+      "achievement": "100.2470%",
+      "achievementValue": 1002470,
+      "rank": "SSS",
+      "sync": "SYNC",
+      "dxScore": 1152,
+      "dxScoreMax": 1278,
+      "rating": 274,
+      "maishiftTrackId": 1718
     },
     {
       "chartId": "1302-dx-expert",
@@ -1726,6 +1845,28 @@
       "maishiftTrackId": 3876
     },
     {
+      "chartId": "1980-dx-master",
+      "achievement": "99.2766%",
+      "achievementValue": 992766,
+      "rank": "SS",
+      "sync": "SYNC",
+      "dxScore": 2368,
+      "dxScoreMax": 2679,
+      "rating": 274,
+      "maishiftTrackId": 18645
+    },
+    {
+      "chartId": "1490-dx-master",
+      "achievement": "98.6047%",
+      "achievementValue": 986047,
+      "rank": "S+",
+      "sync": "SYNC",
+      "dxScore": 2031,
+      "dxScoreMax": 2358,
+      "rating": 274,
+      "maishiftTrackId": 2424
+    },
+    {
       "chartId": "1803-dx-master",
       "achievement": "98.5447%",
       "achievementValue": 985447,
@@ -1746,17 +1887,6 @@
       "dxScoreMax": 1728,
       "rating": 274,
       "maishiftTrackId": 2460
-    },
-    {
-      "chartId": "288-dx-master",
-      "achievement": "98.0560%",
-      "achievementValue": 980560,
-      "rank": "S+",
-      "sync": "SYNC",
-      "dxScore": 1772,
-      "dxScoreMax": 2112,
-      "rating": 274,
-      "maishiftTrackId": 1192
     },
     {
       "chartId": "1556-dx-master",
@@ -1790,6 +1920,17 @@
       "dxScoreMax": 2322,
       "rating": 273,
       "maishiftTrackId": 1250
+    },
+    {
+      "chartId": "1586-dx-master",
+      "achievement": "99.0373%",
+      "achievementValue": 990373,
+      "rank": "SS",
+      "sync": "SYNC",
+      "dxScore": 1954,
+      "dxScoreMax": 2199,
+      "rating": 273,
+      "maishiftTrackId": 2400
     },
     {
       "chartId": "1922-dx-master",
@@ -1838,6 +1979,17 @@
       "maishiftTrackId": 1245
     },
     {
+      "chartId": "536-dx-master",
+      "achievement": "100.2964%",
+      "achievementValue": 1002964,
+      "rank": "SSS",
+      "sync": "SYNC",
+      "dxScore": 1201,
+      "dxScoreMax": 1299,
+      "rating": 272,
+      "maishiftTrackId": 1710
+    },
+    {
       "chartId": "1123-dx-master",
       "achievement": "100.0051%",
       "achievementValue": 1000051,
@@ -1871,6 +2023,17 @@
       "maishiftTrackId": 5335
     },
     {
+      "chartId": "1473-dx-master",
+      "achievement": "99.4042%",
+      "achievementValue": 994042,
+      "rank": "SS",
+      "sync": "SYNC",
+      "dxScore": 2211,
+      "dxScoreMax": 2520,
+      "rating": 272,
+      "maishiftTrackId": 4436
+    },
+    {
       "chartId": "1793-dx-master",
       "achievement": "99.3994%",
       "achievementValue": 993994,
@@ -1880,6 +2043,28 @@
       "dxScoreMax": 2556,
       "rating": 272,
       "maishiftTrackId": 5233
+    },
+    {
+      "chartId": "731-standard-remaster",
+      "achievement": "99.1887%",
+      "achievementValue": 991887,
+      "rank": "SS",
+      "sync": "SYNC",
+      "dxScore": 1825,
+      "dxScoreMax": 2175,
+      "rating": 272,
+      "maishiftTrackId": 565
+    },
+    {
+      "chartId": "1333-dx-master",
+      "achievement": "99.0788%",
+      "achievementValue": 990788,
+      "rank": "SS",
+      "sync": "SYNC",
+      "dxScore": 2440,
+      "dxScoreMax": 2805,
+      "rating": 272,
+      "maishiftTrackId": 2472
     },
     {
       "chartId": "1919-dx-master",
@@ -1915,6 +2100,31 @@
       "maishiftTrackId": 444
     },
     {
+      "chartId": "1591-dx-expert",
+      "achievement": "100.9485%",
+      "achievementValue": 1009485,
+      "rank": "SSS+",
+      "combo": "AP",
+      "sync": "FS",
+      "dxScore": 1468,
+      "dxScoreMax": 1557,
+      "rating": 271,
+      "maishiftTrackId": 2259,
+      "perfectAchievedAt": "2026-10-30T03:43:45.266Z",
+      "apAchievedAt": "2026-10-30T03:43:45.266Z"
+    },
+    {
+      "chartId": "1051-dx-master",
+      "achievement": "99.7514%",
+      "achievementValue": 997514,
+      "rank": "SS+",
+      "sync": "SYNC",
+      "dxScore": 1661,
+      "dxScoreMax": 1806,
+      "rating": 271,
+      "maishiftTrackId": 2368
+    },
+    {
       "chartId": "1687-dx-expert",
       "achievement": "99.7100%",
       "achievementValue": 997100,
@@ -1936,6 +2146,17 @@
       "dxScoreMax": 2313,
       "rating": 271,
       "maishiftTrackId": 5885
+    },
+    {
+      "chartId": "1375-dx-master",
+      "achievement": "99.6281%",
+      "achievementValue": 996281,
+      "rank": "SS+",
+      "sync": "SYNC",
+      "dxScore": 2101,
+      "dxScoreMax": 2313,
+      "rating": 271,
+      "maishiftTrackId": 3190
     },
     {
       "chartId": "1647-dx-expert",
@@ -1960,15 +2181,15 @@
       "maishiftTrackId": 3138
     },
     {
-      "chartId": "2002-dx-master",
-      "achievement": "98.2360%",
-      "achievementValue": 982360,
-      "rank": "S+",
+      "chartId": "1142-dx-master",
+      "achievement": "97.5716%",
+      "achievementValue": 975716,
+      "rank": "S",
       "sync": "SYNC",
-      "dxScore": 1970,
-      "dxScoreMax": 2301,
+      "dxScore": 2244,
+      "dxScoreMax": 2691,
       "rating": 271,
-      "maishiftTrackId": 18966
+      "maishiftTrackId": 2505
     },
     {
       "chartId": "1527-dx-expert",
@@ -1996,11 +2217,11 @@
     },
     {
       "chartId": "1992-dx-expert",
-      "achievement": "100.7805%",
-      "achievementValue": 1007805,
+      "achievement": "100.8034%",
+      "achievementValue": 1008034,
       "rank": "SSS+",
-      "combo": "FC",
-      "sync": "SYNC",
+      "combo": "FC+",
+      "sync": "FS",
       "dxScore": 1605,
       "dxScoreMax": 1731,
       "rating": 270,
@@ -2025,22 +2246,10 @@
       "rank": "SSS+",
       "combo": "FC+",
       "sync": "SYNC",
-      "dxScore": 1954,
+      "dxScore": 1964,
       "dxScoreMax": 2136,
       "rating": 270,
       "maishiftTrackId": 2295
-    },
-    {
-      "chartId": "1591-dx-expert",
-      "achievement": "100.6480%",
-      "achievementValue": 1006480,
-      "rank": "SSS+",
-      "combo": "FC",
-      "sync": "FS",
-      "dxScore": 1404,
-      "dxScoreMax": 1557,
-      "rating": 270,
-      "maishiftTrackId": 2259
     },
     {
       "chartId": "1691-dx-expert",
@@ -2113,17 +2322,6 @@
       "maishiftTrackId": 2403
     },
     {
-      "chartId": "1051-dx-master",
-      "achievement": "99.5236%",
-      "achievementValue": 995236,
-      "rank": "SS+",
-      "sync": "SYNC",
-      "dxScore": 1661,
-      "dxScoreMax": 1806,
-      "rating": 270,
-      "maishiftTrackId": 2368
-    },
-    {
       "chartId": "1785-dx-master",
       "achievement": "99.3071%",
       "achievementValue": 993071,
@@ -2168,17 +2366,6 @@
       "maishiftTrackId": 2392
     },
     {
-      "chartId": "345-standard-master",
-      "achievement": "98.0951%",
-      "achievementValue": 980951,
-      "rank": "S+",
-      "sync": "SYNC",
-      "dxScore": 1784,
-      "dxScoreMax": 2199,
-      "rating": 270,
-      "maishiftTrackId": 2793
-    },
-    {
       "chartId": "753-standard-master",
       "achievement": "97.9271%",
       "achievementValue": 979271,
@@ -2188,6 +2375,17 @@
       "dxScoreMax": 1284,
       "rating": 270,
       "maishiftTrackId": 308
+    },
+    {
+      "chartId": "777-standard-remaster",
+      "achievement": "97.8544%",
+      "achievementValue": 978544,
+      "rank": "S",
+      "sync": "SYNC",
+      "dxScore": 1022,
+      "dxScoreMax": 1194,
+      "rating": 270,
+      "maishiftTrackId": 3406
     },
     {
       "chartId": "1963-dx-expert",
@@ -2234,17 +2432,6 @@
       "maishiftTrackId": 10
     },
     {
-      "chartId": "777-standard-remaster",
-      "achievement": "97.6171%",
-      "achievementValue": 976171,
-      "rank": "S",
-      "sync": "SYNC",
-      "dxScore": 984,
-      "dxScoreMax": 1194,
-      "rating": 269,
-      "maishiftTrackId": 3406
-    },
-    {
       "chartId": "841-standard-expert",
       "achievement": "100.2490%",
       "achievementValue": 1002490,
@@ -2267,6 +2454,17 @@
       "dxScoreMax": 1632,
       "rating": 268,
       "maishiftTrackId": 835
+    },
+    {
+      "chartId": "1135-dx-master",
+      "achievement": "99.5737%",
+      "achievementValue": 995737,
+      "rank": "SS+",
+      "sync": "SYNC",
+      "dxScore": 2228,
+      "dxScoreMax": 2436,
+      "rating": 268,
+      "maishiftTrackId": 1511
     },
     {
       "chartId": "1897-dx-expert",
@@ -2471,6 +2669,31 @@
       "maishiftTrackId": 3158
     },
     {
+      "chartId": "1787-dx-master",
+      "achievement": "97.6577%",
+      "achievementValue": 976577,
+      "rank": "S",
+      "sync": "SYNC",
+      "dxScore": 2040,
+      "dxScoreMax": 2499,
+      "rating": 267,
+      "maishiftTrackId": 5084
+    },
+    {
+      "chartId": "1010-dx-master",
+      "achievement": "101.0000%",
+      "achievementValue": 1010000,
+      "rank": "SSS+",
+      "combo": "AP+",
+      "sync": "FDX",
+      "dxScore": 1493,
+      "dxScoreMax": 1563,
+      "rating": 266,
+      "maishiftTrackId": 4387,
+      "perfectAchievedAt": "2026-10-30T03:43:45.266Z",
+      "apPlusAchievedAt": "2026-10-30T03:43:45.266Z"
+    },
+    {
       "chartId": "1542-dx-expert",
       "achievement": "100.9916%",
       "achievementValue": 1009916,
@@ -2507,17 +2730,6 @@
       "maishiftTrackId": 521
     },
     {
-      "chartId": "1980-dx-master",
-      "achievement": "98.6738%",
-      "achievementValue": 986738,
-      "rank": "S+",
-      "sync": "SYNC",
-      "dxScore": 2318,
-      "dxScoreMax": 2679,
-      "rating": 266,
-      "maishiftTrackId": 18645
-    },
-    {
       "chartId": "518-standard-master",
       "achievement": "98.6501%",
       "achievementValue": 986501,
@@ -2551,47 +2763,13 @@
       "maishiftTrackId": 5587
     },
     {
-      "chartId": "1490-dx-master",
-      "achievement": "97.3978%",
-      "achievementValue": 973978,
-      "rank": "S",
-      "sync": "SYNC",
-      "dxScore": 1986,
-      "dxScoreMax": 2358,
-      "rating": 266,
-      "maishiftTrackId": 2424
-    },
-    {
-      "chartId": "1787-dx-master",
-      "achievement": "97.2755%",
-      "achievementValue": 972755,
-      "rank": "S",
-      "sync": "SYNC",
-      "dxScore": 1962,
-      "dxScoreMax": 2499,
-      "rating": 266,
-      "maishiftTrackId": 5084
-    },
-    {
-      "chartId": "1010-dx-master",
-      "achievement": "100.8412%",
-      "achievementValue": 1008412,
-      "rank": "SSS+",
-      "combo": "FC+",
-      "sync": "FDX",
-      "dxScore": 1482,
-      "dxScoreMax": 1563,
-      "rating": 265,
-      "maishiftTrackId": 4387
-    },
-    {
       "chartId": "1697-dx-master",
-      "achievement": "100.7603%",
-      "achievementValue": 1007603,
+      "achievement": "100.8551%",
+      "achievementValue": 1008551,
       "rank": "SSS+",
       "combo": "FC",
       "sync": "SYNC",
-      "dxScore": 1964,
+      "dxScore": 2024,
       "dxScoreMax": 2139,
       "rating": 265,
       "maishiftTrackId": 344
@@ -2725,15 +2903,26 @@
       "maishiftTrackId": 3166
     },
     {
-      "chartId": "1586-dx-master",
-      "achievement": "98.4287%",
-      "achievementValue": 984287,
+      "chartId": "1558-dx-remaster",
+      "achievement": "98.3330%",
+      "achievementValue": 983330,
       "rank": "S+",
       "sync": "SYNC",
-      "dxScore": 1920,
-      "dxScoreMax": 2199,
+      "dxScore": 1421,
+      "dxScoreMax": 1689,
       "rating": 265,
-      "maishiftTrackId": 2400
+      "maishiftTrackId": 469
+    },
+    {
+      "chartId": "1404-dx-master",
+      "achievement": "97.0514%",
+      "achievementValue": 970514,
+      "rank": "S",
+      "sync": "SYNC",
+      "dxScore": 2063,
+      "dxScoreMax": 2388,
+      "rating": 265,
+      "maishiftTrackId": 4504
     },
     {
       "chartId": "2001-dx-master",
@@ -2750,6 +2939,32 @@
       "apPlusAchievedAt": "2026-10-17T09:01:17.806Z"
     },
     {
+      "chartId": "1402-dx-expert",
+      "achievement": "100.9312%",
+      "achievementValue": 1009312,
+      "rank": "SSS+",
+      "combo": "AP",
+      "sync": "SYNC",
+      "dxScore": 1993,
+      "dxScoreMax": 2085,
+      "rating": 264,
+      "maishiftTrackId": 4415,
+      "perfectAchievedAt": "2026-10-30T03:43:45.266Z",
+      "apAchievedAt": "2026-10-30T03:43:45.266Z"
+    },
+    {
+      "chartId": "1906-dx-master",
+      "achievement": "100.3842%",
+      "achievementValue": 1003842,
+      "rank": "SSS",
+      "combo": "FC",
+      "sync": "SYNC",
+      "dxScore": 2007,
+      "dxScoreMax": 2235,
+      "rating": 264,
+      "maishiftTrackId": 5701
+    },
+    {
       "chartId": "1271-dx-master",
       "achievement": "100.3779%",
       "achievementValue": 1003779,
@@ -2760,18 +2975,6 @@
       "dxScoreMax": 1929,
       "rating": 264,
       "maishiftTrackId": 1060
-    },
-    {
-      "chartId": "1906-dx-master",
-      "achievement": "100.1978%",
-      "achievementValue": 1001978,
-      "rank": "SSS",
-      "combo": "FC",
-      "sync": "SYNC",
-      "dxScore": 1939,
-      "dxScoreMax": 2235,
-      "rating": 264,
-      "maishiftTrackId": 5701
     },
     {
       "chartId": "1550-dx-expert",
@@ -2861,6 +3064,18 @@
       "maishiftTrackId": 4978
     },
     {
+      "chartId": "1514-dx-expert",
+      "achievement": "100.9647%",
+      "achievementValue": 1009647,
+      "rank": "SSS+",
+      "combo": "FC+",
+      "sync": "FS",
+      "dxScore": 1628,
+      "dxScoreMax": 1722,
+      "rating": 263,
+      "maishiftTrackId": 2206
+    },
+    {
       "chartId": "1881-dx-expert",
       "achievement": "100.8087%",
       "achievementValue": 1008087,
@@ -2895,17 +3110,6 @@
       "dxScoreMax": 1593,
       "rating": 263,
       "maishiftTrackId": 5897
-    },
-    {
-      "chartId": "1402-dx-expert",
-      "achievement": "100.7065%",
-      "achievementValue": 1007065,
-      "rank": "SSS+",
-      "sync": "SYNC",
-      "dxScore": 1924,
-      "dxScoreMax": 2085,
-      "rating": 263,
-      "maishiftTrackId": 4415
     },
     {
       "chartId": "1751-dx-expert",
@@ -2955,17 +3159,6 @@
       "maishiftTrackId": 5452
     },
     {
-      "chartId": "1514-dx-expert",
-      "achievement": "100.5290%",
-      "achievementValue": 1005290,
-      "rank": "SSS+",
-      "combo": "FC",
-      "dxScore": 1533,
-      "dxScoreMax": 1722,
-      "rating": 263,
-      "maishiftTrackId": 2206
-    },
-    {
       "chartId": "1896-dx-expert",
       "achievement": "100.5121%",
       "achievementValue": 1005121,
@@ -3008,17 +3201,6 @@
       "dxScoreMax": 1998,
       "rating": 263,
       "maishiftTrackId": 2094
-    },
-    {
-      "chartId": "1523-dx-expert",
-      "achievement": "98.2117%",
-      "achievementValue": 982117,
-      "rank": "S+",
-      "sync": "SYNC",
-      "dxScore": 1876,
-      "dxScoreMax": 2139,
-      "rating": 263,
-      "maishiftTrackId": 4365
     },
     {
       "chartId": "1398-dx-expert",
@@ -3094,7 +3276,7 @@
       "achievementValue": 989957,
       "rank": "S+",
       "sync": "SYNC",
-      "dxScore": 2175,
+      "dxScore": 2181,
       "dxScoreMax": 2580,
       "rating": 261,
       "maishiftTrackId": 4451
@@ -3109,6 +3291,17 @@
       "dxScoreMax": 2226,
       "rating": 261,
       "maishiftTrackId": 3186
+    },
+    {
+      "chartId": "1574-dx-master",
+      "achievement": "98.9329%",
+      "achievementValue": 989329,
+      "rank": "S+",
+      "sync": "SYNC",
+      "dxScore": 1788,
+      "dxScoreMax": 2082,
+      "rating": 261,
+      "maishiftTrackId": 2191
     },
     {
       "chartId": "1555-dx-master",
@@ -3224,6 +3417,29 @@
       "maishiftTrackId": 3948
     },
     {
+      "chartId": "689-standard-expert",
+      "achievement": "97.4370%",
+      "achievementValue": 974370,
+      "rank": "S",
+      "sync": "SYNC",
+      "dxScore": 813,
+      "dxScoreMax": 1038,
+      "rating": 259,
+      "maishiftTrackId": 2572
+    },
+    {
+      "chartId": "1451-dx-expert",
+      "achievement": "100.8972%",
+      "achievementValue": 1008972,
+      "rank": "SSS+",
+      "combo": "FC+",
+      "sync": "FS",
+      "dxScore": 1028,
+      "dxScoreMax": 1098,
+      "rating": 258,
+      "maishiftTrackId": 4411
+    },
+    {
       "chartId": "1954-dx-expert",
       "achievement": "100.8655%",
       "achievementValue": 1008655,
@@ -3270,18 +3486,6 @@
       "dxScoreMax": 1530,
       "rating": 258,
       "maishiftTrackId": 4503
-    },
-    {
-      "chartId": "1451-dx-expert",
-      "achievement": "100.6549%",
-      "achievementValue": 1006549,
-      "rank": "SSS+",
-      "combo": "FC",
-      "sync": "SYNC",
-      "dxScore": 1008,
-      "dxScoreMax": 1098,
-      "rating": 258,
-      "maishiftTrackId": 4411
     },
     {
       "chartId": "1807-dx-expert",
@@ -3513,17 +3717,6 @@
       "maishiftTrackId": 1043
     },
     {
-      "chartId": "731-standard-remaster",
-      "achievement": "97.6989%",
-      "achievementValue": 976989,
-      "rank": "S",
-      "sync": "SYNC",
-      "dxScore": 1748,
-      "dxScoreMax": 2175,
-      "rating": 257,
-      "maishiftTrackId": 565
-    },
-    {
       "chartId": "1499-dx-master",
       "achievement": "97.5897%",
       "achievementValue": 975897,
@@ -3693,6 +3886,17 @@
       "maishiftTrackId": 18603
     },
     {
+      "chartId": "1509-dx-expert",
+      "achievement": "100.3024%",
+      "achievementValue": 1003024,
+      "rank": "SSS",
+      "sync": "SYNC",
+      "dxScore": 1487,
+      "dxScoreMax": 1623,
+      "rating": 255,
+      "maishiftTrackId": 2415
+    },
+    {
       "chartId": "1917-dx-expert",
       "achievement": "100.2363%",
       "achievementValue": 1002363,
@@ -3735,6 +3939,17 @@
       "dxScoreMax": 2118,
       "rating": 255,
       "maishiftTrackId": 2971
+    },
+    {
+      "chartId": "1073-dx-master",
+      "achievement": "98.8323%",
+      "achievementValue": 988323,
+      "rank": "S+",
+      "sync": "SYNC",
+      "dxScore": 1710,
+      "dxScoreMax": 1896,
+      "rating": 254,
+      "maishiftTrackId": 1108
     },
     {
       "chartId": "853-standard-master",
@@ -3847,6 +4062,17 @@
       "dxScoreMax": 1599,
       "rating": 252,
       "maishiftTrackId": 782
+    },
+    {
+      "chartId": "1149-dx-expert",
+      "achievement": "100.5749%",
+      "achievementValue": 1005749,
+      "rank": "SSS+",
+      "sync": "SYNC",
+      "dxScore": 1428,
+      "dxScoreMax": 1536,
+      "rating": 252,
+      "maishiftTrackId": 2379
     },
     {
       "chartId": "1952-dx-expert",
@@ -4076,6 +4302,20 @@
       "dxScoreMax": 2091,
       "rating": 249,
       "maishiftTrackId": 3980
+    },
+    {
+      "chartId": "1848-dx-expert",
+      "achievement": "100.9722%",
+      "achievementValue": 1009722,
+      "rank": "SSS+",
+      "combo": "AP",
+      "sync": "SYNC",
+      "dxScore": 1635,
+      "dxScoreMax": 1707,
+      "rating": 248,
+      "maishiftTrackId": 5448,
+      "perfectAchievedAt": "2026-10-30T03:43:45.266Z",
+      "apAchievedAt": "2026-10-30T03:43:45.266Z"
     },
     {
       "chartId": "1994-dx-expert",
@@ -4654,6 +4894,18 @@
       "maishiftTrackId": 18644
     },
     {
+      "chartId": "1216-dx-expert",
+      "achievement": "100.5427%",
+      "achievementValue": 1005427,
+      "rank": "SSS+",
+      "combo": "FC",
+      "sync": "SYNC",
+      "dxScore": 1701,
+      "dxScoreMax": 1794,
+      "rating": 240,
+      "maishiftTrackId": 2528
+    },
+    {
       "chartId": "1804-dx-expert",
       "achievement": "98.8371%",
       "achievementValue": 988371,
@@ -4698,18 +4950,6 @@
       "maishiftTrackId": 5889
     },
     {
-      "chartId": "1848-dx-expert",
-      "achievement": "100.4717%",
-      "achievementValue": 1004717,
-      "rank": "SSS",
-      "combo": "FC",
-      "sync": "SYNC",
-      "dxScore": 1533,
-      "dxScoreMax": 1707,
-      "rating": 238,
-      "maishiftTrackId": 5448
-    },
-    {
       "chartId": "2002-dx-expert",
       "achievement": "100.3250%",
       "achievementValue": 1003250,
@@ -4748,7 +4988,8 @@
       "achievementValue": 1010000,
       "rank": "SSS+",
       "combo": "AP+",
-      "dxScore": 1200,
+      "sync": "SYNC",
+      "dxScore": 1219,
       "dxScoreMax": 1281,
       "rating": 237,
       "maishiftTrackId": 18681,
@@ -4903,17 +5144,6 @@
       "dxScoreMax": 1413,
       "rating": 235,
       "maishiftTrackId": 2788
-    },
-    {
-      "chartId": "1509-dx-expert",
-      "achievement": "98.3069%",
-      "achievementValue": 983069,
-      "rank": "S+",
-      "sync": "SYNC",
-      "dxScore": 1321,
-      "dxScoreMax": 1623,
-      "rating": 235,
-      "maishiftTrackId": 2415
     },
     {
       "chartId": "1419-dx-expert",
@@ -5497,17 +5727,6 @@
       "maishiftTrackId": 2260
     },
     {
-      "chartId": "1819-standard-master",
-      "achievement": "94.4869%",
-      "achievementValue": 944869,
-      "rank": "AAA",
-      "sync": "SYNC",
-      "dxScore": 1334,
-      "dxScoreMax": 1728,
-      "rating": 225,
-      "maishiftTrackId": 5574
-    },
-    {
       "chartId": "1286-dx-expert",
       "achievement": "99.5798%",
       "achievementValue": 995798,
@@ -5620,6 +5839,28 @@
       "maishiftTrackId": 4649
     },
     {
+      "chartId": "1319-dx-master",
+      "achievement": "95.5516%",
+      "achievementValue": 955516,
+      "rank": "AAA",
+      "sync": "SYNC",
+      "dxScore": 2653,
+      "dxScoreMax": 3288,
+      "rating": 223,
+      "maishiftTrackId": 4749
+    },
+    {
+      "chartId": "1721-dx-master",
+      "achievement": "94.8201%",
+      "achievementValue": 948201,
+      "rank": "AAA",
+      "sync": "SYNC",
+      "dxScore": 1893,
+      "dxScoreMax": 2547,
+      "rating": 223,
+      "maishiftTrackId": 4922
+    },
+    {
       "chartId": "1906-dx-remaster",
       "achievement": "94.1420%",
       "achievementValue": 941420,
@@ -5629,6 +5870,18 @@
       "dxScoreMax": 2880,
       "rating": 223,
       "maishiftTrackId": 5702
+    },
+    {
+      "chartId": "1878-dx-expert",
+      "achievement": "100.8472%",
+      "achievementValue": 1008472,
+      "rank": "SSS+",
+      "combo": "FC",
+      "sync": "SYNC",
+      "dxScore": 1400,
+      "dxScoreMax": 1473,
+      "rating": 222,
+      "maishiftTrackId": 5654
     },
     {
       "chartId": "1826-dx-expert",
@@ -5729,29 +5982,6 @@
       "maishiftTrackId": 3761
     },
     {
-      "chartId": "1319-dx-master",
-      "achievement": "95.3247%",
-      "achievementValue": 953247,
-      "rank": "AAA",
-      "sync": "SYNC",
-      "dxScore": 2653,
-      "dxScoreMax": 3288,
-      "rating": 222,
-      "maishiftTrackId": 4749
-    },
-    {
-      "chartId": "1216-dx-expert",
-      "achievement": "99.3310%",
-      "achievementValue": 993310,
-      "rank": "SS",
-      "combo": "FC",
-      "sync": "SYNC",
-      "dxScore": 1558,
-      "dxScoreMax": 1794,
-      "rating": 221,
-      "maishiftTrackId": 2528
-    },
-    {
       "chartId": "1561-dx-remaster",
       "achievement": "96.1988%",
       "achievementValue": 961988,
@@ -5783,6 +6013,17 @@
       "dxScoreMax": 2778,
       "rating": 221,
       "maishiftTrackId": 2207
+    },
+    {
+      "chartId": "2019-dx-master",
+      "achievement": "95.3658%",
+      "achievementValue": 953658,
+      "rank": "AAA",
+      "sync": "SYNC",
+      "dxScore": 1796,
+      "dxScoreMax": 2220,
+      "rating": 221,
+      "maishiftTrackId": 18962
     },
     {
       "chartId": "1028-dx-master",
@@ -5961,17 +6202,6 @@
       "maishiftTrackId": 3443
     },
     {
-      "chartId": "2019-dx-master",
-      "achievement": "94.8978%",
-      "achievementValue": 948978,
-      "rank": "AAA",
-      "sync": "SYNC",
-      "dxScore": 1772,
-      "dxScoreMax": 2220,
-      "rating": 220,
-      "maishiftTrackId": 18962
-    },
-    {
       "chartId": "1551-dx-expert",
       "achievement": "101.0000%",
       "achievementValue": 1010000,
@@ -6054,6 +6284,17 @@
       "maishiftTrackId": 5079
     },
     {
+      "chartId": "1705-dx-master",
+      "achievement": "96.9358%",
+      "achievementValue": 969358,
+      "rank": "AAA",
+      "sync": "SYNC",
+      "dxScore": 1607,
+      "dxScoreMax": 1956,
+      "rating": 218,
+      "maishiftTrackId": 2083
+    },
+    {
       "chartId": "447-standard-master",
       "achievement": "96.8721%",
       "achievementValue": 968721,
@@ -6063,6 +6304,17 @@
       "dxScoreMax": 2442,
       "rating": 218,
       "maishiftTrackId": 1072
+    },
+    {
+      "chartId": "201-dx-master",
+      "achievement": "95.4927%",
+      "achievementValue": 954927,
+      "rank": "AAA",
+      "sync": "SYNC",
+      "dxScore": 1827,
+      "dxScoreMax": 2322,
+      "rating": 218,
+      "maishiftTrackId": 18666
     },
     {
       "chartId": "1512-dx-master",
@@ -6154,6 +6406,17 @@
       "maishiftTrackId": 2218
     },
     {
+      "chartId": "216-standard-master",
+      "achievement": "96.7683%",
+      "achievementValue": 967683,
+      "rank": "AAA",
+      "sync": "SYNC",
+      "dxScore": 916,
+      "dxScoreMax": 1116,
+      "rating": 216,
+      "maishiftTrackId": 2822
+    },
+    {
       "chartId": "1162-dx-master",
       "achievement": "96.1463%",
       "achievementValue": 961463,
@@ -6163,6 +6426,17 @@
       "dxScoreMax": 2193,
       "rating": 216,
       "maishiftTrackId": 3247
+    },
+    {
+      "chartId": "1641-dx-master",
+      "achievement": "96.0008%",
+      "achievementValue": 960008,
+      "rank": "AAA",
+      "sync": "SYNC",
+      "dxScore": 1920,
+      "dxScoreMax": 2328,
+      "rating": 216,
+      "maishiftTrackId": 2163
     },
     {
       "chartId": "1410-dx-expert",
@@ -6196,6 +6470,17 @@
       "dxScoreMax": 1443,
       "rating": 215,
       "maishiftTrackId": 5151
+    },
+    {
+      "chartId": "1853-dx-master",
+      "achievement": "96.5970%",
+      "achievementValue": 965970,
+      "rank": "AAA",
+      "sync": "SYNC",
+      "dxScore": 2279,
+      "dxScoreMax": 2742,
+      "rating": 215,
+      "maishiftTrackId": 5599
     },
     {
       "chartId": "759-standard-remaster",
@@ -6332,17 +6617,6 @@
       "maishiftTrackId": 2959
     },
     {
-      "chartId": "1473-dx-master",
-      "achievement": "96.3539%",
-      "achievementValue": 963539,
-      "rank": "AAA",
-      "sync": "SYNC",
-      "dxScore": 2020,
-      "dxScoreMax": 2520,
-      "rating": 213,
-      "maishiftTrackId": 4436
-    },
-    {
       "chartId": "1748-dx-master",
       "achievement": "96.1296%",
       "achievementValue": 961296,
@@ -6418,17 +6692,6 @@
       "dxScoreMax": 1308,
       "rating": 212,
       "maishiftTrackId": 2917
-    },
-    {
-      "chartId": "689-standard-expert",
-      "achievement": "94.9192%",
-      "achievementValue": 949192,
-      "rank": "AAA",
-      "sync": "SYNC",
-      "dxScore": 739,
-      "dxScoreMax": 1038,
-      "rating": 212,
-      "maishiftTrackId": 2572
     },
     {
       "chartId": "1226-dx-master",
@@ -6572,17 +6835,6 @@
       "dxScoreMax": 1401,
       "rating": 210,
       "maishiftTrackId": 5072
-    },
-    {
-      "chartId": "1355-dx-master",
-      "achievement": "94.9400%",
-      "achievementValue": 949400,
-      "rank": "AAA",
-      "sync": "SYNC",
-      "dxScore": 1895,
-      "dxScoreMax": 2316,
-      "rating": 210,
-      "maishiftTrackId": 744
     },
     {
       "chartId": "1983-dx-master",
@@ -6771,11 +7023,11 @@
     },
     {
       "chartId": "411-dx-master",
-      "achievement": "93.4683%",
-      "achievementValue": 934683,
+      "achievement": "93.9023%",
+      "achievementValue": 939023,
       "rank": "AA",
       "sync": "SYNC",
-      "dxScore": 2243,
+      "dxScore": 2307,
       "dxScoreMax": 3117,
       "rating": 206,
       "maishiftTrackId": 691
@@ -7080,6 +7332,20 @@
       "maishiftTrackId": 2645
     },
     {
+      "chartId": "1646-dx-advanced",
+      "achievement": "101.0000%",
+      "achievementValue": 1010000,
+      "rank": "SSS+",
+      "combo": "AP+",
+      "sync": "FS+",
+      "dxScore": 1153,
+      "dxScoreMax": 1248,
+      "rating": 196,
+      "maishiftTrackId": 2101,
+      "perfectAchievedAt": "2026-10-30T03:43:45.266Z",
+      "apPlusAchievedAt": "2026-10-30T03:43:45.266Z"
+    },
+    {
       "chartId": "1954-dx-advanced",
       "achievement": "101.0000%",
       "achievementValue": 1010000,
@@ -7092,6 +7358,20 @@
       "maishiftTrackId": 18696,
       "perfectAchievedAt": "2026-08-03T12:50:00.000Z",
       "apPlusAchievedAt": "2026-08-03T12:50:00.000Z"
+    },
+    {
+      "chartId": "363-dx-advanced",
+      "achievement": "100.9705%",
+      "achievementValue": 1009705,
+      "rank": "SSS+",
+      "combo": "AP",
+      "sync": "SYNC",
+      "dxScore": 1154,
+      "dxScoreMax": 1224,
+      "rating": 196,
+      "maishiftTrackId": 3888,
+      "perfectAchievedAt": "2026-10-30T03:43:45.266Z",
+      "apAchievedAt": "2026-10-30T03:43:45.266Z"
     },
     {
       "chartId": "1844-dx-master",
@@ -7205,17 +7485,6 @@
       "dxScoreMax": 2493,
       "rating": 194,
       "maishiftTrackId": 5826
-    },
-    {
-      "chartId": "201-dx-master",
-      "achievement": "93.9390%",
-      "achievementValue": 939390,
-      "rank": "AA",
-      "sync": "SYNC",
-      "dxScore": 1709,
-      "dxScoreMax": 2322,
-      "rating": 194,
-      "maishiftTrackId": 18666
     },
     {
       "chartId": "1936-dx-master",
@@ -7461,18 +7730,6 @@
       "maishiftTrackId": 18487
     },
     {
-      "chartId": "1646-dx-advanced",
-      "achievement": "100.4605%",
-      "achievementValue": 1004605,
-      "rank": "SSS",
-      "combo": "FC+",
-      "sync": "FS+",
-      "dxScore": 1062,
-      "dxScoreMax": 1248,
-      "rating": 188,
-      "maishiftTrackId": 2101
-    },
-    {
       "chartId": "1285-dx-expert",
       "achievement": "95.8120%",
       "achievementValue": 958120,
@@ -7641,17 +7898,6 @@
       "dxScoreMax": 2613,
       "rating": 183,
       "maishiftTrackId": 3320
-    },
-    {
-      "chartId": "363-dx-advanced",
-      "achievement": "99.5957%",
-      "achievementValue": 995957,
-      "rank": "SS+",
-      "sync": "SYNC",
-      "dxScore": 1043,
-      "dxScoreMax": 1224,
-      "rating": 182,
-      "maishiftTrackId": 3888
     },
     {
       "chartId": "1562-dx-master",
@@ -7883,6 +8129,20 @@
       "maishiftTrackId": 5559,
       "perfectAchievedAt": "2026-07-19T05:58:00.000Z",
       "apAchievedAt": "2026-07-19T05:58:00.000Z"
+    },
+    {
+      "chartId": "1101-dx-advanced",
+      "achievement": "100.9062%",
+      "achievementValue": 1009062,
+      "rank": "SSS+",
+      "combo": "AP",
+      "sync": "SYNC",
+      "dxScore": 1062,
+      "dxScoreMax": 1128,
+      "rating": 176,
+      "maishiftTrackId": 4109,
+      "perfectAchievedAt": "2026-10-30T03:43:45.266Z",
+      "apAchievedAt": "2026-10-30T03:43:45.266Z"
     },
     {
       "chartId": "1770-dx-advanced",
@@ -9059,6 +9319,20 @@
       "maishiftTrackId": 2338
     },
     {
+      "chartId": "389-standard-basic",
+      "achievement": "101.0000%",
+      "achievementValue": 1010000,
+      "rank": "SSS+",
+      "combo": "AP+",
+      "sync": "FS+",
+      "dxScore": 597,
+      "dxScoreMax": 636,
+      "rating": 136,
+      "maishiftTrackId": 2228,
+      "perfectAchievedAt": "2026-10-30T03:43:45.266Z",
+      "apPlusAchievedAt": "2026-10-30T03:43:45.266Z"
+    },
+    {
       "chartId": "680-standard-basic",
       "achievement": "101.0000%",
       "achievementValue": 1010000,
@@ -9143,6 +9417,20 @@
       "apPlusAchievedAt": "2026-09-07T08:01:00.000Z"
     },
     {
+      "chartId": "1963-dx-basic",
+      "achievement": "101.0000%",
+      "achievementValue": 1010000,
+      "rank": "SSS+",
+      "combo": "AP+",
+      "sync": "SYNC",
+      "dxScore": 724,
+      "dxScoreMax": 780,
+      "rating": 136,
+      "maishiftTrackId": 18894,
+      "perfectAchievedAt": "2026-10-30T03:43:45.266Z",
+      "apPlusAchievedAt": "2026-10-30T03:43:45.266Z"
+    },
+    {
       "chartId": "1993-dx-basic",
       "achievement": "100.9444%",
       "achievementValue": 1009444,
@@ -9155,6 +9443,20 @@
       "maishiftTrackId": 18731,
       "perfectAchievedAt": "2026-08-09T09:08:00.000Z",
       "apAchievedAt": "2026-08-09T09:08:00.000Z"
+    },
+    {
+      "chartId": "542-standard-basic",
+      "achievement": "100.9375%",
+      "achievementValue": 1009375,
+      "rank": "SSS+",
+      "combo": "AP",
+      "sync": "SYNC",
+      "dxScore": 635,
+      "dxScoreMax": 672,
+      "rating": 136,
+      "maishiftTrackId": 2630,
+      "perfectAchievedAt": "2026-10-30T03:43:45.266Z",
+      "apAchievedAt": "2026-10-30T03:43:45.266Z"
     },
     {
       "chartId": "1752-dx-basic",
@@ -9273,6 +9575,28 @@
       "maishiftTrackId": 2571
     },
     {
+      "chartId": "1209-dx-master",
+      "achievement": "75.6548%",
+      "achievementValue": 756548,
+      "rank": "BBB",
+      "sync": "SYNC",
+      "dxScore": 1880,
+      "dxScoreMax": 2964,
+      "rating": 128,
+      "maishiftTrackId": 2296
+    },
+    {
+      "chartId": "1210-dx-master",
+      "achievement": "76.0020%",
+      "achievementValue": 760020,
+      "rank": "BBB",
+      "sync": "SYNC",
+      "dxScore": 1613,
+      "dxScoreMax": 2556,
+      "rating": 125,
+      "maishiftTrackId": 2537
+    },
+    {
       "chartId": "1115-dx-expert",
       "achievement": "93.4326%",
       "achievementValue": 934326,
@@ -9329,6 +9653,20 @@
       "maishiftTrackId": 1235,
       "perfectAchievedAt": "2026-09-07T08:01:00.000Z",
       "apPlusAchievedAt": "2026-09-07T08:01:00.000Z"
+    },
+    {
+      "chartId": "376-standard-basic",
+      "achievement": "101.0000%",
+      "achievementValue": 1010000,
+      "rank": "SSS+",
+      "combo": "AP+",
+      "sync": "SYNC",
+      "dxScore": 524,
+      "dxScoreMax": 558,
+      "rating": 113,
+      "maishiftTrackId": 2638,
+      "perfectAchievedAt": "2026-10-30T03:43:45.266Z",
+      "apPlusAchievedAt": "2026-10-30T03:43:45.266Z"
     },
     {
       "chartId": "451-standard-basic",
@@ -9611,6 +9949,20 @@
       "apAchievedAt": "2026-09-23T07:54:00.000Z"
     },
     {
+      "chartId": "1443-dx-basic",
+      "achievement": "100.9500%",
+      "achievementValue": 1009500,
+      "rank": "SSS+",
+      "combo": "AP",
+      "sync": "SYNC",
+      "dxScore": 558,
+      "dxScoreMax": 579,
+      "rating": 113,
+      "maishiftTrackId": 4726,
+      "perfectAchievedAt": "2026-10-30T03:43:45.266Z",
+      "apAchievedAt": "2026-10-30T03:43:45.266Z"
+    },
+    {
       "chartId": "1761-dx-basic",
       "achievement": "100.9500%",
       "achievementValue": 1009500,
@@ -9665,6 +10017,20 @@
       "maishiftTrackId": 939,
       "perfectAchievedAt": "2026-08-17T09:00:00.000Z",
       "apAchievedAt": "2026-08-17T09:00:00.000Z"
+    },
+    {
+      "chartId": "1415-dx-basic",
+      "achievement": "100.9375%",
+      "achievementValue": 1009375,
+      "rank": "SSS+",
+      "combo": "AP",
+      "sync": "FDX",
+      "dxScore": 527,
+      "dxScoreMax": 549,
+      "rating": 113,
+      "maishiftTrackId": 2453,
+      "perfectAchievedAt": "2026-10-30T03:43:45.266Z",
+      "apAchievedAt": "2026-10-30T03:43:45.266Z"
     },
     {
       "chartId": "448-standard-basic",
@@ -10295,6 +10661,20 @@
       "maishiftTrackId": 2554,
       "perfectAchievedAt": "2026-09-18T20:30:00.000Z",
       "apAchievedAt": "2026-09-18T20:30:00.000Z"
+    },
+    {
+      "chartId": "85-standard-basic",
+      "achievement": "100.9375%",
+      "achievementValue": 1009375,
+      "rank": "SSS+",
+      "combo": "AP",
+      "sync": "SYNC",
+      "dxScore": 329,
+      "dxScoreMax": 357,
+      "rating": 91,
+      "maishiftTrackId": 2723,
+      "perfectAchievedAt": "2026-10-30T03:43:45.266Z",
+      "apAchievedAt": "2026-10-30T03:43:45.266Z"
     },
     {
       "chartId": "1388-dx-basic",
@@ -11000,6 +11380,20 @@
       "apAchievedAt": "2026-08-17T05:28:00.000Z"
     },
     {
+      "chartId": "1142-dx-basic",
+      "achievement": "100.8571%",
+      "achievementValue": 1008571,
+      "rank": "SSS+",
+      "combo": "AP",
+      "sync": "SYNC",
+      "dxScore": 413,
+      "dxScoreMax": 441,
+      "rating": 68,
+      "maishiftTrackId": 2502,
+      "perfectAchievedAt": "2026-10-30T03:43:45.266Z",
+      "apAchievedAt": "2026-10-30T03:43:45.266Z"
+    },
+    {
       "chartId": "1410-dx-basic",
       "achievement": "100.8500%",
       "achievementValue": 1008500,
@@ -11346,17 +11740,6 @@
       "dxScoreMax": 921,
       "rating": 35,
       "maishiftTrackId": 3921
-    },
-    {
-      "chartId": "1963-dx-basic",
-      "achievement": "60.4925%",
-      "achievementValue": 604925,
-      "rank": "B",
-      "sync": "SYNC",
-      "dxScore": 416,
-      "dxScoreMax": 780,
-      "rating": 34,
-      "maishiftTrackId": 18894
     },
     {
       "chartId": "1346-dx-basic",

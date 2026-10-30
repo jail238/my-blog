@@ -43,3 +43,12 @@ test('is idempotent when the same Maishift catalog is merged again', () => {
 	addMaishiftCatalogFallbacks(catalog, recordsData);
 	assert.deepEqual(addMaishiftCatalogFallbacks(catalog, recordsData), { addedSongs: 0, addedCharts: 0 });
 });
+
+test('new Maishift enum genres join existing catalog categories', () => {
+	for (const [source, expected] of [['TOUHOU_PROJECT', '\u6771\u65b9Project'], ['MAIMAI', 'maimai'], ['FUTURE_GENRE', 'FUTURE_GENRE']]) {
+		const { catalog, recordsData } = fixture();
+		recordsData.songs[1].genre = source;
+		addMaishiftCatalogFallbacks(catalog, recordsData);
+		assert.equal(catalog.songs.find((song) => song.title === 'New Song').genre, expected);
+	}
+});

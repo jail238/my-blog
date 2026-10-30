@@ -11280,6 +11280,46 @@
       "bytes": 56836,
       "width": 190,
       "height": 190
+    },
+    "maishift-18980": {
+      "sourceUrl": "https://maimaidx-eng.com/maimai-mobile/img/Music/9d139b8426001293.png",
+      "file": "0f/0f7e89b16dfa522441e351be3f7d80101928f70d9d83ed0a4998f61a4a2b4cab.webp",
+      "sha256": "0f7e89b16dfa522441e351be3f7d80101928f70d9d83ed0a4998f61a4a2b4cab",
+      "bytes": 65332,
+      "width": 190,
+      "height": 190
+    },
+    "maishift-18984": {
+      "sourceUrl": "https://maimaidx-eng.com/maimai-mobile/img/Music/26721fc25e2f9f91.png",
+      "file": "8a/8a9c5b2ab947501be4e47147fdbd70f6e59be27d40d2124d2163629ea867d412.webp",
+      "sha256": "8a9c5b2ab947501be4e47147fdbd70f6e59be27d40d2124d2163629ea867d412",
+      "bytes": 65798,
+      "width": 190,
+      "height": 190
+    },
+    "maishift-18988": {
+      "sourceUrl": "https://maimaidx-eng.com/maimai-mobile/img/Music/d352008e0f49d5d9.png",
+      "file": "2b/2bc713a4d023a86623e1a259b7ddea25cb6fd6681a6bc0d65ae9c7e764e38a56.webp",
+      "sha256": "2bc713a4d023a86623e1a259b7ddea25cb6fd6681a6bc0d65ae9c7e764e38a56",
+      "bytes": 60700,
+      "width": 190,
+      "height": 190
+    },
+    "maishift-18992": {
+      "sourceUrl": "https://maimaidx-eng.com/maimai-mobile/img/Music/3d2dcf5c55d4e855.png",
+      "file": "78/783cb8f93bc599296d527c204b54ea0dfe45d93330d33ea3c71989d5efb396fb.webp",
+      "sha256": "783cb8f93bc599296d527c204b54ea0dfe45d93330d33ea3c71989d5efb396fb",
+      "bytes": 74916,
+      "width": 190,
+      "height": 190
+    },
+    "maishift-19000": {
+      "sourceUrl": "https://maimaidx-eng.com/maimai-mobile/img/Music/46b18f69a1d0d331.png",
+      "file": "e8/e8016796a978d3350552bfa8a02c2999f13890d639e704deb95ef95ea4d2c5bf.webp",
+      "sha256": "e8016796a978d3350552bfa8a02c2999f13890d639e704deb95ef95ea4d2c5bf",
+      "bytes": 67726,
+      "width": 190,
+      "height": 190
     }
   }
 }

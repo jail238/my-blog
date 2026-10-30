@@ -1,5 +1,15 @@
 import { catalogArtworkUrl } from './catalog-artwork.mjs';
 
+export const MAISHIFT_CATALOG_DRIFT = 'MAISHIFT_CATALOG_DRIFT';
+
+export function assertMaishiftTrackCoverage(mapped, total) {
+	if (mapped !== total) {
+		throw Object.assign(new Error(`Maishift track coverage mismatch: ${mapped} !== ${total}`), {
+			code: MAISHIFT_CATALOG_DRIFT,
+		});
+	}
+}
+
 function normalize(value) {
 	return value.normalize('NFC').trim();
 }
@@ -18,6 +28,10 @@ function songIdentity(song) {
 
 function difficultyLabel(value) {
 	return value === 'RE_MASTER' ? 'Re:MASTER' : value;
+}
+
+function genreLabel(value) {
+	return ({ TOUHOU_PROJECT: '\u6771\u65b9Project', MAIMAI: 'maimai' })[value] ?? value;
 }
 
 function chartId(songId, type, difficulty) {
@@ -67,7 +81,7 @@ export function addMaishiftCatalogFallbacks(catalog, recordsData) {
 				sourceId,
 				title: normalizeTitle(sourceSong.title),
 				artist: sourceSong.artist,
-				genre: sourceSong.genre,
+				genre: genreLabel(sourceSong.genre),
 				artworkUrl: catalogArtworkUrl(normalizedTitle, sourceSong.artist, sourceSong.jacketUrl),
 				metadataSource: 'maishift',
 			};

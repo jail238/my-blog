@@ -1,7 +1,7 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { addMaishiftCatalogFallbacks } from './maishift-catalog-fallback.mjs';
+import { addMaishiftCatalogFallbacks, assertMaishiftTrackCoverage } from './maishift-catalog-fallback.mjs';
 import {
 	callMaishiftServerFunction,
 	discoverMaishiftServerFunctions,
@@ -229,9 +229,7 @@ if (unmatched.length > 0) {
 	throw new Error(`Could not resolve ${unmatched.length} Maishift tracks:\n${JSON.stringify(unmatched, null, 2)}`);
 }
 
-if (mappedTracks.length !== recordsData.tracks.length) {
-	throw new Error(`Maishift track coverage mismatch: ${mappedTracks.length} !== ${recordsData.tracks.length}`);
-}
+assertMaishiftTrackCoverage(mappedTracks.length, recordsData.tracks.length);
 
 const records = [];
 for (const { track, chart } of mappedTracks) {

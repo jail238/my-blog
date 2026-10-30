@@ -19,7 +19,7 @@
     "sync:catalog:candidate": "node scripts/sync-maimai-catalog.mjs --allow-catalog-changes",
     "sync:catalog": "node scripts/sync-maimai-catalog.mjs",
     "sync:jackets": "node scripts/sync-song-jackets.mjs",
-    "sync:records": "node scripts/sync-maishift-records.mjs",
+    "sync:records": "node scripts/refresh-maishift-records.mjs",
     "sync:data": "npm run sync:catalog && npm run sync:records && npm run sync:jackets",
     "refresh:catalog": "npm run sync:catalog:candidate && npm run pin:circle-plus:candidate && npm run sync:catalog && npm run sync:jackets"
   },
