@@ -46,9 +46,11 @@ test('home record metrics sit on the cover without a snapshot label or date', ()
   const home = readFileSync(new URL('src/pages/index.astro', root), 'utf8');
   const cover = home.match(/<section class="archive-cover"[\s\S]*?<\/section>/)?.[0] ?? '';
   assert.match(cover, /class="profile-metrics" aria-label="Record summary"/);
-  for (const label of ['RATING', 'CLASS', 'COINS']) assert.ok(cover.includes(`<small>${label}</small>`));
+  assert.deepEqual([...cover.matchAll(/<small>([^<]+)<\/small>/g)].map((match) => match[1]), ['ALL PERFECT', 'RATING', 'COINS']);
+  assert.match(cover, /PERFECT_RECORDED_CHARTS\.length\.toLocaleString/);
   assert.match(cover, /PLAYER_PROFILE\.rating\.toLocaleString/);
   assert.match(cover, /PLAYER_PROFILE\.playCount\.toLocaleString/);
+  assert.doesNotMatch(cover, /<small>CLASS<\/small>|<strong>B4<\/strong>/);
   assert.doesNotMatch(home, /RECORD SNAPSHOT|snapshotDate|snapshotParts|archive-profile/);
   const css = readFileSync(new URL('src/styles/global.css', root), 'utf8');
   assert.match(css, /\.profile-metrics\s*\{[^}]*color:\s*#ffffff/);
