@@ -3,6 +3,7 @@ import maishiftData from './maishift.generated.json';
 import jacketsData from './jackets.generated.json';
 import { genreGroups } from '../utils/catalog-genres.js';
 import { withLocalJackets } from '../utils/local-jackets.js';
+import { withDxVersionLabels } from '../utils/catalog-version-labels.js';
 
 export type ChartType = 'STANDARD' | 'DX';
 export type Difficulty = 'BASIC' | 'ADVANCED' | 'EXPERT' | 'MASTER' | 'Re:MASTER';
@@ -139,7 +140,7 @@ const recordsByChartId = new Map(
 export const CATALOG_SOURCE = generatedCatalog.source;
 export const MAISHIFT_SOURCE = generatedMaishift.source;
 export const PLAYER_PROFILE = generatedMaishift.profile;
-export const VERSIONS = generatedCatalog.versions;
+export const VERSIONS = generatedCatalog.versions.map(withDxVersionLabels);
 export const SONGS: Song[] = withLocalJackets(generatedCatalog.songs, jacketsData, import.meta.env.BASE_URL);
 export const GENRES = genreGroups(SONGS);
 export const CHARTS: Chart[] = generatedCatalog.charts.map((chart) => ({
