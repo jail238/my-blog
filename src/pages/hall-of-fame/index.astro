@@ -1,13 +1,12 @@
 ---
-import SongArtwork from '../../components/SongArtwork.astro';
-import { ChevronDown } from '@lucide/astro';
-import { CHARTS, songById } from '../../data/maimai';
+import HallChart from '../../components/HallChart.astro';
+import { ChevronDown, ChevronsUpDown, ChevronsDownUp } from '@lucide/astro';
+import { CHARTS } from '../../data/maimai';
 import CatalogLayout from '../../layouts/CatalogLayout.astro';
 import { SITE_TITLE } from '../../consts';
 import { hallOfFameGroups } from '../../utils/hall-of-fame.js';
 import '../../styles/hall-of-fame.css';
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const groups = hallOfFameGroups(CHARTS);
 const perfectCount = groups.reduce((sum, group) => sum + group.perfectCharts.length, 0);
 const totalCount = groups.reduce((sum, group) => sum + group.totalCount, 0);
@@ -20,8 +19,18 @@ const totalCount = groups.reduce((sum, group) => sum + group.totalCount, 0);
 		<p>{perfectCount.toLocaleString('en-US')}/{totalCount.toLocaleString('en-US')}</p>
 	</header>
 
-	<div class="hall-collection">
-		{groups.map(({ constant, level, totalCount, perfectCharts }) => (
+	<div class="hall-controls" role="group" aria-label="Hall of Fame controls" hidden>
+		<button class="hall-action" id="hall-expand-all" type="button" aria-controls="hall-collection"><ChevronsUpDown size={16} aria-hidden="true" />Expand all</button>
+		<button class="hall-action" id="hall-collapse-all" type="button" aria-controls="hall-collection"><ChevronsDownUp size={16} aria-hidden="true" />Collapse all</button>
+		<label class="hall-visibility">
+			<span>Show unachieved</span>
+			<input id="hall-show-unachieved" type="checkbox" role="switch" aria-label="Show unachieved" aria-controls="hall-collection" />
+			<span data-hall-visibility-label aria-hidden="true">OFF</span>
+		</label>
+	</div>
+
+	<div class="hall-collection" id="hall-collection" data-show-unachieved="false">
+		{groups.map(({ constant, level, totalCount, perfectCharts, unachievedCharts }) => (
 			<details class="hall-group" aria-labelledby={`constant-${Math.round(constant * 10)}`} data-constant={constant.toFixed(1)}>
 				<summary class="hall-group-heading">
 					<h2 id={`constant-${Math.round(constant * 10)}`}>
@@ -31,24 +40,20 @@ const totalCount = groups.reduce((sum, group) => sum + group.totalCount, 0);
 						<ChevronDown class="hall-toggle-icon" aria-hidden="true" />
 					</h2>
 				</summary>
-				{perfectCharts.length > 0 && (
-					<div class="hall-jackets">
-						{perfectCharts.map((chart) => {
-							const song = songById.get(chart.songId)!;
-							const typeLabel = chart.type === 'STANDARD' ? 'ST' : 'DX';
-							const difficultyClass = chart.difficulty === 'Re:MASTER' ? 'remaster' : chart.difficulty.toLowerCase();
-							const label = `${song.title} · ${typeLabel} ${chart.difficulty} · Lv ${chart.level} (${constant.toFixed(1)}) · ${chart.record?.combo} · ${chart.record?.achievement}`;
-							return (
-								<a class="hall-chart" href={`${base}/songs/${song.id}/`} aria-label={label} title={label} data-chart-id={chart.id}>
-									<SongArtwork song={song} />
-									<span class:list={['hall-type', `difficulty-${difficultyClass}`]}><span class="hall-type-label">{typeLabel}</span></span>
-									<strong class="hall-achievement">{chart.record?.achievement}</strong>
-								</a>
-							);
-						})}
-					</div>
+				<div class="hall-jackets" data-perfect-count={perfectCharts.length}>
+					{perfectCharts.map((chart) => <HallChart chart={chart} constant={constant} />)}
+				</div>
+				{unachievedCharts.length > 0 && (
+					<template data-hall-unachieved>
+						{unachievedCharts.map((chart) => <HallChart chart={chart} constant={constant} />)}
+					</template>
 				)}
 			</details>
 		))}
 	</div>
 </CatalogLayout>
+
+<script>
+	import { initializeHallOfFame } from '../../scripts/hall-of-fame.js';
+	initializeHallOfFame(document.querySelector('.hall-page'));
+</script>

@@ -4,6 +4,18 @@
 	initial-value: 0deg;
 }
 
+.hall-controls { align-items: center; display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+.hall-action { align-items: center; background: var(--surface); border-radius: 6px; box-shadow: var(--shadow-control); color: rgb(var(--text)); display: inline-flex; font-size: 13px; gap: 7px; min-height: 38px; padding: 7px 12px; white-space: nowrap; }
+.hall-action:disabled { cursor: default; opacity: 0.45; }
+.hall-visibility { align-items: center; cursor: pointer; display: flex; font-size: 13px; gap: 8px; margin-left: auto; min-height: 38px; }
+.hall-visibility input { appearance: none; background: #b7bfd2; border: 0; border-radius: 20px; cursor: pointer; flex: 0 0 34px; height: 20px; margin: 0; padding: 0; position: relative; width: 34px; }
+.hall-visibility input::before { background: #ffffff; border-radius: 50%; content: ''; height: 14px; left: 3px; position: absolute; top: 3px; width: 14px; }
+.hall-visibility input:checked { background: var(--brand-strong); }
+.hall-visibility input:checked::before { transform: translateX(14px); }
+.hall-visibility [data-hall-visibility-label] { font-size: 11px; min-width: 22px; }
+.hall-collection[data-show-unachieved='false'] .hall-chart--unachieved,
+.hall-collection[data-show-unachieved='false'] .hall-jackets[data-perfect-count='0'] { display: none; }
+
 .hall-collection {
 	animation: hall-prism 12s linear infinite;
 	border-top: 1px solid transparent;
@@ -43,6 +55,8 @@
 .hall-chart:nth-child(3n) { --hall-prism-offset: 240deg; }
 .hall-chart:hover { box-shadow: 0 4px 10px #00000026; transform: translateY(-2px); }
 .hall-chart .song-artwork { border: 0; border-radius: 3px; box-shadow: none; height: 100%; width: 100%; }
+.hall-chart--unachieved { background: #cbd1dc; }
+.hall-chart--unachieved .song-artwork { filter: grayscale(1); opacity: 0.6; }
 .hall-type {
 	align-items: center;
 	border-radius: 2px;

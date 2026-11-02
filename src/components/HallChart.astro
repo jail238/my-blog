@@ -1,0 +1,24 @@
+---
+import SongArtwork from './SongArtwork.astro';
+import { songById, type Chart } from '../data/maimai';
+
+interface Props {
+	chart: Chart;
+	constant: number;
+}
+
+const { chart, constant } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const song = songById.get(chart.songId)!;
+const perfect = chart.record?.combo === 'AP' || chart.record?.combo === 'AP+';
+const typeLabel = chart.type === 'STANDARD' ? 'ST' : 'DX';
+const difficultyClass = chart.difficulty === 'Re:MASTER' ? 'remaster' : chart.difficulty.toLowerCase();
+const status = perfect ? chart.record!.combo : 'Not yet AP';
+const label = `${song.title} · ${typeLabel} ${chart.difficulty} · Lv ${chart.level} (${constant.toFixed(1)}) · ${status} · ${chart.record?.achievement ?? 'Not played'}`;
+---
+
+<a class:list={['hall-chart', { 'hall-chart--unachieved': !perfect }]} href={`${base}/songs/${song.id}/`} aria-label={label} title={label} data-chart-id={chart.id}>
+	<SongArtwork song={song} />
+	<span class:list={['hall-type', `difficulty-${difficultyClass}`]}><span class="hall-type-label">{typeLabel}</span></span>
+	<strong class="hall-achievement">{chart.record?.achievement ?? '-'}</strong>
+</a>

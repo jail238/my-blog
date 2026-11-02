@@ -22,6 +22,7 @@ test('Hall of Fame counts AP and AP+ only, but includes every chart in the denom
 	assert.equal(group.constant, 10.5);
 	assert.equal(group.totalCount, 5);
 	assert.deepEqual(group.perfectCharts.map(({ id }) => id), ['app', 'ap']);
+	assert.deepEqual(group.unachievedCharts.map(({ id }) => id), ['score-only', 'fc', 'unplayed']);
 	assert.equal(charts[0].id, 'ap', 'Do not mutate the shared catalog ordering');
 });
 
@@ -72,6 +73,10 @@ test('Hall of Fame rebuilds all numerators and denominators from current snapsho
 		charts.filter((item) => ['AP', 'AP+'].includes(item.record?.combo)).length);
 	assert.equal(new Set(groups.flatMap((group) => group.perfectCharts.map(({ id }) => id))).size,
 		groups.reduce((sum, group) => sum + group.perfectCharts.length, 0));
+	const allCharts = groups.flatMap((group) => [...group.perfectCharts, ...group.unachievedCharts]);
+	assert.equal(allCharts.length, charts.length);
+	assert.equal(new Set(allCharts.map(({ id }) => id)).size, charts.length);
+	assert.ok(groups.flatMap((group) => group.unachievedCharts).every((item) => !['AP', 'AP+'].includes(item.record?.combo)));
 	for (const group of groups) {
 		assert.equal(group.totalCount, charts.filter((item) => item.constant.toFixed(1) === group.constant.toFixed(1)).length);
 	}
@@ -82,14 +87,15 @@ test('Hall of Fame rebuilds all numerators and denominators from current snapsho
 
 test('Hall of Fame offers accessible song links, exact scores, difficulty colors and reduced motion', () => {
 	const page = readFileSync(new URL('../src/pages/hall-of-fame/index.astro', import.meta.url), 'utf8');
+	const tile = readFileSync(new URL('../src/components/HallChart.astro', import.meta.url), 'utf8');
 	assert.match(page, /hallOfFameGroups\(CHARTS\)/);
 	assert.match(page, /\{perfectCharts\.length\}\/\{totalCount\}/);
-	assert.match(page, /href=\{`\$\{base\}\/songs\/\$\{song\.id\}\/`\}/);
-	assert.match(page, /aria-label=\{label\} title=\{label\}/);
-	assert.match(page, /\{chart\.record\?\.achievement\}/);
+	assert.match(tile, /href=\{`\$\{base\}\/songs\/\$\{song\.id\}\/`\}/);
+	assert.match(tile, /aria-label=\{label\} title=\{label\}/);
+	assert.match(tile, /\{chart\.record\?\.achievement \?\? '-'/);
 	assert.doesNotMatch(page, /ComboIcon|SSS\+|average|combo-icon/i);
 	const css = readFileSync(new URL('../src/styles/hall-of-fame.css', import.meta.url), 'utf8');
-	assert.match(page, /`difficulty-\$\{difficultyClass\}`/);
+	assert.match(tile, /`difficulty-\$\{difficultyClass\}`/);
 	assert.match(css, /conic-gradient/);
 	assert.match(css, /prefers-reduced-motion: reduce/);
 	assert.match(css, /\.hall-collection \{ animation: none; \}/);
@@ -98,7 +104,7 @@ test('Hall of Fame offers accessible song links, exact scores, difficulty colors
 });
 
 test('Hall of Fame uses shared pastel badges with legible text and mobile optical centering', () => {
-	const page = readFileSync(new URL('../src/pages/hall-of-fame/index.astro', import.meta.url), 'utf8');
+	const page = readFileSync(new URL('../src/components/HallChart.astro', import.meta.url), 'utf8');
 	const css = readFileSync(new URL('../src/styles/hall-of-fame.css', import.meta.url), 'utf8');
 	const global = readFileSync(new URL('../src/styles/global.css', import.meta.url), 'utf8');
 	const luminance = (hex) => {
@@ -124,13 +130,32 @@ test('each constant group starts collapsed and can unfold independently with nat
 	assert.match(page, /<details class="hall-group" aria-labelledby=\{`constant-\$\{Math\.round\(constant \* 10\)\}`\} data-constant=\{constant\.toFixed\(1\)\}>/);
 	for (const [details] of page.matchAll(/<details\b[^>]*>/g)) assert.doesNotMatch(details, /\sopen(?:\s|=|>)/);
 	assert.match(page, /<summary class="hall-group-heading">\s*<h2 id=/);
-	assert.match(page, /import \{ ChevronDown \} from '@lucide\/astro'/);
+	assert.match(page, /import \{[^}]*\bChevronDown\b[^}]*\} from '@lucide\/astro'/);
 	assert.match(page, /<ChevronDown class="hall-toggle-icon" aria-hidden="true" \/>/);
 	const summary = page.split('<summary class="hall-group-heading">')[1].split('</summary>')[0];
 	for (const text of ['constant.toFixed(1)', 'Lv {level}', '{perfectCharts.length}/{totalCount}']) assert.ok(summary.includes(text));
 	assert.ok(page.indexOf('class="hall-jackets"') > page.indexOf('</summary>'));
 	assert.doesNotMatch(page.match(/<details[^>]+>/)?.[0] ?? '', /\bname=/);
-	assert.doesNotMatch(page, /<script|localStorage|\shidden=/);
+	assert.doesNotMatch(page, /localStorage/);
+	assert.match(page, /initializeHallOfFame\(document\.querySelector\('\.hall-page'\)\)/);
+});
+
+test('unachieved charts are inert by default, keep AP counts separate and use neutral jackets', () => {
+	const page = readFileSync(new URL('../src/pages/hall-of-fame/index.astro', import.meta.url), 'utf8');
+	const tile = readFileSync(new URL('../src/components/HallChart.astro', import.meta.url), 'utf8');
+	const css = readFileSync(new URL('../src/styles/hall-of-fame.css', import.meta.url), 'utf8');
+	assert.match(page, /id="hall-show-unachieved" type="checkbox" role="switch"/);
+	assert.doesNotMatch(page.match(/<input id="hall-show-unachieved"[^>]*>/)?.[0] ?? '', /\bchecked\b/);
+	assert.match(page, /id="hall-collection" data-show-unachieved="false"/);
+	assert.match(page, /<template data-hall-unachieved>[\s\S]*unachievedCharts\.map/);
+	assert.match(page, /perfectCharts\.map\(\(chart\) => <HallChart/);
+	assert.match(tile, /'hall-chart--unachieved': !perfect/);
+	assert.match(tile, /'Not yet AP'/);
+	assert.match(tile, /'Not played'/);
+	assert.match(css, /\.hall-chart--unachieved \.song-artwork \{ filter: grayscale\(1\); opacity: 0\.6; \}/);
+	assert.match(css, /\[data-show-unachieved='false'\] \.hall-chart--unachieved/);
+	assert.match(css, /\[data-show-unachieved='false'\] \.hall-jackets\[data-perfect-count='0'\]/);
+	assert.doesNotMatch(css, /\.hall-chart--unachieved:hover[^}]*grayscale\(0\)/);
 });
 
 test('fold arrows expose focus, hide duplicate native markers and respect reduced motion', () => {

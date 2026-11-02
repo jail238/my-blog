@@ -2,10 +2,10 @@
 
 /**
  * @param {readonly Chart[]} charts
- * @returns {{ constant: number, level: string, totalCount: number, perfectCharts: Chart[] }[]}
+ * @returns {{ constant: number, level: string, totalCount: number, perfectCharts: Chart[], unachievedCharts: Chart[] }[]}
  */
 export function hallOfFameGroups(charts) {
-	/** @type {Map<number, { constant: number, level: string, totalCount: number, perfectCharts: Chart[] }>} */
+	/** @type {Map<number, { constant: number, level: string, totalCount: number, perfectCharts: Chart[], unachievedCharts: Chart[] }>} */
 	const groups = new Map();
 	for (const chart of charts) {
 		if (typeof chart.constant !== 'number' || !Number.isFinite(chart.constant)) continue;
@@ -13,11 +13,12 @@ export function hallOfFameGroups(charts) {
 		const tenths = Math.round(chart.constant * 10);
 		let group = groups.get(tenths);
 		if (!group) {
-			group = { constant: tenths / 10, level: chart.level, totalCount: 0, perfectCharts: [] };
+			group = { constant: tenths / 10, level: chart.level, totalCount: 0, perfectCharts: [], unachievedCharts: [] };
 			groups.set(tenths, group);
 		}
 		group.totalCount += 1;
 		if (chart.record?.combo === 'AP' || chart.record?.combo === 'AP+') group.perfectCharts.push(chart);
+		else group.unachievedCharts.push(chart);
 	}
 
 	for (const group of groups.values()) {
@@ -25,6 +26,9 @@ export function hallOfFameGroups(charts) {
 			Number(b.record?.combo === 'AP+') - Number(a.record?.combo === 'AP+') ||
 			(b.record?.achievementValue ?? 0) - (a.record?.achievementValue ?? 0) ||
 			a.id.localeCompare(b.id),
+		);
+		group.unachievedCharts.sort((a, b) =>
+			(b.record?.achievementValue ?? 0) - (a.record?.achievementValue ?? 0) || a.id.localeCompare(b.id),
 		);
 	}
 	return [...groups.values()].sort((a, b) => b.constant - a.constant);
