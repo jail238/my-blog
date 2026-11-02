@@ -127,7 +127,7 @@ test('Hall of Fame uses shared pastel badges with legible text and mobile optica
 
 test('each constant group starts collapsed and can unfold independently with native keyboard-accessible details', () => {
 	const page = readFileSync(new URL('../src/pages/hall-of-fame/index.astro', import.meta.url), 'utf8');
-	assert.match(page, /<details class="hall-group" aria-labelledby=\{`constant-\$\{Math\.round\(constant \* 10\)\}`\} data-constant=\{constant\.toFixed\(1\)\}>/);
+	assert.match(page, /<details class="hall-group" aria-labelledby=\{`constant-\$\{Math\.round\(constant \* 10\)\}`\} data-constant=\{constant\.toFixed\(1\)\} data-level=\{level\} data-perfect-count=\{perfectCharts\.length\} data-total-count=\{totalCount\}>/);
 	for (const [details] of page.matchAll(/<details\b[^>]*>/g)) assert.doesNotMatch(details, /\sopen(?:\s|=|>)/);
 	assert.match(page, /<summary class="hall-group-heading">\s*<h2 id=/);
 	assert.match(page, /import \{[^}]*\bChevronDown\b[^}]*\} from '@lucide\/astro'/);
@@ -138,6 +138,19 @@ test('each constant group starts collapsed and can unfold independently with nat
 	assert.doesNotMatch(page.match(/<details[^>]+>/)?.[0] ?? '', /\bname=/);
 	assert.doesNotMatch(page, /localStorage/);
 	assert.match(page, /initializeHallOfFame\(document\.querySelector\('\.hall-page'\)\)/);
+});
+
+test('level controls derive options from the shared catalog and keep full SSR coverage', () => {
+	const page = readFileSync(new URL('../src/pages/hall-of-fame/index.astro', import.meta.url), 'utf8');
+	const css = readFileSync(new URL('../src/styles/hall-of-fame.css', import.meta.url), 'utf8');
+	assert.match(page, /const levels = registeredLevels\(\)/);
+	assert.match(page, /<select id="hall-level" aria-label="Level" aria-controls="hall-collection">/);
+	assert.match(page, /<option value="">All levels<\/option>/);
+	assert.match(page, /levels\.map\(\(level\) => <option value=\{level\}>Lv \{level\}/);
+	assert.match(page, /id="hall-coverage" aria-live="polite" aria-atomic="true"/);
+	assert.match(page, /groups\.map\(\(\{ constant, level, totalCount, perfectCharts, unachievedCharts \}\)/);
+	assert.match(css, /@media \(max-width: 720px\)[\s\S]*\.hall-action \{ order: 2; \}/);
+	assert.match(css, /\.hall-level-filter select \{[^}]*font-size: 16px/);
 });
 
 test('unachieved charts are inert by default, keep AP counts separate and use neutral jackets', () => {

@@ -5,6 +5,8 @@
 }
 
 .hall-controls { align-items: center; display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+.hall-level-filter { align-items: center; display: flex; font-size: 13px; gap: 8px; }
+.hall-level-filter select { background: var(--surface); border-radius: 6px; color: rgb(var(--text)); font-size: 16px; min-height: 38px; min-width: 112px; padding: 5px 9px; }
 .hall-action { align-items: center; background: var(--surface); border-radius: 6px; box-shadow: var(--shadow-control); color: rgb(var(--text)); display: inline-flex; font-size: 13px; gap: 7px; min-height: 38px; padding: 7px 12px; white-space: nowrap; }
 .hall-action:disabled { cursor: default; opacity: 0.45; }
 .hall-visibility { align-items: center; cursor: pointer; display: flex; font-size: 13px; gap: 8px; margin-left: auto; min-height: 38px; }
@@ -92,6 +94,10 @@
 @keyframes hall-prism { to { --hall-prism-angle: 360deg; } }
 
 @media (max-width: 720px) {
+	.hall-level-filter > span { clip-path: inset(50%); height: 1px; overflow: hidden; position: absolute; white-space: nowrap; width: 1px; }
+	.hall-level-filter select { min-width: 100px; padding-inline: 7px; }
+	.hall-visibility { order: 1; }
+	.hall-action { order: 2; }
 	.hall-group { padding: 12px; }
 	.hall-page .hall-group-heading h2 { scroll-margin-top: 96px; }
 	.hall-jackets { gap: 8px; grid-template-columns: repeat(auto-fill, 72px); }

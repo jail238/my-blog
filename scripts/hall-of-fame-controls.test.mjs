@@ -6,14 +6,19 @@ function fixture(count = 3) {
 	const expand = new EventTarget();
 	const collapse = new EventTarget();
 	const show = Object.assign(new EventTarget(), { checked: false });
+	const level = Object.assign(new EventTarget(), { value: '' });
+	const coverage = { textContent: '' };
 	const label = { textContent: '' };
 	const controls = { hidden: true };
-	const groups = Array.from({ length: count }, () => {
+	const groups = Array.from({ length: count }, (_, index) => {
 		let pending = true;
 		const jackets = { appended: 0, append() { this.appended++; } };
 		const template = { content: { cloneNode: () => ({}) }, remove() { pending = false; } };
 		return Object.assign(new EventTarget(), {
-			open: false, jackets,
+			open: false, hidden: false, jackets,
+			dataset: index < 2
+				? { level: '3', perfectCount: String(1 - index), totalCount: String(2 + index) }
+				: { level: '12+', perfectCount: '2', totalCount: '5' },
 			querySelector(selector) {
 				if (selector === '.hall-jackets') return jackets;
 				if (selector === 'template[data-hall-unachieved]') return pending ? template : null;
@@ -24,6 +29,7 @@ function fixture(count = 3) {
 	const collection = { dataset: {}, querySelectorAll: () => groups };
 	const nodes = new Map([
 		['.hall-controls', controls], ['#hall-collection', collection],
+		['#hall-level', level], ['#hall-coverage', coverage],
 		['#hall-expand-all', expand], ['#hall-collapse-all', collapse],
 		['#hall-show-unachieved', show], ['[data-hall-visibility-label]', label],
 	]);
@@ -31,7 +37,8 @@ function fixture(count = 3) {
 	const click = (button) => button.dispatchEvent(new Event('click'));
 	const setShow = (checked) => { show.checked = checked; show.dispatchEvent(new Event('change')); };
 	const setOpen = (index, open) => { groups[index].open = open; groups[index].dispatchEvent(new Event('toggle')); };
-	return { expand, collapse, show, label, controls, groups, collection, click, setShow, setOpen };
+	const selectLevel = (value) => { level.value = value; level.dispatchEvent(new Event('change')); };
+	return { expand, collapse, show, label, controls, groups, collection, level, coverage, click, setShow, setOpen, selectLevel };
 }
 
 test('controls initialize collapsed and AP-only without hydrating unachieved jackets', () => {
@@ -42,6 +49,8 @@ test('controls initialize collapsed and AP-only without hydrating unachieved jac
 	assert.equal(state.show.checked, false);
 	assert.equal(state.collection.dataset.showUnachieved, 'false');
 	assert.equal(state.label.textContent, 'OFF');
+	assert.equal(state.level.value, '');
+	assert.equal(state.coverage.textContent, '3/10');
 	assert.ok(state.groups.every((group) => !group.open && group.jackets.appended === 0));
 });
 
@@ -103,4 +112,54 @@ test('absent and empty collections do not break initialization', () => {
 	const state = fixture(0);
 	assert.equal(state.expand.disabled, true);
 	assert.equal(state.collapse.disabled, true);
+	assert.equal(state.coverage.textContent, '0/0');
+});
+
+test('levels filter exact labels including plus levels, and All levels restores coverage', () => {
+	const state = fixture();
+	state.selectLevel('3');
+	assert.deepEqual(state.groups.map((group) => group.hidden), [false, false, true]);
+	assert.equal(state.coverage.textContent, '1/5');
+	state.setShow(true);
+	assert.equal(state.coverage.textContent, '1/5');
+	state.selectLevel('12+');
+	assert.deepEqual(state.groups.map((group) => group.hidden), [true, true, false]);
+	assert.equal(state.coverage.textContent, '2/5');
+	state.selectLevel('');
+	assert.ok(state.groups.every((group) => !group.hidden));
+	assert.equal(state.coverage.textContent, '3/10');
+});
+
+test('bulk controls and lazy hydration affect only the selected level without losing hidden open states', () => {
+	const state = fixture();
+	state.setOpen(2, true);
+	state.selectLevel('3');
+	state.setShow(true);
+	assert.ok(state.groups.every((group) => group.jackets.appended === 0));
+	state.click(state.expand);
+	assert.deepEqual(state.groups.map((group) => group.jackets.appended), [1, 1, 0]);
+	assert.equal(state.expand.disabled, true);
+	state.click(state.collapse);
+	assert.deepEqual(state.groups.map((group) => group.open), [false, false, true]);
+	assert.equal(state.collapse.disabled, true);
+	state.selectLevel('12+');
+	assert.equal(state.expand.disabled, true);
+	assert.equal(state.collapse.disabled, false);
+	assert.deepEqual(state.groups.map((group) => group.jackets.appended), [1, 1, 1]);
+	state.selectLevel('');
+	assert.equal(state.expand.disabled, false);
+	assert.equal(state.collapse.disabled, false);
+	assert.deepEqual(state.groups.map((group) => group.jackets.appended), [1, 1, 1]);
+});
+
+test('empty level results disable bulk controls and recover when All levels is selected', () => {
+	const state = fixture();
+	state.selectLevel('15');
+	assert.ok(state.groups.every((group) => group.hidden));
+	assert.equal(state.coverage.textContent, '0/0');
+	assert.equal(state.expand.disabled, true);
+	assert.equal(state.collapse.disabled, true);
+	state.selectLevel('');
+	assert.equal(state.expand.disabled, false);
+	assert.equal(state.coverage.textContent, '3/10');
 });

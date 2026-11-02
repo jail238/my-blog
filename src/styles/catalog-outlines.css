@@ -16,7 +16,7 @@ main.catalog-page:not(.maimai-home) :where(
   .difficulty-chart-page-size, .difficulty-chart-sort-toggle,
   .difficulty-chart-direction-toggle, .level-chart-view-toggle,
   .difficulty-chart-pagination button, .level-strip a.active,
-  .record-refresh-button, .perfect-video-button, .perfect-video-icon, .hall-action,
+  .record-refresh-button, .perfect-video-button, .perfect-video-icon, .hall-action, .hall-level-filter select,
   .song-chart-ap-video, .perfect-video-dialog, .perfect-video-dialog input,
   .video-manager-filters input:not([type='checkbox']):not([type='radio']),
   .video-manager-filters select, .video-collection-card,
