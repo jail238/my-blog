@@ -115,40 +115,49 @@ test('absent and empty collections do not break initialization', () => {
 	assert.equal(state.coverage.textContent, '0/0');
 });
 
-test('levels filter exact labels including plus levels, and All levels restores coverage', () => {
+test('individual levels open automatically and All levels restores collapsed full coverage', () => {
 	const state = fixture();
 	state.selectLevel('3');
 	assert.deepEqual(state.groups.map((group) => group.hidden), [false, false, true]);
+	assert.deepEqual(state.groups.map((group) => group.open), [true, true, false]);
+	assert.ok(state.groups.every((group) => group.jackets.appended === 0));
 	assert.equal(state.coverage.textContent, '1/5');
 	state.setShow(true);
 	assert.equal(state.coverage.textContent, '1/5');
 	state.selectLevel('12+');
 	assert.deepEqual(state.groups.map((group) => group.hidden), [true, true, false]);
+	assert.deepEqual(state.groups.map((group) => group.open), [false, false, true]);
 	assert.equal(state.coverage.textContent, '2/5');
 	state.selectLevel('');
 	assert.ok(state.groups.every((group) => !group.hidden));
+	assert.ok(state.groups.every((group) => !group.open));
 	assert.equal(state.coverage.textContent, '3/10');
 });
 
-test('bulk controls and lazy hydration affect only the selected level without losing hidden open states', () => {
+test('manual folding and lazy hydration still work after automatic level expansion', () => {
 	const state = fixture();
 	state.setOpen(2, true);
 	state.selectLevel('3');
 	state.setShow(true);
-	assert.ok(state.groups.every((group) => group.jackets.appended === 0));
-	state.click(state.expand);
 	assert.deepEqual(state.groups.map((group) => group.jackets.appended), [1, 1, 0]);
 	assert.equal(state.expand.disabled, true);
 	state.click(state.collapse);
-	assert.deepEqual(state.groups.map((group) => group.open), [false, false, true]);
+	assert.deepEqual(state.groups.map((group) => group.open), [false, false, false]);
 	assert.equal(state.collapse.disabled, true);
+	state.setShow(false);
+	state.setShow(true);
+	assert.ok(state.groups.every((group) => !group.open));
+	state.click(state.expand);
+	assert.deepEqual(state.groups.map((group) => group.open), [true, true, false]);
+	assert.deepEqual(state.groups.map((group) => group.jackets.appended), [1, 1, 0]);
 	state.selectLevel('12+');
 	assert.equal(state.expand.disabled, true);
 	assert.equal(state.collapse.disabled, false);
 	assert.deepEqual(state.groups.map((group) => group.jackets.appended), [1, 1, 1]);
 	state.selectLevel('');
 	assert.equal(state.expand.disabled, false);
-	assert.equal(state.collapse.disabled, false);
+	assert.equal(state.collapse.disabled, true);
+	assert.ok(state.groups.every((group) => !group.open));
 	assert.deepEqual(state.groups.map((group) => group.jackets.appended), [1, 1, 1]);
 });
 

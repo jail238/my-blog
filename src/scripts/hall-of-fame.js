@@ -28,7 +28,10 @@ export function initializeHallOfFame(root) {
 	}
 
 	function filterLevel() {
-		for (const group of groups) group.hidden = !!level.value && group.dataset.level !== level.value;
+		for (const group of groups) {
+			group.hidden = !!level.value && group.dataset.level !== level.value;
+			group.open = !!level.value && !group.hidden;
+		}
 		const visible = visibleGroups();
 		const perfect = visible.reduce((sum, group) => sum + Number(group.dataset.perfectCount), 0);
 		const total = visible.reduce((sum, group) => sum + Number(group.dataset.totalCount), 0);
