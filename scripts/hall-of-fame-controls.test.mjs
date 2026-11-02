@@ -2,11 +2,14 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { initializeHallOfFame } from '../src/scripts/hall-of-fame.js';
 
-function fixture(count = 3) {
+function fixture(count = 3, { initialLevel = '', initialShow = false } = {}) {
 	const expand = new EventTarget();
 	const collapse = new EventTarget();
-	const show = Object.assign(new EventTarget(), { checked: false });
-	const level = Object.assign(new EventTarget(), { value: '' });
+	const show = Object.assign(new EventTarget(), { checked: initialShow });
+	const level = Object.assign(new EventTarget(), { value: initialLevel });
+	const frames = [];
+	const view = Object.assign(new EventTarget(), { requestAnimationFrame(callback) { frames.push(callback); } });
+	const flushFrames = () => { while (frames.length) frames.shift()(); };
 	const coverage = { textContent: '' };
 	const label = { textContent: '' };
 	const controls = { hidden: true };
@@ -33,12 +36,12 @@ function fixture(count = 3) {
 		['#hall-expand-all', expand], ['#hall-collapse-all', collapse],
 		['#hall-show-unachieved', show], ['[data-hall-visibility-label]', label],
 	]);
-	initializeHallOfFame({ querySelector: (selector) => nodes.get(selector) });
+	initializeHallOfFame({ querySelector: (selector) => nodes.get(selector), ownerDocument: { defaultView: view } });
 	const click = (button) => button.dispatchEvent(new Event('click'));
 	const setShow = (checked) => { show.checked = checked; show.dispatchEvent(new Event('change')); };
 	const setOpen = (index, open) => { groups[index].open = open; groups[index].dispatchEvent(new Event('toggle')); };
 	const selectLevel = (value) => { level.value = value; level.dispatchEvent(new Event('change')); };
-	return { expand, collapse, show, label, controls, groups, collection, level, coverage, click, setShow, setOpen, selectLevel };
+	return { expand, collapse, show, label, controls, groups, collection, level, coverage, click, setShow, setOpen, selectLevel, view, flushFrames };
 }
 
 test('controls initialize collapsed and AP-only without hydrating unachieved jackets', () => {
@@ -171,4 +174,73 @@ test('empty level results disable bulk controls and recover when All levels is s
 	state.selectLevel('');
 	assert.equal(state.expand.disabled, false);
 	assert.equal(state.coverage.textContent, '3/10');
+});
+
+test('controls restored before initialization are not reset independently of the rendered view', () => {
+	const state = fixture(3, { initialLevel: '12+', initialShow: true });
+	assert.equal(state.level.value, '12+');
+	assert.equal(state.show.checked, true);
+	assert.equal(state.coverage.textContent, '2/5');
+	assert.equal(state.collection.dataset.showUnachieved, 'true');
+	assert.equal(state.label.textContent, 'ON');
+	assert.deepEqual(state.groups.map((group) => group.hidden), [true, true, false]);
+	assert.deepEqual(state.groups.map((group) => group.open), [false, false, true]);
+	assert.deepEqual(state.groups.map((group) => group.jackets.appended), [0, 0, 1]);
+});
+
+test('pageshow reconciles form values restored after the event without change events', () => {
+	const state = fixture();
+	state.view.dispatchEvent(new Event('pageshow'));
+	state.level.value = '12+';
+	state.show.checked = true;
+	state.flushFrames();
+	assert.equal(state.coverage.textContent, '2/5');
+	assert.equal(state.collection.dataset.showUnachieved, 'true');
+	assert.equal(state.label.textContent, 'ON');
+	assert.deepEqual(state.groups.map((group) => group.hidden), [true, true, false]);
+	assert.deepEqual(state.groups.map((group) => group.open), [false, false, true]);
+	assert.deepEqual(state.groups.map((group) => group.jackets.appended), [0, 0, 1]);
+});
+
+test('history restoration to All and OFF restores full collapsed coverage and switch label', () => {
+	const state = fixture();
+	state.selectLevel('12+');
+	state.setShow(true);
+	state.view.dispatchEvent(new Event('popstate'));
+	state.level.value = '';
+	state.show.checked = false;
+	state.flushFrames();
+	assert.equal(state.coverage.textContent, '3/10');
+	assert.equal(state.collection.dataset.showUnachieved, 'false');
+	assert.equal(state.label.textContent, 'OFF');
+	assert.ok(state.groups.every((group) => !group.hidden && !group.open));
+});
+
+test('repeated page restoration with unchanged level preserves manual folding and does not duplicate jackets', () => {
+	const state = fixture();
+	state.selectLevel('12+');
+	state.setShow(true);
+	state.click(state.collapse);
+	for (let index = 0; index < 3; index++) {
+		state.view.dispatchEvent(new Event('pageshow'));
+		state.flushFrames();
+	}
+	assert.ok(state.groups.every((group) => !group.open));
+	assert.equal(state.coverage.textContent, '2/5');
+	assert.deepEqual(state.groups.map((group) => group.jackets.appended), [0, 0, 1]);
+});
+
+test('native input events keep level and switch state synchronized without waiting for change', () => {
+	const state = fixture();
+	state.level.value = '3';
+	state.level.dispatchEvent(new Event('input'));
+	state.show.checked = true;
+	state.show.dispatchEvent(new Event('input'));
+	assert.equal(state.coverage.textContent, '1/5');
+	assert.equal(state.collection.dataset.showUnachieved, 'true');
+	assert.equal(state.label.textContent, 'ON');
+	assert.deepEqual(state.groups.map((group) => group.open), [true, true, false]);
+	state.click(state.collapse);
+	state.level.dispatchEvent(new Event('change'));
+	assert.ok(state.groups.every((group) => !group.open));
 });

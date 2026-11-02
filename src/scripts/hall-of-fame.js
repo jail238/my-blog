@@ -11,6 +11,7 @@ export function initializeHallOfFame(root) {
 	const visibilityLabel = root.querySelector('[data-hall-visibility-label]');
 	const groups = [...collection.querySelectorAll('details.hall-group')];
 	const visibleGroups = () => groups.filter((group) => !group.hidden);
+	let renderedLevel;
 
 	function hydrate(group) {
 		if (!showUnachieved.checked || !group.open || group.hidden) return;
@@ -38,6 +39,17 @@ export function initializeHallOfFame(root) {
 		coverage.textContent = `${perfect.toLocaleString('en-US')}/${total.toLocaleString('en-US')}`;
 		visible.forEach(hydrate);
 		syncButtons();
+		renderedLevel = level.value;
+	}
+
+	function reconcileControls() {
+		collection.dataset.showUnachieved = String(showUnachieved.checked);
+		visibilityLabel.textContent = showUnachieved.checked ? 'ON' : 'OFF';
+		if (level.value !== renderedLevel) filterLevel();
+		else {
+			visibleGroups().forEach(hydrate);
+			syncButtons();
+		}
 	}
 
 	for (const group of groups) {
@@ -57,16 +69,17 @@ export function initializeHallOfFame(root) {
 		for (const group of visibleGroups()) group.open = false;
 		syncButtons();
 	});
-	showUnachieved.addEventListener('change', () => {
-		collection.dataset.showUnachieved = String(showUnachieved.checked);
-		visibilityLabel.textContent = showUnachieved.checked ? 'ON' : 'OFF';
-		if (showUnachieved.checked) groups.forEach(hydrate);
-	});
-	level.addEventListener('change', filterLevel);
-	level.value = '';
-	showUnachieved.checked = false;
-	collection.dataset.showUnachieved = 'false';
-	visibilityLabel.textContent = 'OFF';
+	for (const control of [level, showUnachieved]) {
+		control.addEventListener('input', reconcileControls);
+		control.addEventListener('change', reconcileControls);
+	}
 	controls.hidden = false;
-	filterLevel();
+	reconcileControls();
+	const view = root.ownerDocument?.defaultView;
+	if (view) {
+		// History traversal can restore form controls after pageshow without firing change.
+		const afterRestore = () => view.requestAnimationFrame(reconcileControls);
+		view.addEventListener('pageshow', afterRestore);
+		view.addEventListener('popstate', afterRestore);
+	}
 }
