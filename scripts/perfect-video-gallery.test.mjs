@@ -145,6 +145,15 @@ test('desktop uses compact auto-filled cards while mobile keeps its existing two
   assert.doesNotMatch(css, /@media \(max-width: 1000px\)/);
 });
 
+test('mobile jackets stay compact without cropping or narrowing the one-line chart metadata', () => {
+  const css = read('../src/styles/perfect-video-gallery.css');
+  const mobile = css.slice(css.indexOf('@media (max-width: 760px)'), css.indexOf('@media (max-width: 359px)'));
+  assert.match(mobile, /\.video-collection-artwork \{[^}]*align-self: center;[^}]*max-width: calc\(100% - 24px\); width: 120px;/);
+  assert.match(mobile, /\.video-collection-play \{ bottom: 6px; height: 32px; right: 6px; width: 32px;/);
+  assert.doesNotMatch(mobile, /\.video-collection-cover|object-fit:|\.video-collection-card\s*\{/);
+  assert.match(css, /\.video-collection-tags \{[^}]*flex-wrap: nowrap;/);
+});
+
 test('chart type, full difficulty name and level stay together on one metadata line', () => {
   const css = read('../src/styles/perfect-video-gallery.css');
   assert.match(css, /\.video-collection-tags \{[^}]*flex-wrap: nowrap;[^}]*gap: 6px;[^}]*white-space: nowrap;/);

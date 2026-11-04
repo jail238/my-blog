@@ -68,6 +68,13 @@ test('home record actions align right and put refresh before AP video management
   assert.match(css, /\.record-gallery-heading-meta\s*\{[^}]*flex-wrap:\s*wrap;[^}]*width:\s*100%/);
 });
 
+test('home summary gives rating the widest underline instead of retaining the old class proportions', () => {
+  const css = readFileSync(new URL('src/styles/global.css', root), 'utf8');
+  const rules = [...css.matchAll(/\.profile-metrics\s*\{([^}]+)\}/g)].map((match) => match[1]);
+  assert.match(rules[0], /grid-template-columns: minmax\(78px, 0\.9fr\) minmax\(0, 1\.2fr\) minmax\(0, 1fr\)/);
+  for (const rule of rules.slice(1)) assert.doesNotMatch(rule, /grid-template-columns:/);
+});
+
 test('home cover uses the full image ratio rather than a cropped fixed-height banner', () => {
   const css = readFileSync(new URL('src/styles/global.css', root), 'utf8');
   for (const [, rule] of css.matchAll(/\.archive-cover\s*\{([^}]+)\}/g)) {

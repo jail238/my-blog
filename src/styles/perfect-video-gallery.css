@@ -27,10 +27,11 @@
   .video-collection-filters input { font-size: 16px; }
   .video-collection-filters select { font-size: 12px; padding: 0 6px; }
   .video-collection-grid { gap: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .video-collection-artwork { align-self: center; border-radius: 4px; margin-top: 12px; max-width: calc(100% - 24px); width: 120px; }
   .video-collection-copy { gap: 10px; padding: 10px; }
   .video-collection-titles > a { font-size: 13px; }
   .video-collection-footer { font-size: 11px; }
-  .video-collection-play { height: 32px; width: 32px; }
+  .video-collection-play { bottom: 6px; height: 32px; right: 6px; width: 32px; }
   .video-collection-footer a { flex-basis: 28px; height: 32px; }
 }
 @media (max-width: 359px) {
