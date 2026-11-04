@@ -1,4 +1,5 @@
 import { catalogArtworkUrl } from './catalog-artwork.mjs';
+import { catalogGenre } from './catalog-genre.mjs';
 
 export const MAISHIFT_CATALOG_DRIFT = 'MAISHIFT_CATALOG_DRIFT';
 
@@ -81,7 +82,7 @@ export function addMaishiftCatalogFallbacks(catalog, recordsData) {
 				sourceId,
 				title: normalizeTitle(sourceSong.title),
 				artist: sourceSong.artist,
-				genre: genreLabel(sourceSong.genre),
+				genre: catalogGenre(normalizedTitle, sourceSong.artist, genreLabel(sourceSong.genre)),
 				artworkUrl: catalogArtworkUrl(normalizedTitle, sourceSong.artist, sourceSong.jacketUrl),
 				metadataSource: 'maishift',
 			};

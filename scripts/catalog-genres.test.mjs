@@ -2,9 +2,31 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
 import { genreGroups, genreInfo } from '../src/utils/catalog-genres.js';
+import { addMaishiftCatalogFallbacks } from './maishift-catalog-fallback.mjs';
+import { catalogGenre } from './catalog-genre.mjs';
 
 const root = new URL('../', import.meta.url);
 const catalog = JSON.parse(readFileSync(new URL('src/data/maimai.generated.json', root), 'utf8'));
+
+test('OV3RCLOCK uses the in-game maimai folder in the site catalog and pinned metadata', () => {
+  const pinned = JSON.parse(readFileSync(new URL('src/data/circle-plus.generated.json', root), 'utf8'));
+  const groups = genreGroups(catalog.songs);
+  const song = groups.find((group) => group.id === 'maimai').songs.find((song) => song.id === 'maishift-18942');
+  assert.equal(song.title, 'OV3RCLOCK');
+  assert.equal(pinned.songs.find((entry) => entry.songId === song.id).fallbackMetadata.genre, song.genre);
+  assert.ok(!groups.find((group) => group.id === 'other')?.songs.some((entry) => entry.id === song.id));
+});
+
+test('Maishift fallback restores the verified folder without guessing other missing genres', () => {
+  const fallback = { versions: [{ id: 'circle-plus', order: 27 }], songs: [], charts: [] };
+  addMaishiftCatalogFallbacks(fallback, {
+    songs: [{ title: ' OV3RCLOCK ', artist: 'Alicemetix', type: 'DX', songVersion: 26, genre: 'UNKNOWN' }],
+    tracks: [{ s: 0, i: 18942, d: 'BASIC', l: 60 }],
+  });
+  assert.equal(fallback.songs[0].genre, 'maimai');
+  assert.equal(catalogGenre('OV3RCLOCK', 'Another Artist', 'UNKNOWN'), 'UNKNOWN');
+  assert.equal(catalogGenre('OV3RCLOCK', 'Alicemetix', 'MAIMAI'), 'MAIMAI');
+});
 
 test('genre groups cover every catalog song exactly once, including unclassified songs', () => {
   const groups = genreGroups(catalog.songs);

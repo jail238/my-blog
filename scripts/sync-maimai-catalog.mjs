@@ -2,6 +2,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { catalogArtworkUrl } from './catalog-artwork.mjs';
+import { catalogGenre } from './catalog-genre.mjs';
 
 const SOURCE_URL = 'https://meta.salt.realtvop.top/meta.next.json';
 const COVER_BASE_URL = 'https://meta.salt.realtvop.top/covers';
@@ -190,7 +191,7 @@ for (const music of metadata.musics) {
 		title: music.title,
 		...(koreanTitle ? { koreanTitle } : {}),
 		artist: music.artist,
-		genre: music.category,
+		genre: catalogGenre(music.title, music.artist, music.category),
 		artworkUrl: catalogArtworkUrl(music.title, music.artist, coverUrl(music.id)),
 	});
 
@@ -241,6 +242,7 @@ if (!ALLOW_CATALOG_CHANGES) {
 		songs.push({
 			id: pinnedSong.songId,
 			...metadata,
+			genre: catalogGenre(metadata.title, metadata.artist, metadata.genre),
 			artworkUrl: catalogArtworkUrl(metadata.title, metadata.artist, metadata.artworkUrl),
 		});
 		generatedSongIds.add(pinnedSong.songId);
