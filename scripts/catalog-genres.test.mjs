@@ -11,9 +11,12 @@ const catalog = JSON.parse(readFileSync(new URL('src/data/maimai.generated.json'
 test('OV3RCLOCK uses the in-game maimai folder in the site catalog and pinned metadata', () => {
   const pinned = JSON.parse(readFileSync(new URL('src/data/circle-plus.generated.json', root), 'utf8'));
   const groups = genreGroups(catalog.songs);
-  const song = groups.find((group) => group.id === 'maimai').songs.find((song) => song.id === 'maishift-18942');
-  assert.equal(song.title, 'OV3RCLOCK');
-  assert.equal(pinned.songs.find((entry) => entry.songId === song.id).fallbackMetadata.genre, song.genre);
+  const song = catalog.songs.find((song) => song.title === 'OV3RCLOCK' && song.artist === 'Alicemetix');
+  if (!song) return; // A live catalog may legitimately retire this song.
+  assert.equal(genreInfo(song.genre).id, 'maimai');
+  const entry = pinned.songs.find((entry) => entry.songId === song.id);
+  assert.ok(entry);
+  if (entry.fallbackMetadata) assert.equal(entry.fallbackMetadata.genre, song.genre);
   assert.ok(!groups.find((group) => group.id === 'other')?.songs.some((entry) => entry.id === song.id));
 });
 

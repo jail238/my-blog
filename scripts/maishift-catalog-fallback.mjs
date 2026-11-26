@@ -3,9 +3,10 @@ import { catalogGenre } from './catalog-genre.mjs';
 
 export const MAISHIFT_CATALOG_DRIFT = 'MAISHIFT_CATALOG_DRIFT';
 
-export function assertMaishiftTrackCoverage(mapped, total) {
-	if (mapped !== total) {
-		throw Object.assign(new Error(`Maishift track coverage mismatch: ${mapped} !== ${total}`), {
+export function assertMaishiftTrackCoverage(mapped, total, catalogTotal = total) {
+	if (mapped !== total || catalogTotal !== total) {
+		const mismatch = mapped !== total ? `${mapped} !== ${total}` : `catalog ${catalogTotal} !== active ${total}`;
+		throw Object.assign(new Error(`Maishift track coverage mismatch: ${mismatch}`), {
 			code: MAISHIFT_CATALOG_DRIFT,
 		});
 	}
@@ -45,7 +46,7 @@ function displayLevel(internalLevelTenths) {
 	return baseLevel >= 7 && baseLevel < 15 && decimal >= 6 ? `${baseLevel}+` : String(baseLevel);
 }
 
-export function addMaishiftCatalogFallbacks(catalog, recordsData) {
+export function addMaishiftCatalogFallbacks(catalog, recordsData, { resolveSongId } = {}) {
 	const songsByTitle = new Map();
 	for (const song of catalog.songs) {
 		const title = normalizeTitle(song.title);
@@ -71,14 +72,15 @@ export function addMaishiftCatalogFallbacks(catalog, recordsData) {
 
 		const normalizedTitle = normalizeTitle(sourceSong.title);
 		const titleMatches = songsByTitle.get(normalizedTitle) ?? [];
-		let song = titleMatches.length === 1
+		const stableId = resolveSongId?.(sourceSong);
+		let song = stableId ? catalog.songs.find((candidate) => candidate.id === stableId) : titleMatches.length === 1
 			? titleMatches[0]
 			: titleMatches.find((candidate) => songIdentity(candidate) === songIdentity(sourceSong));
 		if (!song) {
 			const sourceId = minimumTrackIdBySongIndex.get(track.s);
 			if (sourceId === undefined) throw new Error(`Maishift song has no tracks: ${sourceSong.title}`);
 			song = {
-				id: `maishift-${sourceId}`,
+				id: stableId ?? `maishift-${sourceId}`,
 				sourceId,
 				title: normalizeTitle(sourceSong.title),
 				artist: sourceSong.artist,

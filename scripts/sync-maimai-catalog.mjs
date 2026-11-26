@@ -3,6 +3,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { catalogArtworkUrl } from './catalog-artwork.mjs';
 import { catalogGenre } from './catalog-genre.mjs';
+import { CatalogIdentities } from './catalog-reconciliation.mjs';
 
 const SOURCE_URL = 'https://meta.salt.realtvop.top/meta.next.json';
 const COVER_BASE_URL = 'https://meta.salt.realtvop.top/covers';
@@ -14,6 +15,8 @@ const OUTPUT_PATH = ALLOW_CATALOG_CHANGES
 	? resolve(SCRIPT_DIR, '../.cache/maimai.candidate.json')
 	: CATALOG_OUTPUT_PATH;
 const CIRCLE_PLUS_SNAPSHOT_PATH = resolve(SCRIPT_DIR, '../src/data/circle-plus.generated.json');
+const IDENTITIES_PATH = resolve(SCRIPT_DIR, '../src/data/catalog-identities.generated.json');
+const CANDIDATE_IDENTITIES_PATH = resolve(SCRIPT_DIR, '../.cache/catalog-identities.candidate.json');
 const TARGET_GAME_VERSION = 'CiRCLE PLUS';
 const JAPANESE_TITLE_PATTERN = /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/u;
 const KOREAN_TITLE_OVERRIDES = new Map([
@@ -111,7 +114,7 @@ async function loadKoreanTitles(fallbackSongs = []) {
 	);
 
 	try {
-		const response = await fetch(KOREAN_TITLES_URL);
+		const response = await fetch(KOREAN_TITLES_URL, { signal: AbortSignal.timeout(30_000) });
 		if (!response.ok) {
 			throw new Error(`Korean title request failed: ${response.status} ${response.statusText}`);
 		}
@@ -142,6 +145,10 @@ async function loadKoreanTitles(fallbackSongs = []) {
 }
 
 const previousOutput = await readJsonIfExists(OUTPUT_PATH);
+const identities = new CatalogIdentities(
+	await readJsonIfExists(CATALOG_OUTPUT_PATH),
+	await readJsonIfExists(IDENTITIES_PATH),
+);
 const translationFallbackOutput =
 	previousOutput ?? (OUTPUT_PATH !== CATALOG_OUTPUT_PATH ? await readJsonIfExists(CATALOG_OUTPUT_PATH) : undefined);
 const koreanTitlesPromise = loadKoreanTitles(translationFallbackOutput?.songs);
@@ -162,13 +169,16 @@ if (
 	throw new Error(`${TARGET_GAME_VERSION} snapshot contains duplicate chart or song ids.`);
 }
 
-const response = await fetch(SOURCE_URL);
+const response = await fetch(SOURCE_URL, { signal: AbortSignal.timeout(30_000) });
 if (!response.ok) {
 	throw new Error(`Catalog request failed: ${response.status} ${response.statusText}`);
 }
 
 const sourceUpdatedAt = response.headers.get('last-modified');
 const metadata = await response.json();
+if (!Array.isArray(metadata.musics) || metadata.musics.length === 0) {
+	throw new Error('Refusing an empty or malformed SaltMeta catalog.');
+}
 const koreanTitles = await koreanTitlesPromise;
 const songs = [];
 const charts = [];
@@ -180,7 +190,7 @@ for (const music of metadata.musics) {
 
 	if (internationalCharts.length === 0) continue;
 
-	const songId = String(music.id);
+	const songId = identities.saltSong(music);
 	const pinnedSong = pinnedSongById.get(songId);
 	if (!pinnedSong && !ALLOW_CATALOG_CHANGES) continue;
 	const koreanTitle = JAPANESE_TITLE_PATTERN.test(music.title) ? koreanTitles.get(music.title) : undefined;
@@ -323,6 +333,9 @@ if (
 
 await mkdir(dirname(OUTPUT_PATH), { recursive: true });
 await writeFile(OUTPUT_PATH, `${JSON.stringify(output, null, 2)}\n`, 'utf8');
+if (ALLOW_CATALOG_CHANGES) {
+	await writeFile(CANDIDATE_IDENTITIES_PATH, `${JSON.stringify(identities, null, 2)}\n`, 'utf8');
+}
 
 const songIdsByVersion = new Map(versions.map((version) => [version.id, new Set()]));
 for (const chart of charts) songIdsByVersion.get(chart.versionId).add(chart.songId);

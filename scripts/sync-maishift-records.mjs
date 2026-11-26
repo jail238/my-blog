@@ -1,7 +1,8 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { appendFile, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { addMaishiftCatalogFallbacks, assertMaishiftTrackCoverage } from './maishift-catalog-fallback.mjs';
+import { assertMaishiftTrackCoverage } from './maishift-catalog-fallback.mjs';
+import { archivedCatalogRecords, CatalogIdentities, reconcileCatalogRoster, validateCatalogTransition } from './catalog-reconciliation.mjs';
 import {
 	callMaishiftServerFunction,
 	discoverMaishiftServerFunctions,
@@ -25,6 +26,8 @@ const CATALOG_PATH = resolve(
 );
 const OUTPUT_PATH = resolve(SCRIPT_DIR, '../src/data/maishift.generated.json');
 const CIRCLE_PLUS_SNAPSHOT_PATH = resolve(SCRIPT_DIR, '../src/data/circle-plus.generated.json');
+const IDENTITIES_PATH = resolve(SCRIPT_DIR, '../src/data/catalog-identities.generated.json');
+const CANDIDATE_IDENTITIES_PATH = resolve(SCRIPT_DIR, '../.cache/catalog-identities.candidate.json');
 const CIRCLE_PLUS_VERSION = 'CiRCLE PLUS';
 const WRITE_CIRCLE_PLUS_SNAPSHOT = process.argv.includes('--write-circle-plus-snapshot');
 const PERFECT_MILESTONE_VERSION = 3;
@@ -149,16 +152,20 @@ const historyEntries = profileData.pastRecordsVisible
 
 const catalog = JSON.parse(catalogText);
 if (USE_CANDIDATE_CATALOG) {
-	const additions = addMaishiftCatalogFallbacks(catalog, recordsData);
-	if (additions.addedSongs > 0 || additions.addedCharts > 0) {
-		catalog.songs.sort((a, b) => a.sourceId - b.sourceId);
-		catalog.charts.sort(
-			(a, b) => a.songId.localeCompare(b.songId, 'en', { numeric: true }) || a.id.localeCompare(b.id),
-		);
-		await writeFile(CATALOG_PATH, `${JSON.stringify(catalog, null, 2)}\n`, 'utf8');
-		console.log(
-			`Added Maishift fallback metadata: ${additions.addedSongs} songs, ${additions.addedCharts} charts`,
-		);
+	const previousCatalog = JSON.parse(await readFile(resolve(SCRIPT_DIR, '../src/data/maimai.generated.json'), 'utf8'));
+	const identities = new CatalogIdentities(previousCatalog, JSON.parse(await readFile(CANDIDATE_IDENTITIES_PATH, 'utf8')));
+	reconcileCatalogRoster(catalog, recordsData, identities);
+	const transition = validateCatalogTransition(previousCatalog, catalog);
+	catalog.songs.sort((a, b) => a.sourceId - b.sourceId);
+	catalog.charts.sort(
+		(a, b) => a.songId.localeCompare(b.songId, 'en', { numeric: true }) || a.id.localeCompare(b.id),
+	);
+	await writeFile(CATALOG_PATH, `${JSON.stringify(catalog, null, 2)}\n`, 'utf8');
+	await writeFile(IDENTITIES_PATH, `${JSON.stringify(identities, null, 2)}\n`, 'utf8');
+	console.log(`Reconciled active catalog: ${catalog.songs.length} songs, ${catalog.charts.length} charts; added ${transition.addedSongs} songs / ${transition.addedCharts} charts; retired ${transition.removedSongs} songs / ${transition.removedCharts} charts.`);
+	if (process.env.GITHUB_STEP_SUMMARY) {
+		await appendFile(process.env.GITHUB_STEP_SUMMARY,
+			`## Catalog reconciliation\n\nActive: ${catalog.songs.length} songs / ${catalog.charts.length} charts\n\nAdded: ${transition.addedSongs} songs / ${transition.addedCharts} charts\n\nRetired: ${transition.removedSongs} songs / ${transition.removedCharts} charts\n\nExisting URLs, video keys and archived AP dates are retained. Tests and build must pass before publication.\n`);
 	}
 }
 const catalogSongById = new Map(catalog.songs.map((song) => [song.id, song]));
@@ -229,7 +236,7 @@ if (unmatched.length > 0) {
 	throw new Error(`Could not resolve ${unmatched.length} Maishift tracks:\n${JSON.stringify(unmatched, null, 2)}`);
 }
 
-assertMaishiftTrackCoverage(mappedTracks.length, recordsData.tracks.length);
+assertMaishiftTrackCoverage(mappedTracks.length, recordsData.tracks.length, catalog.charts.length);
 
 const records = [];
 for (const { track, chart } of mappedTracks) {
@@ -305,17 +312,14 @@ if (WRITE_CIRCLE_PLUS_SNAPSHOT) {
 		songs: catalog.songs
 			.map((song) => ({
 				songId: song.id,
-				...(song.metadataSource === 'maishift'
-					? {
-						fallbackMetadata: {
-							sourceId: song.sourceId,
-							title: song.title,
-							artist: song.artist,
-							genre: song.genre,
-							artworkUrl: song.artworkUrl,
-						},
-					}
-					: {}),
+				fallbackMetadata: {
+					sourceId: song.sourceId,
+					title: song.title,
+					...(song.koreanTitle ? { koreanTitle: song.koreanTitle } : {}),
+					artist: song.artist,
+					genre: song.genre,
+					artworkUrl: song.artworkUrl,
+				},
 			}))
 			.sort((a, b) => a.songId.localeCompare(b.songId, 'en', { numeric: true })),
 		charts,
@@ -350,7 +354,7 @@ try {
 
 const generatedAt = new Date().toISOString();
 let recordsWithPerfectTimes = annotatePerfectAchievementTimes(records, {
-	previousRecords: previousOutput?.records ?? [],
+	previousRecords: [...(previousOutput?.archivedRecords ?? []), ...(previousOutput?.records ?? [])],
 	detectedAt: profile.updatedAt ?? generatedAt,
 	baselineAt: previousOutput?.source?.generatedAt ?? profile.createdAt ?? profile.updatedAt ?? generatedAt,
 });
@@ -412,6 +416,8 @@ const output = {
 	},
 	total: records.length,
 	records: recordsWithPerfectTimes,
+	...(archivedCatalogRecords(previousOutput, records).length
+		? { archivedRecords: archivedCatalogRecords(previousOutput, records) } : {}),
 };
 
 if (

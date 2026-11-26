@@ -15,7 +15,8 @@ test('coverage mismatch remains a hard, typed failure rather than dropping new c
 		code: MAISHIFT_CATALOG_DRIFT,
 		message: 'Maishift track coverage mismatch: 6060 !== 6084',
 	});
-	assert.match(read('./sync-maishift-records.mjs'), /assertMaishiftTrackCoverage\(mappedTracks.length, recordsData.tracks.length\)/);
+	assert.throws(() => assertMaishiftTrackCoverage(6060, 6060, 6080), { code: MAISHIFT_CATALOG_DRIFT });
+	assert.match(read('./sync-maishift-records.mjs'), /assertMaishiftTrackCoverage\(mappedTracks.length, recordsData.tracks.length, catalog.charts.length\)/);
 });
 
 test('ordinary record refresh imports once without contacting catalog sources', async () => {
@@ -97,7 +98,7 @@ test('refresh workflow validates before committing and includes recovered catalo
 	const detect = steps.find((step) => step.id === 'data');
 	const commit = steps.find((step) => step.id === 'commit');
 	assert.equal(steps.find((step) => step.name === 'Import Maishift records').run, 'npm run sync:records');
-	for (const path of ['src/data/circle-plus.generated.json', 'src/data/maimai.generated.json', 'src/data/maishift.generated.json', 'src/data/jackets.generated.json', 'public/assets/maimai/jackets']) {
+	for (const path of ['src/data/catalog-identities.generated.json', 'src/data/circle-plus.generated.json', 'src/data/maimai.generated.json', 'src/data/maishift.generated.json', 'src/data/jackets.generated.json', 'public/assets/maimai/jackets']) {
 		assert.ok(detect.run.includes(path), `Detect missing ${path}`);
 		assert.ok(commit.run.includes(path), `Commit missing ${path}`);
 	}

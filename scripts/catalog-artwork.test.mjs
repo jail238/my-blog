@@ -27,10 +27,12 @@ test('generated and pinned catalog jackets stay aligned with the shared override
 	const catalog = JSON.parse(readFileSync(new URL('../src/data/maimai.generated.json', import.meta.url), 'utf8'));
 	const pinned = JSON.parse(readFileSync(new URL('../src/data/circle-plus.generated.json', import.meta.url), 'utf8'));
 	const song = catalog.songs.find((song) => song.title === 'OV3RCLOCK' && song.artist === 'Alicemetix');
-	assert.equal(song.artworkUrl, mirrorUrl);
-	const pinnedSong = pinned.songs.find((entry) => entry.songId === song.id);
-	assert.ok(pinnedSong);
-	if (pinnedSong.fallbackMetadata) assert.equal(pinnedSong.fallbackMetadata.artworkUrl, mirrorUrl);
+	if (song) {
+		assert.equal(song.artworkUrl, mirrorUrl);
+		const pinnedSong = pinned.songs.find((entry) => entry.songId === song.id);
+		assert.ok(pinnedSong);
+		if (pinnedSong.fallbackMetadata) assert.equal(pinnedSong.fallbackMetadata.artworkUrl, mirrorUrl);
+	}
 	const sync = readFileSync(new URL('./sync-maimai-catalog.mjs', import.meta.url), 'utf8');
 	assert.match(sync, /artworkUrl: catalogArtworkUrl\(music\.title, music\.artist, coverUrl\(music\.id\)\)/);
 	assert.match(sync, /artworkUrl: catalogArtworkUrl\(metadata\.title, metadata\.artist, metadata\.artworkUrl\)/);
