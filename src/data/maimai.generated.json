@@ -5,9 +5,9 @@
     "region": "intl",
     "gameVersion": "CiRCLE PLUS",
     "chartDataUrl": "https://maimai.shiftpsh.com/profile/elixir/records",
-    "chartDataPinnedAt": "2026-11-26T13:29:51.835Z",
-    "sourceUpdatedAt": "Thu, 26 Nov 2026 03:27:23 GMT",
-    "generatedAt": "2026-11-26T13:29:53.704Z"
+    "chartDataPinnedAt": "2026-11-28T04:01:56.369Z",
+    "sourceUpdatedAt": "Fri, 27 Nov 2026 23:08:22 GMT",
+    "generatedAt": "2026-11-28T04:01:57.531Z"
   },
   "versions": [
     {
@@ -11987,6 +11987,24 @@
       "artist": "曲：篠崎あやと、橘亮祐／歌：結城 莉玖(CV：朝日奈 丸佳)、東雲 つむぎ(CV：和泉 風花)",
       "genre": "オンゲキ＆CHUNITHM",
       "artworkUrl": "https://meta.salt.realtvop.top/covers/001971.png"
+    },
+    {
+      "id": "1972",
+      "sourceId": 1972,
+      "title": "私たちは、花になる",
+      "koreanTitle": "우리는, 꽃이 된다",
+      "artist": "イロドリミドリ｜HaNaMiNa｜S.S.L.",
+      "genre": "オンゲキ＆CHUNITHM",
+      "artworkUrl": "https://meta.salt.realtvop.top/covers/001972.png"
+    },
+    {
+      "id": "1974",
+      "sourceId": 1974,
+      "title": "色彩過剰のダイアリーミュージック",
+      "koreanTitle": "특색과잉의 다이어리 뮤직",
+      "artist": "イロドリミドリ",
+      "genre": "オンゲキ＆CHUNITHM",
+      "artworkUrl": "https://meta.salt.realtvop.top/covers/001974.png"
     },
     {
       "id": "1976",
@@ -65746,6 +65764,78 @@
       "versionId": "circle-plus",
       "level": "13",
       "constant": 13.1
+    },
+    {
+      "id": "1972-dx-advanced",
+      "songId": "1972",
+      "type": "DX",
+      "difficulty": "ADVANCED",
+      "versionId": "circle-plus",
+      "level": "7",
+      "constant": 7.2
+    },
+    {
+      "id": "1972-dx-basic",
+      "songId": "1972",
+      "type": "DX",
+      "difficulty": "BASIC",
+      "versionId": "circle-plus",
+      "level": "2",
+      "constant": 2
+    },
+    {
+      "id": "1972-dx-expert",
+      "songId": "1972",
+      "type": "DX",
+      "difficulty": "EXPERT",
+      "versionId": "circle-plus",
+      "level": "10+",
+      "constant": 10.7
+    },
+    {
+      "id": "1972-dx-master",
+      "songId": "1972",
+      "type": "DX",
+      "difficulty": "MASTER",
+      "versionId": "circle-plus",
+      "level": "13+",
+      "constant": 13.6
+    },
+    {
+      "id": "1974-dx-advanced",
+      "songId": "1974",
+      "type": "DX",
+      "difficulty": "ADVANCED",
+      "versionId": "circle-plus",
+      "level": "8",
+      "constant": 8
+    },
+    {
+      "id": "1974-dx-basic",
+      "songId": "1974",
+      "type": "DX",
+      "difficulty": "BASIC",
+      "versionId": "circle-plus",
+      "level": "5",
+      "constant": 5
+    },
+    {
+      "id": "1974-dx-expert",
+      "songId": "1974",
+      "type": "DX",
+      "difficulty": "EXPERT",
+      "versionId": "circle-plus",
+      "level": "12+",
+      "constant": 12.7
+    },
+    {
+      "id": "1974-dx-master",
+      "songId": "1974",
+      "type": "DX",
+      "difficulty": "MASTER",
+      "versionId": "circle-plus",
+      "level": "14",
+      "constant": 14.1
     },
     {
       "id": "1976-dx-advanced",

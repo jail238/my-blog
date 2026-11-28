@@ -22599,6 +22599,38 @@
       ]
     },
     {
+      "id": "1972",
+      "sources": [
+        "salt:1972",
+        "track:19012",
+        "track:19013",
+        "track:19014",
+        "track:19015"
+      ],
+      "identities": [
+        {
+          "title": "私たちは、花になる",
+          "artist": "イロドリミドリ｜HaNaMiNa｜S.S.L."
+        }
+      ]
+    },
+    {
+      "id": "1974",
+      "sources": [
+        "salt:1974",
+        "track:19016",
+        "track:19017",
+        "track:19018",
+        "track:19019"
+      ],
+      "identities": [
+        {
+          "title": "色彩過剰のダイアリーミュージック",
+          "artist": "イロドリミドリ"
+        }
+      ]
+    },
+    {
       "id": "1976",
       "sources": [
         "salt:1976",
